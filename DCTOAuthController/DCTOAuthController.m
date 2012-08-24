@@ -9,9 +9,16 @@
 #import "DCTOAuthController.h"
 #import "DCTOAuthURLProtocol.h"
 #import "DCTOAuthSignature.h"
+#import "DCTOAuthRequest.h"
+#import <UIKit/UIKit.h>
+
+NSString * const DCTOAuthMethodString[] = {
+	@"GET",
+	@"POST"
+};
 
 @implementation DCTOAuthController {
-	
+	__strong DCTOAuthSignature *_signature;
 }
 
 - (id)initWithRequestTokenURL:(NSURL *)requestTokenURL
@@ -31,29 +38,93 @@
 	_consumerKey = [consumerKey copy];
 	_consumerSecret = [consumerSecret copy];
 	
-	[DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
-		
-	}];
-	
 	return self;
 }
 
-- (void)_go {
+- (void)fetchAccessTokenCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	NSURLRequest *request = [NSURLRequest requestWithURL:nil];
+	NSDictionary *parameters = nil;
+	if (self.callbackURL)
+		parameters = @{ @"oauth_callback" : [self.callbackURL absoluteString] };
 	
+	NSURLRequest *request = [self _URLRequestWithURL:self.requestTokenURL
+									   requestMethod:DCTOAuthRequestMethodGET
+										  parameters:parameters];
 	
+	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *reaponse, NSData *data, NSError *error) {
+		
+		NSMutableDictionary *returnValues = [NSMutableDictionary new];
+		
+		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		NSDictionary *dictionary = [self _dictionaryFromString:string];
+		[returnValues addEntriesFromDictionary:dictionary];
+		_oauthTokenSecret = [dictionary objectForKey:@"oauth_token_secret"];
+		_oauthToken = [dictionary objectForKey:@"oauth_token"];
+		
+		NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@&oauth_callback=%@", [self.authorizeURL absoluteString], string, [self _URLEncodedString:[self.callbackURL absoluteString]]];
+		NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
+		
+		[DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+			[DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
+			
+			NSDictionary *dictionary = [self _dictionaryFromString:[URL query]];
+			[returnValues addEntriesFromDictionary:dictionary];
+			_oauthVerifier = [dictionary objectForKey:@"oauth_verifier"];
+			
+			NSURLRequest *request = [self _URLRequestWithURL:self.accessTokenURL
+											   requestMethod:DCTOAuthRequestMethodGET
+												  parameters:dictionary];
+			
+			[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *reaponse, NSData *data, NSError *error) {
+				
+				NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+				NSDictionary *dictionary = [self _dictionaryFromString:string];
+				[returnValues addEntriesFromDictionary:dictionary];
+				_oauthTokenSecret = [dictionary objectForKey:@"oauth_token_secret"];
+				_oauthToken = [dictionary objectForKey:@"oauth_token"];
+				
+				if (completion != NULL) completion([returnValues copy]);
+			}];
+		}];
+		
+		[[UIApplication sharedApplication] openURL:authorizeURL];
+	}];
 }
 
 
+- (NSDictionary *)_dictionaryFromString:(NSString *)string {
+	NSArray *components = [string componentsSeparatedByString:@"&"];
+	NSMutableDictionary *dictionary = [NSMutableDictionary new];
+	[components enumerateObjectsUsingBlock:^(NSString *keyValueString, NSUInteger idx, BOOL *stop) {
+		NSArray *keyValueArray = [keyValueString componentsSeparatedByString:@"="];
+		[dictionary setObject:[keyValueArray objectAtIndex:1] forKey:[keyValueArray objectAtIndex:0]];
+	}];
+	return [dictionary copy];
+}
 
+- (NSURLRequest *)_URLRequestWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters {
+		
+	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
+															requestMethod:requestMethod
+															  consumerKey:self.consumerKey
+														   consumerSecret:self.consumerSecret
+																	token:self.oauthToken
+															  secretToken:self.oauthTokenSecret
+															   parameters:parameters];
+	
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:URL
+															 method:requestMethod
+														  signature:signature];
+	return [request signedRequest];
+}
 
-
-
-
-
-
-
-
-
+- (NSString *)_URLEncodedString:(NSString *)string {
+	
+	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
+																				  (CFStringRef)objc_unretainedPointer(string),
+																				  NULL,
+																				  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+																				  kCFStringEncodingUTF8);
+}
+			  
 @end

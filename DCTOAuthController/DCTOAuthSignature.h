@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DCTOAuthRequestMethod.h"
 
 typedef enum {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0
@@ -14,11 +15,19 @@ typedef enum {
 
 @interface DCTOAuthSignature : NSObject
 
-@property (nonatomic, assign) DCTOAuthSignatureType type;
-@property (nonatomic, copy) NSString *secret;
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, readonly) NSString *signature;
-@property (nonatomic, readonly) NSString *method;
+- (id)initWithURL:(NSURL *)URL
+	requestMethod:(DCTOAuthRequestMethod)requestMethod
+	  consumerKey:(NSString *)consumerKey
+   consumerSecret:(NSString *)consumerSecret
+			token:(NSString *)token
+	  secretToken:(NSString *)secretToken
+	   parameters:(NSDictionary *)parameters;
 
-- (NSString *)typeString;
+
+@property (nonatomic, readonly) NSDictionary *parameters;
+
+@property (nonatomic, assign) DCTOAuthSignatureType type;
+
+- (NSString *)signedString;
+
 @end

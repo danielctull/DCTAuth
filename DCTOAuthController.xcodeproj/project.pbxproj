@@ -12,6 +12,23 @@
 		24A0703515E7CECD00A5D029 /* DCTOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703415E7CECD00A5D029 /* DCTOAuthController.m */; };
 		24A0703F15E7CEFB00A5D029 /* DCTOAuthSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */; };
 		24A0704015E7CEFB00A5D029 /* DCTOAuthURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */; };
+		24A0704815E7CF3000A5D029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0704715E7CF3000A5D029 /* UIKit.framework */; };
+		24A0704915E7CF3000A5D029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0702D15E7CECD00A5D029 /* Foundation.framework */; };
+		24A0704B15E7CF3000A5D029 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0704A15E7CF3000A5D029 /* CoreGraphics.framework */; };
+		24A0705115E7CF3000A5D029 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24A0704F15E7CF3000A5D029 /* InfoPlist.strings */; };
+		24A0705315E7CF3000A5D029 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0705215E7CF3000A5D029 /* main.m */; };
+		24A0705715E7CF3000A5D029 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0705615E7CF3000A5D029 /* AppDelegate.m */; };
+		24A0705B15E7CF5400A5D029 /* libDCTOAuthController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0702A15E7CECD00A5D029 /* libDCTOAuthController.a */; };
+		24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */; };
+		24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */; };
+		24D86D0515E7E34400E63BFF /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D86D0415E7E34400E63BFF /* libresolv.dylib */; };
+		24D86D0D15E7E85F00E63BFF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D86D0C15E7E85F00E63BFF /* SenTestingKit.framework */; };
+		24D86D0E15E7E85F00E63BFF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0704715E7CF3000A5D029 /* UIKit.framework */; };
+		24D86D0F15E7E85F00E63BFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0702D15E7CECD00A5D029 /* Foundation.framework */; };
+		24D86D1515E7E85F00E63BFF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24D86D1315E7E85F00E63BFF /* InfoPlist.strings */; };
+		24D86D1815E7E86000E63BFF /* DCTOAuthUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D1715E7E86000E63BFF /* DCTOAuthUnitTests.m */; };
+		24D86D1D15E7E8CA00E63BFF /* DCTOAuthSignature.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */; };
+		24D86D1E15E7E8CA00E63BFF /* DCTOAuthRequestMethod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -21,6 +38,8 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				24D86D1D15E7E8CA00E63BFF /* DCTOAuthSignature.h in CopyFiles */,
+				24D86D1E15E7E8CA00E63BFF /* DCTOAuthRequestMethod.h in CopyFiles */,
 				24A0703315E7CECD00A5D029 /* DCTOAuthController.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,6 +56,28 @@
 		24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthSignature.m; sourceTree = "<group>"; };
 		24A0703D15E7CEFB00A5D029 /* DCTOAuthURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthURLProtocol.h; sourceTree = "<group>"; };
 		24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthURLProtocol.m; sourceTree = "<group>"; };
+		24A0704515E7CF3000A5D029 /* OAuth Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OAuth Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24A0704715E7CF3000A5D029 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		24A0704A15E7CF3000A5D029 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		24A0704E15E7CF3000A5D029 /* OAuth Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OAuth Demo-Info.plist"; sourceTree = "<group>"; };
+		24A0705015E7CF3000A5D029 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		24A0705215E7CF3000A5D029 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		24A0705415E7CF3000A5D029 /* OAuth Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OAuth Demo-Prefix.pch"; sourceTree = "<group>"; };
+		24A0705515E7CF3000A5D029 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		24A0705615E7CF3000A5D029 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequest.h; sourceTree = "<group>"; };
+		24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthRequest.m; sourceTree = "<group>"; };
+		24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
+		24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
+		24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuthRequestMethod.m; sourceTree = "<group>"; };
+		24D86D0415E7E34400E63BFF /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		24D86D0B15E7E85F00E63BFF /* DCTOAuthUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTOAuthUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D86D0C15E7E85F00E63BFF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		24D86D1215E7E85F00E63BFF /* DCTOAuthUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTOAuthUnitTests-Info.plist"; sourceTree = "<group>"; };
+		24D86D1415E7E85F00E63BFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		24D86D1615E7E86000E63BFF /* DCTOAuthUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTOAuthUnitTests.h; sourceTree = "<group>"; };
+		24D86D1715E7E86000E63BFF /* DCTOAuthUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthUnitTests.m; sourceTree = "<group>"; };
+		24D86D1915E7E86000E63BFF /* DCTOAuthUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTOAuthUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +89,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		24A0704215E7CF3000A5D029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D86D0515E7E34400E63BFF /* libresolv.dylib in Frameworks */,
+				24A0705B15E7CF5400A5D029 /* libDCTOAuthController.a in Frameworks */,
+				24A0704815E7CF3000A5D029 /* UIKit.framework in Frameworks */,
+				24A0704915E7CF3000A5D029 /* Foundation.framework in Frameworks */,
+				24A0704B15E7CF3000A5D029 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D86D0715E7E85F00E63BFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D86D0D15E7E85F00E63BFF /* SenTestingKit.framework in Frameworks */,
+				24D86D0E15E7E85F00E63BFF /* UIKit.framework in Frameworks */,
+				24D86D0F15E7E85F00E63BFF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				24A0702F15E7CECD00A5D029 /* DCTOAuthController */,
+				24A0704C15E7CF3000A5D029 /* OAuth Demo */,
+				24D86D1015E7E85F00E63BFF /* DCTOAuthUnitTests */,
 				24A0702C15E7CECD00A5D029 /* Frameworks */,
 				24A0702B15E7CECD00A5D029 /* Products */,
 			);
@@ -64,6 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				24A0702A15E7CECD00A5D029 /* libDCTOAuthController.a */,
+				24A0704515E7CF3000A5D029 /* OAuth Demo.app */,
+				24D86D0B15E7E85F00E63BFF /* DCTOAuthUnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,7 +138,11 @@
 		24A0702C15E7CECD00A5D029 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24D86D0415E7E34400E63BFF /* libresolv.dylib */,
 				24A0702D15E7CECD00A5D029 /* Foundation.framework */,
+				24A0704715E7CF3000A5D029 /* UIKit.framework */,
+				24A0704A15E7CF3000A5D029 /* CoreGraphics.framework */,
+				24D86D0C15E7E85F00E63BFF /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -81,10 +152,15 @@
 			children = (
 				24A0703215E7CECD00A5D029 /* DCTOAuthController.h */,
 				24A0703415E7CECD00A5D029 /* DCTOAuthController.m */,
-				24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */,
-				24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */,
 				24A0703D15E7CEFB00A5D029 /* DCTOAuthURLProtocol.h */,
 				24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */,
+				24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */,
+				24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */,
+				24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */,
+				24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */,
+				24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */,
+				24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */,
+				24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */,
 				24A0703015E7CECD00A5D029 /* Supporting Files */,
 			);
 			path = DCTOAuthController;
@@ -94,6 +170,47 @@
 			isa = PBXGroup;
 			children = (
 				24A0703115E7CECD00A5D029 /* DCTOAuthController-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		24A0704C15E7CF3000A5D029 /* OAuth Demo */ = {
+			isa = PBXGroup;
+			children = (
+				24A0705515E7CF3000A5D029 /* AppDelegate.h */,
+				24A0705615E7CF3000A5D029 /* AppDelegate.m */,
+				24A0704D15E7CF3000A5D029 /* Supporting Files */,
+			);
+			path = "OAuth Demo";
+			sourceTree = "<group>";
+		};
+		24A0704D15E7CF3000A5D029 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				24A0704E15E7CF3000A5D029 /* OAuth Demo-Info.plist */,
+				24A0704F15E7CF3000A5D029 /* InfoPlist.strings */,
+				24A0705215E7CF3000A5D029 /* main.m */,
+				24A0705415E7CF3000A5D029 /* OAuth Demo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		24D86D1015E7E85F00E63BFF /* DCTOAuthUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				24D86D1615E7E86000E63BFF /* DCTOAuthUnitTests.h */,
+				24D86D1715E7E86000E63BFF /* DCTOAuthUnitTests.m */,
+				24D86D1115E7E85F00E63BFF /* Supporting Files */,
+			);
+			path = DCTOAuthUnitTests;
+			sourceTree = "<group>";
+		};
+		24D86D1115E7E85F00E63BFF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				24D86D1215E7E85F00E63BFF /* DCTOAuthUnitTests-Info.plist */,
+				24D86D1315E7E85F00E63BFF /* InfoPlist.strings */,
+				24D86D1915E7E86000E63BFF /* DCTOAuthUnitTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -118,6 +235,41 @@
 			productReference = 24A0702A15E7CECD00A5D029 /* libDCTOAuthController.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		24A0704415E7CF3000A5D029 /* OAuth Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24A0705815E7CF3000A5D029 /* Build configuration list for PBXNativeTarget "OAuth Demo" */;
+			buildPhases = (
+				24A0704115E7CF3000A5D029 /* Sources */,
+				24A0704215E7CF3000A5D029 /* Frameworks */,
+				24A0704315E7CF3000A5D029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OAuth Demo";
+			productName = "OAuth Demo";
+			productReference = 24A0704515E7CF3000A5D029 /* OAuth Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		24D86D0A15E7E85F00E63BFF /* DCTOAuthUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24D86D1A15E7E86000E63BFF /* Build configuration list for PBXNativeTarget "DCTOAuthUnitTests" */;
+			buildPhases = (
+				24D86D0615E7E85F00E63BFF /* Sources */,
+				24D86D0715E7E85F00E63BFF /* Frameworks */,
+				24D86D0815E7E85F00E63BFF /* Resources */,
+				24D86D0915E7E85F00E63BFF /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DCTOAuthUnitTests;
+			productName = DCTOAuthUnitTests;
+			productReference = 24D86D0B15E7E85F00E63BFF /* DCTOAuthUnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -140,9 +292,46 @@
 			projectRoot = "";
 			targets = (
 				24A0702915E7CECD00A5D029 /* DCTOAuthController */,
+				24A0704415E7CF3000A5D029 /* OAuth Demo */,
+				24D86D0A15E7E85F00E63BFF /* DCTOAuthUnitTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		24A0704315E7CF3000A5D029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24A0705115E7CF3000A5D029 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D86D0815E7E85F00E63BFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D86D1515E7E85F00E63BFF /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24D86D0915E7E85F00E63BFF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		24A0702615E7CECD00A5D029 /* Sources */ = {
@@ -152,10 +341,48 @@
 				24A0703515E7CECD00A5D029 /* DCTOAuthController.m in Sources */,
 				24A0703F15E7CEFB00A5D029 /* DCTOAuthSignature.m in Sources */,
 				24A0704015E7CEFB00A5D029 /* DCTOAuthURLProtocol.m in Sources */,
+				24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */,
+				24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24A0704115E7CF3000A5D029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24A0705315E7CF3000A5D029 /* main.m in Sources */,
+				24A0705715E7CF3000A5D029 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24D86D0615E7E85F00E63BFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D86D1815E7E86000E63BFF /* DCTOAuthUnitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		24A0704F15E7CF3000A5D029 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				24A0705015E7CF3000A5D029 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		24D86D1315E7E85F00E63BFF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				24D86D1415E7E85F00E63BFF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		24A0703615E7CECD00A5D029 /* Debug */ = {
@@ -228,6 +455,61 @@
 			};
 			name = Release;
 		};
+		24A0705915E7CF3000A5D029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OAuth Demo/OAuth Demo-Prefix.pch";
+				INFOPLIST_FILE = "OAuth Demo/OAuth Demo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		24A0705A15E7CF3000A5D029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OAuth Demo/OAuth Demo-Prefix.pch";
+				INFOPLIST_FILE = "OAuth Demo/OAuth Demo-Info.plist";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		24D86D1B15E7E86000E63BFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DCTOAuthUnitTests/DCTOAuthUnitTests-Prefix.pch";
+				INFOPLIST_FILE = "DCTOAuthUnitTests/DCTOAuthUnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		24D86D1C15E7E86000E63BFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DCTOAuthUnitTests/DCTOAuthUnitTests-Prefix.pch";
+				INFOPLIST_FILE = "DCTOAuthUnitTests/DCTOAuthUnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -245,6 +527,24 @@
 			buildConfigurations = (
 				24A0703915E7CECD00A5D029 /* Debug */,
 				24A0703A15E7CECD00A5D029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24A0705815E7CF3000A5D029 /* Build configuration list for PBXNativeTarget "OAuth Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24A0705915E7CF3000A5D029 /* Debug */,
+				24A0705A15E7CF3000A5D029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24D86D1A15E7E86000E63BFF /* Build configuration list for PBXNativeTarget "DCTOAuthUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24D86D1B15E7E86000E63BFF /* Debug */,
+				24D86D1C15E7E86000E63BFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
