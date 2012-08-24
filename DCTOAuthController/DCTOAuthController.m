@@ -22,9 +22,9 @@ NSString * const DCTOAuthMethodString[] = {
 }
 
 - (id)initWithRequestTokenURL:(NSURL *)requestTokenURL
-			   accessTokenURL:(NSURL *)accessTokenURL
 				 authorizeURL:(NSURL *)authorizeURL
 				  callbackURL:(NSURL *)callbackURL
+			   accessTokenURL:(NSURL *)accessTokenURL
 				  consumerKey:(NSString *)consumerKey
 			   consumerSecret:(NSString *)consumerSecret {
 	
@@ -58,8 +58,7 @@ NSString * const DCTOAuthMethodString[] = {
 		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [self _dictionaryFromString:string];
 		[returnValues addEntriesFromDictionary:dictionary];
-		_oauthTokenSecret = [dictionary objectForKey:@"oauth_token_secret"];
-		_oauthToken = [dictionary objectForKey:@"oauth_token"];
+		[self _setValuesFromOAuthDictionary:dictionary];
 		
 		NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@&oauth_callback=%@", [self.authorizeURL absoluteString], string, [self _URLEncodedString:[self.callbackURL absoluteString]]];
 		NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
@@ -69,7 +68,7 @@ NSString * const DCTOAuthMethodString[] = {
 			
 			NSDictionary *dictionary = [self _dictionaryFromString:[URL query]];
 			[returnValues addEntriesFromDictionary:dictionary];
-			_oauthVerifier = [dictionary objectForKey:@"oauth_verifier"];
+			[self _setValuesFromOAuthDictionary:dictionary];
 			
 			NSURLRequest *request = [self _URLRequestWithURL:self.accessTokenURL
 											   requestMethod:DCTOAuthRequestMethodGET
@@ -80,8 +79,7 @@ NSString * const DCTOAuthMethodString[] = {
 				NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 				NSDictionary *dictionary = [self _dictionaryFromString:string];
 				[returnValues addEntriesFromDictionary:dictionary];
-				_oauthTokenSecret = [dictionary objectForKey:@"oauth_token_secret"];
-				_oauthToken = [dictionary objectForKey:@"oauth_token"];
+				[self _setValuesFromOAuthDictionary:dictionary];
 				
 				if (completion != NULL) completion([returnValues copy]);
 			}];
@@ -91,6 +89,20 @@ NSString * const DCTOAuthMethodString[] = {
 	}];
 }
 
+- (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
+	
+	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
+		
+		if ([key isEqualToString:@"oauth_token"])
+			_oauthToken = value;
+		
+		else if ([key isEqualToString:@"oauth_token_secret"])
+			_oauthTokenSecret = value;
+		
+		else if ([key isEqualToString:@"oauth_verifier"])
+			_oauthVerifier = value;
+	}];
+}
 
 - (NSDictionary *)_dictionaryFromString:(NSString *)string {
 	NSArray *components = [string componentsSeparatedByString:@"&"];

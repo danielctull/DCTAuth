@@ -13,9 +13,9 @@
 @interface DCTOAuthController : NSObject
 
 - (id)initWithRequestTokenURL:(NSURL *)requestTokenURL
-			   accessTokenURL:(NSURL *)accessTokenURL
 				 authorizeURL:(NSURL *)authorizeURL
 				  callbackURL:(NSURL *)callbackURL
+			   accessTokenURL:(NSURL *)accessTokenURL
 				  consumerKey:(NSString *)consumerKey
 			   consumerSecret:(NSString *)consumerSecret;
 
