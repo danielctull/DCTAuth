@@ -45,18 +45,15 @@ NSString * const DCTOAuthMethodString[] = {
 	
 	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
 	
-	void (^sharedCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
+	void (^requestTokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
 		[returnedValues addEntriesFromDictionary:dictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
-	};
-	
-	void (^requestTokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		sharedCompletion(dictionary);
 		if (completion != NULL) completion([returnedValues copy]);
 	};
 	
 	void (^authorizeCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		sharedCompletion(dictionary);
+		[returnedValues addEntriesFromDictionary:dictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
 		[self fetchRequestTokenWithParameters:dictionary completion:requestTokenCompletion];
 	};
 	
@@ -64,12 +61,14 @@ NSString * const DCTOAuthMethodString[] = {
 	
 	if (self.authorizeURL) {
 		accessTokenCompletion = ^(NSDictionary *dictionary) {
-			sharedCompletion(dictionary);
+			[returnedValues addEntriesFromDictionary:dictionary];
+			[self _setValuesFromOAuthDictionary:dictionary];
 			[self authorizeWithParameters:dictionary completion:authorizeCompletion];
 		};
 	} else {
 		accessTokenCompletion = ^(NSDictionary *dictionary) {
-			sharedCompletion(dictionary);
+			[returnedValues addEntriesFromDictionary:dictionary];
+			[self _setValuesFromOAuthDictionary:dictionary];
 			[self fetchRequestTokenWithParameters:dictionary completion:requestTokenCompletion];
 		};
 	}
