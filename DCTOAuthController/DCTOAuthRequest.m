@@ -47,6 +47,20 @@
 	return request;
 }
 
+- (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
+    
+    [NSURLConnection sendAsynchronousRequest:[self signedRequest] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        if (handler == NULL) return;
+        
+        NSHTTPURLResponse *HTTPURLResponse = nil;
+        if ([response isKindOfClass:[NSHTTPURLResponse class]])
+            HTTPURLResponse = (NSHTTPURLResponse *)response;
+        
+        handler(data, HTTPURLResponse, error);
+	}];
+}
+
 - (NSString *)_URLEncodedString:(NSString *)string {
 	
 	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,

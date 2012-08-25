@@ -16,5 +16,6 @@
 		signature:(DCTOAuthSignature *)signature;
 
 - (NSURLRequest *)signedRequest;
+- (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler;
 
 @end
