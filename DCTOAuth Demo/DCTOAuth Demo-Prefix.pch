@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'OAuth Demo' target in the 'OAuth Demo' project
+// Prefix header for all source files of the 'DCTOAuth Demo' target in the 'DCTOAuth Demo' project
 //
 
 #import <Availability.h>

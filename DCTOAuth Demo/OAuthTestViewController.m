@@ -7,7 +7,7 @@
 //
 
 #import "OAuthTestViewController.h"
-#import <DCTOAuthController/DCTOAuth.h>
+#import <DCTOAuth/DCTOAuth.h>
 
 @interface OAuthTestViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *consumerKeyTextField;
