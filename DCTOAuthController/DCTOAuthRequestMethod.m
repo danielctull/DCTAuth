@@ -6,9 +6,13 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTOAuthRequestMethod.h"
+#import "DCTOAuthRequestMethod.h"
 
 NSString * const DCTOAuthRequestMethodString[] = {
 	@"GET",
 	@"POST"
 };
+
+NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
+	return DCTOAuthRequestMethodString[method];
+}

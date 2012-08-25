@@ -12,3 +12,5 @@ typedef enum : NSUInteger {
 	DCTOAuthRequestMethodGET,
 	DCTOAuthRequestMethodPOST
 } DCTOAuthRequestMethod;
+
+NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method);

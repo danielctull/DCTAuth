@@ -9,7 +9,6 @@
 #import "DCTOAuthSignature.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import <resolv.h>
-#import "_DCTOAuthRequestMethod.h"
 
 NSString * const DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
@@ -83,7 +82,7 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	NSString *parameterString = [parameters componentsJoinedByString:@"&"];
 	
 	NSMutableArray *baseArray = [NSMutableArray new];
-	[baseArray addObject:[self _URLEncodedString:DCTOAuthRequestMethodString[_requestMethod]]];
+	[baseArray addObject:[self _URLEncodedString:NSStringFromDCTOAuthRequestMethod(_requestMethod)]];
 	[baseArray addObject:[self _URLEncodedString:[_URL absoluteString]]];
 	[baseArray addObject:[self _URLEncodedString:parameterString]];
 	

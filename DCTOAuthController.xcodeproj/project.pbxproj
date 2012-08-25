@@ -23,7 +23,7 @@
 		24D079BF15E8B72300A1CD26 /* OAuthTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */; };
 		24D7F86015E92DAB008BFDC9 /* NSString+DCTOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D7F85F15E92DAB008BFDC9 /* NSString+DCTOAuthController.m */; };
 		24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */; };
-		24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */; };
+		24D86D0315E7DBE700E63BFF /* DCTOAuthRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D0215E7DBE700E63BFF /* DCTOAuthRequestMethod.m */; };
 		24D86D0515E7E34400E63BFF /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D86D0415E7E34400E63BFF /* libresolv.dylib */; };
 		24D86D0D15E7E85F00E63BFF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D86D0C15E7E85F00E63BFF /* SenTestingKit.framework */; };
 		24D86D0E15E7E85F00E63BFF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0704715E7CF3000A5D029 /* UIKit.framework */; };
@@ -78,8 +78,7 @@
 		24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequest.h; sourceTree = "<group>"; };
 		24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthRequest.m; sourceTree = "<group>"; };
 		24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
-		24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
-		24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuthRequestMethod.m; sourceTree = "<group>"; };
+		24D86D0215E7DBE700E63BFF /* DCTOAuthRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthRequestMethod.m; sourceTree = "<group>"; };
 		24D86D0415E7E34400E63BFF /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		24D86D0B15E7E85F00E63BFF /* DCTOAuthUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTOAuthUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D86D0C15E7E85F00E63BFF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -167,8 +166,7 @@
 				24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */,
 				24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */,
 				24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */,
-				24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */,
-				24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */,
+				24D86D0215E7DBE700E63BFF /* DCTOAuthRequestMethod.m */,
 				24A0703D15E7CEFB00A5D029 /* DCTOAuthURLProtocol.h */,
 				24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */,
 				24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */,
@@ -360,7 +358,7 @@
 				24A0703F15E7CEFB00A5D029 /* DCTOAuthSignature.m in Sources */,
 				24A0704015E7CEFB00A5D029 /* DCTOAuthURLProtocol.m in Sources */,
 				24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */,
-				24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */,
+				24D86D0315E7DBE700E63BFF /* DCTOAuthRequestMethod.m in Sources */,
 				24D7F86015E92DAB008BFDC9 /* NSString+DCTOAuthController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

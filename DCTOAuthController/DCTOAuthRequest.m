@@ -7,7 +7,6 @@
 //
 
 #import "DCTOAuthRequest.h"
-#import "_DCTOAuthRequestMethod.h"
 #import "NSString+DCTOAuthController.h"
 #import "DCTOAuthSignature.h"
 
@@ -31,7 +30,7 @@
 
 	if (!self.account) {
 		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_URL];
-		[request setHTTPMethod:DCTOAuthRequestMethodString[self.requestMethod]];
+		[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
 		return [request copy];
 	}
 	
@@ -56,7 +55,7 @@
 	NSString *parameterString = [parameters componentsJoinedByString:@","];
 		
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_URL];
-	[request setHTTPMethod:DCTOAuthRequestMethodString[self.requestMethod]];
+	[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
 	[request setAllHTTPHeaderFields:@{ @"Authorization" : [NSString stringWithFormat:@"OAuth %@", parameterString]}];
 	return request;
 }
