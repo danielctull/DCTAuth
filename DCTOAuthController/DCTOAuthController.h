@@ -18,20 +18,18 @@
 				  consumerKey:(NSString *)consumerKey
 			   consumerSecret:(NSString *)consumerSecret;
 
-@property (nonatomic, copy, readonly) NSURL *requestTokenURL;
-@property (nonatomic, copy, readonly) NSURL *accessTokenURL;
-@property (nonatomic, copy, readonly) NSURL *authorizeURL;
-@property (nonatomic, copy, readonly) NSURL *callbackURL;
+@property (nonatomic, readonly) NSURL *requestTokenURL;
+@property (nonatomic, readonly) NSURL *accessTokenURL;
+@property (nonatomic, readonly) NSURL *authorizeURL;
+@property (nonatomic, readonly) NSURL *callbackURL;
 
-@property (nonatomic, copy, readonly) NSString *consumerKey;
-@property (nonatomic, copy, readonly) NSString *consumerSecret;
+@property (nonatomic, readonly) NSString *consumerKey;
+@property (nonatomic, readonly) NSString *consumerSecret;
 
 @property (nonatomic, copy, readonly) NSString *oauthToken;
 @property (nonatomic, copy, readonly) NSString *oauthTokenSecret;
 @property (nonatomic, copy, readonly) NSString *oauthVerifier;
 
 - (void)performAuthenticationWithCompletion:(void(^)(NSDictionary *returnedValues))completion;
-
-
 
 @end

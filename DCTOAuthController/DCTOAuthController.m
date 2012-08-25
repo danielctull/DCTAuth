@@ -82,13 +82,12 @@ NSString * const DCTOAuthMethodString[] = {
 	[parameters addEntriesFromDictionary:userParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
 	
-	NSURLRequest *request = [self _URLRequestWithURL:self.requestTokenURL
+	DCTOAuthRequest *request = [self _requestWithURL:self.requestTokenURL
 									   requestMethod:DCTOAuthRequestMethodGET
 										  parameters:parameters];
-	
-	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *reaponse, NSData *data, NSError *error) {
-		
-		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [self _dictionaryFromString:string];
 		completion(dictionary);
 	}];
@@ -96,13 +95,12 @@ NSString * const DCTOAuthMethodString[] = {
 
 - (void)fetchRequestTokenWithParameters:(NSDictionary *)parameters completion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	NSURLRequest *request = [self _URLRequestWithURL:self.accessTokenURL
+	DCTOAuthRequest *request = [self _requestWithURL:self.accessTokenURL
 									   requestMethod:DCTOAuthRequestMethodGET
 										  parameters:parameters];
-	
-	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *reaponse, NSData *data, NSError *error) {
-		
-		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [self _dictionaryFromString:string];
 		completion(dictionary);
 	}];
@@ -158,7 +156,7 @@ NSString * const DCTOAuthMethodString[] = {
 	return [dictionary copy];
 }
 
-- (NSURLRequest *)_URLRequestWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters {
+- (DCTOAuthRequest *)_requestWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters {
 	
 	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
 															requestMethod:requestMethod
@@ -172,7 +170,7 @@ NSString * const DCTOAuthMethodString[] = {
                                                       requestMethod:requestMethod
                                                          parameters:parameters
 														  signature:signature];
-	return [request signedURLRequest];
+	return request;
 }
 
 - (NSString *)_URLEncodedString:(NSString *)string {

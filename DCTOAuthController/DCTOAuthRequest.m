@@ -12,7 +12,6 @@
 #import "DCTOAuthSignature.h"
 
 @implementation DCTOAuthRequest {
-	__strong NSURL *_URL;
 	__strong DCTOAuthSignature *_signature;
 }
 
