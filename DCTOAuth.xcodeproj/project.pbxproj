@@ -31,6 +31,11 @@
 		24FA903E15E93E2C00E1ED99 /* OAuthTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24FA903C15E93E2C00E1ED99 /* OAuthTestViewController.xib */; };
 		24FA903F15E93E5D00E1ED99 /* libDCTOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE415E93D8E00E1ED99 /* libDCTOAuth.a */; };
 		24FA904115E93E6C00E1ED99 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
+		24FA904815E9402800E1ED99 /* DCTOAuthVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA904715E9402800E1ED99 /* DCTOAuthVersion.m */; };
+		24FA904A15E940BA00E1ED99 /* DCTOAuthRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA902A15E93E1F00E1ED99 /* DCTOAuthRequest.h */; };
+		24FA904B15E940BC00E1ED99 /* DCTOAuthAccount.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA902815E93E1F00E1ED99 /* DCTOAuthAccount.h */; };
+		24FA904C15E940BE00E1ED99 /* DCTOAuthRequestMethod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA902C15E93E1F00E1ED99 /* DCTOAuthRequestMethod.h */; };
+		24FA904D15E940C100E1ED99 /* DCTOAuthVersion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA904615E9402800E1ED99 /* DCTOAuthVersion.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,10 @@
 			dstSubfolderSpec = 16;
 			files = (
 				24FA8FED15E93D8E00E1ED99 /* DCTOAuth.h in CopyFiles */,
+				24FA904D15E940C100E1ED99 /* DCTOAuthVersion.h in CopyFiles */,
+				24FA904A15E940BA00E1ED99 /* DCTOAuthRequest.h in CopyFiles */,
+				24FA904C15E940BE00E1ED99 /* DCTOAuthRequestMethod.h in CopyFiles */,
+				24FA904B15E940BC00E1ED99 /* DCTOAuthAccount.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +101,8 @@
 		24FA903B15E93E2C00E1ED99 /* OAuthTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthTestViewController.m; sourceTree = "<group>"; };
 		24FA903C15E93E2C00E1ED99 /* OAuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OAuthTestViewController.xib; sourceTree = "<group>"; };
 		24FA904015E93E6C00E1ED99 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		24FA904615E9402800E1ED99 /* DCTOAuthVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthVersion.h; sourceTree = "<group>"; };
+		24FA904715E9402800E1ED99 /* DCTOAuthVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthVersion.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +183,8 @@
 				24FA902B15E93E1F00E1ED99 /* DCTOAuthRequest.m */,
 				24FA902C15E93E1F00E1ED99 /* DCTOAuthRequestMethod.h */,
 				24FA902D15E93E1F00E1ED99 /* DCTOAuthRequestMethod.m */,
+				24FA904615E9402800E1ED99 /* DCTOAuthVersion.h */,
+				24FA904715E9402800E1ED99 /* DCTOAuthVersion.m */,
 				24FA902E15E93E1F00E1ED99 /* DCTOAuthSignature.h */,
 				24FA902F15E93E1F00E1ED99 /* DCTOAuthSignature.m */,
 				24FA903015E93E1F00E1ED99 /* DCTOAuthURLProtocol.h */,
@@ -365,6 +378,7 @@
 				24FA903715E93E1F00E1ED99 /* DCTOAuthSignature.m in Sources */,
 				24FA903815E93E1F00E1ED99 /* DCTOAuthURLProtocol.m in Sources */,
 				24FA903915E93E1F00E1ED99 /* NSString+DCTOAuthController.m in Sources */,
+				24FA904815E9402800E1ED99 /* DCTOAuthVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +592,7 @@
 				24FA900B15E93D8E00E1ED99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24FA900C15E93D8E00E1ED99 /* Build configuration list for PBXNativeTarget "DCTOAuthTests" */ = {
 			isa = XCConfigurationList;
@@ -586,6 +601,7 @@
 				24FA900E15E93D8E00E1ED99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24FA902515E93E0200E1ED99 /* Build configuration list for PBXNativeTarget "DCTOAuth Demo" */ = {
 			isa = XCConfigurationList;
@@ -594,6 +610,7 @@
 				24FA902715E93E0200E1ED99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
