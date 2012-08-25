@@ -19,6 +19,8 @@
 		24A0705315E7CF3000A5D029 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0705215E7CF3000A5D029 /* main.m */; };
 		24A0705715E7CF3000A5D029 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0705615E7CF3000A5D029 /* AppDelegate.m */; };
 		24A0705B15E7CF5400A5D029 /* libDCTOAuthController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0702A15E7CECD00A5D029 /* libDCTOAuthController.a */; };
+		24D079BE15E8B72300A1CD26 /* OAuthTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D079BC15E8B72300A1CD26 /* OAuthTestViewController.m */; };
+		24D079BF15E8B72300A1CD26 /* OAuthTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */; };
 		24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */; };
 		24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */; };
 		24D86D0515E7E34400E63BFF /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D86D0415E7E34400E63BFF /* libresolv.dylib */; };
@@ -65,6 +67,9 @@
 		24A0705415E7CF3000A5D029 /* OAuth Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OAuth Demo-Prefix.pch"; sourceTree = "<group>"; };
 		24A0705515E7CF3000A5D029 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		24A0705615E7CF3000A5D029 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		24D079BB15E8B72300A1CD26 /* OAuthTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthTestViewController.h; sourceTree = "<group>"; };
+		24D079BC15E8B72300A1CD26 /* OAuthTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthTestViewController.m; sourceTree = "<group>"; };
+		24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OAuthTestViewController.xib; sourceTree = "<group>"; };
 		24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequest.h; sourceTree = "<group>"; };
 		24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthRequest.m; sourceTree = "<group>"; };
 		24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
@@ -180,6 +185,9 @@
 				24A0705515E7CF3000A5D029 /* AppDelegate.h */,
 				24A0705615E7CF3000A5D029 /* AppDelegate.m */,
 				24A0704D15E7CF3000A5D029 /* Supporting Files */,
+				24D079BB15E8B72300A1CD26 /* OAuthTestViewController.h */,
+				24D079BC15E8B72300A1CD26 /* OAuthTestViewController.m */,
+				24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */,
 			);
 			path = "OAuth Demo";
 			sourceTree = "<group>";
@@ -304,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24A0705115E7CF3000A5D029 /* InfoPlist.strings in Resources */,
+				24D079BF15E8B72300A1CD26 /* OAuthTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +361,7 @@
 			files = (
 				24A0705315E7CF3000A5D029 /* main.m in Sources */,
 				24A0705715E7CF3000A5D029 /* AppDelegate.m in Sources */,
+				24D079BE15E8B72300A1CD26 /* OAuthTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +557,7 @@
 				24D86D1C15E7E86000E63BFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

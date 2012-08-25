@@ -31,6 +31,6 @@
 @property (nonatomic, copy, readonly) NSString *oauthTokenSecret;
 @property (nonatomic, copy, readonly) NSString *oauthVerifier;
 
-- (void)fetchAccessTokenCompletion:(void(^)(NSDictionary *returnedValues))completion;
+- (void)performAuthenticationWithCompletion:(void(^)(NSDictionary *returnedValues))completion;
 
 @end
