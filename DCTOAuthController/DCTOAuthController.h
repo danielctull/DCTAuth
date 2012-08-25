@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthRequestMethod.h"
-#import "DCTOAuthSignature.h"
+#import "DCTOAuthRequest.h"
 
 @interface DCTOAuthController : NSObject
 
@@ -32,5 +31,7 @@
 @property (nonatomic, copy, readonly) NSString *oauthVerifier;
 
 - (void)performAuthenticationWithCompletion:(void(^)(NSDictionary *returnedValues))completion;
+
+
 
 @end

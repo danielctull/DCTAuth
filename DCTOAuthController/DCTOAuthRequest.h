@@ -7,15 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthSignature.h"
+#import "DCTOAuthRequestMethod.h"
 
 @interface DCTOAuthRequest : NSObject
 
-- (id)initWithURL:(NSURL *)URL
-		   method:(DCTOAuthRequestMethod)method
-		signature:(DCTOAuthSignature *)signature;
+@property(nonatomic, readonly) DCTOAuthRequestMethod requestMethod;
 
-- (NSURLRequest *)signedRequest;
+- (NSURLRequest *)signedURLRequest;
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler;
 
 @end

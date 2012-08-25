@@ -9,7 +9,7 @@
 #import "DCTOAuthController.h"
 #import "DCTOAuthURLProtocol.h"
 #import "DCTOAuthSignature.h"
-#import "DCTOAuthRequest.h"
+#import "_DCTOAuthRequest.h"
 #import <UIKit/UIKit.h>
 
 NSString * const DCTOAuthMethodString[] = {
@@ -169,9 +169,10 @@ NSString * const DCTOAuthMethodString[] = {
 															   parameters:parameters];
 	
 	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:URL
-															 method:requestMethod
+                                                      requestMethod:requestMethod
+                                                         parameters:parameters
 														  signature:signature];
-	return [request signedRequest];
+	return [request signedURLRequest];
 }
 
 - (NSString *)_URLEncodedString:(NSString *)string {

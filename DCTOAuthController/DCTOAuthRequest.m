@@ -8,15 +8,17 @@
 
 #import "DCTOAuthRequest.h"
 #import "_DCTOAuthRequestMethod.h"
+#import "NSString+DCTOAuthController.h"
+#import "DCTOAuthSignature.h"
 
 @implementation DCTOAuthRequest {
 	__strong NSURL *_URL;
 	__strong DCTOAuthSignature *_signature;
-	DCTOAuthRequestMethod _method;
 }
 
 - (id)initWithURL:(NSURL *)URL
-		   method:(DCTOAuthRequestMethod)method
+    requestMethod:(DCTOAuthRequestMethod)requestMethod
+       parameters:(NSDictionary *)parameters
 		signature:(DCTOAuthSignature *)signature {
 	
 	self = [self init];
@@ -24,16 +26,18 @@
 	
 	_URL = [URL copy];
 	_signature = signature;
-	_method = method;
+	_requestMethod = requestMethod;
 	
 	return self;
 }
 
-- (NSURLRequest *)signedRequest {
+- (NSURLRequest *)signedURLRequest {
 	
 	NSMutableArray *parameters = [NSMutableArray new];
 	[_signature.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", [self _URLEncodedString:key], [self _URLEncodedString:value]];
+        NSString *encodedKey = [key dctOAuthController_URLEncodedString];
+        NSString *encodedValue = [value dctOAuthController_URLEncodedString];
+		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
 		[parameters addObject:string];
 	}];
 	
@@ -42,14 +46,14 @@
 	NSString *parameterString = [parameters componentsJoinedByString:@","];
 		
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_URL];
-	[request setHTTPMethod:DCTOAuthRequestMethodString[_method]];
+	[request setHTTPMethod:DCTOAuthRequestMethodString[self.requestMethod]];
 	[request setAllHTTPHeaderFields:@{ @"Authorization" : [NSString stringWithFormat:@"OAuth %@", parameterString]}];
 	return request;
 }
 
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
     
-    [NSURLConnection sendAsynchronousRequest:[self signedRequest] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [NSURLConnection sendAsynchronousRequest:[self signedURLRequest] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
         if (handler == NULL) return;
         
@@ -59,15 +63,6 @@
         
         handler(data, HTTPURLResponse, error);
 	}];
-}
-
-- (NSString *)_URLEncodedString:(NSString *)string {
-	
-	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)objc_unretainedPointer(string),
-																				  NULL,
-																				  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-																				  kCFStringEncodingUTF8);
 }
 
 @end

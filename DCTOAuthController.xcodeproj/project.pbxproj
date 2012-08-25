@@ -21,6 +21,7 @@
 		24A0705B15E7CF5400A5D029 /* libDCTOAuthController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0702A15E7CECD00A5D029 /* libDCTOAuthController.a */; };
 		24D079BE15E8B72300A1CD26 /* OAuthTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D079BC15E8B72300A1CD26 /* OAuthTestViewController.m */; };
 		24D079BF15E8B72300A1CD26 /* OAuthTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */; };
+		24D7F86015E92DAB008BFDC9 /* NSString+DCTOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D7F85F15E92DAB008BFDC9 /* NSString+DCTOAuthController.m */; };
 		24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */; };
 		24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */; };
 		24D86D0515E7E34400E63BFF /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D86D0415E7E34400E63BFF /* libresolv.dylib */; };
@@ -70,6 +71,9 @@
 		24D079BB15E8B72300A1CD26 /* OAuthTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthTestViewController.h; sourceTree = "<group>"; };
 		24D079BC15E8B72300A1CD26 /* OAuthTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthTestViewController.m; sourceTree = "<group>"; };
 		24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OAuthTestViewController.xib; sourceTree = "<group>"; };
+		24D7F85E15E92DAB008BFDC9 /* NSString+DCTOAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DCTOAuthController.h"; sourceTree = "<group>"; };
+		24D7F85F15E92DAB008BFDC9 /* NSString+DCTOAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DCTOAuthController.m"; sourceTree = "<group>"; };
+		24D7F86215E92F27008BFDC9 /* _DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuthRequest.h; sourceTree = "<group>"; };
 		24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequest.h; sourceTree = "<group>"; };
 		24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthRequest.m; sourceTree = "<group>"; };
 		24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
@@ -163,10 +167,13 @@
 				24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */,
 				24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */,
 				24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */,
+				24D7F86215E92F27008BFDC9 /* _DCTOAuthRequest.h */,
 				24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */,
 				24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */,
 				24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */,
 				24A0703015E7CECD00A5D029 /* Supporting Files */,
+				24D7F85E15E92DAB008BFDC9 /* NSString+DCTOAuthController.h */,
+				24D7F85F15E92DAB008BFDC9 /* NSString+DCTOAuthController.m */,
 			);
 			path = DCTOAuthController;
 			sourceTree = "<group>";
@@ -352,6 +359,7 @@
 				24A0704015E7CEFB00A5D029 /* DCTOAuthURLProtocol.m in Sources */,
 				24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */,
 				24D86D0315E7DBE700E63BFF /* _DCTOAuthRequestMethod.m in Sources */,
+				24D7F86015E92DAB008BFDC9 /* NSString+DCTOAuthController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +480,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OAuth Demo/OAuth Demo-Prefix.pch";
 				INFOPLIST_FILE = "OAuth Demo/OAuth Demo-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -485,6 +497,10 @@
 				GCC_PREFIX_HEADER = "OAuth Demo/OAuth Demo-Prefix.pch";
 				INFOPLIST_FILE = "OAuth Demo/OAuth Demo-Info.plist";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
