@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCTOAuthRequest.h"
 
-@interface DCTOAuthController : NSObject
+@interface DCTOAuthAccount : NSObject
 
 - (id)initWithRequestTokenURL:(NSURL *)requestTokenURL
 				 authorizeURL:(NSURL *)authorizeURL

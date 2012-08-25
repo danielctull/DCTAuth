@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		24A0702E15E7CECD00A5D029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0702D15E7CECD00A5D029 /* Foundation.framework */; };
-		24A0703315E7CECD00A5D029 /* DCTOAuthController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24A0703215E7CECD00A5D029 /* DCTOAuthController.h */; };
-		24A0703515E7CECD00A5D029 /* DCTOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703415E7CECD00A5D029 /* DCTOAuthController.m */; };
+		24A0703315E7CECD00A5D029 /* DCTOAuthAccount.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24A0703215E7CECD00A5D029 /* DCTOAuthAccount.h */; };
+		24A0703515E7CECD00A5D029 /* DCTOAuthAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703415E7CECD00A5D029 /* DCTOAuthAccount.m */; };
 		24A0703F15E7CEFB00A5D029 /* DCTOAuthSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */; };
 		24A0704015E7CEFB00A5D029 /* DCTOAuthURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */; };
 		24A0704815E7CF3000A5D029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A0704715E7CF3000A5D029 /* UIKit.framework */; };
@@ -43,7 +43,7 @@
 			files = (
 				24D86D1D15E7E8CA00E63BFF /* DCTOAuthSignature.h in CopyFiles */,
 				24D86D1E15E7E8CA00E63BFF /* DCTOAuthRequestMethod.h in CopyFiles */,
-				24A0703315E7CECD00A5D029 /* DCTOAuthController.h in CopyFiles */,
+				24A0703315E7CECD00A5D029 /* DCTOAuthAccount.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,8 +53,8 @@
 		24A0702A15E7CECD00A5D029 /* libDCTOAuthController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTOAuthController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24A0702D15E7CECD00A5D029 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24A0703115E7CECD00A5D029 /* DCTOAuthController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTOAuthController-Prefix.pch"; sourceTree = "<group>"; };
-		24A0703215E7CECD00A5D029 /* DCTOAuthController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTOAuthController.h; sourceTree = "<group>"; };
-		24A0703415E7CECD00A5D029 /* DCTOAuthController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthController.m; sourceTree = "<group>"; };
+		24A0703215E7CECD00A5D029 /* DCTOAuthAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTOAuthAccount.h; sourceTree = "<group>"; };
+		24A0703415E7CECD00A5D029 /* DCTOAuthAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthAccount.m; sourceTree = "<group>"; };
 		24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthSignature.h; sourceTree = "<group>"; };
 		24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthSignature.m; sourceTree = "<group>"; };
 		24A0703D15E7CEFB00A5D029 /* DCTOAuthURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthURLProtocol.h; sourceTree = "<group>"; };
@@ -159,8 +159,8 @@
 		24A0702F15E7CECD00A5D029 /* DCTOAuthController */ = {
 			isa = PBXGroup;
 			children = (
-				24A0703215E7CECD00A5D029 /* DCTOAuthController.h */,
-				24A0703415E7CECD00A5D029 /* DCTOAuthController.m */,
+				24A0703215E7CECD00A5D029 /* DCTOAuthAccount.h */,
+				24A0703415E7CECD00A5D029 /* DCTOAuthAccount.m */,
 				24A0703D15E7CEFB00A5D029 /* DCTOAuthURLProtocol.h */,
 				24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */,
 				24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */,
@@ -354,7 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24A0703515E7CECD00A5D029 /* DCTOAuthController.m in Sources */,
+				24A0703515E7CECD00A5D029 /* DCTOAuthAccount.m in Sources */,
 				24A0703F15E7CEFB00A5D029 /* DCTOAuthSignature.m in Sources */,
 				24A0704015E7CEFB00A5D029 /* DCTOAuthURLProtocol.m in Sources */,
 				24D86CFE15E7D90000E63BFF /* DCTOAuthRequest.m in Sources */,

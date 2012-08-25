@@ -6,7 +6,7 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthController.h"
+#import "DCTOAuthAccount.h"
 #import "DCTOAuthURLProtocol.h"
 #import "DCTOAuthSignature.h"
 #import "_DCTOAuthRequest.h"
@@ -17,7 +17,7 @@ NSString * const DCTOAuthMethodString[] = {
 	@"POST"
 };
 
-@implementation DCTOAuthController {
+@implementation DCTOAuthAccount {
 	__strong DCTOAuthSignature *_signature;
 }
 
