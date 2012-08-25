@@ -17,6 +17,18 @@
 	__strong DCTOAuthSignature *_signature;
 }
 
+
+
+- (id)initWithAuthorizeURL:(NSURL *)authorizeURL
+			   redirectURL:(NSURL *)redirectURL
+			accessTokenURL:(NSURL *)accessTokenURL
+				  clientID:(NSString *)clientID
+			  clientSecret:(NSString *)clientSecret {
+
+	
+
+}
+
 - (id)initWithRequestTokenURL:(NSURL *)requestTokenURL
 				 authorizeURL:(NSURL *)authorizeURL
 				  callbackURL:(NSURL *)callbackURL
