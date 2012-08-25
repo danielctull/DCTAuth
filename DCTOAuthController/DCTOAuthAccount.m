@@ -37,14 +37,14 @@
 	return self;
 }
 
-- (void)performAuthenticationWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
 	
 	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
 	
 	void (^requestTokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
 		[returnedValues addEntriesFromDictionary:dictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
-		if (completion != NULL) completion([returnedValues copy]);
+		if (handler != NULL) handler([returnedValues copy]);
 	};
 	
 	void (^authorizeCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {

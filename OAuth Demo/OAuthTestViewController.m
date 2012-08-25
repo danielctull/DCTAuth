@@ -61,14 +61,14 @@
 	NSString *authorizeURLString = self.authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
 		
-	DCTOAuthAccount *oauthController = [[DCTOAuthAccount alloc] initWithRequestTokenURL:requestTokenURL
-																				 authorizeURL:authorizeURL
-																				  callbackURL:callbackURL
-																			   accessTokenURL:accessTokenURL
-																				  consumerKey:consumerKey
-																			   consumerSecret:consumerSecret];
+	DCTOAuthAccount *oauthAccount = [[DCTOAuthAccount alloc] initWithRequestTokenURL:requestTokenURL
+																		authorizeURL:authorizeURL
+																		 callbackURL:callbackURL
+																	  accessTokenURL:accessTokenURL
+																		 consumerKey:consumerKey
+																	  consumerSecret:consumerSecret];
 	
-	[oauthController performAuthenticationWithCompletion:^(NSDictionary *returnedValues) {
+	[oauthAccount authenticateWithHandler:^(NSDictionary *returnedValues) {
 		
 		NSMutableArray *textArray = [NSMutableArray new];
 		[returnedValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

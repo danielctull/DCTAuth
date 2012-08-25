@@ -29,6 +29,6 @@
 @property (nonatomic, copy, readonly) NSString *oauthTokenSecret;
 @property (nonatomic, copy, readonly) NSString *oauthVerifier;
 
-- (void)performAuthenticationWithCompletion:(void(^)(NSDictionary *returnedValues))completion;
+- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler;
 
 @end
