@@ -32,6 +32,7 @@
 		24D86D1815E7E86000E63BFF /* DCTOAuthUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D86D1715E7E86000E63BFF /* DCTOAuthUnitTests.m */; };
 		24D86D1D15E7E8CA00E63BFF /* DCTOAuthSignature.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */; };
 		24D86D1E15E7E8CA00E63BFF /* DCTOAuthRequestMethod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */; };
+		24FA8FD815E9397C00E1ED99 /* DCTOAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA8FD715E9395400E1ED99 /* DCTOAuth.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				24FA8FD815E9397C00E1ED99 /* DCTOAuth.h in CopyFiles */,
 				24D86D1D15E7E8CA00E63BFF /* DCTOAuthSignature.h in CopyFiles */,
 				24D86D1E15E7E8CA00E63BFF /* DCTOAuthRequestMethod.h in CopyFiles */,
 				24A0703315E7CECD00A5D029 /* DCTOAuthAccount.h in CopyFiles */,
@@ -73,7 +75,6 @@
 		24D079BD15E8B72300A1CD26 /* OAuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OAuthTestViewController.xib; sourceTree = "<group>"; };
 		24D7F85E15E92DAB008BFDC9 /* NSString+DCTOAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DCTOAuthController.h"; sourceTree = "<group>"; };
 		24D7F85F15E92DAB008BFDC9 /* NSString+DCTOAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DCTOAuthController.m"; sourceTree = "<group>"; };
-		24D7F86215E92F27008BFDC9 /* _DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuthRequest.h; sourceTree = "<group>"; };
 		24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequest.h; sourceTree = "<group>"; };
 		24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthRequest.m; sourceTree = "<group>"; };
 		24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthRequestMethod.h; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		24D86D1615E7E86000E63BFF /* DCTOAuthUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTOAuthUnitTests.h; sourceTree = "<group>"; };
 		24D86D1715E7E86000E63BFF /* DCTOAuthUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthUnitTests.m; sourceTree = "<group>"; };
 		24D86D1915E7E86000E63BFF /* DCTOAuthUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTOAuthUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		24FA8FD715E9395400E1ED99 /* DCTOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,21 +161,21 @@
 		24A0702F15E7CECD00A5D029 /* DCTOAuthController */ = {
 			isa = PBXGroup;
 			children = (
+				24FA8FD715E9395400E1ED99 /* DCTOAuth.h */,
 				24A0703215E7CECD00A5D029 /* DCTOAuthAccount.h */,
 				24A0703415E7CECD00A5D029 /* DCTOAuthAccount.m */,
+				24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */,
+				24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */,
+				24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */,
+				24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */,
+				24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */,
 				24A0703D15E7CEFB00A5D029 /* DCTOAuthURLProtocol.h */,
 				24A0703E15E7CEFB00A5D029 /* DCTOAuthURLProtocol.m */,
 				24A0703B15E7CEFB00A5D029 /* DCTOAuthSignature.h */,
 				24A0703C15E7CEFB00A5D029 /* DCTOAuthSignature.m */,
-				24D86CFC15E7D90000E63BFF /* DCTOAuthRequest.h */,
-				24D86CFD15E7D90000E63BFF /* DCTOAuthRequest.m */,
-				24D7F86215E92F27008BFDC9 /* _DCTOAuthRequest.h */,
-				24D86D0015E7DA0400E63BFF /* DCTOAuthRequestMethod.h */,
-				24D86D0115E7DBE700E63BFF /* _DCTOAuthRequestMethod.h */,
-				24D86D0215E7DBE700E63BFF /* _DCTOAuthRequestMethod.m */,
-				24A0703015E7CECD00A5D029 /* Supporting Files */,
 				24D7F85E15E92DAB008BFDC9 /* NSString+DCTOAuthController.h */,
 				24D7F85F15E92DAB008BFDC9 /* NSString+DCTOAuthController.m */,
+				24A0703015E7CECD00A5D029 /* Supporting Files */,
 			);
 			path = DCTOAuthController;
 			sourceTree = "<group>";

@@ -8,16 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "DCTOAuthRequestMethod.h"
+#import "DCTOAuthAccount.h"
 
 @interface DCTOAuthRequest : NSObject
 
-//- (id)initWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters;
+- (id)initWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters;
 
 @property(nonatomic, readonly) NSURL *URL;
 @property(nonatomic, readonly) DCTOAuthRequestMethod requestMethod;
 @property(nonatomic, readonly) NSDictionary *parameters;
 
-//@property(nonatomic, strong) DCTOAuthAccount *account;
+@property(nonatomic, strong) DCTOAuthAccount *account;
 //- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
 
 - (NSURLRequest *)signedURLRequest;

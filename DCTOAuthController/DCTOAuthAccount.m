@@ -9,13 +9,9 @@
 #import "DCTOAuthAccount.h"
 #import "DCTOAuthURLProtocol.h"
 #import "DCTOAuthSignature.h"
-#import "_DCTOAuthRequest.h"
+#import "DCTOAuthRequest.h"
+#import "NSString+DCTOAuthController.h"
 #import <UIKit/UIKit.h>
-
-NSString * const DCTOAuthMethodString[] = {
-	@"GET",
-	@"POST"
-};
 
 @implementation DCTOAuthAccount {
 	__strong DCTOAuthSignature *_signature;
@@ -81,10 +77,12 @@ NSString * const DCTOAuthMethodString[] = {
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters addEntriesFromDictionary:userParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
-	
-	DCTOAuthRequest *request = [self _requestWithURL:self.requestTokenURL
-									   requestMethod:DCTOAuthRequestMethodGET
-										  parameters:parameters];
+
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:self.requestTokenURL
+                                                      requestMethod:DCTOAuthRequestMethodGET
+                                                         parameters:parameters];
+
+	request.account = self;
 
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
@@ -94,10 +92,12 @@ NSString * const DCTOAuthMethodString[] = {
 }
 
 - (void)fetchRequestTokenWithParameters:(NSDictionary *)parameters completion:(void(^)(NSDictionary *returnedValues))completion {
-	
-	DCTOAuthRequest *request = [self _requestWithURL:self.accessTokenURL
-									   requestMethod:DCTOAuthRequestMethodGET
-										  parameters:parameters];
+
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:self.accessTokenURL
+                                                      requestMethod:DCTOAuthRequestMethodGET
+                                                         parameters:parameters];
+
+	request.account = self;
 
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
@@ -115,7 +115,7 @@ NSString * const DCTOAuthMethodString[] = {
 	
 	NSMutableArray *keyValues = [NSMutableArray new];
 	[parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [self _URLEncodedString:value]]];
+		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuthController_URLEncodedString]]];
 	}];
 	
 	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [self.authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
@@ -131,7 +131,7 @@ NSString * const DCTOAuthMethodString[] = {
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
-	
+
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"oauth_token"])
@@ -154,32 +154,6 @@ NSString * const DCTOAuthMethodString[] = {
 		[dictionary setObject:[keyValueArray objectAtIndex:1] forKey:[keyValueArray objectAtIndex:0]];
 	}];
 	return [dictionary copy];
-}
-
-- (DCTOAuthRequest *)_requestWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters {
-	
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
-															requestMethod:requestMethod
-															  consumerKey:self.consumerKey
-														   consumerSecret:self.consumerSecret
-																	token:self.oauthToken
-															  secretToken:self.oauthTokenSecret
-															   parameters:parameters];
-	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:URL
-                                                      requestMethod:requestMethod
-                                                         parameters:parameters
-														  signature:signature];
-	return request;
-}
-
-- (NSString *)_URLEncodedString:(NSString *)string {
-	
-	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)objc_unretainedPointer(string),
-																				  NULL,
-																				  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-																				  kCFStringEncodingUTF8);
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthRequest.h"
 
 @interface DCTOAuthAccount : NSObject
 
