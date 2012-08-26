@@ -14,7 +14,18 @@
 #import "_DCTOAuthURLProtocol.h"
 #import <UIKit/UIKit.h>
 
-@implementation _DCTOAuth1Account
+@implementation _DCTOAuth1Account {
+	__strong NSURL *_requestTokenURL;
+	__strong NSURL *_accessTokenURL;
+	__strong NSURL *_authorizeURL;
+	
+	__strong NSString *_consumerKey;
+	__strong NSString *_consumerSecret;
+	
+	__strong NSString *_oauthToken;
+	__strong NSString *_oauthTokenSecret;
+	__strong NSString *_oauthVerifier;
+}
 
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
@@ -39,16 +50,16 @@
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	
-	_requestTokenURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(requestTokenURL))];
-	_authorizeURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(authorizeURL))];
-	_accessTokenURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(accessTokenURL))];
+	_requestTokenURL = [coder decodeObjectForKey:@"_requestTokenURL"];
+	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
+	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	
-	_consumerKey = [coder decodeObjectForKey:NSStringFromSelector(@selector(consumerKey))];
-	_consumerSecret = [coder decodeObjectForKey:NSStringFromSelector(@selector(consumerSecret))];
+	_consumerKey = [coder decodeObjectForKey:@"_consumerKey"];
+	_consumerSecret = [coder decodeObjectForKey:@"_consumerSecret"];
 	
-	_oauthToken = [coder decodeObjectForKey:NSStringFromSelector(@selector(oauthToken))];
-	_oauthTokenSecret = [coder decodeObjectForKey:NSStringFromSelector(@selector(oauthTokenSecret))];
-	_oauthVerifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(oauthVerifier))];
+	_oauthToken = [coder decodeObjectForKey:@"_oauthToken"];
+	_oauthTokenSecret = [coder decodeObjectForKey:@"_oauthTokenSecret"];
+	_oauthVerifier = [coder decodeObjectForKey:@"_oauthVerifier"];
 	
 	return self;
 }
@@ -56,18 +67,17 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	
-	[coder encodeObject:self.requestTokenURL forKey:NSStringFromSelector(@selector(requestTokenURL))];
-	[coder encodeObject:self.authorizeURL forKey:NSStringFromSelector(@selector(authorizeURL))];
-	[coder encodeObject:self.accessTokenURL forKey:NSStringFromSelector(@selector(accessTokenURL))];
+	[coder encodeObject:_requestTokenURL forKey:@"_requestTokenURL"];
+	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
+	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
 	
-	[coder encodeObject:self.consumerKey forKey:NSStringFromSelector(@selector(consumerKey))];
-	[coder encodeObject:self.consumerSecret forKey:NSStringFromSelector(@selector(consumerSecret))];
+	[coder encodeObject:_consumerKey forKey:@"_consumerKey"];
+	[coder encodeObject:_consumerSecret forKey:@"_consumerSecret"];
 	
-	[coder encodeObject:self.oauthToken forKey:NSStringFromSelector(@selector(oauthToken))];
-	[coder encodeObject:self.oauthTokenSecret forKey:NSStringFromSelector(@selector(oauthTokenSecret))];
-	[coder encodeObject:self.oauthVerifier forKey:NSStringFromSelector(@selector(oauthVerifier))];
+	[coder encodeObject:_oauthToken forKey:@"_oauthToken"];
+	[coder encodeObject:_oauthTokenSecret forKey:@"_oauthTokenSecret"];
+	[coder encodeObject:_oauthVerifier forKey:@"_oauthVerifier"];
 }
-
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
 	
@@ -87,7 +97,7 @@
 	
 	void (^accessTokenCompletion)(NSDictionary *) = nil;
 	
-	if (self.authorizeURL) {
+	if (_authorizeURL) {
 		accessTokenCompletion = ^(NSDictionary *dictionary) {
 			[returnedValues addEntriesFromDictionary:dictionary];
 			[self _setValuesFromOAuthDictionary:dictionary];
@@ -110,7 +120,7 @@
 	[parameters addEntriesFromDictionary:userParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:self.requestTokenURL
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_requestTokenURL
                                                       requestMethod:DCTOAuthRequestMethodGET
                                                          parameters:parameters];
 	
@@ -125,7 +135,7 @@
 
 - (void)fetchRequestTokenWithParameters:(NSDictionary *)parameters completion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:self.accessTokenURL
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
                                                       requestMethod:DCTOAuthRequestMethodGET
                                                          parameters:parameters];
 	
@@ -150,7 +160,7 @@
 		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]]];
 	}];
 	
-	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [self.authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
+	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [_authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
 	NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
 	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
@@ -181,10 +191,10 @@
 	
 	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:OAuthRequest.URL
 															requestMethod:OAuthRequest.requestMethod
-															  consumerKey:self.consumerKey
-														   consumerSecret:self.consumerSecret
-																	token:self.oauthToken
-															  secretToken:self.oauthTokenSecret
+															  consumerKey:_consumerKey
+														   consumerSecret:_consumerSecret
+																	token:_oauthToken
+															  secretToken:_oauthTokenSecret
 															   parameters:OAuthRequest.parameters];
 	
 	NSMutableArray *parameters = [NSMutableArray new];

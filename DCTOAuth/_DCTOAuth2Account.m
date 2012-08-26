@@ -13,6 +13,19 @@
 #import <UIKit/UIKit.h>
 
 @implementation _DCTOAuth2Account {
+	
+	__strong NSURL *_authorizeURL;
+	__strong NSURL *_accessTokenURL;
+	
+	__strong NSString *_clientID;
+	__strong NSString *_clientSecret;
+	
+	__strong NSArray *_scopes;
+	
+	__strong NSString *_code;
+	__strong NSString *_accessToken;
+	__strong NSString *_refreshToken;
+	
 	__strong NSString *_state;
 }
 
@@ -36,14 +49,53 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [super initWithCoder:coder];
+	if (!self) return nil;
+	
+	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
+	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
+	
+	_clientID = [coder decodeObjectForKey:@"_clientID"];
+	_clientSecret = [coder decodeObjectForKey:@"_clientSecret"];
+	
+	_scopes = [coder decodeObjectForKey:@"_scopes"];
+	
+	_code = [coder decodeObjectForKey:@"_code"];
+	_accessToken = [coder decodeObjectForKey:@"_accessToken"];
+	_refreshToken = [coder decodeObjectForKey:@"_refreshToken"];
+	
+	_state = [coder decodeObjectForKey:@"_state"];
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
+	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
+	
+	[coder encodeObject:_clientID forKey:@"_clientID"];
+	[coder encodeObject:_clientSecret forKey:@"_clientSecret"];
+	
+	[coder encodeObject:_scopes forKey:@"_scopes"];
+	
+	[coder encodeObject:_code forKey:@"_code"];
+	[coder encodeObject:_accessToken forKey:@"_accessToken"];
+	[coder encodeObject:_refreshToken forKey:@"_refreshToken"];
+	
+	[coder encodeObject:_state forKey:@"_state"];
+}
+
 - (void)_authorizeWithParameters:(NSDictionary *)inputParameters completion:(void(^)(NSDictionary *returnedValues))completion {
 	
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters addEntriesFromDictionary:inputParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	[parameters setObject:self.clientID forKey:@"client_id"];
+	[parameters setObject:_clientID forKey:@"client_id"];
 	[parameters setObject:@"code" forKey:@"response_type"];
-	[parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
+	[parameters setObject:[_scopes componentsJoinedByString:@","] forKey:@"scope"];
 	[parameters setObject:_state forKey:@"state"];
 	
 	NSMutableArray *keyValues = [NSMutableArray new];
@@ -51,7 +103,7 @@
 		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]]];
 	}];
 	
-	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [self.authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
+	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [_authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
 	NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
 	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
@@ -88,12 +140,12 @@
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters addEntriesFromDictionary:inputParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	[parameters setObject:self.clientID forKey:@"client_id"];
-	[parameters setObject:self.clientSecret forKey:@"client_secret"];
-	[parameters setObject:self.code forKey:@"code"];
+	[parameters setObject:_clientID forKey:@"client_id"];
+	[parameters setObject:_clientSecret forKey:@"client_secret"];
+	[parameters setObject:_code forKey:@"code"];
 	[parameters setObject:_state forKey:@"state"];
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:self.accessTokenURL
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
                                                       requestMethod:DCTOAuthRequestMethodPOST
                                                          parameters:parameters];
 	
@@ -116,7 +168,7 @@
 		format = @"%@=\"%@\"";
 	
 	NSMutableDictionary *parameters = [OAuthRequest.parameters mutableCopy];
-	if ([self.accessToken length] > 0) [parameters setObject:self.accessToken forKey:@"access_token"];
+	if ([_accessToken length] > 0) [parameters setObject:_accessToken forKey:@"access_token"];
 	
 	NSMutableArray *parameterStrings = [NSMutableArray new];
 	[parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
