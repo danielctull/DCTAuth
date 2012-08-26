@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		249CAD1715EA1F0200FFD0D2 /* DCTOAuthAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1615EA1F0200FFD0D2 /* DCTOAuthAccountStore.m */; };
 		249CAD1B15EA214700FFD0D2 /* NSData+DCTOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1A15EA214700FFD0D2 /* NSData+DCTOAuth.m */; };
+		249CAD1C15EA22ED00FFD0D2 /* DCTOAuthAccountStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 249CAD1515EA1F0200FFD0D2 /* DCTOAuthAccountStore.h */; };
 		24FA8FE815E93D8E00E1ED99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE715E93D8E00E1ED99 /* Foundation.framework */; };
 		24FA8FED15E93D8E00E1ED99 /* DCTOAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTOAuth.h */; };
 		24FA8FF715E93D8E00E1ED99 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FF615E93D8E00E1ED99 /* SenTestingKit.framework */; };
@@ -62,6 +63,7 @@
 				24FA904A15E940BA00E1ED99 /* DCTOAuthRequest.h in CopyFiles */,
 				24FA904C15E940BE00E1ED99 /* DCTOAuthRequestMethod.h in CopyFiles */,
 				24FA904B15E940BC00E1ED99 /* DCTOAuthAccount.h in CopyFiles */,
+				249CAD1C15EA22ED00FFD0D2 /* DCTOAuthAccountStore.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

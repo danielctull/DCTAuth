@@ -7,4 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DCTOAuthAccount.h"
+#import "DCTOAuthAccountStore.h"
 #import "DCTOAuthRequest.h"
+#import "DCTOAuthRequestMethod.h"
