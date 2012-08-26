@@ -7,7 +7,7 @@
 //
 
 #import "DCTOAuthRequest.h"
-#import "NSString+DCTOAuthController.h"
+#import "NSString+DCTOAuth.h"
 #import "DCTOAuthSignature.h"
 
 @implementation DCTOAuthRequest

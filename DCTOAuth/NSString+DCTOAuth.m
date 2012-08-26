@@ -1,14 +1,14 @@
 //
-//  NSString+DCTOAuthController.m
-//  DCTOAuthController
+//  NSString+DCTOAuth.m
+//  DCTOAuth
 //
 //  Created by Daniel Tull on 25/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "NSString+DCTOAuthController.h"
+#import "NSString+DCTOAuth.h"
 
-@implementation NSString (DCTOAuthController)
+@implementation NSString (DCTOAuth)
 
 - (NSString *)dctOAuthController_URLEncodedString {
 	

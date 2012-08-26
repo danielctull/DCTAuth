@@ -10,7 +10,7 @@
 #import "DCTOAuthURLProtocol.h"
 #import "DCTOAuthSignature.h"
 #import "DCTOAuthRequest.h"
-#import "NSString+DCTOAuthController.h"
+#import "NSString+DCTOAuth.h"
 #import <UIKit/UIKit.h>
 
 @implementation DCTOAuthAccount {
