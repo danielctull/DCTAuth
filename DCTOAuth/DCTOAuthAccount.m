@@ -19,7 +19,7 @@
 
 
 
-- (id)initWithAuthorizeURL:(NSURL *)authorizeURL
+/*- (id)initWithAuthorizeURL:(NSURL *)authorizeURL
 			   redirectURL:(NSURL *)redirectURL
 			accessTokenURL:(NSURL *)accessTokenURL
 				  clientID:(NSString *)clientID
@@ -27,7 +27,7 @@
 
 	
 
-}
+}*/
 
 - (id)initWithRequestTokenURL:(NSURL *)requestTokenURL
 				 authorizeURL:(NSURL *)authorizeURL
