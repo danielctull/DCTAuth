@@ -60,13 +60,14 @@
 	NSURL *authorizeURL = nil;
 	NSString *authorizeURLString = self.authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
-		
-	DCTOAuthAccount *oauthAccount = [[DCTOAuthAccount alloc] initWithRequestTokenURL:requestTokenURL
-																		authorizeURL:authorizeURL
-																		 callbackURL:callbackURL
-																	  accessTokenURL:accessTokenURL
-																		 consumerKey:consumerKey
-																	  consumerSecret:consumerSecret];
+	
+	DCTOAuthAccount *oauthAccount = [DCTOAuthAccount OAuthAccountWithType:@"term.ie"
+														  requestTokenURL:requestTokenURL
+															 authorizeURL:authorizeURL
+															  callbackURL:callbackURL
+														   accessTokenURL:accessTokenURL
+															  consumerKey:consumerKey
+														   consumerSecret:consumerSecret];
 	
 	[oauthAccount authenticateWithHandler:^(NSDictionary *returnedValues) {
 		

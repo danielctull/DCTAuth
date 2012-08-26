@@ -9,6 +9,7 @@
 #import "DCTOAuthRequest.h"
 #import "NSString+DCTOAuth.h"
 #import "DCTOAuthSignature.h"
+#import "_DCTOAuthAccount.h"
 
 @implementation DCTOAuthRequest
 
@@ -28,36 +29,12 @@
 
 - (NSURLRequest *)signedURLRequest {
 
-	if (!self.account) {
-		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_URL];
-		[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
-		return [request copy];
-	}
-	
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:self.URL
-															requestMethod:self.requestMethod
-															  consumerKey:self.account.consumerKey
-														   consumerSecret:self.account.consumerSecret
-																	token:self.account.oauthToken
-															  secretToken:self.account.oauthTokenSecret
-															   parameters:self.parameters];
-
-	NSMutableArray *parameters = [NSMutableArray new];
-	[signature.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *encodedKey = [key dctOAuth_URLEncodedString];
-        NSString *encodedValue = [value dctOAuth_URLEncodedString];
-		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
-		[parameters addObject:string];
-	}];
-	
-	NSString *string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [signature signedString]];
-	[parameters addObject:string];
-	NSString *parameterString = [parameters componentsJoinedByString:@","];
+	NSURLRequest *request = [self.account _signedURLRequestFromOAuthRequest:self];
+	if (request) return request;
 		
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_URL];
-	[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
-	[request setAllHTTPHeaderFields:@{ @"Authorization" : [NSString stringWithFormat:@"OAuth %@", parameterString]}];
-	return request;
+	NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:_URL];
+	[mutableRequest setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
+	return [mutableRequest copy];
 }
 
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
