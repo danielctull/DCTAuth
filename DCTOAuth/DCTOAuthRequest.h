@@ -7,8 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthRequestMethod.h"
 #import "DCTOAuthAccount.h"
+
+typedef enum : NSUInteger {
+	DCTOAuthRequestMethodGET,
+	DCTOAuthRequestMethodPOST
+} DCTOAuthRequestMethod;
+
+NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method);
+
 
 @interface DCTOAuthRequest : NSObject
 

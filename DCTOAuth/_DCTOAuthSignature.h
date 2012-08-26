@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthRequestMethod.h"
+#import "DCTOAuthRequest.h"
 
 typedef enum {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0

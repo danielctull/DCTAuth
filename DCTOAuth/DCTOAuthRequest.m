@@ -9,6 +9,15 @@
 #import "DCTOAuthRequest.h"
 #import "_DCTOAuthAccount.h"
 
+NSString * const DCTOAuthRequestMethodString[] = {
+	@"GET",
+	@"POST"
+};
+
+NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
+	return DCTOAuthRequestMethodString[method];
+}
+
 @implementation DCTOAuthRequest
 
 - (id)initWithURL:(NSURL *)URL
