@@ -1,29 +1,20 @@
 //
-//  DCTOAuth2Account.m
+//  DCTOAuth2Account.h
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuth2Account.h"
-#import "_DCTOAuthAccount.h"
+#import "DCTOAuthAccount.h"
 
-@implementation DCTOAuth2Account
+@interface _DCTOAuth2Account : DCTOAuthAccount
 
 - (id)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
 	   redirectURL:(NSURL *)redirectURL
 	accessTokenURL:(NSURL *)accessTokenURL
 		  clientID:(NSString *)clientID
-	  clientSecret:(NSString *)clientSecret {
-	
-	self = [super initWithType:type];
-	if (!self) return nil;
-	
-	
-	
-	return self;
-}
+	  clientSecret:(NSString *)clientSecret;
 
 @end

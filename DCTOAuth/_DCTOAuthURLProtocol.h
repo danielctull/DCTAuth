@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DCTOAuthURLProtocol : NSURLProtocol
+@interface _DCTOAuthURLProtocol : NSURLProtocol
 
 + (void)registerForCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
 + (void)unregisterForCallbackURL:(NSURL *)callbackURL;

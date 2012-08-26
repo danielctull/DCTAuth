@@ -8,8 +8,8 @@
 
 #import "DCTOAuthAccount.h"
 #import "_DCTOAuthAccount.h"
-#import "DCTOAuth1Account.h"
-#import "DCTOAuth2Account.h"
+#import "_DCTOAuth1Account.h"
+#import "_DCTOAuth2Account.h"
 
 @implementation DCTOAuthAccount
 
@@ -21,7 +21,7 @@
 							  consumerKey:(NSString *)consumerKey
 						   consumerSecret:(NSString *)consumerSecret {
 		
-	return [[DCTOAuth1Account alloc] initWithType:type
+	return [[_DCTOAuth1Account alloc] initWithType:type
 								  requestTokenURL:requestTokenURL
 									 authorizeURL:authorizeURL
 									  callbackURL:callbackURL
@@ -37,7 +37,7 @@
 								  clientID:(NSString *)clientID
 							  clientSecret:(NSString *)clientSecret {
 	
-	return [[DCTOAuth2Account alloc] initWithType:type
+	return [[_DCTOAuth2Account alloc] initWithType:type
 									 authorizeURL:authorizeURL
 									  redirectURL:redirectURL
 								   accessTokenURL:accessTokenURL

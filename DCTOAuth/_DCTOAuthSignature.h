@@ -13,7 +13,7 @@ typedef enum {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0
 } DCTOAuthSignatureType;
 
-@interface DCTOAuthSignature : NSObject
+@interface _DCTOAuthSignature : NSObject
 
 - (id)initWithURL:(NSURL *)URL
 	requestMethod:(DCTOAuthRequestMethod)requestMethod

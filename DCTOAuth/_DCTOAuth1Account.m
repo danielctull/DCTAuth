@@ -6,15 +6,15 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuth1Account.h"
+#import "_DCTOAuth1Account.h"
 #import "_DCTOAuthAccount.h"
 #import "DCTOAuthRequest.h"
-#import "DCTOAuthSignature.h"
+#import "_DCTOAuthSignature.h"
 #import "NSString+DCTOAuth.h"
-#import "DCTOAuthURLProtocol.h"
+#import "_DCTOAuthURLProtocol.h"
 #import <UIKit/UIKit.h>
 
-@implementation DCTOAuth1Account
+@implementation _DCTOAuth1Account
 
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
@@ -121,8 +121,8 @@
 	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [self.authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
 	NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
-	[DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
-		[DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
+	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+		[_DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
 		
 		NSDictionary *dictionary = [self _dictionaryFromString:[URL query]];
 		completion(dictionary);
@@ -158,7 +158,7 @@
 
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
 	
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:OAuthRequest.URL
+	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:OAuthRequest.URL
 															requestMethod:OAuthRequest.requestMethod
 															  consumerKey:self.consumerKey
 														   consumerSecret:self.consumerSecret

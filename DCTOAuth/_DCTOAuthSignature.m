@@ -6,7 +6,7 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthSignature.h"
+#import "_DCTOAuthSignature.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTOAuth.h"
 #import "NSData+DCTOAuth.h"
@@ -16,7 +16,7 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	@"PLAINTEXT"
 };
 
-@implementation DCTOAuthSignature {
+@implementation _DCTOAuthSignature {
 	__strong NSURL *_URL;
 	__strong NSString *_consumerKey;
 	__strong NSString *_consumerSecret;

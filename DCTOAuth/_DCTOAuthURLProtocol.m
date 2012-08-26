@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthURLProtocol.h"
+#import "_DCTOAuthURLProtocol.h"
 
-@implementation DCTOAuthURLProtocol
+@implementation _DCTOAuthURLProtocol
 
 #pragma mark - NSURLProtocol
 
