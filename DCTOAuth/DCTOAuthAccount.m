@@ -34,13 +34,15 @@
 							  authorizeURL:(NSURL *)authorizeURL
 							accessTokenURL:(NSURL *)accessTokenURL
 								  clientID:(NSString *)clientID
-							  clientSecret:(NSString *)clientSecret {
+							  clientSecret:(NSString *)clientSecret
+									scopes:(NSArray *)scopes {
 	
 	return [[_DCTOAuth2Account alloc] initWithType:type
 									  authorizeURL:authorizeURL
 									accessTokenURL:accessTokenURL
 										  clientID:clientID
-									  clientSecret:clientSecret];
+									  clientSecret:clientSecret
+											scopes:scopes];
 }
 
 - (NSURL *)callbackURL {
@@ -51,7 +53,7 @@
 		NSArray *types = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
 		NSDictionary *type = [types lastObject];
 		NSArray *schemes = [type objectForKey:@"CFBundleURLSchemes"];
-		NSString *scheme = [NSString stringWithFormat:@"%@://", [schemes lastObject]];
+		NSString *scheme = [NSString stringWithFormat:@"%@://%@", [schemes lastObject], self.identifier];
 		_discoveredCallbackURL = [NSURL URLWithString:scheme];
 	}
 	

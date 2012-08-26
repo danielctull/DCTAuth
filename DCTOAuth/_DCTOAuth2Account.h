@@ -14,6 +14,19 @@
 	  authorizeURL:(NSURL *)authorizeURL
 	accessTokenURL:(NSURL *)accessTokenURL
 		  clientID:(NSString *)clientID
-	  clientSecret:(NSString *)clientSecret;
+	  clientSecret:(NSString *)clientSecret
+			scopes:(NSArray *)scopes;
+
+@property (nonatomic, readonly) NSURL *authorizeURL;
+@property (nonatomic, readonly) NSURL *accessTokenURL;
+
+@property (nonatomic, readonly) NSString *clientID;
+@property (nonatomic, readonly) NSString *clientSecret;
+
+@property (nonatomic, readonly) NSArray *scopes;
+
+@property (nonatomic, readonly) NSString *code;
+@property (nonatomic, readonly) NSString *accessToken;
+@property (nonatomic, readonly) NSString *refreshToken;
 
 @end

@@ -19,4 +19,15 @@
 																				  kCFStringEncodingUTF8);
 }
 
+- (NSDictionary *)dctOAuth_parameterDictionary {
+	NSArray *components = [self componentsSeparatedByString:@"&"];
+	NSMutableDictionary *dictionary = [NSMutableDictionary new];
+	[components enumerateObjectsUsingBlock:^(NSString *keyValueString, NSUInteger idx, BOOL *stop) {
+		NSArray *keyValueArray = [keyValueString componentsSeparatedByString:@"="];
+		if ([keyValueArray count] != 2) return;
+		[dictionary setObject:[keyValueArray objectAtIndex:1] forKey:[keyValueArray objectAtIndex:0]];
+	}];
+	return [dictionary copy];
+}
+
 @end

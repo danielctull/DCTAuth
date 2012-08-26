@@ -10,4 +10,5 @@
 
 @interface NSString (DCTOAuth)
 - (NSString *)dctOAuth_URLEncodedString;
+- (NSDictionary *)dctOAuth_parameterDictionary;
 @end

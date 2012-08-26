@@ -118,7 +118,7 @@
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [self _dictionaryFromString:string];
+		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
 }
@@ -133,7 +133,7 @@
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [self _dictionaryFromString:string];
+		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
 }
@@ -156,7 +156,7 @@
 	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		[_DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
 		
-		NSDictionary *dictionary = [self _dictionaryFromString:[URL query]];
+		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
 	[[UIApplication sharedApplication] openURL:authorizeURL];
@@ -175,17 +175,6 @@
 		else if ([key isEqualToString:@"oauth_verifier"])
 			_oauthVerifier = value;
 	}];
-}
-
-- (NSDictionary *)_dictionaryFromString:(NSString *)string {
-	NSArray *components = [string componentsSeparatedByString:@"&"];
-	NSMutableDictionary *dictionary = [NSMutableDictionary new];
-	[components enumerateObjectsUsingBlock:^(NSString *keyValueString, NSUInteger idx, BOOL *stop) {
-		NSArray *keyValueArray = [keyValueString componentsSeparatedByString:@"="];
-		if ([keyValueArray count] != 2) return;
-		[dictionary setObject:[keyValueArray objectAtIndex:1] forKey:[keyValueArray objectAtIndex:0]];
-	}];
-	return [dictionary copy];
 }
 
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
