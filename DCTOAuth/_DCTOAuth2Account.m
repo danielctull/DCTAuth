@@ -13,7 +13,6 @@
 
 - (id)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
-	   redirectURL:(NSURL *)redirectURL
 	accessTokenURL:(NSURL *)accessTokenURL
 		  clientID:(NSString *)clientID
 	  clientSecret:(NSString *)clientSecret {

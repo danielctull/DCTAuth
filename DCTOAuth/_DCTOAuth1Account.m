@@ -19,7 +19,6 @@
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
 	  authorizeURL:(NSURL *)authorizeURL
-	   callbackURL:(NSURL *)callbackURL
 	accessTokenURL:(NSURL *)accessTokenURL
 	   consumerKey:(NSString *)consumerKey
 	consumerSecret:(NSString *)consumerSecret {
@@ -30,7 +29,6 @@
 	_requestTokenURL = [requestTokenURL copy];
 	_accessTokenURL = [accessTokenURL copy];
 	_authorizeURL = [authorizeURL copy];
-	_callbackURL = [callbackURL copy];
 	_consumerKey = [consumerKey copy];
 	_consumerSecret = [consumerSecret copy];
 	
@@ -43,7 +41,6 @@
 	
 	_requestTokenURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(requestTokenURL))];
 	_authorizeURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(authorizeURL))];
-	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
 	_accessTokenURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(accessTokenURL))];
 	
 	_consumerKey = [coder decodeObjectForKey:NSStringFromSelector(@selector(consumerKey))];
@@ -61,7 +58,6 @@
 	
 	[coder encodeObject:self.requestTokenURL forKey:NSStringFromSelector(@selector(requestTokenURL))];
 	[coder encodeObject:self.authorizeURL forKey:NSStringFromSelector(@selector(authorizeURL))];
-	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 	[coder encodeObject:self.accessTokenURL forKey:NSStringFromSelector(@selector(accessTokenURL))];
 	
 	[coder encodeObject:self.consumerKey forKey:NSStringFromSelector(@selector(consumerKey))];

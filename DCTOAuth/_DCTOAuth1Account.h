@@ -13,7 +13,6 @@
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
 	  authorizeURL:(NSURL *)authorizeURL
-	   callbackURL:(NSURL *)callbackURL
 	accessTokenURL:(NSURL *)accessTokenURL
 	   consumerKey:(NSString *)consumerKey
 	consumerSecret:(NSString *)consumerSecret;
@@ -21,7 +20,6 @@
 @property (nonatomic, readonly) NSURL *requestTokenURL;
 @property (nonatomic, readonly) NSURL *accessTokenURL;
 @property (nonatomic, readonly) NSURL *authorizeURL;
-@property (nonatomic, readonly) NSURL *callbackURL;
 
 @property (nonatomic, readonly) NSString *consumerKey;
 @property (nonatomic, readonly) NSString *consumerSecret;

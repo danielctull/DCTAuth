@@ -11,12 +11,13 @@
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 
-@implementation DCTOAuthAccount
+@implementation DCTOAuthAccount {
+	__strong NSURL *_discoveredCallbackURL;
+}
 
 + (DCTOAuthAccount *)OAuthAccountWithType:(NSString *)type
 						  requestTokenURL:(NSURL *)requestTokenURL
 							 authorizeURL:(NSURL *)authorizeURL
-							  callbackURL:(NSURL *)callbackURL
 						   accessTokenURL:(NSURL *)accessTokenURL
 							  consumerKey:(NSString *)consumerKey
 						   consumerSecret:(NSString *)consumerSecret {
@@ -24,7 +25,6 @@
 	return [[_DCTOAuth1Account alloc] initWithType:type
 								  requestTokenURL:requestTokenURL
 									 authorizeURL:authorizeURL
-									  callbackURL:callbackURL
 								   accessTokenURL:accessTokenURL
 									  consumerKey:consumerKey
 								   consumerSecret:consumerSecret];
@@ -32,17 +32,30 @@
 
 + (DCTOAuthAccount *)OAuth2AccountWithType:(NSString *)type
 							  authorizeURL:(NSURL *)authorizeURL
-							   redirectURL:(NSURL *)redirectURL
 							accessTokenURL:(NSURL *)accessTokenURL
 								  clientID:(NSString *)clientID
 							  clientSecret:(NSString *)clientSecret {
 	
 	return [[_DCTOAuth2Account alloc] initWithType:type
-									 authorizeURL:authorizeURL
-									  redirectURL:redirectURL
-								   accessTokenURL:accessTokenURL
-										 clientID:clientID
-									 clientSecret:clientSecret];
+									  authorizeURL:authorizeURL
+									accessTokenURL:accessTokenURL
+										  clientID:clientID
+									  clientSecret:clientSecret];
+}
+
+- (NSURL *)callbackURL {
+	
+	if (_callbackURL) return _callbackURL;
+	
+	if (!_discoveredCallbackURL) {
+		NSArray *types = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
+		NSDictionary *type = [types lastObject];
+		NSArray *schemes = [type objectForKey:@"CFBundleURLSchemes"];
+		NSString *scheme = [NSString stringWithFormat:@"%@://", [schemes lastObject]];
+		_discoveredCallbackURL = [NSURL URLWithString:scheme];
+	}
+	
+	return _discoveredCallbackURL;
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {}
@@ -65,12 +78,14 @@
 	if (!self) return nil;
 	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
 	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
+	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
 	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
+	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 }
 
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {

@@ -57,7 +57,6 @@
 	NSString *consumerKey = self.consumerKeyTextField.text;
 	NSString *consumerSecret = self.consumerSecretTextField.text;
 	
-	NSURL *callbackURL = [NSURL URLWithString:@"oauthcallback://"];
 	NSURL *requestTokenURL = [NSURL URLWithString:self.requestTokenURLTextField.text];
 	NSURL *accessTokenURL = [NSURL URLWithString:self.accessTokenURLTextField.text];
 	
@@ -68,7 +67,6 @@
 	DCTOAuthAccount *oauthAccount = [DCTOAuthAccount OAuthAccountWithType:@"term.ie"
 														  requestTokenURL:requestTokenURL
 															 authorizeURL:authorizeURL
-															  callbackURL:callbackURL
 														   accessTokenURL:accessTokenURL
 															  consumerKey:consumerKey
 														   consumerSecret:consumerSecret];
