@@ -93,8 +93,6 @@
 	[parameters setObject:self.code forKey:@"code"];
 	[parameters setObject:_state forKey:@"state"];
 	
-	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), self.accessTokenURL, parameters);
-	
 	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:self.accessTokenURL
                                                       requestMethod:DCTOAuthRequestMethodPOST
                                                          parameters:parameters];
@@ -117,23 +115,24 @@
 	if (OAuthRequest.requestMethod == DCTOAuthRequestMethodGET)
 		format = @"%@=\"%@\"";
 	
-	NSMutableArray *parameters = [NSMutableArray new];
-	[OAuthRequest.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+	NSMutableDictionary *parameters = [OAuthRequest.parameters mutableCopy];
+	if ([self.accessToken length] > 0) [parameters setObject:self.accessToken forKey:@"access_token"];
+	
+	NSMutableArray *parameterStrings = [NSMutableArray new];
+	[parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         NSString *encodedKey = [key dctOAuth_URLEncodedString];
         NSString *encodedValue = [value dctOAuth_URLEncodedString];
 		NSString *string = [NSString stringWithFormat:format, encodedKey, encodedValue];
-		[parameters addObject:string];
+		[parameterStrings addObject:string];
 	}];
-	NSString *parameterString = [parameters componentsJoinedByString:@"&"];
+	
+	NSString *parameterString = [parameterStrings componentsJoinedByString:@"&"];
 	
 	NSURL *URL = OAuthRequest.URL;
 	if (OAuthRequest.requestMethod == DCTOAuthRequestMethodGET) {
 		NSString *URLString = [NSString stringWithFormat:@"%@?%@", [URL absoluteString], parameterString];
 		URL = [NSURL URLWithString:URLString];
 	}
-	
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), URL);
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), parameterString);
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
 	[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(OAuthRequest.requestMethod)];
@@ -145,7 +144,7 @@
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), dictionary);
+	
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"code"])
