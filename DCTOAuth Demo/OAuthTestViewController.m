@@ -25,7 +25,7 @@
 	self = [super initWithNibName:nibName bundle:nibBundle];
 	if (!self) return nil;
 	
-	self.title = @"DCTOAuthController";
+	self.title = @"DCTOAuth";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Go" style:UIBarButtonItemStyleBordered target:self action:@selector(go:)];
 	
 	return self;
