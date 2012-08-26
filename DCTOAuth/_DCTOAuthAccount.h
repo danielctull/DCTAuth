@@ -9,7 +9,7 @@
 #import "DCTOAuthAccount.h"
 #import "DCTOAuthRequest.h"
 
-@interface DCTOAuthAccount (Private)
+@interface DCTOAuthAccount (Private) <NSCoding>
 
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest;
 - (id)initWithType:(NSString *)type;

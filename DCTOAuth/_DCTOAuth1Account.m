@@ -37,6 +37,42 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [super initWithCoder:coder];
+	if (!self) return nil;
+	
+	_requestTokenURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(requestTokenURL))];
+	_authorizeURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(authorizeURL))];
+	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
+	_accessTokenURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(accessTokenURL))];
+	
+	_consumerKey = [coder decodeObjectForKey:NSStringFromSelector(@selector(consumerKey))];
+	_consumerSecret = [coder decodeObjectForKey:NSStringFromSelector(@selector(consumerSecret))];
+	
+	_oauthToken = [coder decodeObjectForKey:NSStringFromSelector(@selector(oauthToken))];
+	_oauthTokenSecret = [coder decodeObjectForKey:NSStringFromSelector(@selector(oauthTokenSecret))];
+	_oauthVerifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(oauthVerifier))];
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.requestTokenURL forKey:NSStringFromSelector(@selector(requestTokenURL))];
+	[coder encodeObject:self.authorizeURL forKey:NSStringFromSelector(@selector(authorizeURL))];
+	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
+	[coder encodeObject:self.accessTokenURL forKey:NSStringFromSelector(@selector(accessTokenURL))];
+	
+	[coder encodeObject:self.consumerKey forKey:NSStringFromSelector(@selector(consumerKey))];
+	[coder encodeObject:self.consumerSecret forKey:NSStringFromSelector(@selector(consumerSecret))];
+	
+	[coder encodeObject:self.oauthToken forKey:NSStringFromSelector(@selector(oauthToken))];
+	[coder encodeObject:self.oauthTokenSecret forKey:NSStringFromSelector(@selector(oauthTokenSecret))];
+	[coder encodeObject:self.oauthVerifier forKey:NSStringFromSelector(@selector(oauthVerifier))];
+}
+
+
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
 	
 	NSMutableDictionary *returnedValues = [NSMutableDictionary new];

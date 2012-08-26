@@ -60,6 +60,19 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [self init];
+	if (!self) return nil;
+	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
+	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
+	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
+}
+
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
 	return nil;
 }
