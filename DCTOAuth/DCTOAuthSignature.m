@@ -8,7 +8,8 @@
 
 #import "DCTOAuthSignature.h"
 #import <CommonCrypto/CommonHMAC.h>
-#import <resolv.h>
+#import "NSString+DCTOAuth.h"
+#import "NSData+DCTOAuth.h"
 
 NSString * const DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
@@ -75,16 +76,16 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	
 	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
 		NSString *value = [_parameters objectForKey:key];
-		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, [self _URLEncodedString:value]];
+		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]];
 		[parameters addObject:keyValueString];
 	}];
 	
 	NSString *parameterString = [parameters componentsJoinedByString:@"&"];
 	
 	NSMutableArray *baseArray = [NSMutableArray new];
-	[baseArray addObject:[self _URLEncodedString:NSStringFromDCTOAuthRequestMethod(_requestMethod)]];
-	[baseArray addObject:[self _URLEncodedString:[_URL absoluteString]]];
-	[baseArray addObject:[self _URLEncodedString:parameterString]];
+	[baseArray addObject:[NSStringFromDCTOAuthRequestMethod(_requestMethod) dctOAuth_URLEncodedString]];
+	[baseArray addObject:[[_URL absoluteString] dctOAuth_URLEncodedString]];
+	[baseArray addObject:[parameterString dctOAuth_URLEncodedString]];
 	
 	NSString *baseString = [baseArray componentsJoinedByString:@"&"];
 	if (!_secretToken) _secretToken = @"";
@@ -97,47 +98,9 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	CCHmac(kCCHmacAlgSHA1, secretData.bytes, secretData.length, baseData.bytes, baseData.length, result);
 	
 	NSData *theData = [NSData dataWithBytes:result length:20];
-	NSData *base64EncodedData = [self _base64EncodedData:theData];
+	NSData *base64EncodedData = [theData dctOAuth_base64EncodedData];
 	NSString *string = [[NSString alloc] initWithData:base64EncodedData encoding:NSUTF8StringEncoding];
-	return [self _URLEncodedString:string];
+	return [string dctOAuth_URLEncodedString];
 }
-
-- (NSData *)_base64EncodedData:(NSData *)dataToEncode {
-	
-	NSData *encodedData = nil;
-	
-	NSUInteger dataToEncodeLength = dataToEncode.length;
-	
-	// Last +1 below to accommodate trailing '\0':
-	NSUInteger encodedBufferLength = ((dataToEncodeLength + 2) / 3) * 4 + 1;
-	
-	char *encodedBuffer = malloc(encodedBufferLength);
-	
-	int encodedRealLength = b64_ntop(dataToEncode.bytes, dataToEncodeLength, encodedBuffer, encodedBufferLength);
-	
-	if(encodedRealLength >= 0) {
-		// In real life, you might not want the nul-termination byte, so you
-		// might not want the '+ 1'.
-		encodedData = [NSData dataWithBytes:encodedBuffer
-									 length:encodedRealLength/* + 1 */];
-	}
-	
-	free(encodedBuffer);
-	
-	return encodedData;
-}
-
-- (NSString *)_URLEncodedString:(NSString *)string {
-	
-	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)objc_unretainedPointer(string),
-																				  NULL,
-																				  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-																				  kCFStringEncodingUTF8);
-}
-
-
-
-
 
 @end

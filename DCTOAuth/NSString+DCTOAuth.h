@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (DCTOAuth)
-- (NSString *)dctOAuthController_URLEncodedString;
+- (NSString *)dctOAuth_URLEncodedString;
 @end

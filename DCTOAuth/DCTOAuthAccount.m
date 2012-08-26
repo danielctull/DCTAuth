@@ -127,7 +127,7 @@
 	
 	NSMutableArray *keyValues = [NSMutableArray new];
 	[parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuthController_URLEncodedString]]];
+		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]]];
 	}];
 	
 	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [self.authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];

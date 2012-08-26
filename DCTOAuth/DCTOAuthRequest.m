@@ -44,8 +44,8 @@
 
 	NSMutableArray *parameters = [NSMutableArray new];
 	[signature.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *encodedKey = [key dctOAuthController_URLEncodedString];
-        NSString *encodedValue = [value dctOAuthController_URLEncodedString];
+        NSString *encodedKey = [key dctOAuth_URLEncodedString];
+        NSString *encodedValue = [value dctOAuth_URLEncodedString];
 		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
 		[parameters addObject:string];
 	}];
