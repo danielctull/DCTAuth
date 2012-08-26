@@ -12,10 +12,11 @@
 @interface DCTOAuthAccountStore : NSObject
 
 @property(nonatomic, readonly) NSArray *accounts;
+
 - (NSArray *)accountsWithType:(NSString *)type;
 - (DCTOAuthAccount *)accountWithIdentifier:(NSString *)identifier;
 
-- (void)saveAccount:(DCTOAuthAccount *)account withCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler;
-- (void)deleteAccount:(DCTOAuthAccount *)account withCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler;
+- (void)saveAccount:(DCTOAuthAccount *)account;
+- (void)deleteAccount:(DCTOAuthAccount *)account;
 
 @end
