@@ -111,17 +111,18 @@
 		};
 	}
 	
-	[self fetchAccessTokenWithParameters:nil completion:accessTokenCompletion];
+	[self _fetchRequestTokenWithCompletion:accessTokenCompletion];
 }
 
-- (void)fetchAccessTokenWithParameters:(NSDictionary *)userParameters completion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_fetchRequestTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	NSMutableURLRequest *URLRequest = [[NSMutableURLRequest alloc] initWithURL:_requestTokenURL];
-	[self _signURLRequest:URLRequest];
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_requestTokenURL
+                                                      requestMethod:DCTOAuthRequestMethodGET
+                                                         parameters:nil];
+	request.account = self;
 	
-	[NSURLConnection sendAsynchronousRequest:URLRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), string);
+	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];

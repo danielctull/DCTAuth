@@ -11,7 +11,7 @@
 
 @interface DCTOAuthAccount (Private) <NSCoding>
 
-- (void)_OAuthRequest:(DCTOAuthRequest *)OAuthRequest signURLRequest:(NSMutableURLRequest *)request;
+- (void)_signURLRequest:(NSMutableURLRequest *)request;
 
 - (id)initWithType:(NSString *)type;
 

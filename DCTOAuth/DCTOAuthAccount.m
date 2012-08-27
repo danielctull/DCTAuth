@@ -92,7 +92,7 @@
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 }
 
-- (void)_OAuthRequest:(DCTOAuthRequest *)OAuthRequest signURLRequest:(NSMutableURLRequest *)request {}
+- (void)_signURLRequest:(NSMutableURLRequest *)request {}
 
 - (void)_willBeDeleted {
 	[self _removeValueForSecureKey:nil];
