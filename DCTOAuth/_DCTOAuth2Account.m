@@ -111,7 +111,11 @@
 		completion(dictionary);
 	}];
 		
+#ifdef TARGET_OS_IPHONE
 	[[UIApplication sharedApplication] openURL:authorizeURL];
+#else
+	[[NSWorkspace sharedWorkspace] openURL:authorizeURL];
+#endif
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {

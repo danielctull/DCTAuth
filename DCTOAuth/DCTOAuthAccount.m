@@ -106,7 +106,7 @@
 	
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
-#if TARGET_OS_IPHONE
+#ifdef TARGET_OS_IPHONE
 	[query setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
 #endif
 	SecItemAdd((__bridge CFDictionaryRef)query, NULL);

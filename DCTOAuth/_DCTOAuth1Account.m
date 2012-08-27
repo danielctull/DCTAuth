@@ -12,7 +12,13 @@
 #import "_DCTOAuthSignature.h"
 #import "NSString+DCTOAuth.h"
 #import "_DCTOAuth.h"
+
+#ifdef TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#endif
+
 
 @implementation _DCTOAuth1Account {
 	__strong NSURL *_requestTokenURL;
@@ -134,7 +140,12 @@
 		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
+	
+#ifdef TARGET_OS_IPHONE
 	[[UIApplication sharedApplication] openURL:authorizeURL];
+#else
+	[[NSWorkspace sharedWorkspace] openURL:authorizeURL];
+#endif
 }
 
 - (void)_fetchAccessTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
