@@ -8,7 +8,7 @@
 
 #import "DCTOAuthRequest.h"
 #import "_DCTOAuthAccount.h"
-#import "NSString+DCTOAuth.h"
+#import "NSURL+DCTOAuth.h"
 
 NSString * const DCTOAuthRequestMethodString[] = {
 	@"GET",
@@ -36,22 +36,7 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 }
 
 - (NSMutableURLRequest *)_URLRequest {
-	
-	NSURL *URL = self.URL;
-	
-	if (self.parameters) {
-		NSMutableArray *parameterStrings = [NSMutableArray new];
-		[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-			NSString *encodedKey = [key dctOAuth_URLEncodedString];
-			NSString *encodedValue = [value dctOAuth_URLEncodedString];
-			NSString *parameterString = [NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue];
-			[parameterStrings addObject:parameterString];
-		}];
-		
-		NSString *URLString = [NSString stringWithFormat:@"%@?%@", [URL absoluteString], [parameterStrings componentsJoinedByString:@"&"]];
-		URL = [NSURL URLWithString:URLString];
-	}
-	
+	NSURL *URL = [self.URL dctOAuth_URLByAddingQueryParameters:self.parameters];	
 	NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
 	[mutableRequest setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
 	return mutableRequest;
@@ -64,8 +49,10 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 }
 
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
-
-    [NSURLConnection sendAsynchronousRequest:[self signedURLRequest] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+	
+    [NSURLConnection sendAsynchronousRequest:[self signedURLRequest]
+									   queue:[NSOperationQueue mainQueue]
+						   completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 		
         if (handler == NULL) return;
         

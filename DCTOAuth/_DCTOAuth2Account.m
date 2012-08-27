@@ -10,6 +10,7 @@
 #import "_DCTOAuthAccount.h"
 #import "NSString+DCTOAuth.h"
 #import "_DCTOAuth.h"
+#import "NSURL+DCTOAuth.h"
 #import <UIKit/UIKit.h>
 
 @implementation _DCTOAuth2Account {
@@ -163,6 +164,12 @@
 	}];
 }
 
+- (void)_signURLRequest:(NSMutableURLRequest *)request {
+	NSURL *URL = [request URL];
+	URL = [URL dctOAuth_URLByAddingQueryParameters:@{ @"access_token" : _accessToken }];
+	request.URL = URL;
+}
+
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
 	
 	NSString *format = @"%@=%@";
@@ -171,6 +178,11 @@
 	
 	NSMutableDictionary *parameters = [OAuthRequest.parameters mutableCopy];
 	if ([_accessToken length] > 0) [parameters setObject:_accessToken forKey:@"access_token"];
+	
+	
+	
+	
+	
 	
 	NSMutableArray *parameterStrings = [NSMutableArray new];
 	[parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {

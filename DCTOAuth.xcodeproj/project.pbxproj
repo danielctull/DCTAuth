@@ -14,6 +14,8 @@
 		249CAD2215EA236B00FFD0D2 /* _DCTOAuth1Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD2115EA236B00FFD0D2 /* _DCTOAuth1Account.m */; };
 		24C622E915EB5F9200B68FAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		24C6232D15EB932700B68FAD /* DCTOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6232C15EB932700B68FAD /* DCTOAuth.m */; };
+		24C6238C15EBBB8800B68FAD /* NSDictionary+DCTOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238915EBBB8800B68FAD /* NSDictionary+DCTOAuth.m */; };
+		24C6238D15EBBB8800B68FAD /* NSURL+DCTOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238B15EBBB8800B68FAD /* NSURL+DCTOAuth.m */; };
 		24FA8FE815E93D8E00E1ED99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE715E93D8E00E1ED99 /* Foundation.framework */; };
 		24FA8FED15E93D8E00E1ED99 /* DCTOAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTOAuth.h */; };
 		24FA8FF715E93D8E00E1ED99 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FF615E93D8E00E1ED99 /* SenTestingKit.framework */; };
@@ -79,6 +81,10 @@
 		24C622E715EB5F8000B68FAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		24C6232C15EB932700B68FAD /* DCTOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth.m; sourceTree = "<group>"; };
 		24C6232E15EB936500B68FAD /* _DCTOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth.h; sourceTree = "<group>"; };
+		24C6238815EBBB8800B68FAD /* NSDictionary+DCTOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+DCTOAuth.h"; sourceTree = "<group>"; };
+		24C6238915EBBB8800B68FAD /* NSDictionary+DCTOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+DCTOAuth.m"; sourceTree = "<group>"; };
+		24C6238A15EBBB8800B68FAD /* NSURL+DCTOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DCTOAuth.h"; sourceTree = "<group>"; };
+		24C6238B15EBBB8800B68FAD /* NSURL+DCTOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DCTOAuth.m"; sourceTree = "<group>"; };
 		24FA8FE415E93D8E00E1ED99 /* libDCTOAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTOAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA8FE715E93D8E00E1ED99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24FA8FEB15E93D8E00E1ED99 /* DCTOAuth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTOAuth-Prefix.pch"; sourceTree = "<group>"; };
@@ -205,6 +211,10 @@
 				24FA903315E93E1F00E1ED99 /* NSString+DCTOAuth.m */,
 				249CAD1915EA214700FFD0D2 /* NSData+DCTOAuth.h */,
 				249CAD1A15EA214700FFD0D2 /* NSData+DCTOAuth.m */,
+				24C6238815EBBB8800B68FAD /* NSDictionary+DCTOAuth.h */,
+				24C6238915EBBB8800B68FAD /* NSDictionary+DCTOAuth.m */,
+				24C6238A15EBBB8800B68FAD /* NSURL+DCTOAuth.h */,
+				24C6238B15EBBB8800B68FAD /* NSURL+DCTOAuth.m */,
 				24FA8FEA15E93D8E00E1ED99 /* Supporting Files */,
 			);
 			path = DCTOAuth;
@@ -395,6 +405,8 @@
 				249CAD1F15EA235E00FFD0D2 /* _DCTOAuth2Account.m in Sources */,
 				249CAD2215EA236B00FFD0D2 /* _DCTOAuth1Account.m in Sources */,
 				24C6232D15EB932700B68FAD /* DCTOAuth.m in Sources */,
+				24C6238C15EBBB8800B68FAD /* NSDictionary+DCTOAuth.m in Sources */,
+				24C6238D15EBBB8800B68FAD /* NSURL+DCTOAuth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
