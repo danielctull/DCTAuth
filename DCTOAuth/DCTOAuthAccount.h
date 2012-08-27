@@ -30,6 +30,6 @@
 @property (nonatomic, copy) NSURL *callbackURL;
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler;
-- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;
+//- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;
 
 @end
