@@ -10,6 +10,7 @@
 #import "_DCTOAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
+#import <Security/Security.h>
 
 @implementation DCTOAuthAccount {
 	__strong NSURL *_discoveredCallbackURL;
@@ -92,6 +93,48 @@
 
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
 	return nil;
+}
+
+- (void)_willBeDeleted {
+	[self _removeValueForSecureKey:nil];
+}
+
+- (void)_setValue:(NSString *)value forSecureKey:(NSString *)key {
+	if (!value) return;
+	if (!key) return;
+	
+	[self _removeValueForSecureKey:key];
+	
+	NSMutableDictionary *query = [self _queryForKey:key];
+	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
+#if TARGET_OS_IPHONE
+	[query setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
+#endif
+	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
+}
+
+- (NSString *)_valueForSecureKey:(NSString *)key {
+	if (!key) return nil;
+	
+	NSMutableDictionary *query = [self _queryForKey:key];
+	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+	CFTypeRef result = NULL;
+	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
+}
+
+- (void)_removeValueForSecureKey:(NSString *)key {
+	NSMutableDictionary *query = [self _queryForKey:key];
+    SecItemDelete((__bridge CFDictionaryRef)query);
+}
+
+- (NSMutableDictionary *)_queryForKey:(NSString *)key {
+	NSMutableDictionary *query = [NSMutableDictionary new];
+    [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[query setObject:[NSString stringWithFormat:@"DCTOAuth:%@", self.identifier] forKey:(__bridge id)kSecAttrService];
+	if (key) [query setObject:key forKey:(__bridge id)kSecAttrAccount];
+	return query;
 }
 
 @end

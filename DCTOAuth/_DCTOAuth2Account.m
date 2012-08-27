@@ -56,16 +56,16 @@
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	
-	_clientID = [coder decodeObjectForKey:@"_clientID"];
-	_clientSecret = [coder decodeObjectForKey:@"_clientSecret"];
+	_clientID = [self _valueForSecureKey:@"_clientID"];
+	_clientSecret = [self _valueForSecureKey:@"_clientSecret"];
 	
 	_scopes = [coder decodeObjectForKey:@"_scopes"];
 	
-	_code = [coder decodeObjectForKey:@"_code"];
-	_accessToken = [coder decodeObjectForKey:@"_accessToken"];
-	_refreshToken = [coder decodeObjectForKey:@"_refreshToken"];
+	_code = [self _valueForSecureKey:@"_code"];
+	_accessToken = [self _valueForSecureKey:@"_accessToken"];
+	_refreshToken = [self _valueForSecureKey:@"_refreshToken"];
 	
-	_state = [coder decodeObjectForKey:@"_state"];
+	_state = [self _valueForSecureKey:@"_state"];
 	
 	return self;
 }
@@ -76,16 +76,16 @@
 	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
 	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
 	
-	[coder encodeObject:_clientID forKey:@"_clientID"];
-	[coder encodeObject:_clientSecret forKey:@"_clientSecret"];
+	[self _setValue:_clientID forSecureKey:@"_clientID"];
+	[self _setValue:_clientSecret forSecureKey:@"_clientSecret"];
 	
 	[coder encodeObject:_scopes forKey:@"_scopes"];
 	
-	[coder encodeObject:_code forKey:@"_code"];
-	[coder encodeObject:_accessToken forKey:@"_accessToken"];
-	[coder encodeObject:_refreshToken forKey:@"_refreshToken"];
+	[self _setValue:_code forSecureKey:@"_code"];
+	[self _setValue:_accessToken forSecureKey:@"_accessToken"];
+	[self _setValue:_refreshToken forSecureKey:@"_refreshToken"];
 	
-	[coder encodeObject:_state forKey:@"_state"];
+	[self _setValue:_state forSecureKey:@"_state"];
 }
 
 - (void)_authorizeWithParameters:(NSDictionary *)inputParameters completion:(void(^)(NSDictionary *returnedValues))completion {
@@ -208,6 +208,14 @@
 		else if ([key isEqualToString:@"refresh_token"])
 			_refreshToken = value;
 	}];
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; clientID = %@; code = %@>",
+			NSStringFromClass([self class]),
+			self,
+			_clientID,
+			_code];
 }
 
 @end

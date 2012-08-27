@@ -54,12 +54,12 @@
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	
-	_consumerKey = [coder decodeObjectForKey:@"_consumerKey"];
-	_consumerSecret = [coder decodeObjectForKey:@"_consumerSecret"];
+	_consumerKey = [self _valueForSecureKey:@"_consumerKey"];
+	_consumerSecret = [self _valueForSecureKey:@"_consumerSecret"];
 	
-	_oauthToken = [coder decodeObjectForKey:@"_oauthToken"];
-	_oauthTokenSecret = [coder decodeObjectForKey:@"_oauthTokenSecret"];
-	_oauthVerifier = [coder decodeObjectForKey:@"_oauthVerifier"];
+	_oauthToken = [self _valueForSecureKey:@"_oauthToken"];
+	_oauthTokenSecret = [self _valueForSecureKey:@"_oauthTokenSecret"];
+	_oauthVerifier = [self _valueForSecureKey:@"_oauthVerifier"];
 	
 	return self;
 }
@@ -71,12 +71,12 @@
 	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
 	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
 	
-	[coder encodeObject:_consumerKey forKey:@"_consumerKey"];
-	[coder encodeObject:_consumerSecret forKey:@"_consumerSecret"];
+	[self _setValue:_consumerKey forSecureKey:@"_consumerKey"];
+	[self _setValue:_consumerSecret forSecureKey:@"_consumerSecret"];
 	
-	[coder encodeObject:_oauthToken forKey:@"_oauthToken"];
-	[coder encodeObject:_oauthTokenSecret forKey:@"_oauthTokenSecret"];
-	[coder encodeObject:_oauthVerifier forKey:@"_oauthVerifier"];
+	[self _setValue:_oauthToken forSecureKey:@"_oauthToken"];
+	[self _setValue:_oauthTokenSecret forSecureKey:@"_oauthTokenSecret"];
+	[self _setValue:_oauthVerifier forSecureKey:@"_oauthVerifier"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
@@ -213,6 +213,14 @@
 	[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(OAuthRequest.requestMethod)];
 	[request setAllHTTPHeaderFields:@{ @"Authorization" : [NSString stringWithFormat:@"OAuth %@", parameterString]}];
 	return request;
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; consumerKey = %@; oauth_token = %@>",
+			NSStringFromClass([self class]),
+			self,
+			_consumerKey,
+			_oauthToken];
 }
 
 @end

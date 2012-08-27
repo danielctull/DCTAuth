@@ -14,4 +14,9 @@
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest;
 - (id)initWithType:(NSString *)type;
 
+- (void)_willBeDeleted;
+- (void)_setValue:(NSString *)value forSecureKey:(NSString *)key;
+- (NSString *)_valueForSecureKey:(NSString *)key;
+- (void)_removeValueForSecureKey:(NSString *)key;
+
 @end

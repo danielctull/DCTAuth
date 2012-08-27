@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuthAccountStore.h"
+#import "_DCTOAuthAccount.h"
 
 @implementation DCTOAuthAccountStore {
 	__strong NSFileManager *_fileManager;
@@ -19,12 +20,14 @@
 	_fileManager = [NSFileManager new];
 	_accounts = [NSMutableArray new];
 	
-	[_fileManager createDirectoryAtPath:[self _storePath] withIntermediateDirectories:YES attributes:nil error:nil];
+	[_fileManager createDirectoryAtURL:[self _storeURL] withIntermediateDirectories:YES attributes:nil error:nil];
+	NSArray *identifiers = [_fileManager contentsOfDirectoryAtURL:[self _storeURL]
+									   includingPropertiesForKeys:nil
+														  options:NSDirectoryEnumerationSkipsHiddenFiles
+															error:nil];
 	
-	NSArray *identifiers = [_fileManager contentsOfDirectoryAtPath:[self _storePath] error:nil];
-	[identifiers enumerateObjectsUsingBlock:^(NSString *identifier, NSUInteger i, BOOL *stop) {
-		NSString *accountPath = [self _pathForAccountWithIdentifier:identifier];
-		DCTOAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:accountPath];
+	[identifiers enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger i, BOOL *stop) {
+		DCTOAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[URL path]];
 		[_accounts addObject:account];
 	}];
 	
@@ -47,24 +50,25 @@
 }
 
 - (void)saveAccount:(DCTOAuthAccount *)account {
-	NSString *accountPath = [self _pathForAccountWithIdentifier:account.identifier];
-	[NSKeyedArchiver archiveRootObject:account toFile:accountPath];
+	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
+	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
 	[_accounts addObject:account];
 }
 
 - (void)deleteAccount:(DCTOAuthAccount *)account {
-	NSString *accountPath = [self _pathForAccountWithIdentifier:account.identifier];
+	[account _willBeDeleted];
 	[_accounts removeObject:account];
-	[_fileManager removeItemAtPath:accountPath error:NULL];
+	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
+	[_fileManager removeItemAtURL:accountURL error:NULL];
 }
 
-- (NSString *)_pathForAccountWithIdentifier:(NSString *)identifier {
-	return [[self _storePath] stringByAppendingPathComponent:identifier];
+- (NSURL *)_URLForAccountWithIdentifier:(NSString *)identifier {
+	return [[self _storeURL] URLByAppendingPathComponent:identifier];
 }
 
-- (NSString *)_storePath {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	return [[paths objectAtIndex:0] stringByAppendingPathComponent:NSStringFromClass([self class])];
+- (NSURL *)_storeURL {
+	NSURL *documentsURL = [[_fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+	return [documentsURL URLByAppendingPathComponent:NSStringFromClass([self class])];
 }
 
 @end
