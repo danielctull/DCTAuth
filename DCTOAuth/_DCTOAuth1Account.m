@@ -83,35 +83,38 @@
 	
 	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
 	
-	void (^requestTokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
+	void (^accessTokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
 		[returnedValues addEntriesFromDictionary:dictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
 		if (handler != NULL) handler([returnedValues copy]);
 	};
 	
-	void (^authorizeCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		[self fetchRequestTokenWithParameters:dictionary completion:requestTokenCompletion];
-	};
-	
-	void (^accessTokenCompletion)(NSDictionary *) = nil;
+	void (^requestTokenCompletion)(NSDictionary *) = nil;
 	
 	if (_authorizeURL) {
-		accessTokenCompletion = ^(NSDictionary *dictionary) {
+		
+		void (^authorizeCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
 			[returnedValues addEntriesFromDictionary:dictionary];
 			[self _setValuesFromOAuthDictionary:dictionary];
-			[self authorizeWithParameters:dictionary completion:authorizeCompletion];
+			[self fetchRequestTokenWithParameters:dictionary completion:accessTokenCompletion];
 		};
-	} else {
-		accessTokenCompletion = ^(NSDictionary *dictionary) {
+		
+		requestTokenCompletion = ^(NSDictionary *dictionary) {
 			[returnedValues addEntriesFromDictionary:dictionary];
 			[self _setValuesFromOAuthDictionary:dictionary];
-			[self fetchRequestTokenWithParameters:dictionary completion:requestTokenCompletion];
+			[self authorizeWithCompletion:authorizeCompletion];
+		};
+		
+	} else {
+		
+		requestTokenCompletion = ^(NSDictionary *dictionary) {
+			[returnedValues addEntriesFromDictionary:dictionary];
+			[self _setValuesFromOAuthDictionary:dictionary];
+			[self fetchRequestTokenWithParameters:dictionary completion:accessTokenCompletion];
 		};
 	}
 	
-	[self _fetchRequestTokenWithCompletion:accessTokenCompletion];
+	[self _fetchRequestTokenWithCompletion:requestTokenCompletion];
 }
 
 - (void)_fetchRequestTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
@@ -144,19 +147,13 @@
 }
 
 
-- (void)authorizeWithParameters:(NSDictionary *)inputParameters completion:(void(^)(NSDictionary *returnedValues))completion {
-	
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters addEntriesFromDictionary:inputParameters];
-	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
+- (void)authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
 	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_authorizeURL
                                                       requestMethod:DCTOAuthRequestMethodGET
-                                                         parameters:parameters];
+                                                         parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
-	
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), authorizeURL);
 	
 	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		[_DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
@@ -168,7 +165,7 @@
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), dictionary);
+	
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"oauth_token"])
@@ -187,7 +184,6 @@
 	[parameters setObject:_consumerKey forKey:@"oauth_consumer_key"];
 	[parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
 	if (_oauthToken) [parameters setObject:_oauthToken forKey:@"oauth_token"];
-	if (_oauthTokenSecret) [parameters setObject:_oauthTokenSecret forKey:@"oauth_token_secret"];
 	if (_oauthVerifier) [parameters setObject:_oauthVerifier forKey:@"oauth_verifier"];
 	return [parameters copy];
 }
