@@ -66,7 +66,9 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
 
     [NSURLConnection sendAsynchronousRequest:[self signedURLRequest] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-
+		
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+		
         if (handler == NULL) return;
         
         NSHTTPURLResponse *HTTPURLResponse = nil;

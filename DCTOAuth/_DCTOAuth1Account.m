@@ -116,15 +116,10 @@
 
 - (void)fetchAccessTokenWithParameters:(NSDictionary *)userParameters completion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters addEntriesFromDictionary:userParameters];
-	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
-	[parameters setObject:[self.callbackURL absoluteString] forKey:@""];
+	NSMutableURLRequest *URLRequest = [[NSMutableURLRequest alloc] initWithURL:_requestTokenURL];
+	[self _signURLRequest:URLRequest];
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_requestTokenURL];
-	[self _signURLRequest:request oauthParameters:parameters];
-	
-	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+	[NSURLConnection sendAsynchronousRequest:URLRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), string);
 		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
@@ -154,7 +149,7 @@
 	[parameters addEntriesFromDictionary:inputParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_authorizeURL
                                                       requestMethod:DCTOAuthRequestMethodGET
                                                          parameters:parameters];
 	
@@ -172,7 +167,7 @@
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
-	
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), dictionary);
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"oauth_token"])
@@ -186,29 +181,31 @@
 	}];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthParameters:(NSDictionary *)parameters {
+- (NSDictionary *)_OAuthParameters {
+	NSMutableDictionary *parameters = [NSMutableDictionary new];
+	[parameters setObject:_consumerKey forKey:@"oauth_consumer_key"];
+	[parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
+	if (_oauthToken) [parameters setObject:_oauthToken forKey:@"oauth_token"];
+	if (_oauthTokenSecret) [parameters setObject:_oauthTokenSecret forKey:@"oauth_token_secret"];
+	if (_oauthVerifier) [parameters setObject:_oauthVerifier forKey:@"oauth_verifier"];
+	return [parameters copy];
+}
+
+- (void)_signURLRequest:(NSMutableURLRequest *)request {
 	
-	NSMutableDictionary *allHTTPHeaderFields = [[request allHTTPHeaderFields] mutableCopy];
-	
-	NSMutableDictionary *oauthParameters = [NSMutableDictionary new];
-	
-	[oauthParameters setObject:_consumerKey forKey:@"oauth_consumer_key"];
-	if (self.callbackURL) [oauthParameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
-	if (_oauthToken) [oauthParameters setObject:_oauthToken forKey:@"oauth_token"];
-	[oauthParameters addEntriesFromDictionary:parameters];
+	NSMutableDictionary *allHTTPHeaderFields = [NSMutableDictionary new];
+	[allHTTPHeaderFields addEntriesFromDictionary:[request allHTTPHeaderFields]];
 	
 	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
 																 HTTPMethod:request.HTTPMethod
 															 consumerSecret:_consumerSecret
 																secretToken:_oauthTokenSecret
-																 parameters:oauthParameters];
+																 parameters:[self _OAuthParameters]];
 	
 	[allHTTPHeaderFields setObject:[signature authorizationHeader] forKey:@"Authorization"];
-	[request setAllHTTPHeaderFields:allHTTPHeaderFields];	
-}
-
-- (void)_signURLRequest:(NSMutableURLRequest *)request {
-	[self _signURLRequest:request oauthParameters:nil];
+	[request setAllHTTPHeaderFields:allHTTPHeaderFields];
+	
+	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), request.URL, request.allHTTPHeaderFields);
 }
 
 - (NSString *)description {
