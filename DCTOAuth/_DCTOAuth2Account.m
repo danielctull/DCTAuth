@@ -89,29 +89,38 @@
 	[self _setValue:_state forSecureKey:@"_state"];
 }
 
-- (void)_authorizeWithParameters:(NSDictionary *)inputParameters completion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
 	
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters addEntriesFromDictionary:inputParameters];
-	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	[parameters setObject:_clientID forKey:@"client_id"];
-	[parameters setObject:@"code" forKey:@"response_type"];
-	[parameters setObject:[_scopes componentsJoinedByString:@","] forKey:@"scope"];
-	[parameters setObject:_state forKey:@"state"];
+	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
 	
-	NSMutableArray *keyValues = [NSMutableArray new];
-	[parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]]];
-	}];
+	void (^completion)(NSDictionary *) = ^(NSDictionary *dictionary) {
+		[returnedValues addEntriesFromDictionary:dictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
+		if (handler != NULL) handler([returnedValues copy]);
+	};
 	
-	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [_authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
-	NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
+	void (^fetchToken)(NSDictionary *) = ^(NSDictionary *dictionary) {
+		[returnedValues addEntriesFromDictionary:dictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
+		[self _fetchTokenWithCompletion:completion];
+	};
+	
+	[self _authorizeWithCompletion:fetchToken];
+}
+
+- (void)_authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+	
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_authorizeURL
+                                                      requestMethod:DCTOAuthRequestMethodGET
+                                                         parameters:[self _OAuthParameters]];
+	
+	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
 	[DCTOAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
-		
+	
 #ifdef TARGET_OS_IPHONE
 	[[UIApplication sharedApplication] openURL:authorizeURL];
 #else
@@ -119,38 +128,11 @@
 #endif
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
-	
-	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
-	
-	void (^tokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		if (handler != NULL) handler([returnedValues copy]);
-	};
-	
-	void (^authorizeCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		[self _fetchTokenWithParameters:dictionary completion:tokenCompletion];
-	};
-	
-	[self _authorizeWithParameters:nil completion:authorizeCompletion];
-}
-
-- (void)_fetchTokenWithParameters:(NSDictionary *)inputParameters completion:(void(^)(NSDictionary *returnedValues))completion {
-	
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters addEntriesFromDictionary:inputParameters];
-	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	[parameters setObject:_clientID forKey:@"client_id"];
-	[parameters setObject:_clientSecret forKey:@"client_secret"];
-	[parameters setObject:_code forKey:@"code"];
-	[parameters setObject:_state forKey:@"state"];
+- (void)_fetchTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
 	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
                                                       requestMethod:DCTOAuthRequestMethodPOST
-                                                         parameters:parameters];
+                                                         parameters:nil];
 	
 	request.account = self;
 	
@@ -166,8 +148,26 @@
 
 - (void)_signURLRequest:(NSMutableURLRequest *)request {
 	NSURL *URL = [request URL];
-	URL = [URL dctOAuth_URLByAddingQueryParameters:@{ @"access_token" : _accessToken }];
+	URL = [URL dctOAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
 	request.URL = URL;
+}
+
+- (NSDictionary *)_OAuthParameters {
+	NSMutableDictionary *parameters = [NSMutableDictionary new];
+	
+	if (_accessToken) {
+		[parameters setObject:_accessToken forKey:@"access_token"];
+		return [parameters copy];
+	}
+	
+	[parameters setObject:_clientID forKey:@"client_id"];
+	[parameters setObject:_state forKey:@"state"];
+	if ([_scopes count] > 0) [parameters setObject:[_scopes componentsJoinedByString:@","] forKey:@"scope"];
+	if (_clientSecret) [parameters setObject:_clientSecret forKey:@"client_secret"];
+	if (_code) [parameters setObject:_code forKey:@"code"];
+	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
+	
+	return [parameters copy];
 }
 
 - (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
