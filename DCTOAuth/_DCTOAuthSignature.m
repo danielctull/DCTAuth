@@ -18,18 +18,15 @@ NSString * const DTOAuthSignatureTypeString[] = {
 
 @implementation _DCTOAuthSignature {
 	__strong NSURL *_URL;
-	__strong NSString *_consumerKey;
 	__strong NSString *_consumerSecret;
 	__strong NSString *_secretToken;
 	__strong NSMutableDictionary *_parameters;
-	DCTOAuthRequestMethod _requestMethod;
+	__strong NSString *_HTTPMethod;
 }
 
 - (id)initWithURL:(NSURL *)URL
-	requestMethod:(DCTOAuthRequestMethod)requestMethod
-	  consumerKey:(NSString *)consumerKey
+	   HTTPMethod:(NSString *)HTTPMethod
    consumerSecret:(NSString *)consumerSecret
-			token:(NSString *)token
 	  secretToken:(NSString *)secretToken
 	   parameters:(NSDictionary *)parameters {
 	
@@ -37,22 +34,18 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	if (!self) return nil;
 	
 	_URL = [URL copy];
-	_requestMethod = requestMethod;
-	_consumerKey = [consumerKey copy];
+	_HTTPMethod = [HTTPMethod copy];
 	_consumerSecret = [consumerSecret copy];
 	_secretToken = [secretToken copy];
-	
 	_parameters = [NSMutableDictionary new];
 	
 	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
 	NSString *timestamp = [NSString stringWithFormat:@"%i", (NSInteger)timeInterval];
 	NSString *nonce = [[NSProcessInfo processInfo] globallyUniqueString];
 	NSString *version = @"1.0";
-	if (token) [_parameters setObject:token forKey:@"oauth_token"];
 	[_parameters setObject:version forKey:@"oauth_version"];
 	[_parameters setObject:nonce forKey:@"oauth_nonce"];
 	[_parameters setObject:timestamp forKey:@"oauth_timestamp"];
-	[_parameters setObject:_consumerKey forKey:@"oauth_consumer_key"];
 	[_parameters setObject:DTOAuthSignatureTypeString[self.type] forKey:@"oauth_signature_method"];
 	[_parameters addEntriesFromDictionary:parameters];
 	
@@ -68,7 +61,7 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	return [_parameters copy];
 }
 
-- (NSString *)signedString {
+- (NSString *)_signedString {
 	
 	NSMutableArray *parameters = [NSMutableArray new];
 	
@@ -83,7 +76,7 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	NSString *parameterString = [parameters componentsJoinedByString:@"&"];
 	
 	NSMutableArray *baseArray = [NSMutableArray new];
-	[baseArray addObject:[NSStringFromDCTOAuthRequestMethod(_requestMethod) dctOAuth_URLEncodedString]];
+	[baseArray addObject:_HTTPMethod];
 	[baseArray addObject:[[_URL absoluteString] dctOAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctOAuth_URLEncodedString]];
 	
@@ -100,7 +93,25 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	NSData *theData = [NSData dataWithBytes:result length:20];
 	NSData *base64EncodedData = [theData dctOAuth_base64EncodedData];
 	NSString *string = [[NSString alloc] initWithData:base64EncodedData encoding:NSUTF8StringEncoding];
+	
 	return [string dctOAuth_URLEncodedString];
+}
+
+- (NSString *)authorizationHeader {
+	
+	NSMutableArray *parameterStringsArray = [NSMutableArray new];
+	[_parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        NSString *encodedKey = [key dctOAuth_URLEncodedString];
+        NSString *encodedValue = [value dctOAuth_URLEncodedString];
+		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
+		[parameterStringsArray addObject:string];
+	}];
+	
+	NSString *string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [self _signedString]];
+	[parameterStringsArray addObject:string];
+	NSString *parameterString = [parameterStringsArray componentsJoinedByString:@","];
+	
+	return [NSString stringWithFormat:@"OAuth %@", parameterString];
 }
 
 @end

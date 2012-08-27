@@ -16,18 +16,13 @@ typedef enum {
 @interface _DCTOAuthSignature : NSObject
 
 - (id)initWithURL:(NSURL *)URL
-	requestMethod:(DCTOAuthRequestMethod)requestMethod
-	  consumerKey:(NSString *)consumerKey
+	   HTTPMethod:(NSString *)HTTPMethod
    consumerSecret:(NSString *)consumerSecret
-			token:(NSString *)token
 	  secretToken:(NSString *)secretToken
 	   parameters:(NSDictionary *)parameters;
 
-
-@property (nonatomic, readonly) NSDictionary *parameters;
-
 @property (nonatomic, assign) DCTOAuthSignatureType type;
 
-- (NSString *)signedString;
+- (NSString *)authorizationHeader;
 
 @end

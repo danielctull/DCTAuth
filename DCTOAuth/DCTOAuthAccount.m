@@ -11,6 +11,7 @@
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import <Security/Security.h>
+#import "NSString+DCTOAuth.h"
 
 @implementation DCTOAuthAccount {
 	__strong NSURL *_discoveredCallbackURL;
@@ -91,9 +92,7 @@
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 }
 
-- (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
-	return nil;
-}
+- (void)_OAuthRequest:(DCTOAuthRequest *)OAuthRequest signURLRequest:(NSMutableURLRequest *)request {}
 
 - (void)_willBeDeleted {
 	[self _removeValueForSecureKey:nil];

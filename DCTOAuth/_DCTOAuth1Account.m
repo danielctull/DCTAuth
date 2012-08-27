@@ -119,15 +119,14 @@
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters addEntriesFromDictionary:userParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
+	[parameters setObject:[self.callbackURL absoluteString] forKey:@""];
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_requestTokenURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
-                                                         parameters:parameters];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_requestTokenURL];
+	[self _signURLRequest:request oauthParameters:parameters];
 	
-	request.account = self;
-	
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), string);
 		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
@@ -155,13 +154,13 @@
 	[parameters addEntriesFromDictionary:inputParameters];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
 	
-	NSMutableArray *keyValues = [NSMutableArray new];
-	[parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-		[keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]]];
-	}];
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
+                                                      requestMethod:DCTOAuthRequestMethodGET
+                                                         parameters:parameters];
 	
-	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [_authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
-	NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
+	NSURL *authorizeURL = [[request signedURLRequest] URL];
+	
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), authorizeURL);
 	
 	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		[_DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
@@ -187,32 +186,29 @@
 	}];
 }
 
-- (NSURLRequest *)_signedURLRequestFromOAuthRequest:(DCTOAuthRequest *)OAuthRequest {
+- (void)_signURLRequest:(NSMutableURLRequest *)request oauthParameters:(NSDictionary *)parameters {
 	
-	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:OAuthRequest.URL
-															requestMethod:OAuthRequest.requestMethod
-															  consumerKey:_consumerKey
-														   consumerSecret:_consumerSecret
-																	token:_oauthToken
-															  secretToken:_oauthTokenSecret
-															   parameters:OAuthRequest.parameters];
+	NSMutableDictionary *allHTTPHeaderFields = [[request allHTTPHeaderFields] mutableCopy];
 	
-	NSMutableArray *parameters = [NSMutableArray new];
-	[signature.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *encodedKey = [key dctOAuth_URLEncodedString];
-        NSString *encodedValue = [value dctOAuth_URLEncodedString];
-		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
-		[parameters addObject:string];
-	}];
+	NSMutableDictionary *oauthParameters = [NSMutableDictionary new];
 	
-	NSString *string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [signature signedString]];
-	[parameters addObject:string];
-	NSString *parameterString = [parameters componentsJoinedByString:@","];
+	[oauthParameters setObject:_consumerKey forKey:@"oauth_consumer_key"];
+	if (self.callbackURL) [oauthParameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
+	if (_oauthToken) [oauthParameters setObject:_oauthToken forKey:@"oauth_token"];
+	[oauthParameters addEntriesFromDictionary:parameters];
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:OAuthRequest.URL];
-	[request setHTTPMethod:NSStringFromDCTOAuthRequestMethod(OAuthRequest.requestMethod)];
-	[request setAllHTTPHeaderFields:@{ @"Authorization" : [NSString stringWithFormat:@"OAuth %@", parameterString]}];
-	return request;
+	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
+																 HTTPMethod:request.HTTPMethod
+															 consumerSecret:_consumerSecret
+																secretToken:_oauthTokenSecret
+																 parameters:oauthParameters];
+	
+	[allHTTPHeaderFields setObject:[signature authorizationHeader] forKey:@"Authorization"];
+	[request setAllHTTPHeaderFields:allHTTPHeaderFields];	
+}
+
+- (void)_signURLRequest:(NSMutableURLRequest *)request {
+	[self _signURLRequest:request oauthParameters:nil];
 }
 
 - (NSString *)description {
