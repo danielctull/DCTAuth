@@ -83,38 +83,29 @@
 	
 	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
 	
-	void (^accessTokenCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
+	void (^completion)(NSDictionary *) = ^(NSDictionary *dictionary) {
 		[returnedValues addEntriesFromDictionary:dictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
 		if (handler != NULL) handler([returnedValues copy]);
 	};
 	
-	void (^requestTokenCompletion)(NSDictionary *) = nil;
+	void (^fetchAccessToken)(NSDictionary *) = ^(NSDictionary *dictionary) {
+		[returnedValues addEntriesFromDictionary:dictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
+		[self _fetchAccessTokenWithCompletion:completion];
+	};
 	
-	if (_authorizeURL) {
-		
-		void (^authorizeCompletion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-			[returnedValues addEntriesFromDictionary:dictionary];
-			[self _setValuesFromOAuthDictionary:dictionary];
-			[self fetchRequestTokenWithParameters:dictionary completion:accessTokenCompletion];
-		};
-		
-		requestTokenCompletion = ^(NSDictionary *dictionary) {
-			[returnedValues addEntriesFromDictionary:dictionary];
-			[self _setValuesFromOAuthDictionary:dictionary];
-			[self authorizeWithCompletion:authorizeCompletion];
-		};
-		
-	} else {
-		
-		requestTokenCompletion = ^(NSDictionary *dictionary) {
-			[returnedValues addEntriesFromDictionary:dictionary];
-			[self _setValuesFromOAuthDictionary:dictionary];
-			[self fetchRequestTokenWithParameters:dictionary completion:accessTokenCompletion];
-		};
-	}
+	void (^authorizeUser)(NSDictionary *) = ^(NSDictionary *dictionary) {
+		[returnedValues addEntriesFromDictionary:dictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
+		[self _authorizeWithCompletion:fetchAccessToken];
+	};
 	
-	[self _fetchRequestTokenWithCompletion:requestTokenCompletion];
+	// If there's no authorizeURL, assume there is no authorize step.
+	// This is valid as shown by the server used in the demo app.
+	if (!_authorizeURL) authorizeUser = fetchAccessToken;
+	
+	[self _fetchRequestTokenWithCompletion:authorizeUser];
 }
 
 - (void)_fetchRequestTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
@@ -131,23 +122,7 @@
 	}];
 }
 
-- (void)fetchRequestTokenWithParameters:(NSDictionary *)parameters completion:(void(^)(NSDictionary *returnedValues))completion {
-	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
-                                                         parameters:parameters];
-	
-	request.account = self;
-	
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
-		completion(dictionary);
-	}];
-}
-
-
-- (void)authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
 	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_authorizeURL
                                                       requestMethod:DCTOAuthRequestMethodGET
@@ -162,6 +137,20 @@
 		completion(dictionary);
 	}];
 	[[UIApplication sharedApplication] openURL:authorizeURL];
+}
+
+- (void)_fetchAccessTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+	
+	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
+                                                      requestMethod:DCTOAuthRequestMethodGET
+                                                         parameters:nil];
+	request.account = self;
+	
+	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
+		completion(dictionary);
+	}];
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
@@ -201,8 +190,6 @@
 	
 	[allHTTPHeaderFields setObject:[signature authorizationHeader] forKey:@"Authorization"];
 	[request setAllHTTPHeaderFields:allHTTPHeaderFields];
-	
-	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), request.URL, request.allHTTPHeaderFields);
 }
 
 - (NSString *)description {
