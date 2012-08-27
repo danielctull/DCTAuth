@@ -27,6 +27,7 @@
 @property (nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) NSString *identifier;
 
+@property (nonatomic, copy) NSString *accountDescription;
 @property (nonatomic, copy) NSURL *callbackURL;
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler;
