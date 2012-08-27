@@ -10,3 +10,7 @@
 #import "DCTOAuthAccount.h"
 #import "DCTOAuthAccountStore.h"
 #import "DCTOAuthRequest.h"
+
+@interface DCTOAuth
++ (BOOL)handleURL:(NSURL *)URL;
+@end

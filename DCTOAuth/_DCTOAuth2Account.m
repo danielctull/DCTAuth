@@ -9,7 +9,7 @@
 #import "_DCTOAuth2Account.h"
 #import "_DCTOAuthAccount.h"
 #import "NSString+DCTOAuth.h"
-#import "_DCTOAuthURLProtocol.h"
+#import "_DCTOAuth.h"
 #import <UIKit/UIKit.h>
 
 @implementation _DCTOAuth2Account {
@@ -106,9 +106,7 @@
 	NSString *authorizeURLString = [NSString stringWithFormat:@"%@?%@", [_authorizeURL absoluteString], [keyValues componentsJoinedByString:@"&"]];
 	NSURL *authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
-	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
-		[_DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
-		
+	[DCTOAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];

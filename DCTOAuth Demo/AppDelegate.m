@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <DCTOAuth/DCTOAuth.h>
 #import "OAuthTestViewController.h"
 
 @implementation AppDelegate
@@ -19,18 +20,12 @@
     return YES;
 }
 
-// These methods fire the URL as a request in a connection. Custom protocol handlers
-// will handle these. For instance, the Facebook handler will handle Facebook callbacks
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
-	[NSURLConnection connectionWithRequest:request delegate:nil];
-	return NO;
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)URL {
+	return [DCTOAuth handleURL:URL];
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
-	[NSURLConnection connectionWithRequest:request delegate:nil];
-	return NO;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+	return [DCTOAuth handleURL:URL];
 }
 
 @end

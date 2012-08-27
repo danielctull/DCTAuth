@@ -11,7 +11,7 @@
 #import "DCTOAuthRequest.h"
 #import "_DCTOAuthSignature.h"
 #import "NSString+DCTOAuth.h"
-#import "_DCTOAuthURLProtocol.h"
+#import "_DCTOAuth.h"
 #import <UIKit/UIKit.h>
 
 @implementation _DCTOAuth1Account {
@@ -130,9 +130,7 @@
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[_DCTOAuthURLProtocol registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
-		[_DCTOAuthURLProtocol unregisterForCallbackURL:self.callbackURL];
-		
+	[DCTOAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
