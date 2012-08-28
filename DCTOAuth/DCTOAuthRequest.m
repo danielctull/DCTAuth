@@ -41,17 +41,12 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
 	[mutableRequest setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
 	
-	switch (self.requestMethod) {
-			
-		case DCTOAuthRequestMethodGET:
-			[mutableRequest setURL:[self.URL dctOAuth_URLByAddingQueryParameters:self.parameters]];
-			break;
-			
-		case DCTOAuthRequestMethodPOST:
-			[mutableRequest setURL:self.URL];
-			[mutableRequest setAllHTTPHeaderFields:@{ @"Content-Type" : @"multipart/form-data" }];
-			[mutableRequest setHTTPBody:[self.parameters dctOAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
-			break;
+	if (self.requestMethod == DCTOAuthRequestMethodGET)
+		[mutableRequest setURL:[self.URL dctOAuth_URLByAddingQueryParameters:self.parameters]];
+	
+	else if (self.requestMethod == DCTOAuthRequestMethodPOST) {
+		[mutableRequest setURL:self.URL];
+		[mutableRequest setHTTPBody:[self.parameters dctOAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
 	}
 	
 	return mutableRequest;
@@ -59,7 +54,7 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 
 - (NSURLRequest *)signedURLRequest {
 	NSMutableURLRequest *request = [self _URLRequest];
-	[self.account _signURLRequest:request];
+	[self.account _signURLRequest:request oauthRequest:self];
 	return request;
 }
 
