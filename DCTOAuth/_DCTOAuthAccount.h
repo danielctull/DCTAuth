@@ -11,6 +11,7 @@
 
 @interface DCTOAuthAccount (Private) <NSCoding>
 
+- (void)_setAuthorized:(BOOL)authorized;
 - (void)_signURLRequest:(NSMutableURLRequest *)request;
 
 - (id)initWithType:(NSString *)type;

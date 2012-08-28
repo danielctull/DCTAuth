@@ -158,6 +158,7 @@
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
+		[self _setAuthorized:([dictionary objectForKey:@"oauth_token_secret"] != nil)];
 		completion(dictionary);
 	}];
 }

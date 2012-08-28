@@ -26,6 +26,7 @@
 
 @property (nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) NSString *identifier;
+@property (nonatomic, readonly, getter = isAuthorized) BOOL authorized;
 
 @property (nonatomic, copy) NSString *accountDescription;
 @property (nonatomic, copy) NSURL *callbackURL;
