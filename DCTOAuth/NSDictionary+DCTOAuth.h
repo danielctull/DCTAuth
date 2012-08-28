@@ -11,5 +11,6 @@
 @interface NSDictionary (DCTOAuth)
 
 - (NSString *)dctOAuth_queryString;
+- (NSData *)dctOAuth_bodyFormDataUsingEncoding:(NSStringEncoding)encoding;
 
 @end

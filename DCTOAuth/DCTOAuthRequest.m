@@ -9,6 +9,7 @@
 #import "DCTOAuthRequest.h"
 #import "_DCTOAuthAccount.h"
 #import "NSURL+DCTOAuth.h"
+#import "NSDictionary+DCTOAuth.h"
 
 NSString * const DCTOAuthRequestMethodString[] = {
 	@"GET",
@@ -36,9 +37,23 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 }
 
 - (NSMutableURLRequest *)_URLRequest {
-	NSURL *URL = [self.URL dctOAuth_URLByAddingQueryParameters:self.parameters];	
-	NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
+	
+	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
 	[mutableRequest setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
+	
+	switch (self.requestMethod) {
+			
+		case DCTOAuthRequestMethodGET:
+			[mutableRequest setURL:[self.URL dctOAuth_URLByAddingQueryParameters:self.parameters]];
+			break;
+			
+		case DCTOAuthRequestMethodPOST:
+			[mutableRequest setURL:self.URL];
+			[mutableRequest setAllHTTPHeaderFields:@{ @"Content-Type" : @"multipart/form-data" }];
+			[mutableRequest setHTTPBody:[self.parameters dctOAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
+			break;
+	}
+	
 	return mutableRequest;
 }
 
