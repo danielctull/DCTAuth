@@ -13,7 +13,9 @@
 @implementation NSURL (DCTAuth)
 
 - (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters {
-	
+
+	if ([parameters count] == 0) return self;
+
 	NSMutableString *URLString = [NSMutableString new];
 	
 	NSString *scheme = [self scheme];
@@ -30,14 +32,15 @@
 	if (port) [URLString appendFormat:@":%@", port];
 	
 	[URLString appendString:[self path]];
+
+	[URLString appendFormat:@"?%@", [parameters dctAuth_queryString]];
 	
-	NSMutableDictionary *queryParameters = [NSMutableDictionary new];
-	NSDictionary *query = [[self query] dctAuth_parameterDictionary];
-	[queryParameters addEntriesFromDictionary:query];
-	[queryParameters addEntriesFromDictionary:parameters];
-	NSString *queryString = [queryParameters dctAuth_queryString];
-	if (queryString) [URLString appendFormat:@"?%@", queryString];
-	
+	NSString *queryString = [self query];
+	if (queryString) [URLString appendFormat:@"&%@", queryString];
+
+	NSString *fragment = [self fragment];
+	if (fragment) [URLString appendFormat:@"#%@", fragment];
+
 	return [NSURL URLWithString:URLString];
 }
 
