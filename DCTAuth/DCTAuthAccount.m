@@ -114,8 +114,6 @@
 	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {}
-
 - (void)_willBeDeleted {
 	[self _removeValueForSecureKey:nil];
 }

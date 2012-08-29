@@ -61,7 +61,7 @@
 	}];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {
+- (void)_signURLRequest:(NSMutableURLRequest *)request authRequest:(DCTAuthRequest *)oauthRequest {
 
 	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", _username, _password];
 

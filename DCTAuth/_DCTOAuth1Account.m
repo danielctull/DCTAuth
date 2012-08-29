@@ -187,11 +187,11 @@
 	return [parameters copy];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {
+- (void)_signURLRequest:(NSMutableURLRequest *)request authRequest:(DCTAuthRequest *)authRequest {
 	
 	NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
 	[OAuthParameters addEntriesFromDictionary:[self _OAuthParameters]];
-	[OAuthParameters addEntriesFromDictionary:oauthRequest.parameters];
+	[OAuthParameters addEntriesFromDictionary:authRequest.parameters];
 	
 	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
 																 HTTPMethod:request.HTTPMethod
