@@ -13,7 +13,8 @@
 
 NSString * const DCTAuthRequestMethodString[] = {
 	@"GET",
-	@"POST"
+	@"POST",
+	@"DELETE"
 };
 
 NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
@@ -43,7 +44,10 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 	
 	if (self.requestMethod == DCTAuthRequestMethodGET)
 		[mutableRequest setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
-	
+
+	else if (self.requestMethod == DCTAuthRequestMethodDELETE)
+		[mutableRequest setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
+
 	else if (self.requestMethod == DCTAuthRequestMethodPOST) {
 		[mutableRequest setURL:self.URL];
 		[mutableRequest setHTTPBody:[self.parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
