@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthAccount.h"
-#import "DCTOAuthAccountStore.h"
-#import "DCTOAuthRequest.h"
+#import "DCTAuthAccount.h"
+#import "DCTAuthAccountStore.h"
+#import "DCTAuthRequest.h"
 
-@interface DCTOAuth
+@interface DCTAuth
 + (BOOL)handleURL:(NSURL *)URL;
 @end

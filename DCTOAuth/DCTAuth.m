@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuth.h"
+#import "DCTAuth.h"
 #import "_DCTOAuth.h"
 
-@implementation DCTOAuth
+@implementation DCTAuth
 
 + (BOOL)handleURL:(NSURL *)URL {
 	
@@ -49,7 +49,7 @@
 
 @end
 
-@implementation DCTOAuth (Private)
+@implementation DCTAuth (Private)
 
 + (void)_registerForCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
 	[[self _handlers] setObject:[handler copy] forKey:[callbackURL copy]];

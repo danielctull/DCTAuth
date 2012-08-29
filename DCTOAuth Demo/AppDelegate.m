@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <DCTOAuth/DCTOAuth.h>
+#import <DCTOAuth/DCTAuth.h>
 #import "OAuthTestViewController.h"
 
 @implementation AppDelegate
@@ -21,11 +21,11 @@
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)URL {
-	return [DCTOAuth handleURL:URL];
+	return [DCTAuth handleURL:URL];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-	return [DCTOAuth handleURL:URL];
+	return [DCTAuth handleURL:URL];
 }
 
 @end

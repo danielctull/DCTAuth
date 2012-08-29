@@ -7,25 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthAccount.h"
+#import "DCTAuthAccount.h"
 
 typedef enum : NSUInteger {
-	DCTOAuthRequestMethodGET,
-	DCTOAuthRequestMethodPOST
-} DCTOAuthRequestMethod;
+	DCTAuthRequestMethodGET,
+	DCTAuthRequestMethodPOST
+} DCTAuthRequestMethod;
 
-NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method);
+NSString * NSStringFromDCTOAuthRequestMethod(DCTAuthRequestMethod method);
 
 
-@interface DCTOAuthRequest : NSObject
+@interface DCTAuthRequest : NSObject
 
-- (id)initWithURL:(NSURL *)URL requestMethod:(DCTOAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters;
+- (id)initWithURL:(NSURL *)URL requestMethod:(DCTAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters;
 
 @property(nonatomic, readonly) NSURL *URL;
-@property(nonatomic, readonly) DCTOAuthRequestMethod requestMethod;
+@property(nonatomic, readonly) DCTAuthRequestMethod requestMethod;
 @property(nonatomic, readonly) NSDictionary *parameters;
 
-@property(nonatomic, strong) DCTOAuthAccount *account;
+@property(nonatomic, strong) DCTAuthAccount *account;
 //- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
 
 - (NSURLRequest *)signedURLRequest;

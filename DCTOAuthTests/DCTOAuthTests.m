@@ -28,7 +28,7 @@
 {
 /*
 	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://term.ie/oauth/example/request_token.php"]
-															requestMethod:DCTOAuthRequestMethodGET
+															requestMethod:DCTAuthRequestMethodGET
 															  consumerKey:@"key"
 														   consumerSecret:@"secret"
 															  secretToken:nil

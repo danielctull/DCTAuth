@@ -6,24 +6,24 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthRequest.h"
+#import "DCTAuthRequest.h"
 #import "_DCTOAuthAccount.h"
 #import "NSURL+DCTOAuth.h"
 #import "NSDictionary+DCTOAuth.h"
 
-NSString * const DCTOAuthRequestMethodString[] = {
+NSString * const DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST"
 };
 
-NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
-	return DCTOAuthRequestMethodString[method];
+NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
+	return DCTAuthRequestMethodString[method];
 }
 
-@implementation DCTOAuthRequest
+@implementation DCTAuthRequest
 
 - (id)initWithURL:(NSURL *)URL
-    requestMethod:(DCTOAuthRequestMethod)requestMethod
+    requestMethod:(DCTAuthRequestMethod)requestMethod
        parameters:(NSDictionary *)parameters {
 	
 	self = [self init];
@@ -39,12 +39,12 @@ NSString * NSStringFromDCTOAuthRequestMethod(DCTOAuthRequestMethod method) {
 - (NSMutableURLRequest *)_URLRequest {
 	
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
-	[mutableRequest setHTTPMethod:NSStringFromDCTOAuthRequestMethod(self.requestMethod)];
+	[mutableRequest setHTTPMethod:NSStringFromDCTAuthRequestMethod(self.requestMethod)];
 	
-	if (self.requestMethod == DCTOAuthRequestMethodGET)
+	if (self.requestMethod == DCTAuthRequestMethodGET)
 		[mutableRequest setURL:[self.URL dctOAuth_URLByAddingQueryParameters:self.parameters]];
 	
-	else if (self.requestMethod == DCTOAuthRequestMethodPOST) {
+	else if (self.requestMethod == DCTAuthRequestMethodPOST) {
 		[mutableRequest setURL:self.URL];
 		[mutableRequest setHTTPBody:[self.parameters dctOAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
 	}

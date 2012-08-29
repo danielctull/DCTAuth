@@ -8,7 +8,7 @@
 
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuthAccount.h"
-#import "DCTOAuthRequest.h"
+#import "DCTAuthRequest.h"
 #import "_DCTOAuthSignature.h"
 #import "NSString+DCTOAuth.h"
 #import "_DCTOAuth.h"
@@ -116,8 +116,8 @@
 
 - (void)_fetchRequestTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_requestTokenURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_requestTokenURL
+                                                      requestMethod:DCTAuthRequestMethodGET
                                                          parameters:nil];
 	request.account = self;
 	
@@ -130,13 +130,13 @@
 
 - (void)_authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_authorizeURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
+                                                      requestMethod:DCTAuthRequestMethodGET
                                                          parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[DCTOAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
 		completion(dictionary);
 	}];
@@ -150,8 +150,8 @@
 
 - (void)_fetchAccessTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
+                                                      requestMethod:DCTAuthRequestMethodGET
                                                          parameters:nil];
 	request.account = self;
 	
@@ -187,7 +187,7 @@
 	return [parameters copy];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTOAuthRequest *)oauthRequest {
+- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {
 	
 	NSMutableDictionary *allHTTPHeaderFields = [NSMutableDictionary new];
 	[allHTTPHeaderFields addEntriesFromDictionary:[request allHTTPHeaderFields]];

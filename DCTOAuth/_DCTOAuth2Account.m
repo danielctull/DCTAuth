@@ -118,13 +118,13 @@
 	[parameters addEntriesFromDictionary:[self _OAuthParameters]];
 	if (!_accessTokenURL) [parameters setObject:@"token" forKey:@"response_type"];
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_authorizeURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
+                                                      requestMethod:DCTAuthRequestMethodGET
                                                          parameters:parameters];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[DCTOAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSMutableDictionary *dictionary = [NSMutableDictionary new];
 		NSDictionary *queryDictionary = [[URL query] dctOAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:queryDictionary];
@@ -142,8 +142,8 @@
 
 - (void)_fetchAccessTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	DCTOAuthRequest *request = [[DCTOAuthRequest alloc] initWithURL:_accessTokenURL
-                                                      requestMethod:DCTOAuthRequestMethodGET
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
+                                                      requestMethod:DCTAuthRequestMethodGET
                                                          parameters:[self _OAuthParameters]];
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
@@ -156,7 +156,7 @@
 	}];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTOAuthRequest *)oauthRequest {
+- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {
 	NSURL *URL = [request URL];
 	URL = [URL dctOAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
 	request.URL = URL;

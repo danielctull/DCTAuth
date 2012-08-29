@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuth.h"
+#import "DCTAuth.h"
 
-@interface DCTOAuth (Private)
+@interface DCTAuth (Private)
 + (void)_registerForCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
 @end

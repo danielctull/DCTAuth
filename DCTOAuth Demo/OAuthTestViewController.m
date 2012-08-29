@@ -7,7 +7,7 @@
 //
 
 #import "OAuthTestViewController.h"
-#import <DCTOAuth/DCTOAuth.h>
+#import <DCTOAuth/DCTAuth.h>
 
 @interface OAuthTestViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *consumerKeyTextField;
@@ -64,12 +64,12 @@
 	NSString *authorizeURLString = self.authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
-	DCTOAuthAccount *oauthAccount = [DCTOAuthAccount OAuthAccountWithType:@"term.ie"
-														  requestTokenURL:requestTokenURL
-															 authorizeURL:authorizeURL
-														   accessTokenURL:accessTokenURL
-															  consumerKey:consumerKey
-														   consumerSecret:consumerSecret];
+	DCTAuthAccount *oauthAccount = [DCTAuthAccount OAuthAccountWithType:@"term.ie"
+														requestTokenURL:requestTokenURL
+														   authorizeURL:authorizeURL
+														 accessTokenURL:accessTokenURL
+															consumerKey:consumerKey
+														 consumerSecret:consumerSecret];
 	
 	[oauthAccount authenticateWithHandler:^(NSDictionary *returnedValues) {
 		

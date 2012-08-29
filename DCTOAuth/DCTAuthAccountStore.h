@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCTOAuthAccount.h"
+#import "DCTAuthAccount.h"
 
-@interface DCTOAuthAccountStore : NSObject
+@interface DCTAuthAccountStore : NSObject
 
 @property(nonatomic, readonly) NSArray *accounts;
 
 - (NSArray *)accountsWithType:(NSString *)type;
-- (DCTOAuthAccount *)accountWithIdentifier:(NSString *)identifier;
+- (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier;
 
-- (void)saveAccount:(DCTOAuthAccount *)account;
-- (void)deleteAccount:(DCTOAuthAccount *)account;
+- (void)saveAccount:(DCTAuthAccount *)account;
+- (void)deleteAccount:(DCTAuthAccount *)account;
 
 @end

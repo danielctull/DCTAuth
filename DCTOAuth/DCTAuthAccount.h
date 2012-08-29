@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DCTOAuthAccount : NSObject
+@interface DCTAuthAccount : NSObject
 
-+ (DCTOAuthAccount *)OAuthAccountWithType:(NSString *)type
++ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
 						  requestTokenURL:(NSURL *)requestTokenURL
 							 authorizeURL:(NSURL *)authorizeURL
 						   accessTokenURL:(NSURL *)accessTokenURL
 							  consumerKey:(NSString *)consumerKey
 						   consumerSecret:(NSString *)consumerSecret;
 
-+ (DCTOAuthAccount *)OAuth2AccountWithType:(NSString *)type
++ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
 							  authorizeURL:(NSURL *)authorizeURL
 							accessTokenURL:(NSURL *)accessTokenURL
 								  clientID:(NSString *)clientID

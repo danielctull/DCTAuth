@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthAccount.h"
-#import "DCTOAuthRequest.h"
+#import "DCTAuthAccount.h"
+#import "DCTAuthRequest.h"
 
-@interface DCTOAuthAccount (Private) <NSCoding>
+@interface DCTAuthAccount (Private) <NSCoding>
 
 - (void)_setAuthorized:(BOOL)authorized;
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTOAuthRequest *)oauthRequest;
+- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest;
 
 - (id)initWithType:(NSString *)type;
 

@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthAccount.h"
+#import "DCTAuthAccount.h"
 
-@interface _DCTOAuth2Account : DCTOAuthAccount
+@interface _DCTOAuth2Account : DCTAuthAccount
 
 - (id)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL

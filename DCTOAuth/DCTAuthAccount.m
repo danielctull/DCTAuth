@@ -6,18 +6,18 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthAccount.h"
+#import "DCTAuthAccount.h"
 #import "_DCTOAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import <Security/Security.h>
 #import "NSString+DCTOAuth.h"
 
-@implementation DCTOAuthAccount {
+@implementation DCTAuthAccount {
 	__strong NSURL *_discoveredCallbackURL;
 }
 
-+ (DCTOAuthAccount *)OAuthAccountWithType:(NSString *)type
++ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
 						  requestTokenURL:(NSURL *)requestTokenURL
 							 authorizeURL:(NSURL *)authorizeURL
 						   accessTokenURL:(NSURL *)accessTokenURL
@@ -32,7 +32,7 @@
 								   consumerSecret:consumerSecret];
 }
 
-+ (DCTOAuthAccount *)OAuth2AccountWithType:(NSString *)type
++ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
 							  authorizeURL:(NSURL *)authorizeURL
 							accessTokenURL:(NSURL *)accessTokenURL
 								  clientID:(NSString *)clientID
@@ -67,7 +67,7 @@
 
 @end
 
-@implementation DCTOAuthAccount (Private)
+@implementation DCTAuthAccount (Private)
 
 - (void)_setAuthorized:(BOOL)authorized {
 	[self willChangeValueForKey:@"authorized"];
@@ -102,7 +102,7 @@
 	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTOAuthRequest *)oauthRequest {}
+- (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {}
 
 - (void)_willBeDeleted {
 	[self _removeValueForSecureKey:nil];

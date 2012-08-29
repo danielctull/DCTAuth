@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthAccountStore.h"
+#import "DCTAuthAccountStore.h"
 #import "_DCTOAuthAccount.h"
 
-@implementation DCTOAuthAccountStore {
+@implementation DCTAuthAccountStore {
 	__strong NSFileManager *_fileManager;
 	__strong NSMutableArray *_accounts;
 }
@@ -27,7 +27,7 @@
 															error:nil];
 	
 	[identifiers enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger i, BOOL *stop) {
-		DCTOAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[URL path]];
+		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[URL path]];
 		[_accounts addObject:account];
 	}];
 	
@@ -43,19 +43,19 @@
 	return [_accounts filteredArrayUsingPredicate:predicate];
 }
 
-- (DCTOAuthAccount *)accountWithIdentifier:(NSString *)identifier {
+- (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
 	NSArray *filteredAccounts = [_accounts filteredArrayUsingPredicate:predicate];
 	return [filteredAccounts lastObject];
 }
 
-- (void)saveAccount:(DCTOAuthAccount *)account {
+- (void)saveAccount:(DCTAuthAccount *)account {
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
 	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
 	[_accounts addObject:account];
 }
 
-- (void)deleteAccount:(DCTOAuthAccount *)account {
+- (void)deleteAccount:(DCTAuthAccount *)account {
 	[account _willBeDeleted];
 	[_accounts removeObject:account];
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
