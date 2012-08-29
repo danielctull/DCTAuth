@@ -1,15 +1,15 @@
 //
-//  OAuthTestViewController.m
-//  DCTOAuthController
+//  AuthTestViewController.m
+//  DCTAuth
 //
 //  Created by Daniel Tull on 25.08.2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "OAuthTestViewController.h"
+#import "AuthTestViewController.h"
 #import <DCTOAuth/DCTAuth.h>
 
-@interface OAuthTestViewController ()
+@interface AuthTestViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *consumerKeyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *consumerSecretTextField;
 @property (weak, nonatomic) IBOutlet UITextField *requestTokenURLTextField;
@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *resultTextView;
 @end
 
-@implementation OAuthTestViewController
+@implementation AuthTestViewController
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle {
 	

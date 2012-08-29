@@ -8,14 +8,14 @@
 
 #import "AppDelegate.h"
 #import <DCTOAuth/DCTAuth.h>
-#import "OAuthTestViewController.h"
+#import "AuthTestViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[OAuthTestViewController new]];
+	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AuthTestViewController new]];
     [self.window makeKeyAndVisible];
     return YES;
 }

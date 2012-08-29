@@ -35,8 +35,8 @@
 		24FA903515E93E1F00E1ED99 /* DCTAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */; };
 		24FA903715E93E1F00E1ED99 /* _DCTOAuthSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA902F15E93E1F00E1ED99 /* _DCTOAuthSignature.m */; };
 		24FA903915E93E1F00E1ED99 /* NSString+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA903315E93E1F00E1ED99 /* NSString+DCTAuth.m */; };
-		24FA903D15E93E2C00E1ED99 /* OAuthTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA903B15E93E2C00E1ED99 /* OAuthTestViewController.m */; };
-		24FA903E15E93E2C00E1ED99 /* OAuthTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24FA903C15E93E2C00E1ED99 /* OAuthTestViewController.xib */; };
+		24FA903D15E93E2C00E1ED99 /* AuthTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA903B15E93E2C00E1ED99 /* AuthTestViewController.m */; };
+		24FA903E15E93E2C00E1ED99 /* AuthTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24FA903C15E93E2C00E1ED99 /* AuthTestViewController.xib */; };
 		24FA904115E93E6C00E1ED99 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		24FA904A15E940BA00E1ED99 /* DCTAuthRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA902A15E93E1F00E1ED99 /* DCTAuthRequest.h */; };
 		24FA904B15E940BC00E1ED99 /* DCTAuthAccount.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA902815E93E1F00E1ED99 /* DCTAuthAccount.h */; };
@@ -112,9 +112,9 @@
 		24FA902F15E93E1F00E1ED99 /* _DCTOAuthSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuthSignature.m; sourceTree = "<group>"; };
 		24FA903215E93E1F00E1ED99 /* NSString+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DCTAuth.h"; sourceTree = "<group>"; };
 		24FA903315E93E1F00E1ED99 /* NSString+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DCTAuth.m"; sourceTree = "<group>"; };
-		24FA903A15E93E2C00E1ED99 /* OAuthTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthTestViewController.h; sourceTree = "<group>"; };
-		24FA903B15E93E2C00E1ED99 /* OAuthTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthTestViewController.m; sourceTree = "<group>"; };
-		24FA903C15E93E2C00E1ED99 /* OAuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OAuthTestViewController.xib; sourceTree = "<group>"; };
+		24FA903A15E93E2C00E1ED99 /* AuthTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthTestViewController.h; sourceTree = "<group>"; };
+		24FA903B15E93E2C00E1ED99 /* AuthTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthTestViewController.m; sourceTree = "<group>"; };
+		24FA903C15E93E2C00E1ED99 /* AuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthTestViewController.xib; sourceTree = "<group>"; };
 		24FA904015E93E6C00E1ED99 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -252,9 +252,9 @@
 			children = (
 				24FA902215E93E0200E1ED99 /* AppDelegate.h */,
 				24FA902315E93E0200E1ED99 /* AppDelegate.m */,
-				24FA903A15E93E2C00E1ED99 /* OAuthTestViewController.h */,
-				24FA903B15E93E2C00E1ED99 /* OAuthTestViewController.m */,
-				24FA903C15E93E2C00E1ED99 /* OAuthTestViewController.xib */,
+				24FA903A15E93E2C00E1ED99 /* AuthTestViewController.h */,
+				24FA903B15E93E2C00E1ED99 /* AuthTestViewController.m */,
+				24FA903C15E93E2C00E1ED99 /* AuthTestViewController.xib */,
 				24FA901A15E93E0200E1ED99 /* Supporting Files */,
 			);
 			path = "DCTAuth Demo";
@@ -369,7 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24FA901E15E93E0200E1ED99 /* InfoPlist.strings in Resources */,
-				24FA903E15E93E2C00E1ED99 /* OAuthTestViewController.xib in Resources */,
+				24FA903E15E93E2C00E1ED99 /* AuthTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +424,7 @@
 			files = (
 				24FA902015E93E0200E1ED99 /* main.m in Sources */,
 				24FA902415E93E0200E1ED99 /* AppDelegate.m in Sources */,
-				24FA903D15E93E2C00E1ED99 /* OAuthTestViewController.m in Sources */,
+				24FA903D15E93E2C00E1ED99 /* AuthTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
