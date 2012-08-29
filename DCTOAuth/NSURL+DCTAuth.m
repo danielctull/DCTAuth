@@ -1,18 +1,18 @@
 //
-//  NSURL+DCTOAuth.m
+//  NSURL+DCTAuth.m
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 27/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "NSURL+DCTOAuth.h"
-#import "NSString+DCTOAuth.h"
-#import "NSDictionary+DCTOAuth.h"
+#import "NSURL+DCTAuth.h"
+#import "NSString+DCTAuth.h"
+#import "NSDictionary+DCTAuth.h"
 
-@implementation NSURL (DCTOAuth)
+@implementation NSURL (DCTAuth)
 
-- (NSURL *)dctOAuth_URLByAddingQueryParameters:(NSDictionary *)parameters {
+- (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters {
 	
 	NSMutableString *URLString = [NSMutableString new];
 	
@@ -32,10 +32,10 @@
 	[URLString appendString:[self path]];
 	
 	NSMutableDictionary *queryParameters = [NSMutableDictionary new];
-	NSDictionary *query = [[self query] dctOAuth_parameterDictionary];
+	NSDictionary *query = [[self query] dctAuth_parameterDictionary];
 	[queryParameters addEntriesFromDictionary:query];
 	[queryParameters addEntriesFromDictionary:parameters];
-	NSString *queryString = [queryParameters dctOAuth_queryString];
+	NSString *queryString = [queryParameters dctAuth_queryString];
 	if (queryString) [URLString appendFormat:@"?%@", queryString];
 	
 	return [NSURL URLWithString:URLString];

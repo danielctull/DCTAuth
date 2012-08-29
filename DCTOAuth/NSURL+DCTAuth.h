@@ -1,5 +1,5 @@
 //
-//  NSURL+DCTOAuth.h
+//  NSURL+DCTAuth.h
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 27/08/2012.
@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSURL (DCTOAuth)
+@interface NSURL (DCTAuth)
 
-- (NSURL *)dctOAuth_URLByAddingQueryParameters:(NSDictionary *)parameters;
+- (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters;
 
 @end

@@ -7,10 +7,10 @@
 //
 
 #import "_DCTOAuth2Account.h"
-#import "_DCTOAuthAccount.h"
-#import "NSString+DCTOAuth.h"
-#import "_DCTOAuth.h"
-#import "NSURL+DCTOAuth.h"
+#import "_DCTAuthAccount.h"
+#import "NSString+DCTAuth.h"
+#import "_DCTAuth.h"
+#import "NSURL+DCTAuth.h"
 #import <UIKit/UIKit.h>
 
 @implementation _DCTOAuth2Account {
@@ -126,9 +126,9 @@
 	
 	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSMutableDictionary *dictionary = [NSMutableDictionary new];
-		NSDictionary *queryDictionary = [[URL query] dctOAuth_parameterDictionary];
+		NSDictionary *queryDictionary = [[URL query] dctAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:queryDictionary];
-		NSDictionary *fragmentDictionary = [[URL fragment] dctOAuth_parameterDictionary];
+		NSDictionary *fragmentDictionary = [[URL fragment] dctAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:fragmentDictionary];
 		completion([dictionary copy]);
 	}];
@@ -150,7 +150,7 @@
 		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
 		if (!dictionary) {
 			NSString *string= [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-			dictionary = [string dctOAuth_parameterDictionary];
+			dictionary = [string dctAuth_parameterDictionary];
 		}
 		completion(dictionary);
 	}];
@@ -158,7 +158,7 @@
 
 - (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {
 	NSURL *URL = [request URL];
-	URL = [URL dctOAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
+	URL = [URL dctAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
 	request.URL = URL;
 }
 

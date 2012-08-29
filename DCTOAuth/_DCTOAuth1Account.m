@@ -7,11 +7,11 @@
 //
 
 #import "_DCTOAuth1Account.h"
-#import "_DCTOAuthAccount.h"
+#import "_DCTAuthAccount.h"
 #import "DCTAuthRequest.h"
 #import "_DCTOAuthSignature.h"
-#import "NSString+DCTOAuth.h"
-#import "_DCTOAuth.h"
+#import "NSString+DCTAuth.h"
+#import "_DCTAuth.h"
 
 #ifdef TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -123,7 +123,7 @@
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
+		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
 		completion(dictionary);
 	}];
 }
@@ -137,7 +137,7 @@
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
 	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
-		NSDictionary *dictionary = [[URL query] dctOAuth_parameterDictionary];
+		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
 		completion(dictionary);
 	}];
 	
@@ -157,7 +157,7 @@
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [string dctOAuth_parameterDictionary];
+		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
 		[self _setAuthorized:([dictionary objectForKey:@"oauth_token_secret"] != nil)];
 		completion(dictionary);
 	}];

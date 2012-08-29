@@ -7,9 +7,9 @@
 //
 
 #import "DCTAuthRequest.h"
-#import "_DCTOAuthAccount.h"
-#import "NSURL+DCTOAuth.h"
-#import "NSDictionary+DCTOAuth.h"
+#import "_DCTAuthAccount.h"
+#import "NSURL+DCTAuth.h"
+#import "NSDictionary+DCTAuth.h"
 
 NSString * const DCTAuthRequestMethodString[] = {
 	@"GET",
@@ -42,11 +42,11 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 	[mutableRequest setHTTPMethod:NSStringFromDCTAuthRequestMethod(self.requestMethod)];
 	
 	if (self.requestMethod == DCTAuthRequestMethodGET)
-		[mutableRequest setURL:[self.URL dctOAuth_URLByAddingQueryParameters:self.parameters]];
+		[mutableRequest setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
 	
 	else if (self.requestMethod == DCTAuthRequestMethodPOST) {
 		[mutableRequest setURL:self.URL];
-		[mutableRequest setHTTPBody:[self.parameters dctOAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
+		[mutableRequest setHTTPBody:[self.parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
 	}
 	
 	return mutableRequest;

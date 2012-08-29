@@ -7,11 +7,11 @@
 //
 
 #import "DCTAuthAccount.h"
-#import "_DCTOAuthAccount.h"
+#import "_DCTAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import <Security/Security.h>
-#import "NSString+DCTOAuth.h"
+#import "NSString+DCTAuth.h"
 
 @implementation DCTAuthAccount {
 	__strong NSURL *_discoveredCallbackURL;

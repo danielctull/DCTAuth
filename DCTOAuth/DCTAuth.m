@@ -7,7 +7,6 @@
 //
 
 #import "DCTAuth.h"
-#import "_DCTOAuth.h"
 
 @implementation DCTAuth
 
@@ -48,6 +47,8 @@
 }
 
 @end
+
+#import "_DCTAuth.h"
 
 @implementation DCTAuth (Private)
 

@@ -7,7 +7,7 @@
 //
 
 #import "DCTAuthAccountStore.h"
-#import "_DCTOAuthAccount.h"
+#import "_DCTAuthAccount.h"
 
 @implementation DCTAuthAccountStore {
 	__strong NSFileManager *_fileManager;

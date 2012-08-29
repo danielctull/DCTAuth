@@ -1,5 +1,5 @@
 //
-//  NSData+DCTOAuth.h
+//  NSData+DCTAuth.h
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSData (DCTOAuth)
+@interface NSData (DCTAuth)
 
-- (NSData *)dctOAuth_base64EncodedData;
+- (NSData *)dctAuth_base64EncodedData;
 
 @end

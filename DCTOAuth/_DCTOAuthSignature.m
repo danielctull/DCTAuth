@@ -8,8 +8,8 @@
 
 #import "_DCTOAuthSignature.h"
 #import <CommonCrypto/CommonHMAC.h>
-#import "NSString+DCTOAuth.h"
-#import "NSData+DCTOAuth.h"
+#import "NSString+DCTAuth.h"
+#import "NSData+DCTAuth.h"
 
 NSString * const DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
@@ -69,7 +69,7 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	
 	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
 		NSString *value = [_parameters objectForKey:key];
-		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, [value dctOAuth_URLEncodedString]];
+		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, [value dctAuth_URLEncodedString]];
 		[parameters addObject:keyValueString];
 	}];
 	
@@ -77,8 +77,8 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	
 	NSMutableArray *baseArray = [NSMutableArray new];
 	[baseArray addObject:_HTTPMethod];
-	[baseArray addObject:[[_URL absoluteString] dctOAuth_URLEncodedString]];
-	[baseArray addObject:[parameterString dctOAuth_URLEncodedString]];
+	[baseArray addObject:[[_URL absoluteString] dctAuth_URLEncodedString]];
+	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
 	
 	NSString *baseString = [baseArray componentsJoinedByString:@"&"];
 	if (!_secretToken) _secretToken = @"";
@@ -91,18 +91,18 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	CCHmac(kCCHmacAlgSHA1, secretData.bytes, secretData.length, baseData.bytes, baseData.length, result);
 	
 	NSData *theData = [NSData dataWithBytes:result length:20];
-	NSData *base64EncodedData = [theData dctOAuth_base64EncodedData];
+	NSData *base64EncodedData = [theData dctAuth_base64EncodedData];
 	NSString *string = [[NSString alloc] initWithData:base64EncodedData encoding:NSUTF8StringEncoding];
 	
-	return [string dctOAuth_URLEncodedString];
+	return [string dctAuth_URLEncodedString];
 }
 
 - (NSString *)authorizationHeader {
 	
 	NSMutableArray *parameterStringsArray = [NSMutableArray new];
 	[_parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *encodedKey = [key dctOAuth_URLEncodedString];
-        NSString *encodedValue = [value dctOAuth_URLEncodedString];
+        NSString *encodedKey = [key dctAuth_URLEncodedString];
+        NSString *encodedValue = [value dctAuth_URLEncodedString];
 		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
 		[parameterStringsArray addObject:string];
 	}];

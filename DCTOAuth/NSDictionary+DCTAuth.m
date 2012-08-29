@@ -1,38 +1,38 @@
 //
-//  NSDictionary+DCTOAuth.m
+//  NSDictionary+DCTAuth.m
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 27/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "NSDictionary+DCTOAuth.h"
-#import "NSString+DCTOAuth.h"
+#import "NSDictionary+DCTAuth.h"
+#import "NSString+DCTAuth.h"
 
-@implementation NSDictionary (DCTOAuth)
+@implementation NSDictionary (DCTAuth)
 
-- (NSString *)dctOAuth_queryString {
+- (NSString *)dctAuth_queryString {
 	
 	if ([self count] == 0) return nil;
 	
 	NSMutableArray *parameterStrings = [NSMutableArray new];
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-		NSString *encodedKey = [[key description] dctOAuth_URLEncodedString];
-		NSString *encodedValue = [[value description] dctOAuth_URLEncodedString];
+		NSString *encodedKey = [[key description] dctAuth_URLEncodedString];
+		NSString *encodedValue = [[value description] dctAuth_URLEncodedString];
 		NSString *parameterString = [NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue];
 		[parameterStrings addObject:parameterString];
 	}];
 	return [parameterStrings componentsJoinedByString:@"&"];
 }
 
-- (NSData *)dctOAuth_bodyFormDataUsingEncoding:(NSStringEncoding)encoding {
+- (NSData *)dctAuth_bodyFormDataUsingEncoding:(NSStringEncoding)encoding {
 	
 	if ([self count] == 0) return nil;
 	
 	NSMutableArray *parameterStrings = [NSMutableArray new];
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-		NSString *encodedKey = [[key description] dctOAuth_URLEncodedString];
-		NSString *encodedValue = [[value description] dctOAuth_URLEncodedString];
+		NSString *encodedKey = [[key description] dctAuth_URLEncodedString];
+		NSString *encodedValue = [[value description] dctAuth_URLEncodedString];
 		NSString *parameterString = [NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue];
 		[parameterStrings addObject:parameterString];
 	}];

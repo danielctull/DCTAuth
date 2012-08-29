@@ -1,16 +1,16 @@
 //
-//  NSString+DCTOAuth.m
+//  NSString+DCTAuth.m
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 25/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "NSString+DCTOAuth.h"
+#import "NSString+DCTAuth.h"
 
-@implementation NSString (DCTOAuth)
+@implementation NSString (DCTAuth)
 
-- (NSString *)dctOAuth_URLEncodedString {
+- (NSString *)dctAuth_URLEncodedString {
 	
 	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
 																				  (CFStringRef)objc_unretainedPointer(self),
@@ -19,7 +19,7 @@
 																				  kCFStringEncodingUTF8);
 }
 
-- (NSDictionary *)dctOAuth_parameterDictionary {
+- (NSDictionary *)dctAuth_parameterDictionary {
 	NSArray *components = [self componentsSeparatedByString:@"&"];
 	NSMutableDictionary *dictionary = [NSMutableDictionary new];
 	[components enumerateObjectsUsingBlock:^(NSString *keyValueString, NSUInteger idx, BOOL *stop) {

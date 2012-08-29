@@ -1,17 +1,17 @@
 //
-//  NSData+DCTOAuth.m
+//  NSData+DCTAuth.m
 //  DCTOAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "NSData+DCTOAuth.h"
+#import "NSData+DCTAuth.h"
 #import <resolv.h>
 
-@implementation NSData (DCTOAuth)
+@implementation NSData (DCTAuth)
 
-- (NSData *)dctOAuth_base64EncodedData {
+- (NSData *)dctAuth_base64EncodedData {
 	
 	NSData *encodedData = nil;
 	NSData *dataToEncode = self;
