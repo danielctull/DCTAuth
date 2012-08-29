@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <DCTOAuth/DCTAuth.h>
+#import <DCTAuth/DCTAuth.h>
 #import "AuthTestViewController.h"
 
 @implementation AppDelegate
