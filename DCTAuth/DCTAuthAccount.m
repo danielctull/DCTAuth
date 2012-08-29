@@ -59,6 +59,14 @@
 											 password:password];
 }
 
+- (id)initWithType:(NSString *)type {
+	self = [super init];
+	if (!self) return nil;
+	_type = [type copy];
+	_identifier = [[[NSProcessInfo processInfo] globallyUniqueString] copy];
+	return self;
+}
+
 - (NSURL *)callbackURL {
 	
 	if (_callbackURL) return _callbackURL;
@@ -75,7 +83,6 @@
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {}
-- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler {}
 
 @end
 
@@ -85,14 +92,6 @@
 	[self willChangeValueForKey:@"authorized"];
 	_authorized = authorized;
 	[self didChangeValueForKey:@"authorized"];
-}
-
-- (id)initWithType:(NSString *)type {
-	self = [super init];
-	if (!self) return nil;
-	_type = [type copy];
-	_identifier = [[[NSProcessInfo processInfo] globallyUniqueString] copy];
-	return self;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {

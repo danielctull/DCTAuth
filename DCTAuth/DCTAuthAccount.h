@@ -39,4 +39,11 @@
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler;
 //- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;
 
+- (id)initWithType:(NSString *)type;
+
+@end
+
+@class DCTAuthRequest;
+@protocol DCTAuthAccountSubclass <NSObject>
+- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest;
 @end

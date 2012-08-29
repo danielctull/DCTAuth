@@ -114,6 +114,8 @@
 	[self _fetchRequestTokenWithCompletion:authorizeUser];
 }
 
+
+
 - (void)_fetchRequestTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_requestTokenURL
@@ -187,7 +189,7 @@
 	return [parameters copy];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request authRequest:(DCTAuthRequest *)authRequest {
+- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
 	
 	NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
 	[OAuthParameters addEntriesFromDictionary:[self _OAuthParameters]];

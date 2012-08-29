@@ -156,7 +156,7 @@
 	}];
 }
 
-- (void)_signURLRequest:(NSMutableURLRequest *)request authRequest:(DCTAuthRequest *)authRequest {
+- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
 	NSURL *URL = [request URL];
 	URL = [URL dctAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
 	request.URL = URL;

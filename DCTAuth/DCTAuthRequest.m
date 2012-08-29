@@ -57,9 +57,13 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 }
 
 - (NSURLRequest *)signedURLRequest {
+
+	if (![self.account conformsToProtocol:@protocol(DCTAuthAccountSubclass)])
+		return [[self _URLRequest] copy];
+
 	NSMutableURLRequest *request = [self _URLRequest];
-	[(id<_DCTAuthAccountSubclass>)self.account _signURLRequest:request authRequest:self];
-	return request;
+	[(id<DCTAuthAccountSubclass>)self.account signURLRequest:request forAuthRequest:self];
+	return [request copy];
 }
 
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {

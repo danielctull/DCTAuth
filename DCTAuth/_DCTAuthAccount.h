@@ -9,15 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthRequest.h"
 
-@protocol _DCTAuthAccountSubclass <NSObject>
-- (void)_signURLRequest:(NSMutableURLRequest *)request authRequest:(DCTAuthRequest *)authRequest;
-@end
-
-
-
 @interface DCTAuthAccount (Private) <NSCoding>
-
-- (id)initWithType:(NSString *)type;
 
 - (void)_setAuthorized:(BOOL)authorized;
 
