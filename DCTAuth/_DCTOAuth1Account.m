@@ -189,9 +189,6 @@
 
 - (void)_signURLRequest:(NSMutableURLRequest *)request oauthRequest:(DCTAuthRequest *)oauthRequest {
 	
-	NSMutableDictionary *allHTTPHeaderFields = [NSMutableDictionary new];
-	[allHTTPHeaderFields addEntriesFromDictionary:[request allHTTPHeaderFields]];
-	
 	NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
 	[OAuthParameters addEntriesFromDictionary:[self _OAuthParameters]];
 	[OAuthParameters addEntriesFromDictionary:oauthRequest.parameters];
@@ -201,9 +198,8 @@
 															 consumerSecret:_consumerSecret
 																secretToken:_oauthTokenSecret
 																 parameters:OAuthParameters];
-	
-	[allHTTPHeaderFields setObject:[signature authorizationHeader] forKey:@"Authorization"];
-	[request setAllHTTPHeaderFields:allHTTPHeaderFields];
+
+	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
 }
 
 - (NSString *)description {
