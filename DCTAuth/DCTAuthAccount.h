@@ -24,6 +24,11 @@
 							  clientSecret:(NSString *)clientSecret
 									scopes:(NSArray *)scopes;
 
++ (DCTAuthAccount *)basicAuthAccountWithType:(NSString *)type
+						   authenticationURL:(NSURL *)authenticationURL
+									username:(NSString *)username
+									password:(NSString *)password;
+
 @property (nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) NSString *identifier;
 @property (nonatomic, readonly, getter = isAuthorized) BOOL authorized;

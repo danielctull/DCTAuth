@@ -10,6 +10,7 @@
 #import "_DCTAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
+#import "_DCTBasicAuthAccount.h"
 #import <Security/Security.h>
 #import "NSString+DCTAuth.h"
 
@@ -45,6 +46,17 @@
 										  clientID:clientID
 									  clientSecret:clientSecret
 											scopes:scopes];
+}
+
++ (DCTAuthAccount *)basicAuthAccountWithType:(NSString *)type
+						   authenticationURL:(NSURL *)authenticationURL
+									username:(NSString *)username
+									password:(NSString *)password {
+
+	return [[_DCTBasicAuthAccount alloc] initWithType:type
+									authenticationURL:authenticationURL
+											 username:username
+											 password:password];
 }
 
 - (NSURL *)callbackURL {
