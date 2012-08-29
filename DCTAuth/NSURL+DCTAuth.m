@@ -12,19 +12,27 @@
 
 @implementation NSURL (DCTAuth)
 
-- (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters {
+- (NSURL *)dctAuth_URLByAddingUser:(NSString *)user password:(NSString *)password {
+	return [self dctAuth_URLByAddingUser:user password:password queryParameters:nil];
+}
 
-	if ([parameters count] == 0) return self;
+- (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters {
+	return [self dctAuth_URLByAddingUser:nil password:nil queryParameters:parameters];
+}
+
+- (NSURL *)dctAuth_URLByAddingUser:(NSString *)user
+						  password:(NSString *)password
+				   queryParameters:(NSDictionary *)parameters {
 
 	NSMutableString *URLString = [NSMutableString new];
 	
 	NSString *scheme = [self scheme];
 	if (scheme) [URLString appendFormat:@"%@://", scheme];
 	
-	NSString *user = [self user];
-	NSString *password = [self password];
+	if ([user length] == 0) user = [self user];
+	if ([password length] == 0) password = [self password];
 	if ([user length] > 0 && [password length] > 0)
-		[URLString appendFormat:@"%@:%@@@", user, password];
+		[URLString appendFormat:@"%@:%@@", user, password];
 	
 	[URLString appendString:[self host]];
 	
@@ -33,10 +41,19 @@
 	
 	[URLString appendString:[self path]];
 
-	[URLString appendFormat:@"?%@", [parameters dctAuth_queryString]];
+
+	
+	NSMutableArray *queries = [NSMutableArray new];
+	NSString *parametersQueryString = [parameters dctAuth_queryString];
+	if ([parametersQueryString length] > 0) [queries addObject:parametersQueryString];
 	
 	NSString *queryString = [self query];
-	if (queryString) [URLString appendFormat:@"&%@", queryString];
+	if ([queryString length] > 0) [queries addObject:parametersQueryString];
+
+	NSString *query = [queries componentsJoinedByString:@"&"];
+	if ([query length] > 0) [URLString appendFormat:@"?%@", query];
+
+
 
 	NSString *fragment = [self fragment];
 	if (fragment) [URLString appendFormat:@"#%@", fragment];

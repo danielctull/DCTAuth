@@ -10,6 +10,7 @@
 
 @interface NSURL (DCTAuth)
 
+- (NSURL *)dctAuth_URLByAddingUser:(NSString *)user password:(NSString *)password;
 - (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters;
 
 @end
