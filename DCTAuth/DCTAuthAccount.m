@@ -115,14 +115,14 @@
 }
 
 - (void)_willBeDeleted {
-	[self _removeValueForSecureKey:nil];
+	[self _removeSecureValueForKey:nil];
 }
 
-- (void)_setValue:(NSString *)value forSecureKey:(NSString *)key {
+- (void)_setSecureValue:(NSString *)value forKey:(NSString *)key {
 	if (!value) return;
 	if (!key) return;
 	
-	[self _removeValueForSecureKey:key];
+	[self _removeSecureValueForKey:key];
 	
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
@@ -132,7 +132,7 @@
 	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
 }
 
-- (NSString *)_valueForSecureKey:(NSString *)key {
+- (NSString *)_secureValueForKey:(NSString *)key {
 	if (!key) return nil;
 	
 	NSMutableDictionary *query = [self _queryForKey:key];
@@ -143,7 +143,7 @@
 	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
 }
 
-- (void)_removeValueForSecureKey:(NSString *)key {
+- (void)_removeSecureValueForKey:(NSString *)key {
 	NSMutableDictionary *query = [self _queryForKey:key];
     SecItemDelete((__bridge CFDictionaryRef)query);
 }

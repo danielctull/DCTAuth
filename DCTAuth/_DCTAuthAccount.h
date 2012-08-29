@@ -23,8 +23,8 @@
 
 - (void)_willBeDeleted;
 
-- (void)_setValue:(NSString *)value forSecureKey:(NSString *)key;
-- (NSString *)_valueForSecureKey:(NSString *)key;
-- (void)_removeValueForSecureKey:(NSString *)key;
+- (void)_setSecureValue:(NSString *)value forKey:(NSString *)key;
+- (NSString *)_secureValueForKey:(NSString *)key;
+- (void)_removeSecureValueForKey:(NSString *)key;
 
 @end

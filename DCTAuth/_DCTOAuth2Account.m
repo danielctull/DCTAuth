@@ -57,16 +57,16 @@
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	
-	_clientID = [self _valueForSecureKey:@"_clientID"];
-	_clientSecret = [self _valueForSecureKey:@"_clientSecret"];
+	_clientID = [self _secureValueForKey:@"_clientID"];
+	_clientSecret = [self _secureValueForKey:@"_clientSecret"];
 	
 	_scopes = [coder decodeObjectForKey:@"_scopes"];
 	
-	_code = [self _valueForSecureKey:@"_code"];
-	_accessToken = [self _valueForSecureKey:@"_accessToken"];
-	_refreshToken = [self _valueForSecureKey:@"_refreshToken"];
+	_code = [self _secureValueForKey:@"_code"];
+	_accessToken = [self _secureValueForKey:@"_accessToken"];
+	_refreshToken = [self _secureValueForKey:@"_refreshToken"];
 	
-	_state = [self _valueForSecureKey:@"_state"];
+	_state = [self _secureValueForKey:@"_state"];
 	
 	return self;
 }
@@ -77,16 +77,16 @@
 	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
 	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
 	
-	[self _setValue:_clientID forSecureKey:@"_clientID"];
-	[self _setValue:_clientSecret forSecureKey:@"_clientSecret"];
+	[self _setSecureValue:_clientID forKey:@"_clientID"];
+	[self _setSecureValue:_clientSecret forKey:@"_clientSecret"];
 	
 	[coder encodeObject:_scopes forKey:@"_scopes"];
 	
-	[self _setValue:_code forSecureKey:@"_code"];
-	[self _setValue:_accessToken forSecureKey:@"_accessToken"];
-	[self _setValue:_refreshToken forSecureKey:@"_refreshToken"];
+	[self _setSecureValue:_code forKey:@"_code"];
+	[self _setSecureValue:_accessToken forKey:@"_accessToken"];
+	[self _setSecureValue:_refreshToken forKey:@"_refreshToken"];
 	
-	[self _setValue:_state forSecureKey:@"_state"];
+	[self _setSecureValue:_state forKey:@"_state"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {

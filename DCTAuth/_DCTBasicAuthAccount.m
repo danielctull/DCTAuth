@@ -35,16 +35,16 @@
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:@"_authenticationURL"];
-	_username = [self _valueForSecureKey:@"_username"];
-	_password = [self _valueForSecureKey:@"_password"];
+	_username = [self _secureValueForKey:@"_username"];
+	_password = [self _secureValueForKey:@"_password"];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:_authenticationURL forKey:@"_authenticationURL"];
-	[self _setValue:_username forSecureKey:@"_username"];
-	[self _setValue:_password forSecureKey:@"_password"];
+	[self _setSecureValue:_username forKey:@"_username"];
+	[self _setSecureValue:_password forKey:@"_password"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
