@@ -99,7 +99,7 @@
 		24FA900215E93D8E00E1ED99 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		24FA900415E93D8E00E1ED99 /* DCTOAuthTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTOAuthTests.h; sourceTree = "<group>"; };
 		24FA900515E93D8E00E1ED99 /* DCTOAuthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTOAuthTests.m; sourceTree = "<group>"; };
-		24FA901315E93E0200E1ED99 /* DCTAuth Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCTAuth Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24FA901315E93E0200E1ED99 /* DCTAuth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DCTAuth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA901715E93E0200E1ED99 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		24FA901B15E93E0200E1ED99 /* DCTAuth Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTAuth Demo-Info.plist"; sourceTree = "<group>"; };
 		24FA901D15E93E0200E1ED99 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 			children = (
 				24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */,
 				24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.octest */,
-				24FA901315E93E0200E1ED99 /* DCTAuth Demo.app */,
+				24FA901315E93E0200E1ED99 /* DCTAuth.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -345,7 +345,7 @@
 			);
 			name = "DCTAuth Demo";
 			productName = "DCTOAuth Demo";
-			productReference = 24FA901315E93E0200E1ED99 /* DCTAuth Demo.app */;
+			productReference = 24FA901315E93E0200E1ED99 /* DCTAuth.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -593,7 +593,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "DCTAuth Demo";
+				PRODUCT_NAME = DCTAuth;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -615,7 +615,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "DCTAuth Demo";
+				PRODUCT_NAME = DCTAuth;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
