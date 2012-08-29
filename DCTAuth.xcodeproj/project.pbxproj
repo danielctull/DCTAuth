@@ -217,8 +217,7 @@
 				24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */,
 				24FA8FEA15E93D8E00E1ED99 /* Supporting Files */,
 			);
-			name = DCTAuth;
-			path = DCTOAuth;
+			path = DCTAuth;
 			sourceTree = "<group>";
 		};
 		24FA8FEA15E93D8E00E1ED99 /* Supporting Files */ = {
@@ -236,8 +235,7 @@
 				24FA900515E93D8E00E1ED99 /* DCTOAuthTests.m */,
 				24FA8FFF15E93D8E00E1ED99 /* Supporting Files */,
 			);
-			name = DCTAuthTests;
-			path = DCTOAuthTests;
+			path = DCTAuthTests;
 			sourceTree = "<group>";
 		};
 		24FA8FFF15E93D8E00E1ED99 /* Supporting Files */ = {
@@ -259,8 +257,7 @@
 				24FA903C15E93E2C00E1ED99 /* OAuthTestViewController.xib */,
 				24FA901A15E93E0200E1ED99 /* Supporting Files */,
 			);
-			name = "DCTAuth Demo";
-			path = "DCTOAuth Demo";
+			path = "DCTAuth Demo";
 			sourceTree = "<group>";
 		};
 		24FA901A15E93E0200E1ED99 /* Supporting Files */ = {
@@ -511,7 +508,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTOAuth/DCTAuth-Prefix.pch";
+				GCC_PREFIX_HEADER = "DCTAuth/DCTAuth-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
@@ -522,7 +519,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTOAuth/DCTAuth-Prefix.pch";
+				GCC_PREFIX_HEADER = "DCTAuth/DCTAuth-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
@@ -537,8 +534,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTOAuth/DCTOAuth-Prefix.pch";
-				INFOPLIST_FILE = "DCTOAuthTests/DCTAuthTests-Info.plist";
+				GCC_PREFIX_HEADER = "DCTAuth/DCTAuth-Prefix.pch";
+				INFOPLIST_FILE = "DCTAuthTests/DCTAuthTests-Info.plist";
 				PRODUCT_NAME = DCTAuthTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -552,8 +549,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTOAuth/DCTOAuth-Prefix.pch";
-				INFOPLIST_FILE = "DCTOAuthTests/DCTAuthTests-Info.plist";
+				GCC_PREFIX_HEADER = "DCTAuth/DCTAuth-Prefix.pch";
+				INFOPLIST_FILE = "DCTAuthTests/DCTAuthTests-Info.plist";
 				PRODUCT_NAME = DCTAuthTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -568,8 +565,8 @@
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTOAuth Demo/DCTAuth Demo-Prefix.pch";
-				INFOPLIST_FILE = "DCTOAuth Demo/DCTAuth Demo-Info.plist";
+				GCC_PREFIX_HEADER = "DCTAuth Demo/DCTAuth Demo-Prefix.pch";
+				INFOPLIST_FILE = "DCTAuth Demo/DCTAuth Demo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -589,8 +586,8 @@
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTOAuth Demo/DCTAuth Demo-Prefix.pch";
-				INFOPLIST_FILE = "DCTOAuth Demo/DCTAuth Demo-Info.plist";
+				GCC_PREFIX_HEADER = "DCTAuth Demo/DCTAuth Demo-Prefix.pch";
+				INFOPLIST_FILE = "DCTAuth Demo/DCTAuth Demo-Info.plist";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",
