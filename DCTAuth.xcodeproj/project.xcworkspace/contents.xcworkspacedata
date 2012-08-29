@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:DCTOAuth.xcodeproj">
+      location = "self:DCTAuth.xcodeproj">
    </FileRef>
 </Workspace>
