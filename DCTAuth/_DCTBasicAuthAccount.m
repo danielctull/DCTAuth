@@ -53,11 +53,19 @@
 													requestMethod:DCTAuthRequestMethodGET
 													   parameters:nil];
 	request.account = self;
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
 
 		if (handler == NULL) return;
 
-		handler(@{ @"data" : responseData, @"statusCode" : @(urlResponse.statusCode) });
+		NSMutableDictionary *results = [NSMutableDictionary new];
+		if (data) [results setObject:data forKey:@"data"];
+
+		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		if (string) [results setObject:string forKey:@"dataString"];
+
+		[results setObject:@(urlResponse.statusCode) forKey:@"statusCode"];
+
+		handler([results copy]);
 	}];
 }
 
