@@ -1,6 +1,6 @@
 //
-//  DCTOAuthAccount.m
-//  DTOAuth
+//  DCTAuthAccount.m
+//  DCTAuth
 //
 //  Created by Daniel Tull on 09.07.2010.
 //  Copyright 2010 Daniel Tull. All rights reserved.
@@ -153,7 +153,7 @@
 - (NSMutableDictionary *)_queryForKey:(NSString *)key {
 	NSMutableDictionary *query = [NSMutableDictionary new];
     [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:[NSString stringWithFormat:@"DCTOAuth:%@", self.identifier] forKey:(__bridge id)kSecAttrService];
+	[query setObject:[NSString stringWithFormat:@"DCTAuth:%@", self.identifier] forKey:(__bridge id)kSecAttrService];
 	if (key) [query setObject:key forKey:(__bridge id)kSecAttrAccount];
 	return query;
 }

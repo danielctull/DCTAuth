@@ -1,6 +1,6 @@
 //
-//  DCTOAuthAccountStore.m
-//  DCTOAuth
+//  DCTAuthAccountStore.m
+//  DCTAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.

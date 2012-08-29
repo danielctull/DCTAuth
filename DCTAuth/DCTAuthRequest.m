@@ -1,6 +1,6 @@
 //
-//  DCTOAuthRequest.m
-//  DCTOAuthController
+//  DCTAuthRequest.m
+//  DCTAuth
 //
 //  Created by Daniel Tull on 24.08.2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.

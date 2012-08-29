@@ -1,6 +1,6 @@
 //
-//  DCTOAuthRequest.h
-//  DCTOAuthController
+//  DCTAuthRequest.h
+//  DCTAuth
 //
 //  Created by Daniel Tull on 24.08.2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
@@ -15,7 +15,7 @@ typedef enum : NSUInteger {
 	DCTAuthRequestMethodDELETE
 } DCTAuthRequestMethod;
 
-NSString * NSStringFromDCTOAuthRequestMethod(DCTAuthRequestMethod method);
+NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method);
 
 
 @interface DCTAuthRequest : NSObject

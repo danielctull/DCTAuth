@@ -1,6 +1,6 @@
 //
-//  DTOAuthSignature.m
-//  DCTConnectionKit
+//  _DCTOAuthSignature.m
+//  DCTAuth
 //
 //  Created by Daniel Tull on 04.07.2010.
 //  Copyright 2010 Daniel Tull. All rights reserved.
@@ -11,7 +11,7 @@
 #import "NSString+DCTAuth.h"
 #import "NSData+DCTAuth.h"
 
-NSString * const DTOAuthSignatureTypeString[] = {
+NSString * const _DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
 	@"PLAINTEXT"
 };
@@ -46,15 +46,15 @@ NSString * const DTOAuthSignatureTypeString[] = {
 	[_parameters setObject:version forKey:@"oauth_version"];
 	[_parameters setObject:nonce forKey:@"oauth_nonce"];
 	[_parameters setObject:timestamp forKey:@"oauth_timestamp"];
-	[_parameters setObject:DTOAuthSignatureTypeString[self.type] forKey:@"oauth_signature_method"];
+	[_parameters setObject:_DTOAuthSignatureTypeString[self.type] forKey:@"oauth_signature_method"];
 	[_parameters addEntriesFromDictionary:parameters];
 	
 	return self;
 }
 
-- (void)setType:(DCTOAuthSignatureType)type {
+- (void)setType:(_DCTOAuthSignatureType)type {
 	_type = type;
-	[_parameters setObject:DTOAuthSignatureTypeString[_type] forKey:@"oauth_signature_method"];
+	[_parameters setObject:_DTOAuthSignatureTypeString[_type] forKey:@"oauth_signature_method"];
 }
 
 - (NSDictionary *)parameters {

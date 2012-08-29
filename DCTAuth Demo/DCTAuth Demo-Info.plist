@@ -27,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>dctoauth</string>
+				<string>dctauth</string>
 			</array>
 		</dict>
 	</array>

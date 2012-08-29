@@ -1,6 +1,6 @@
 //
-//  DCTOAuthAccount.h
-//  DTOAuth
+//  DCTAuthAccount.h
+//  DCTAuth
 //
 //  Created by Daniel Tull on 09.07.2010.
 //  Copyright 2010 Daniel Tull. All rights reserved.

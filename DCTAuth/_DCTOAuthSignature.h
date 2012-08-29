@@ -1,6 +1,6 @@
 //
-//  DTOAuthSignature.h
-//  DCTConnectionKit
+//  _DCTOAuthSignature.h
+//  DCTAuth
 //
 //  Created by Daniel Tull on 04.07.2010.
 //  Copyright 2010 Daniel Tull. All rights reserved.
@@ -10,8 +10,8 @@
 #import "DCTAuthRequest.h"
 
 typedef enum {
-	DCTOAuthSignatureTypeHMAC_SHA1 = 0
-} DCTOAuthSignatureType;
+	_DCTOAuthSignatureTypeHMAC_SHA1 = 0
+} _DCTOAuthSignatureType;
 
 @interface _DCTOAuthSignature : NSObject
 
@@ -21,7 +21,7 @@ typedef enum {
 	  secretToken:(NSString *)secretToken
 	   parameters:(NSDictionary *)parameters;
 
-@property (nonatomic, assign) DCTOAuthSignatureType type;
+@property (nonatomic, assign) _DCTOAuthSignatureType type;
 
 - (NSString *)authorizationHeader;
 
