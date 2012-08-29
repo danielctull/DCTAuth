@@ -11,6 +11,9 @@
 #import "NSURL+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
 
+NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
+NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
+
 NSString * const DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
@@ -67,11 +70,16 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 }
 
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
-	
+
+	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+	[defaultCenter postNotificationName:DCTAuthConnectionIncreasedNotification object:self];
+
     [NSURLConnection sendAsynchronousRequest:[self signedURLRequest]
 									   queue:[NSOperationQueue mainQueue]
 						   completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-		
+
+		[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
+
         if (handler == NULL) return;
         
         NSHTTPURLResponse *HTTPURLResponse = nil;
