@@ -75,7 +75,7 @@
 		NSArray *types = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
 		NSDictionary *type = [types lastObject];
 		NSArray *schemes = [type objectForKey:@"CFBundleURLSchemes"];
-		NSString *scheme = [NSString stringWithFormat:@"%@://%@", [schemes lastObject], self.identifier];
+		NSString *scheme = [NSString stringWithFormat:@"%@://%i/", [schemes lastObject], [self.identifier hash]];
 		_discoveredCallbackURL = [NSURL URLWithString:scheme];
 	}
 	
