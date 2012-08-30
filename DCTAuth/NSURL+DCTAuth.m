@@ -48,7 +48,7 @@
 	if ([parametersQueryString length] > 0) [queries addObject:parametersQueryString];
 	
 	NSString *queryString = [self query];
-	if ([queryString length] > 0) [queries addObject:parametersQueryString];
+	if ([queryString length] > 0) [queries addObject:queryString];
 
 	NSString *query = [queries componentsJoinedByString:@"&"];
 	if ([query length] > 0) [URLString appendFormat:@"?%@", query];
