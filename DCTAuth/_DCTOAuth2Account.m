@@ -114,13 +114,9 @@
 
 - (void)_authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
 	
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters addEntriesFromDictionary:[self _OAuthParameters]];
-	if (!_accessTokenURL) [parameters setObject:@"token" forKey:@"response_type"];
-	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
                                                       requestMethod:DCTAuthRequestMethodGET
-                                                         parameters:parameters];
+                                                         parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
@@ -167,6 +163,7 @@
 	
 	if (_accessToken) {
 		[parameters setObject:_accessToken forKey:@"access_token"];
+		[parameters setObject:_accessToken forKey:@"oauth_token"];
 		return [parameters copy];
 	}
 	
@@ -174,8 +171,18 @@
 	[parameters setObject:_state forKey:@"state"];
 	if ([_scopes count] > 0) [parameters setObject:[_scopes componentsJoinedByString:@","] forKey:@"scope"];
 	if (_clientSecret) [parameters setObject:_clientSecret forKey:@"client_secret"];
-	if (_code) [parameters setObject:_code forKey:@"code"];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
+	
+	if (_code) {
+		[parameters setObject:_code forKey:@"code"];
+		[parameters setObject:@"authorization_code" forKey:@"grant_type"];
+	} else {
+		
+		if (_accessTokenURL)
+			[parameters setObject:@"code" forKey:@"response_type"];
+		else
+			[parameters setObject:@"token" forKey:@"response_type"];
+	}
 	
 	return [parameters copy];
 }
