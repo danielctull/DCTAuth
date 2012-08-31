@@ -7,12 +7,7 @@
 //
 
 #import "_DCTAuthURLOpener.h"
-
-#ifdef TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#else
-#import <AppKit/AppKit.h>
-#endif
+#import "_DCTAuthPlatform.h"
 
 @implementation _DCTAuthURLOpener {
 	__strong NSMutableDictionary *_handlers;
@@ -58,15 +53,7 @@
 
 - (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
 	[_handlers setObject:[handler copy] forKey:[callbackURL copy]];
-	[self _openURL:URL];
-}
-
-- (BOOL)_openURL:(NSURL *)URL {
-#ifdef TARGET_OS_IPHONE
-	return [[UIApplication sharedApplication] openURL:URL];
-#else
-	return [[NSWorkspace sharedWorkspace] openURL:URL];
-#endif
+	[_DCTAuthPlatform openURL:URL];
 }
 
 @end

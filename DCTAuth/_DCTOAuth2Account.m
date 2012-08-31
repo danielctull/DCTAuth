@@ -223,11 +223,13 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		if ([key isEqualToString:@"code"])
 			_code = value;
 		
-		else if ([key isEqualToString:@"access_token"])
-			_accessToken = value;
-		
 		else if ([key isEqualToString:@"refresh_token"])
 			_refreshToken = value;
+
+		else if ([key isEqualToString:@"access_token"]) {
+			_accessToken = value;
+			[self _setAuthorized:YES];
+		}
 	}];
 }
 

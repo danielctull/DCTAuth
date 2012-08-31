@@ -8,6 +8,7 @@
 
 #import "DCTAuthRequest.h"
 #import "_DCTAuthAccount.h"
+#import "_DCTAuthPlatform.h"
 #import "NSURL+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
 
@@ -74,10 +75,12 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter postNotificationName:DCTAuthConnectionIncreasedNotification object:self];
 
+	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
     [NSURLConnection sendAsynchronousRequest:[self signedURLRequest]
 									   queue:[NSOperationQueue mainQueue]
 						   completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 
+		[_DCTAuthPlatform endBackgroundTask:object];
 		[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
 
         if (handler == NULL) return;
