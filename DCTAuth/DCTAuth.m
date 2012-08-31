@@ -58,16 +58,15 @@
 
 @implementation DCTAuth (Private)
 
-+ (void)_openURL:(NSURL *)URL {
++ (void)_openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
+
+	[[self _handlers] setObject:[handler copy] forKey:[callbackURL copy]];
+	
 #ifdef TARGET_OS_IPHONE
 	[[UIApplication sharedApplication] openURL:URL];
 #else
 	[[NSWorkspace sharedWorkspace] openURL:URL];
 #endif
-}
-
-+ (void)_registerForCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
-	[[self _handlers] setObject:[handler copy] forKey:[callbackURL copy]];
 }
 
 @end

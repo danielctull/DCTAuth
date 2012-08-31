@@ -10,6 +10,5 @@
 #import "DCTAuth.h"
 
 @interface DCTAuth (Private)
-+ (void)_openURL:(NSURL *)URL;
-+ (void)_registerForCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
++ (void)_openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
 @end

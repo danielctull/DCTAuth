@@ -130,7 +130,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	[DCTAuth _openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSMutableDictionary *dictionary = [NSMutableDictionary new];
 		NSDictionary *queryDictionary = [[URL query] dctAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:queryDictionary];
@@ -140,8 +140,6 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		NSError *error = [self _errorFromOAuthDictionary:dictionary];
 		handler([dictionary copy], error);
 	}];
-
-	[DCTAuth _openURL:authorizeURL];
 }
 
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
