@@ -14,6 +14,7 @@
 		249CAD1C15EA22ED00FFD0D2 /* DCTAuthAccountStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */; };
 		249CAD1F15EA235E00FFD0D2 /* _DCTOAuth2Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1E15EA235E00FFD0D2 /* _DCTOAuth2Account.m */; };
 		249CAD2215EA236B00FFD0D2 /* _DCTOAuth1Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD2115EA236B00FFD0D2 /* _DCTOAuth1Account.m */; };
+		24A3318315F14D63004FA7E4 /* _DCTAuthURLOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */; };
 		24C622E915EB5F9200B68FAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		24C6232D15EB932700B68FAD /* DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6232C15EB932700B68FAD /* DCTAuth.m */; };
 		24C6238C15EBBB8800B68FAD /* NSDictionary+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238915EBBB8800B68FAD /* NSDictionary+DCTAuth.m */; };
@@ -81,9 +82,10 @@
 		249CAD2015EA236B00FFD0D2 /* _DCTOAuth1Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth1Account.h; sourceTree = "<group>"; };
 		249CAD2115EA236B00FFD0D2 /* _DCTOAuth1Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth1Account.m; sourceTree = "<group>"; };
 		249CAD2315EA254E00FFD0D2 /* _DCTAuthAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthAccount.h; sourceTree = "<group>"; };
+		24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthURLOpener.h; sourceTree = "<group>"; };
+		24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLOpener.m; sourceTree = "<group>"; };
 		24C622E715EB5F8000B68FAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
-		24C6232E15EB936500B68FAD /* _DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuth.h; sourceTree = "<group>"; };
 		24C6238815EBBB8800B68FAD /* NSDictionary+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+DCTAuth.h"; sourceTree = "<group>"; };
 		24C6238915EBBB8800B68FAD /* NSDictionary+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+DCTAuth.m"; sourceTree = "<group>"; };
 		24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DCTAuth.h"; sourceTree = "<group>"; };
@@ -175,8 +177,9 @@
 		243B575815EE4CAC007F1CA6 /* Private Classes */ = {
 			isa = PBXGroup;
 			children = (
-				24C6232E15EB936500B68FAD /* _DCTAuth.h */,
 				249CAD2315EA254E00FFD0D2 /* _DCTAuthAccount.h */,
+				24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */,
+				24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */,
 				24FA902E15E93E1F00E1ED99 /* _DCTOAuthSignature.h */,
 				24FA902F15E93E1F00E1ED99 /* _DCTOAuthSignature.m */,
 				249CAD2015EA236B00FFD0D2 /* _DCTOAuth1Account.h */,
@@ -429,6 +432,7 @@
 				24C6238C15EBBB8800B68FAD /* NSDictionary+DCTAuth.m in Sources */,
 				24C6238D15EBBB8800B68FAD /* NSURL+DCTAuth.m in Sources */,
 				240764BB15EE3791006E0B54 /* _DCTBasicAuthAccount.m in Sources */,
+				24A3318315F14D63004FA7E4 /* _DCTAuthURLOpener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

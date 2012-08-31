@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+#import "DCTAuthRequest.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTAuthAccount.h"
-#import "DCTAuthRequest.h"
 #import "_DCTOAuthSignature.h"
+#import "_DCTAuthURLOpener.h"
 #import "NSString+DCTAuth.h"
-#import "_DCTAuth.h"
 
 NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenResponse";
 NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
@@ -140,7 +140,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[DCTAuth _openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	[[_DCTAuthURLOpener sharedURLOpener] openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
 		handler(dictionary, nil);

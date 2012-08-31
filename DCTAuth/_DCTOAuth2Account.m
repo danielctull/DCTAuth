@@ -8,10 +8,9 @@
 
 #import "_DCTOAuth2Account.h"
 #import "_DCTAuthAccount.h"
+#import "_DCTAuthURLOpener.h"
 #import "NSString+DCTAuth.h"
-#import "_DCTAuth.h"
 #import "NSURL+DCTAuth.h"
-#import <UIKit/UIKit.h>
 
 NSString *const _DCTOAuth2AccountAuthorizeResponseKey = @"AuthorizeResponse";
 NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse";
@@ -130,7 +129,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[DCTAuth _openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	[[_DCTAuthURLOpener sharedURLOpener] openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSMutableDictionary *dictionary = [NSMutableDictionary new];
 		NSDictionary *queryDictionary = [[URL query] dctAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:queryDictionary];
