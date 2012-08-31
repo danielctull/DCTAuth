@@ -56,7 +56,7 @@
 	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
 
 		if (handler == NULL) return;
-
+		
 		NSMutableDictionary *results = [NSMutableDictionary new];
 		if (data) [results setObject:data forKey:@"data"];
 
@@ -65,7 +65,7 @@
 
 		[results setObject:@(urlResponse.statusCode) forKey:@"statusCode"];
 
-		handler([results copy], nil);
+		handler([results copy], error);
 	}];
 }
 
