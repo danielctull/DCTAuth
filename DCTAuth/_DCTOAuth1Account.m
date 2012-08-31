@@ -98,21 +98,21 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	};
 	
 	void (^fetchAccessToken)() = ^{
-		[self _fetchAccessTokenWithCompletion:^(NSDictionary *response) {
+		[self _fetchAccessTokenWithHandler:^(NSDictionary *response, NSError *error) {
 			[responses setObject:response forKey:_DCTOAuth1AccountAccessTokenResponseKey];
 			completion();
 		}];
 	};
 	
 	void (^authorizeUser)() = ^ {
-		[self _authorizeWithCompletion:^(NSDictionary *response) {
+		[self _authorizeWithHandler:^(NSDictionary *response, NSError *error) {
 			[responses setObject:response forKey:_DCTOAuth1AccountAuthorizeResponseKey];
 			fetchAccessToken();
 		}];
 	};
 	
-	[self _fetchRequestTokenWithCompletion:^(NSDictionary *response) {
-
+	[self _fetchRequestTokenWithHandler:^(NSDictionary *response, NSError *error) {
+		
 		[responses setObject:response forKey:_DCTOAuth1AccountRequestTokenResponseKey];
 
 		// If there's no authorizeURL, assume there is no authorize step.
@@ -126,7 +126,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 
 
-- (void)_fetchRequestTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_fetchRequestTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_requestTokenURL
                                                       requestMethod:DCTAuthRequestMethodGET
@@ -137,11 +137,11 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
-		completion(dictionary);
+		handler(dictionary, nil);
 	}];
 }
 
-- (void)_authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
                                                       requestMethod:DCTAuthRequestMethodGET
@@ -152,7 +152,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
-		completion(dictionary);
+		handler(dictionary, nil);
 	}];
 	
 #ifdef TARGET_OS_IPHONE
@@ -162,7 +162,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 #endif
 }
 
-- (void)_fetchAccessTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
                                                       requestMethod:DCTAuthRequestMethodGET
@@ -173,7 +173,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
-		completion(dictionary);
+		handler(dictionary, nil);
 	}];
 }
 
