@@ -13,6 +13,9 @@
 #import "NSURL+DCTAuth.h"
 #import <UIKit/UIKit.h>
 
+NSString *const _DCTOAuth2AccountAuthorizeResponseKey = @"AuthorizeResponse";
+NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse";
+
 @implementation _DCTOAuth2Account {
 	
 	__strong NSURL *_authorizeURL;
@@ -91,28 +94,35 @@
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 	
-	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
+	[self _nilCurrentOAuthValues];
+	NSMutableDictionary *responses = [NSMutableDictionary new];
 	
-	void (^completion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		if (handler != NULL) handler([returnedValues copy], nil);
+	void (^completion)(NSError *) = ^(NSError *error) {
+		if (handler != NULL) handler([responses copy], error);
 	};
 	
-	void (^fetchAccessToken)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		[self _fetchAccessTokenWithCompletion:completion];
+	void (^accessTokenHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
+		if (response) [responses setObject:response forKey:_DCTOAuth2AccountAccessTokenResponseKey];
+		completion(error);
 	};
 	
-	// If there's no access token URL, skip it.
-	// This is the "Implicit Authentication Flow"
-	if (!_accessTokenURL) fetchAccessToken = completion;
+	void (^authorizeHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
+		if (response) [responses setObject:response forKey:_DCTOAuth2AccountAuthorizeResponseKey];
+		
+		// If there's no access token URL, skip it.
+		// This is the "Implicit Authentication Flow"
+		if (error || !_accessTokenURL) {
+			completion(error);
+			return;
+		}
 	
-	[self _authorizeWithCompletion:fetchAccessToken];
+		[self _fetchAccessTokenWithHandler:accessTokenHandler];
+	};
+	
+	[self _authorizeWithHandler:authorizeHandler];
 }
 
-- (void)_authorizeWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
                                                       requestMethod:DCTAuthRequestMethodGET
@@ -126,7 +136,9 @@
 		[dictionary addEntriesFromDictionary:queryDictionary];
 		NSDictionary *fragmentDictionary = [[URL fragment] dctAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:fragmentDictionary];
-		completion([dictionary copy]);
+		[self _setValuesFromOAuthDictionary:dictionary];
+		NSError *error = [self _errorFromOAuthDictionary:dictionary];
+		handler([dictionary copy], error);
 	}];
 	
 #ifdef TARGET_OS_IPHONE
@@ -136,19 +148,27 @@
 #endif
 }
 
-- (void)_fetchAccessTokenWithCompletion:(void(^)(NSDictionary *returnedValues))completion {
+- (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
                                                       requestMethod:DCTAuthRequestMethodGET
                                                          parameters:[self _OAuthParameters]];
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		
+		if (!responseData) {
+			handler(nil, error);
+			return;
+		}
+		
 		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
 		if (!dictionary) {
 			NSString *string= [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 			dictionary = [string dctAuth_parameterDictionary];
 		}
-		completion(dictionary);
+		[self _setValuesFromOAuthDictionary:dictionary];
+		NSError *oAuthError = [self _errorFromOAuthDictionary:dictionary];
+		handler(dictionary, oAuthError);
 	}];
 }
 
@@ -156,6 +176,15 @@
 	NSURL *URL = [request URL];
 	URL = [URL dctAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
 	request.URL = URL;
+}
+
+- (NSError *)_errorFromOAuthDictionary:(NSDictionary *)dictionary {
+	
+	if ([dictionary count] == 0) {
+		return [NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{}];
+	}
+	
+	return nil;
 }
 
 - (NSDictionary *)_OAuthParameters {
@@ -185,6 +214,13 @@
 	}
 	
 	return [parameters copy];
+}
+
+- (void)_nilCurrentOAuthValues {
+	_code = nil;
+	_accessToken = nil;
+	_refreshToken = nil;
+	[self _setAuthorized:NO];
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {

@@ -129,28 +129,20 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[self _fetchRequestTokenWithHandler:requestTokenHandler];
 }
 
-
-
 - (void)_fetchRequestTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_requestTokenURL
                                                       requestMethod:DCTAuthRequestMethodGET
                                                          parameters:nil];
 	request.account = self;
-	
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		handler(dictionary, nil);
-	}];
+	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
 }
 
 - (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
-                                                      requestMethod:DCTAuthRequestMethodGET
-                                                         parameters:[self _OAuthParameters]];
+													requestMethod:DCTAuthRequestMethodGET
+													   parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
@@ -170,21 +162,33 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
-                                                      requestMethod:DCTAuthRequestMethodGET
-                                                         parameters:nil];
+													requestMethod:DCTAuthRequestMethodGET
+													   parameters:nil];
 	request.account = self;
-	
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		handler(dictionary, nil);
-	}];
+	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
 }
 
-- (void)_setResponse:(NSDictionary *)response forKey:(NSString *)key {
-	[self _setValuesFromOAuthDictionary:response];
 
+
+
+- (void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))_requestHandlerFromHandler:(void(^)(NSDictionary *response, NSError *error))handler {
+	
+	return ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		
+		if (!responseData) {
+			handler(nil, error);
+			return;
+		}
+		
+		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
+		if (!dictionary) {
+			NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+			dictionary = [string dctAuth_parameterDictionary];
+		}
+		[self _setValuesFromOAuthDictionary:dictionary];
+		NSError *oAuthError = [self _errorFromOAuthDictionary:dictionary];
+		handler(dictionary, oAuthError);
+	};
 }
 
 - (void)_nilCurrentOAuthValues {
@@ -192,6 +196,15 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_oauthTokenSecret = nil;
 	_oauthVerifier = nil;
 	[self _setAuthorized:NO];
+}
+
+- (NSError *)_errorFromOAuthDictionary:(NSDictionary *)dictionary {
+	
+	if ([dictionary count] == 0) {
+		return [NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{}];
+	}
+	
+	return nil;
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
