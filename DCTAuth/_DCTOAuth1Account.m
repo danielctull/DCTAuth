@@ -13,12 +13,6 @@
 #import "NSString+DCTAuth.h"
 #import "_DCTAuth.h"
 
-#ifdef TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#else
-#import <AppKit/AppKit.h>
-#endif
-
 NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenResponse";
 NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
 NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse";
@@ -152,11 +146,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		handler(dictionary, nil);
 	}];
 	
-#ifdef TARGET_OS_IPHONE
-	[[UIApplication sharedApplication] openURL:authorizeURL];
-#else
-	[[NSWorkspace sharedWorkspace] openURL:authorizeURL];
-#endif
+	[DCTAuth _openURL:authorizeURL];
 }
 
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {

@@ -140,12 +140,8 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		NSError *error = [self _errorFromOAuthDictionary:dictionary];
 		handler([dictionary copy], error);
 	}];
-	
-#ifdef TARGET_OS_IPHONE
-	[[UIApplication sharedApplication] openURL:authorizeURL];
-#else
-	[[NSWorkspace sharedWorkspace] openURL:authorizeURL];
-#endif
+
+	[DCTAuth _openURL:authorizeURL];
 }
 
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
