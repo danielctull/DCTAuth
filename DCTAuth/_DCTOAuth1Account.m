@@ -85,14 +85,14 @@
 	[self _setSecureValue:_oauthVerifier forKey:@"_oauthVerifier"];
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
+- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 	
 	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
 	
 	void (^completion)(NSDictionary *) = ^(NSDictionary *dictionary) {
 		[returnedValues addEntriesFromDictionary:dictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
-		if (handler != NULL) handler([returnedValues copy]);
+		if (handler != NULL) handler([returnedValues copy], nil);
 	};
 	
 	void (^fetchAccessToken)(NSDictionary *) = ^(NSDictionary *dictionary) {

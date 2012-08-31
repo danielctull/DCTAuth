@@ -71,10 +71,10 @@
 															consumerKey:consumerKey
 														 consumerSecret:consumerSecret];
 	
-	[oauthAccount authenticateWithHandler:^(NSDictionary *returnedValues) {
+	[oauthAccount authenticateWithHandler:^(NSDictionary *responses, NSError *error) {
 		
 		NSMutableArray *textArray = [NSMutableArray new];
-		[returnedValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		[responses enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 			[textArray addObject:[NSString stringWithFormat:@"%@ = \"%@\"", key, obj]];
 		}];
 		self.resultTextView.text = [textArray componentsJoinedByString:@"\n"];

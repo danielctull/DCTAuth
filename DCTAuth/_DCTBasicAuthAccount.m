@@ -47,7 +47,7 @@
 	[self _setSecureValue:_password forKey:@"_password"];
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {
+- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authenticationURL
 													requestMethod:DCTAuthRequestMethodGET
@@ -65,7 +65,7 @@
 
 		[results setObject:@(urlResponse.statusCode) forKey:@"statusCode"];
 
-		handler([results copy]);
+		handler([results copy], nil);
 	}];
 }
 

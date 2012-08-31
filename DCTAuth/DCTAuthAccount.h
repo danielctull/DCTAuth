@@ -36,7 +36,7 @@
 @property (nonatomic, copy) NSString *accountDescription;
 @property (nonatomic, copy) NSURL *callbackURL;
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler;
+- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler;
 //- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;
 
 - (id)initWithType:(NSString *)type;

@@ -82,7 +82,7 @@
 	return _discoveredCallbackURL;
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *returnedValues))handler {}
+- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {}
 
 @end
 
