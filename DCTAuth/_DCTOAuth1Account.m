@@ -96,32 +96,29 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	void (^completion)() = ^ {
 		if (handler != NULL) handler([responses copy], nil);
 	};
-	
-	void (^fetchAccessToken)() = ^{
-		[self _fetchAccessTokenWithHandler:^(NSDictionary *response, NSError *error) {
-			[responses setObject:response forKey:_DCTOAuth1AccountAccessTokenResponseKey];
-			completion();
-		}];
+
+	void (^accessTokenHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
+		[responses setObject:response forKey:_DCTOAuth1AccountAccessTokenResponseKey];
+		completion();
 	};
-	
-	void (^authorizeUser)() = ^ {
-		[self _authorizeWithHandler:^(NSDictionary *response, NSError *error) {
-			[responses setObject:response forKey:_DCTOAuth1AccountAuthorizeResponseKey];
-			fetchAccessToken();
-		}];
+
+	void (^authorizeHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
+		[responses setObject:response forKey:_DCTOAuth1AccountAuthorizeResponseKey];
+		[self _fetchAccessTokenWithHandler:accessTokenHandler];
 	};
-	
-	[self _fetchRequestTokenWithHandler:^(NSDictionary *response, NSError *error) {
-		
+
+	void (^requestTokenHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
 		[responses setObject:response forKey:_DCTOAuth1AccountRequestTokenResponseKey];
 
 		// If there's no authorizeURL, assume there is no authorize step.
 		// This is valid as shown by the server used in the demo app.
 		if (_authorizeURL)
-			authorizeUser();
+			[self _authorizeWithHandler:authorizeHandler];
 		else
-			fetchAccessToken();
-	}];
+			[self _fetchAccessTokenWithHandler:accessTokenHandler];
+	};
+
+	[self _fetchRequestTokenWithHandler:requestTokenHandler];
 }
 
 
