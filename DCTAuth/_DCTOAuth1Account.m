@@ -19,6 +19,9 @@
 #import <AppKit/AppKit.h>
 #endif
 
+NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenResponse";
+NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
+NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse";
 
 @implementation _DCTOAuth1Account {
 	__strong NSURL *_requestTokenURL;
@@ -86,32 +89,39 @@
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
-	
-	NSMutableDictionary *returnedValues = [NSMutableDictionary new];
-	
-	void (^completion)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		if (handler != NULL) handler([returnedValues copy], nil);
+
+	[self _nilCurrentOAuthValues];
+	NSMutableDictionary *responses = [NSMutableDictionary new];
+
+	void (^completion)() = ^ {
+		if (handler != NULL) handler([responses copy], nil);
 	};
 	
-	void (^fetchAccessToken)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		[self _fetchAccessTokenWithCompletion:completion];
+	void (^fetchAccessToken)() = ^{
+		[self _fetchAccessTokenWithCompletion:^(NSDictionary *response) {
+			[responses setObject:response forKey:_DCTOAuth1AccountAccessTokenResponseKey];
+			completion();
+		}];
 	};
 	
-	void (^authorizeUser)(NSDictionary *) = ^(NSDictionary *dictionary) {
-		[returnedValues addEntriesFromDictionary:dictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		[self _authorizeWithCompletion:fetchAccessToken];
+	void (^authorizeUser)() = ^ {
+		[self _authorizeWithCompletion:^(NSDictionary *response) {
+			[responses setObject:response forKey:_DCTOAuth1AccountAuthorizeResponseKey];
+			fetchAccessToken();
+		}];
 	};
 	
-	// If there's no authorizeURL, assume there is no authorize step.
-	// This is valid as shown by the server used in the demo app.
-	if (!_authorizeURL) authorizeUser = fetchAccessToken;
-	
-	[self _fetchRequestTokenWithCompletion:authorizeUser];
+	[self _fetchRequestTokenWithCompletion:^(NSDictionary *response) {
+
+		[responses setObject:response forKey:_DCTOAuth1AccountRequestTokenResponseKey];
+
+		// If there's no authorizeURL, assume there is no authorize step.
+		// This is valid as shown by the server used in the demo app.
+		if (_authorizeURL)
+			authorizeUser();
+		else
+			fetchAccessToken();
+	}];
 }
 
 
@@ -126,6 +136,7 @@
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
 		completion(dictionary);
 	}];
 }
@@ -140,6 +151,7 @@
 	
 	[DCTAuth _registerForCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
+		[self _setValuesFromOAuthDictionary:dictionary];
 		completion(dictionary);
 	}];
 	
@@ -160,23 +172,38 @@
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		NSDictionary *dictionary = [string dctAuth_parameterDictionary];
-		[self _setAuthorized:([dictionary objectForKey:@"oauth_token_secret"] != nil)];
+		[self _setValuesFromOAuthDictionary:dictionary];
 		completion(dictionary);
 	}];
 }
 
+- (void)_setResponse:(NSDictionary *)response forKey:(NSString *)key {
+	[self _setValuesFromOAuthDictionary:response];
+
+}
+
+- (void)_nilCurrentOAuthValues {
+	_oauthToken = nil;
+	_oauthTokenSecret = nil;
+	_oauthVerifier = nil;
+	[self _setAuthorized:NO];
+}
+
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
-	
+
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"oauth_token"])
 			_oauthToken = value;
-		
-		else if ([key isEqualToString:@"oauth_token_secret"])
-			_oauthTokenSecret = value;
-		
+
 		else if ([key isEqualToString:@"oauth_verifier"])
 			_oauthVerifier = value;
+		
+		else if ([key isEqualToString:@"oauth_token_secret"]) {
+			_oauthTokenSecret = value;
+			[self _setAuthorized:YES];
+		}
+
 	}];
 }
 
