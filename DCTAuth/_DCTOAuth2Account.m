@@ -151,7 +151,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
-                                                      requestMethod:DCTAuthRequestMethodGET
+                                                      requestMethod:DCTAuthRequestMethodPOST
                                                          parameters:[self _OAuthParameters]];
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {

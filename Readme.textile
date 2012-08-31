@@ -19,6 +19,7 @@ h3. OAuth 2.0
 * "Facebook":https://developers.facebook.com/docs/authentication/
 * "GitHub":http://developer.github.com/v3/oauth/
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
+* "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
 
 h3. Basic Authentication
 
