@@ -24,7 +24,7 @@
 	dispatch_once(&onceToken, ^{
 		opener = [_DCTAuthURLOpener new];
 	});
-	return nil;
+	return opener;
 }
 
 - (id)init {
