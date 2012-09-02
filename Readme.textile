@@ -1,8 +1,10 @@
 h1. DCTAuth
 
-A library for performing authorised web requests.
+A library for performing authorised web requests to services using OAuth, OAuth 2.0 and basic authentiaction.
 
+h2. Documentation
 
+DCTAuth is "fully documented":http://danielctull.co.uk/DCTAuth/documentation/ and there is a "feed for the docset":http://danielctull.co.uk/DCTAuth/documentation/docset.atom that you can add to Xcode.
 
 h2. Known working services
 
