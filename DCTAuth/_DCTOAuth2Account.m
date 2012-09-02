@@ -123,9 +123,9 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 - (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
-                                                      requestMethod:DCTAuthRequestMethodGET
-                                                         parameters:[self _OAuthParameters]];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																		URL:_authorizeURL
+																 parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
@@ -143,9 +143,9 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
-                                                      requestMethod:DCTAuthRequestMethodPOST
-                                                         parameters:[self _OAuthParameters]];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
+																		URL:_accessTokenURL
+																 parameters:[self _OAuthParameters]];
 	
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		

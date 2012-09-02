@@ -49,9 +49,9 @@
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authenticationURL
-													requestMethod:DCTAuthRequestMethodGET
-													   parameters:nil];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																		URL:_authenticationURL
+																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
 

@@ -30,9 +30,9 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 	__strong NSMutableArray *_multipartDatas;
 }
 
-- (id)initWithURL:(NSURL *)URL
-    requestMethod:(DCTAuthRequestMethod)requestMethod
-       parameters:(NSDictionary *)parameters {
+- (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
+						URL:(NSURL *)URL
+				 parameters:(NSDictionary *)parameters {
 	
 	self = [self init];
 	if (!self) return nil;

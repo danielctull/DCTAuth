@@ -125,18 +125,18 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 - (void)_fetchRequestTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_requestTokenURL
-                                                      requestMethod:DCTAuthRequestMethodGET
-                                                         parameters:nil];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																		URL:_requestTokenURL
+																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
 }
 
 - (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_authorizeURL
-													requestMethod:DCTAuthRequestMethodGET
-													   parameters:[self _OAuthParameters]];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																		URL:_authorizeURL
+																 parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
@@ -148,10 +148,10 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 }
 
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
-	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithURL:_accessTokenURL
-													requestMethod:DCTAuthRequestMethodGET
-													   parameters:nil];
+
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																		URL:_accessTokenURL
+																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
 }

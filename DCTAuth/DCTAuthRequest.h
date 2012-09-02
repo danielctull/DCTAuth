@@ -20,7 +20,7 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method);
 
 @interface DCTAuthRequest : NSObject
 
-- (id)initWithURL:(NSURL *)URL requestMethod:(DCTAuthRequestMethod)requestMethod parameters:(NSDictionary *)parameters;
+- (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL parameters:(NSDictionary *)parameters;
 
 @property(nonatomic, readonly) NSURL *URL;
 @property(nonatomic, readonly) DCTAuthRequestMethod requestMethod;
