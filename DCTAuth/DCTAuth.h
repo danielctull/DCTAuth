@@ -12,5 +12,6 @@
 #import "DCTAuthRequest.h"
 
 @interface DCTAuth
+/**  */
 + (BOOL)handleURL:(NSURL *)URL;
 @end
