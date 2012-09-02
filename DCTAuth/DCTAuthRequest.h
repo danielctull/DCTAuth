@@ -27,7 +27,7 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method);
 @property(nonatomic, readonly) NSDictionary *parameters;
 
 @property(nonatomic, strong) DCTAuthAccount *account;
-//- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
+- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
 
 - (NSURLRequest *)signedURLRequest;
 - (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler;
