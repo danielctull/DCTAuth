@@ -17,14 +17,16 @@ typedef enum : NSUInteger {
 
 /** The DCTAuthRequest object encapsulates the properties of an HTTP request that you send to a service to perform some operation on behalf of the user. The DCTAuthRequest class provides a convenient template for you to make requests, and handles user authentication.
 
- HTTP requests have these common components: a URL identifying the operation to perform, the HTTP method (GET, POST, or DELETE), a set of query parameters that depends on the operation, and an optional multipart POST body containing additional data. The values for these properties depend on the request you are sending. Refer to Twitter’s documentation at https://dev.twitter.com/docs for details on the possible values.
+ HTTP requests have these common components: a URL identifying the operation to perform, the HTTP method (GET, POST, or DELETE), a set of query parameters that depends on the operation, and an optional multipart POST body containing additional data. The values for these properties depend on the request you are sending.
 
- Use the initWithURL:parameters:requestMethod: method to initialize a newly created TWRequest object passing the required property values. Use the addMultiPartData:withName:type: to optionally specify a multipart POST body. Use the performRequestWithHandler: method to perform the actual request specifying the handler to call when the request is done. Alternatively, you can use the signedURLRequest method to create a request that you send using an NSURLConnection object.
+ Use the initWithRequestMethod:URL:parameters: method to initialize a newly created DCTAuthRequest object passing the required property values. Use the addMultiPartData:withName:type: to optionally specify a multipart POST body. Use the performRequestWithHandler: method to perform the actual request specifying the handler to call when the request is done. Alternatively, you can use the signedURLRequest method to create a request that you send using an NSURLConnection object.
 
  If the request requires user authorization, set the account property to an DCTAuthAccount object.
  
  */
 @interface DCTAuthRequest : NSObject
+
+/// @name Initializing Requests
 
 /** Initializes a newly created request object with the specified properties.
  
@@ -34,6 +36,8 @@ typedef enum : NSUInteger {
  @return The newly initialized request object.
  */
 - (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL parameters:(NSDictionary *)parameters;
+
+/// @name Accessing Properties
 
 /** The destination URL for this request.
  
@@ -68,6 +72,8 @@ typedef enum : NSUInteger {
  
  */
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
+
+/// @name Sending Requests
 
 /** Returns an authorized request that can be sent using an NSURLConnection object.
  

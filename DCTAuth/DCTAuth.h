@@ -11,7 +11,15 @@
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthRequest.h"
 
+/** DCTAuth is a library to handle multiple authentication types for services 
+ that use OAuth, OAuth 2.0 and basic authentication.
+ */
 @interface DCTAuth
-/**  */
+/** Applications should call this method when they get opened with a URL
+ to handle OAuth and OAuth 2.0 callbacks. This would be 
+ application:handleOpenURL and
+ application:openURL:sourceApplication:annotation: on iOS. 
+ @param URL The URL that was called to open the application.
+ */
 + (BOOL)handleURL:(NSURL *)URL;
 @end
