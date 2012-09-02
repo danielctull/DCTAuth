@@ -51,6 +51,19 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 	multipartData.name = name;
 	multipartData.type = type;
 	[_multipartDatas addObject:multipartData];
+
+	if (self.parameters) {
+		
+		[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+			_DCTAuthMultipartData *multipartData = [_DCTAuthMultipartData new];
+			multipartData.data = [[object description] dataUsingEncoding:NSUTF8StringEncoding];
+			multipartData.name = [key description];
+			multipartData.type = @"text/plain";
+			[_multipartDatas addObject:multipartData];
+		}];
+
+		_parameters = nil;
+	}
 }
 
 /*
@@ -94,21 +107,12 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 		return;
 	}
 
-	NSMutableArray *multipartDatas = [_multipartDatas mutableCopy];
-	[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-		_DCTAuthMultipartData *multipartData = [_DCTAuthMultipartData new];
-		multipartData.data = [[object description] dataUsingEncoding:NSUTF8StringEncoding];
-		multipartData.name = [key description];
-		multipartData.type = @"text/plain";
-		[multipartDatas addObject:multipartData];
-	}];
-
 	NSString *boundary = [[NSProcessInfo processInfo] globallyUniqueString];
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
 	[request setValue:contentType forHTTPHeaderField: @"Content-Type"];
 
 	NSMutableData *body = [NSMutableData new];
-	[multipartDatas enumerateObjectsUsingBlock:^(_DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
+	[_multipartDatas enumerateObjectsUsingBlock:^(_DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
 		[body appendData:[multipartData dataWithBoundary:boundary]];
 	}];
 	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
