@@ -16,15 +16,11 @@
 NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
 NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
 
-NSString * const DCTAuthRequestMethodString[] = {
+NSString * const _DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
 	@"DELETE"
 };
-
-NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
-	return DCTAuthRequestMethodString[method];
-}
 
 @implementation DCTAuthRequest {
 	__strong NSMutableArray *_multipartDatas;
@@ -76,7 +72,7 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
 - (NSMutableURLRequest *)_URLRequest {
 
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
-	[mutableRequest setHTTPMethod:NSStringFromDCTAuthRequestMethod(self.requestMethod)];
+	[mutableRequest setHTTPMethod:_DCTAuthRequestMethodString[self.requestMethod]];
 	
 	if (self.requestMethod == DCTAuthRequestMethodGET)
 		[self _setupGETRequest:mutableRequest];

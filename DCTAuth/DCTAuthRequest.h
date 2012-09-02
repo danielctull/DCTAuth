@@ -15,9 +15,6 @@ typedef enum : NSUInteger {
 	DCTAuthRequestMethodDELETE
 } DCTAuthRequestMethod;
 
-NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method);
-
-
 @interface DCTAuthRequest : NSObject
 
 - (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL parameters:(NSDictionary *)parameters;
@@ -27,6 +24,7 @@ NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method);
 @property(nonatomic, readonly) NSDictionary *parameters;
 
 @property(nonatomic, strong) DCTAuthAccount *account;
+
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
 
 - (NSURLRequest *)signedURLRequest;
