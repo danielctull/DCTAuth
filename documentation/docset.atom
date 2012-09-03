@@ -1,18 +1,18 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>http://danielctull.github.com/DCTAuth/documentation/docset.atom/20120903081203</id>
+    <id>http://danielctull.github.com/DCTAuth/documentation/docset.atom/20120903180135</id>
     <title type="text">DCTAuth Documentation</title>
     <rights>Copyright © 2012 Daniel Tull. All rights reserved.</rights>
     <link rel="self" href="http://danielctull.github.com/DCTAuth/documentation/docset.atom"></link>
     <docset:publisherName>Daniel Tull</docset:publisherName>
     <docset:publisherID>uk.co.danieltull.documentation</docset:publisherID>
-    <updated>2012-09-03T08:12:03+01:00</updated>
+    <updated>2012-09-03T18:01:35+01:00</updated>
     <entry>
         <id>tag:danielctull.github.com,2012-09-03:uk.co.danieltull.DCTAuth/1.0.0</id>
         <title type="text">DCTAuth Documentation</title>
-        <updated>2012-09-03T08:12:03+01:00</updated>
+        <updated>2012-09-03T18:01:35+01:00</updated>
         <content type="text">DCTAuth Documentation (v1.0.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="http://danielctull.github.com/DCTAuth/documentation/uk.co.danieltull.DCTAuth-1.0.xar" length="60426"></link>
+        <link rel="enclosure" type="application/octet-stream" href="http://danielctull.github.com/DCTAuth/documentation/uk.co.danieltull.DCTAuth-1.0.xar" length="61024"></link>
         <docset:identifier>uk.co.danieltull.DCTAuth</docset:identifier>
         <docset:version>1.0.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>

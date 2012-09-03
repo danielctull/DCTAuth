@@ -219,7 +219,7 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/type">&nbsp;&nbsp;type</a></code>
-		<span class="tooltip"><p>The <a href="#//api/name/type">type</a> of service account.</p></span>
+		<span class="tooltip"><p>The <a href="#//api/name/type">type</a> of service account, which is user defined at the creation of an account.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -447,7 +447,9 @@ fb[App ID]://authorize for authorizing against their iOS app.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Use the <a href="../Classes/DCTAuthAccountStore.html#//api/name/accountWithIdentifier:">[DCTAuthAccountStore accountWithIdentifier:]</a> method to get an account with the specified <a href="#//api/name/identifier">identifier</a>.</p>
+		<p>This identifier is random and assigned when the account is created.</p>
+
+<p>Use the <a href="../Classes/DCTAuthAccountStore.html#//api/name/accountWithIdentifier:">[DCTAuthAccountStore accountWithIdentifier:]</a> method to get an account with the specified <a href="#//api/name/identifier">identifier</a>.</p>
 	</div>
 	
 	
@@ -480,7 +482,7 @@ fb[App ID]://authorize for authorizing against their iOS app.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The <a href="#//api/name/type">type</a> of service account.</p>
+		<p>The <a href="#//api/name/type">type</a> of service account, which is user defined at the creation of an account.</p>
 	</div>		
 	
     
@@ -495,9 +497,24 @@ fb[App ID]://authorize for authorizing against their iOS app.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Once set for an account, it will always be the same and can be used to lookup accounts
+for a particular service. It is currently not used for any other purpose.</p>
+	</div>
 	
 	
 	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="../Classes/DCTAuthAccountStore.html#//api/name/accountsWithType:">[DCTAuthAccountStore accountsWithType:]</a></p></code></li>
+			
+		</ul>
+	</div>
 	
 	
 	
