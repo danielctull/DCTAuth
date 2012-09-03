@@ -101,11 +101,26 @@
  */
 @property (nonatomic, copy) NSURL *callbackURL;
 
+/** Authenticate the account. 
+ 
+ Different subclasses will authenticate differently, in the case of OAuth and OAuth 2.0, this
+ will cause Safari to open for the user to login. 
+ 
+ @param handler This handler is called when the authentication succeeds or fails. In the case 
+ of multiple resquests, the reponses dictionary will contain the responses of each stage of 
+ authentication. This means the responses can contain values, even if the authentication fails.
+ You should check the error value to see if there was an error. 
+
+ @see [DCTAuth handleURL:] */
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler;
 //- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;
 
 /// @name Method for subclasses to call
 
+/** Initializer for DCTAuthAccount, subclasses should call this method to initialize.
+ @param type The type of the account.
+ @return The newly initialized object.
+ @see type */
 - (id)initWithType:(NSString *)type;
 
 @end

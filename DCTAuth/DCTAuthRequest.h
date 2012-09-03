@@ -69,7 +69,6 @@ typedef enum : NSUInteger {
  @param data The data for the multipart POST body.
  @param name The name of the multipart POST body.
  @param type The type of the multipart POST body.
- 
  */
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
 
