@@ -67,10 +67,18 @@
 
 /// @name Accessing Properties
 
-/** The type of service account. */
+/** The type of service account, which is user defined at the creation of an account.
+ 
+ Once set for an account, it will always be the same and can be used to lookup accounts
+ for a particular service. It is currently not used for any other purpose.
+ 
+ @see -[DCTAuthAccountStore accountsWithType:]
+ */
 @property (nonatomic, readonly) NSString *type;
 
 /** A unique identifier for this account.
+ 
+ This identifier is random and assigned when the account is created.
  
  Use the -[DCTAuthAccountStore accountWithIdentifier:] method to get an account with the specified identifier.
  
