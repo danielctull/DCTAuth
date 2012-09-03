@@ -78,7 +78,9 @@
  */
 @property (nonatomic, readonly) NSString *identifier;
 
-/** */
+/** Shows if the account is authorized.
+ 
+ @see authenticateWithHandler: */
 @property (nonatomic, readonly, getter = isAuthorized) BOOL authorized;
 
 /** A human-readable description of the account. */
@@ -86,7 +88,17 @@
 
 /// @name Authentication
 
-/** */
+/** The URL the OAuth authorization process will call back to.
+ 
+ If a callbackURL isn't supplied, and one is needed, it is generated using one of the URL types in the
+ Info.plist. This sometimes works, though many services expect you to pass the same callback URL you specify
+ in the application information on their site.
+ 
+ As a note, Twitter, Readability work fine with the generated callbackURL.
+ 
+ Facebook expects the URL to have a callback URL of fb[App ID]://authorize/ for the website or 
+ fb[App ID]://authorize for authorizing against their iOS app.
+ */
 @property (nonatomic, copy) NSURL *callbackURL;
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler;

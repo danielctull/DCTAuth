@@ -20,6 +20,7 @@
  application:handleOpenURL and
  application:openURL:sourceApplication:annotation: on iOS. 
  @param URL The URL that was called to open the application.
+ @return YES if the URL was handled; NO if it wasn't handled.
  */
 + (BOOL)handleURL:(NSURL *)URL;
 @end
