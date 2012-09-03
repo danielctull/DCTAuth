@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'DCTAuth' target in the 'DCTAuth' project
-//
-
-#ifdef __OBJC__
-	#import <Foundation/Foundation.h>
-#endif

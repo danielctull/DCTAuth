@@ -98,7 +98,6 @@
 		24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DCTAuth.m"; sourceTree = "<group>"; };
 		24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA8FE715E93D8E00E1ED99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		24FA8FEB15E93D8E00E1ED99 /* DCTAuth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCTAuth-Prefix.pch"; sourceTree = "<group>"; };
 		24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTAuth.h; sourceTree = "<group>"; };
 		24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuthTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA8FF615E93D8E00E1ED99 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -249,17 +248,8 @@
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				243B575815EE4CAC007F1CA6 /* Private Classes */,
 				243B575615EE4C96007F1CA6 /* Private Categories */,
-				24FA8FEA15E93D8E00E1ED99 /* Supporting Files */,
 			);
 			path = DCTAuth;
-			sourceTree = "<group>";
-		};
-		24FA8FEA15E93D8E00E1ED99 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				24FA8FEB15E93D8E00E1ED99 /* DCTAuth-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		24FA8FFE15E93D8E00E1ED99 /* DCTAuthTests */ = {
@@ -546,7 +536,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTAuth/DCTAuth-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
@@ -557,7 +546,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCTAuth/DCTAuth-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
