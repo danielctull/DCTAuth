@@ -57,7 +57,7 @@
 
 	[self _openNextURL];
 
-	return YES;
+	return handled;
 }
 
 - (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
