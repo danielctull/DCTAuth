@@ -139,6 +139,7 @@
 	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
 	CFTypeRef result = NULL;
 	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+	if (!result) return nil;
 	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
 }
 
