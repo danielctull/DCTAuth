@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuthTests.h"
+#import "_DCTOAuthSignature.h"
 
 @implementation DCTOAuthTests
 
@@ -26,16 +27,17 @@
 
 - (void)testExample
 {
-/*
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://term.ie/oauth/example/request_token.php"]
-															requestMethod:DCTAuthRequestMethodGET
-															  consumerKey:@"key"
-														   consumerSecret:@"secret"
-															  secretToken:nil
-															   parameters:@{ @"oauth_timestamp" : @"1345826992", @"oauth_nonce" : @"b4696000393d543688d556803942c454" }];
+	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://term.ie/oauth/example/request_token.php"]
+																 HTTPMethod:@"GET"
+															 consumerSecret:@"secret"
+																secretToken:nil
+																 parameters:@{ @"oauth_timestamp" : @"1345826992",
+																				   @"oauth_nonce" : @"b4696000393d543688d556803942c454",
+																				  @"consumer_key" : @"key" }];
 
-	STAssertEquals([signature signedString], @"zztUSurGniiVrseOLpky6kWPC0Y=", @"EQUAL OR NOT!");
-*/
+	NSString *header = [signature authorizationHeader];
+	NSString *expectedHeader = @"OAuth oauth_timestamp=\"1345826992\",oauth_nonce=\"b4696000393d543688d556803942c454\",oauth_version=\"1.0\",consumer_key=\"key\",oauth_signature_method=\"HMAC-SHA1\",oauth_signature=\"3zXsfFu6ltT9KF29wEsA61ojC4k%3D\"";
+	STAssertTrue([header isEqualToString:expectedHeader], @"header: %@", header);
 
 	//http://term.ie/oauth/example/request_token.php?oauth_version=1.0&oauth_nonce=b4696000393d543688d556803942c454&oauth_timestamp=1345826992&oauth_consumer_key=key&oauth_signature_method=HMAC-SHA1&oauth_signature=zztUSurGniiVrseOLpky6kWPC0Y%3D
 	
