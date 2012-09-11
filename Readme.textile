@@ -15,6 +15,7 @@ h3. OAuth
 * "Twitter":https://dev.twitter.com/docs/auth/oauth
 * "Readability":http://www.readability.com/developers/api
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
+* "Bitbucket":https://confluence.atlassian.com/display/BITBUCKET/oauth+Endpoint
 
 h3. OAuth 2.0
 
