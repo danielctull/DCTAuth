@@ -66,6 +66,8 @@ NSString * const _DCTAuthEndStringForComponentType[] = {
 - (NSURL *)dctAuth_URLByReplacingComponentType:(CFURLComponentType)componentType
 									withString:(NSString *)string {
 
+	if ([string length] == 0) return self;
+
 	CFURLRef cfURL = (__bridge CFURLRef)self;
 	CFRange cfFullRange = CFRangeMake(0, 0);
 	CFRange cfRange = CFURLGetByteRangeForComponent(cfURL, componentType, &cfFullRange);
