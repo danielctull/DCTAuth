@@ -68,9 +68,10 @@ NSString * const _DCTAuthEndStringForComponentType[] = {
 
 	if ([string length] == 0) return self;
 
-	CFURLRef cfURL = (__bridge CFURLRef)self;
+	CFURLRef cfURL = CFURLCopyAbsoluteURL((__bridge CFURLRef)self);
 	CFRange cfFullRange = CFRangeMake(0, 0);
 	CFRange cfRange = CFURLGetByteRangeForComponent(cfURL, componentType, &cfFullRange);
+	CFRelease(cfURL);
 
 	if (cfRange.location == kCFNotFound) {
 		string = [_DCTAuthStartStringForComponentType[componentType] stringByAppendingString:string];
