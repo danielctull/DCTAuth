@@ -14,5 +14,6 @@
 
 - (BOOL)handleURL:(NSURL *)URL;
 - (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
+@property (nonatomic, copy) BOOL (^URLOpener)(NSURL *URL);
 
 @end

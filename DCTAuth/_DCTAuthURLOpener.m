@@ -40,8 +40,6 @@
 
 - (BOOL)handleURL:(NSURL *)URL {
 
-	_opening = NO;
-
 	__block BOOL handled = NO;
 	NSString *URLString = [URL absoluteString];
 	
@@ -54,13 +52,15 @@
 			*stop = YES;
 		}
 	}];
-
+	
+	_opening = !handled;
 	[self _openNextURL];
 
 	return handled;
 }
 
 - (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
+	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), URL, callbackURL);
 	_DCTAuthOpen *open = [_DCTAuthOpen new];
 	open.URL = URL;
 	open.callbackURL = callbackURL;
@@ -74,7 +74,9 @@
 	if ([_queue count] == 0) return;
 
 	_DCTAuthOpen *open = [_queue objectAtIndex:0];
-	_opening = [_DCTAuthPlatform openURL:open.URL];
+	
+	if (self.URLOpener) _opening = self.URLOpener(open.URL);
+	if (!_opening) _opening = [_DCTAuthPlatform openURL:open.URL];
 
 	if (!_opening) {
 		[_queue removeObject:open];

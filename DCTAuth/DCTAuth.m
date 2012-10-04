@@ -14,4 +14,8 @@
 	return [[_DCTAuthURLOpener sharedURLOpener] handleURL:URL];
 }
 
++ (void)setURLOpener:(BOOL(^)(NSURL *URL))opener {
+	[[_DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
+}
+
 @end

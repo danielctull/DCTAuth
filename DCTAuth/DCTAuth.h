@@ -23,4 +23,7 @@
  @return YES if the URL was handled; NO if it wasn't handled.
  */
 + (BOOL)handleURL:(NSURL *)URL;
+
++ (void)setURLOpener:(BOOL(^)(NSURL *URL))opener;
+
 @end
