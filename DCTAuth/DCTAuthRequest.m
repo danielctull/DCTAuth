@@ -150,4 +150,12 @@ NSString * const _DCTAuthRequestMethodString[] = {
 	}];
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; %@ %@>",
+			NSStringFromClass([self class]),
+			self,
+			_DCTAuthRequestMethodString[self.requestMethod],
+			self.URL];
+}
+
 @end
