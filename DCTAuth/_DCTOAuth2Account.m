@@ -125,7 +125,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:_authorizeURL
-																 parameters:[self _OAuthParameters]];
+																 parameters:[self _OAuthParametersWithState:YES]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
@@ -142,11 +142,15 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 }
 
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
-	
+	[self _fetchAccessTokenWithState:YES Handler:handler];
+}
+
+- (void)_fetchAccessTokenWithState:(BOOL)sendState Handler:(void(^)(NSDictionary *response, NSError *error))handler {
+
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
 																		URL:_accessTokenURL
-																 parameters:[self _OAuthParameters]];
-	
+																 parameters:[self _OAuthParametersWithState:sendState]];
+
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 		
 		if (!responseData) {
@@ -160,6 +164,10 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 			dictionary = [string dctAuth_parameterDictionary];
 		}
 		[self _setValuesFromOAuthDictionary:dictionary];
+
+		if (!self.authorized && sendState) // Try again but don't include the state - Google fails on sending the state
+			return [self _fetchAccessTokenWithState:NO Handler:handler];
+
 		NSError *oAuthError = [self _errorFromOAuthDictionary:dictionary];
 		handler(dictionary, oAuthError);
 	}];
@@ -167,7 +175,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
 	NSURL *URL = [request URL];
-	URL = [URL dctAuth_URLByAddingQueryParameters:[self _OAuthParameters]];
+	URL = [URL dctAuth_URLByAddingQueryParameters:[self _OAuthParametersWithState:NO]];
 	request.URL = URL;
 }
 
@@ -180,32 +188,33 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	return nil;
 }
 
-- (NSDictionary *)_OAuthParameters {
+- (NSDictionary *)_OAuthParametersWithState:(BOOL)includeState {
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	
+
 	if (_accessToken) {
 		[parameters setObject:_accessToken forKey:@"access_token"];
 		[parameters setObject:_accessToken forKey:@"oauth_token"];
 		return [parameters copy];
 	}
-	
+
+	if (includeState) [parameters setObject:_state forKey:@"state"];
 	[parameters setObject:_clientID forKey:@"client_id"];
-	[parameters setObject:_state forKey:@"state"];
-	if ([_scopes count] > 0) [parameters setObject:[_scopes componentsJoinedByString:@","] forKey:@"scope"];
-	if (_clientSecret) [parameters setObject:_clientSecret forKey:@"client_secret"];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	
+
 	if (_code) {
+		if (_clientSecret.length > 0) [parameters setObject:_clientSecret forKey:@"client_secret"];
 		[parameters setObject:_code forKey:@"code"];
 		[parameters setObject:@"authorization_code" forKey:@"grant_type"];
 	} else {
-		
+
+		if (_scopes.count > 0) [parameters setObject:[_scopes componentsJoinedByString:@","] forKey:@"scope"];
+
 		if (_accessTokenURL)
 			[parameters setObject:@"code" forKey:@"response_type"];
 		else
 			[parameters setObject:@"token" forKey:@"response_type"];
 	}
-	
+
 	return [parameters copy];
 }
 
