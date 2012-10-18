@@ -49,11 +49,15 @@
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 
+	[self _setAuthorized:NO];
+
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:_authenticationURL
 																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
+
+		[self _setAuthorized:(urlResponse.statusCode == 200)];
 
 		if (handler == NULL) return;
 		
