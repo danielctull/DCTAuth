@@ -28,6 +28,7 @@ h3. OAuth 2.0
 h3. Basic Authentication
 
 * "Instapaper":http://www.instapaper.com/api/simple
+* "Pinboard":http://pinboard.in/api
 
 h2. License
 
