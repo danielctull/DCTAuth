@@ -60,7 +60,6 @@
 }
 
 - (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
-	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), URL, callbackURL);
 	_DCTAuthOpen *open = [_DCTAuthOpen new];
 	open.URL = URL;
 	open.callbackURL = callbackURL;
