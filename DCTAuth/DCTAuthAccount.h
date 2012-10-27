@@ -10,7 +10,7 @@
 
 /** A DCTAuthAccount object encapsulates information about a user account stored in the database. You can create and retrieve accounts using an DCTAuthAccountStore object. The DCTAuthAccountStore object provides an interface to the persistent database. All account objects belong to a single DCTAuthAccountStore object.
  */
-@interface DCTAuthAccount : NSObject
+@interface DCTAuthAccount : NSObject <NSCoding>
 
 /// @name Creating accounts
 

@@ -9,7 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthRequest.h"
 
-@interface DCTAuthAccount (Private) <NSCoding>
+@interface DCTAuthAccount (Private)
 
 - (void)_setAuthorized:(BOOL)authorized;
 

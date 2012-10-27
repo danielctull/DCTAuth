@@ -67,6 +67,25 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [self init];
+	if (!self) return nil;
+	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
+	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
+	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
+	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
+	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
+	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
+	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
+	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
+	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
+}
+
 - (NSURL *)callbackURL {
 	
 	if (_callbackURL) return _callbackURL;
@@ -92,25 +111,6 @@
 	[self willChangeValueForKey:@"authorized"];
 	_authorized = authorized;
 	[self didChangeValueForKey:@"authorized"];
-}
-
-- (id)initWithCoder:(NSCoder *)coder {
-	self = [self init];
-	if (!self) return nil;
-	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
-	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
-	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
-	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
-	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
-	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
-	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
-	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
-	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
 }
 
 - (void)_willBeDeleted {
