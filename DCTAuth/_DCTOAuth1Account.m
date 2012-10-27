@@ -187,7 +187,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_oauthToken = nil;
 	_oauthTokenSecret = nil;
 	_oauthVerifier = nil;
-	[self _setAuthorized:NO];
+	self.authorized = NO;
 }
 
 - (NSError *)_errorFromOAuthDictionary:(NSDictionary *)dictionary {
@@ -211,7 +211,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		
 		else if ([key isEqualToString:@"oauth_token_secret"]) {
 			_oauthTokenSecret = value;
-			[self _setAuthorized:YES];
+			self.authorized = YES;
 		}
 
 	}];

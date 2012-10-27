@@ -11,8 +11,6 @@
 
 @interface DCTAuthAccount (Private)
 
-- (void)_setAuthorized:(BOOL)authorized;
-
 - (void)_willBeDeleted;
 
 @end

@@ -53,7 +53,7 @@
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 
-	[self _setAuthorized:NO];
+	self.authorized = NO;
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:_authenticationURL
@@ -61,7 +61,7 @@
 	request.account = self;
 	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
 
-		[self _setAuthorized:(urlResponse.statusCode == 200)];
+		self.authorized = (urlResponse.statusCode == 200);
 
 		if (handler == NULL) return;
 		

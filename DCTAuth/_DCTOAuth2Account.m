@@ -226,7 +226,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_code = nil;
 	_accessToken = nil;
 	_refreshToken = nil;
-	[self _setAuthorized:NO];
+	self.authorized = NO;
 }
 
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
@@ -241,7 +241,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 		else if ([key isEqualToString:@"access_token"]) {
 			_accessToken = value;
-			[self _setAuthorized:YES];
+			self.authorized = YES;
 		}
 	}];
 }

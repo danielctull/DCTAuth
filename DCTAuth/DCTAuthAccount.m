@@ -15,6 +15,10 @@
 #import <Security/Security.h>
 #import "NSString+DCTAuth.h"
 
+@interface DCTAuthAccount ()
+@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
+@end
+
 @implementation DCTAuthAccount {
 	__strong NSURL *_discoveredCallbackURL;
 }
@@ -108,12 +112,6 @@
 
 @implementation DCTAuthAccount (Private)
 
-- (void)_setAuthorized:(BOOL)authorized {
-	[self willChangeValueForKey:@"authorized"];
-	_authorized = authorized;
-	[self didChangeValueForKey:@"authorized"];
-}
-
 - (void)_willBeDeleted {
 	[self removeSecureValueForKey:nil];
 }
@@ -121,6 +119,7 @@
 @end
 
 @implementation DCTAuthAccount (SubclassMethods)
+@dynamic authorized;
 
 - (void)setSecureValue:(NSString *)value forKey:(NSString *)key {
 	if (!value) return;

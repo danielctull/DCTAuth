@@ -28,6 +28,8 @@
 
 @interface DCTAuthAccount (SubclassMethods)
 
+@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
+
 - (void)setSecureValue:(NSString *)value forKey:(NSString *)key;
 - (NSString *)secureValueForKey:(NSString *)key;
 - (void)removeSecureValueForKey:(NSString *)key;
