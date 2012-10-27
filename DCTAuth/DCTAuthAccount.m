@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
@@ -117,12 +118,16 @@
 	[self _removeSecureValueForKey:nil];
 }
 
+@end
+
+@implementation DCTAuthAccount (SubclassMethods)
+
 - (void)_setSecureValue:(NSString *)value forKey:(NSString *)key {
 	if (!value) return;
 	if (!key) return;
-	
+
 	[self _removeSecureValueForKey:key];
-	
+
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
 #ifdef TARGET_OS_IPHONE
@@ -133,7 +138,7 @@
 
 - (NSString *)_secureValueForKey:(NSString *)key {
 	if (!key) return nil;
-	
+
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
 	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
