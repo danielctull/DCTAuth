@@ -61,12 +61,12 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	
-	_consumerKey = [self _secureValueForKey:@"_consumerKey"];
-	_consumerSecret = [self _secureValueForKey:@"_consumerSecret"];
+	_consumerKey = [self secureValueForKey:@"_consumerKey"];
+	_consumerSecret = [self secureValueForKey:@"_consumerSecret"];
 	
-	_oauthToken = [self _secureValueForKey:@"_oauthToken"];
-	_oauthTokenSecret = [self _secureValueForKey:@"_oauthTokenSecret"];
-	_oauthVerifier = [self _secureValueForKey:@"_oauthVerifier"];
+	_oauthToken = [self secureValueForKey:@"_oauthToken"];
+	_oauthTokenSecret = [self secureValueForKey:@"_oauthTokenSecret"];
+	_oauthVerifier = [self secureValueForKey:@"_oauthVerifier"];
 	
 	return self;
 }
@@ -78,12 +78,12 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
 	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
 	
-	[self _setSecureValue:_consumerKey forKey:@"_consumerKey"];
-	[self _setSecureValue:_consumerSecret forKey:@"_consumerSecret"];
+	[self setSecureValue:_consumerKey forKey:@"_consumerKey"];
+	[self setSecureValue:_consumerSecret forKey:@"_consumerSecret"];
 	
-	[self _setSecureValue:_oauthToken forKey:@"_oauthToken"];
-	[self _setSecureValue:_oauthTokenSecret forKey:@"_oauthTokenSecret"];
-	[self _setSecureValue:_oauthVerifier forKey:@"_oauthVerifier"];
+	[self setSecureValue:_oauthToken forKey:@"_oauthToken"];
+	[self setSecureValue:_oauthTokenSecret forKey:@"_oauthTokenSecret"];
+	[self setSecureValue:_oauthVerifier forKey:@"_oauthVerifier"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {

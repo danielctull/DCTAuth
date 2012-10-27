@@ -63,16 +63,16 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	
-	_clientID = [self _secureValueForKey:@"_clientID"];
-	_clientSecret = [self _secureValueForKey:@"_clientSecret"];
+	_clientID = [self secureValueForKey:@"_clientID"];
+	_clientSecret = [self secureValueForKey:@"_clientSecret"];
 	
 	_scopes = [coder decodeObjectForKey:@"_scopes"];
 	
-	_code = [self _secureValueForKey:@"_code"];
-	_accessToken = [self _secureValueForKey:@"_accessToken"];
-	_refreshToken = [self _secureValueForKey:@"_refreshToken"];
+	_code = [self secureValueForKey:@"_code"];
+	_accessToken = [self secureValueForKey:@"_accessToken"];
+	_refreshToken = [self secureValueForKey:@"_refreshToken"];
 	
-	_state = [self _secureValueForKey:@"_state"];
+	_state = [self secureValueForKey:@"_state"];
 	
 	return self;
 }
@@ -83,16 +83,16 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
 	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
 	
-	[self _setSecureValue:_clientID forKey:@"_clientID"];
-	[self _setSecureValue:_clientSecret forKey:@"_clientSecret"];
+	[self setSecureValue:_clientID forKey:@"_clientID"];
+	[self setSecureValue:_clientSecret forKey:@"_clientSecret"];
 	
 	[coder encodeObject:_scopes forKey:@"_scopes"];
 	
-	[self _setSecureValue:_code forKey:@"_code"];
-	[self _setSecureValue:_accessToken forKey:@"_accessToken"];
-	[self _setSecureValue:_refreshToken forKey:@"_refreshToken"];
+	[self setSecureValue:_code forKey:@"_code"];
+	[self setSecureValue:_accessToken forKey:@"_accessToken"];
+	[self setSecureValue:_refreshToken forKey:@"_refreshToken"];
 	
-	[self _setSecureValue:_state forKey:@"_state"];
+	[self setSecureValue:_state forKey:@"_state"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {

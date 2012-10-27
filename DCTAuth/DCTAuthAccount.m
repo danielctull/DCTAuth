@@ -115,18 +115,18 @@
 }
 
 - (void)_willBeDeleted {
-	[self _removeSecureValueForKey:nil];
+	[self removeSecureValueForKey:nil];
 }
 
 @end
 
 @implementation DCTAuthAccount (SubclassMethods)
 
-- (void)_setSecureValue:(NSString *)value forKey:(NSString *)key {
+- (void)setSecureValue:(NSString *)value forKey:(NSString *)key {
 	if (!value) return;
 	if (!key) return;
 
-	[self _removeSecureValueForKey:key];
+	[self removeSecureValueForKey:key];
 
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
@@ -136,7 +136,7 @@
 	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
 }
 
-- (NSString *)_secureValueForKey:(NSString *)key {
+- (NSString *)secureValueForKey:(NSString *)key {
 	if (!key) return nil;
 
 	NSMutableDictionary *query = [self _queryForKey:key];
@@ -148,7 +148,7 @@
 	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
 }
 
-- (void)_removeSecureValueForKey:(NSString *)key {
+- (void)removeSecureValueForKey:(NSString *)key {
 	NSMutableDictionary *query = [self _queryForKey:key];
     SecItemDelete((__bridge CFDictionaryRef)query);
 }

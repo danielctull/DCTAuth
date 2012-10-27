@@ -28,9 +28,8 @@
 
 @interface DCTAuthAccount (SubclassMethods)
 
-- (void)_setSecureValue:(NSString *)value forKey:(NSString *)key;
-- (NSString *)_secureValueForKey:(NSString *)key;
-- (void)_removeSecureValueForKey:(NSString *)key;
+- (void)setSecureValue:(NSString *)value forKey:(NSString *)key;
+- (NSString *)secureValueForKey:(NSString *)key;
+- (void)removeSecureValueForKey:(NSString *)key;
 
 @end
-
