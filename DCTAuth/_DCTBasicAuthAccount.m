@@ -6,9 +6,13 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+#import "DCTAuthAccountSubclass.h"
 #import "_DCTBasicAuthAccount.h"
 #import "_DCTAuthAccount.h"
 #import "NSData+DCTAuth.h"
+
+@interface _DCTBasicAuthAccount () <DCTAuthAccountSubclass>
+@end
 
 @implementation _DCTBasicAuthAccount {
 	__strong NSURL *_authenticationURL;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+#import "DCTAuthAccountSubclass.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTAuthAccount.h"
 #import "_DCTAuthURLOpener.h"
@@ -14,6 +15,9 @@
 
 NSString *const _DCTOAuth2AccountAuthorizeResponseKey = @"AuthorizeResponse";
 NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse";
+
+@interface _DCTOAuth2Account () <DCTAuthAccountSubclass>
+@end
 
 @implementation _DCTOAuth2Account {
 	
