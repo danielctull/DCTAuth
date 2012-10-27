@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "NSURL+DCTAuth.h"
 
 /** This is a protocol that should be adopted by DCTAuthAccount subclasses. */
 @protocol DCTAuthAccountSubclass <NSObject>

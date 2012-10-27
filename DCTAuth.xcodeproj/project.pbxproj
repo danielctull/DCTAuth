@@ -16,6 +16,7 @@
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; };
+		2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */; };
 		249CAD1715EA1F0200FFD0D2 /* DCTAuthAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */; };
 		249CAD1B15EA214700FFD0D2 /* NSData+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1A15EA214700FFD0D2 /* NSData+DCTAuth.m */; };
 		249CAD1C15EA22ED00FFD0D2 /* DCTAuthAccountStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */; };
@@ -71,6 +72,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */,
 				2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */,
 				24FA8FED15E93D8E00E1ED99 /* DCTAuth.h in CopyFiles */,
 				24FA904A15E940BA00E1ED99 /* DCTAuthRequest.h in CopyFiles */,
@@ -186,8 +188,6 @@
 				249CAD1A15EA214700FFD0D2 /* NSData+DCTAuth.m */,
 				24C6238815EBBB8800B68FAD /* NSDictionary+DCTAuth.h */,
 				24C6238915EBBB8800B68FAD /* NSDictionary+DCTAuth.m */,
-				24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */,
-				24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */,
 			);
 			name = "Private Categories";
 			sourceTree = "<group>";
@@ -260,6 +260,8 @@
 				24FA902A15E93E1F00E1ED99 /* DCTAuthRequest.h */,
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */,
+				24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */,
+				24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */,
 				243B575815EE4CAC007F1CA6 /* Private Classes */,
 				243B575615EE4C96007F1CA6 /* Private Categories */,
 			);
