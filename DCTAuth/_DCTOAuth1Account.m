@@ -157,11 +157,11 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 																		URL:_accessTokenURL
 																 parameters:nil];
 	request.account = self;
-	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
+	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		self.authorized = YES;
+		[self _requestHandlerFromHandler:handler](responseData, urlResponse, error);
+	}];
 }
-
-
-
 
 - (void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))_requestHandlerFromHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
@@ -209,10 +209,8 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		else if ([key isEqualToString:@"oauth_verifier"])
 			_oauthVerifier = value;
 		
-		else if ([key isEqualToString:@"oauth_token_secret"]) {
+		else if ([key isEqualToString:@"oauth_token_secret"])
 			_oauthTokenSecret = value;
-			self.authorized = YES;
-		}
 
 	}];
 }
