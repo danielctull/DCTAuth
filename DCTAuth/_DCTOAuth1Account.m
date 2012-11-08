@@ -110,7 +110,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	};
 
 	void (^requestTokenHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
-		[responses setObject:response forKey:_DCTOAuth1AccountRequestTokenResponseKey];
+		if (response) [responses setObject:response forKey:_DCTOAuth1AccountRequestTokenResponseKey];
 		if (error) {
 			completion(error);
 			return;
