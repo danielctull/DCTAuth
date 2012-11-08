@@ -10,7 +10,8 @@
 #import "DCTAuthRequest.h"
 
 typedef enum {
-	_DCTOAuthSignatureTypeHMAC_SHA1 = 0
+	_DCTOAuthSignatureTypeHMAC_SHA1 = 0,
+	_DCTOAuthSignatureTypePlaintext
 } _DCTOAuthSignatureType;
 
 @interface _DCTOAuthSignature : NSObject

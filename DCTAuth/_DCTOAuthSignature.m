@@ -106,8 +106,13 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
 		[parameterStringsArray addObject:string];
 	}];
+
+	NSString *string = nil;
+	if (self.type == _DCTOAuthSignatureTypeHMAC_SHA1)
+		string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [self _signedString]];
+	else
+		string = [NSString stringWithFormat:@"oauth_signature=\"%@&%@\"", _consumerSecret, (_secretToken != nil) ? _secretToken : @""];
 	
-	NSString *string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [self _signedString]];
 	[parameterStringsArray addObject:string];
 	NSString *parameterString = [parameterStringsArray componentsJoinedByString:@","];
 	
