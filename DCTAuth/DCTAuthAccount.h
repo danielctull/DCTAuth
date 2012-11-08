@@ -8,13 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
+	DCTOAuthSignatureTypePlaintext
+} DCTOAuthSignatureType;
+
 /** A DCTAuthAccount object encapsulates information about a user account stored in the database. You can create and retrieve accounts using an DCTAuthAccountStore object. The DCTAuthAccountStore object provides an interface to the persistent database. All account objects belong to a single DCTAuthAccountStore object.
  */
 @interface DCTAuthAccount : NSObject <NSCoding>
 
 /// @name Creating accounts
 
-/** Creates an account using OAuth.
+/** Creates an account using OAuth using a HMAC-SHA1 signature type.
  @param type The type of the account.
  @param requestTokenURL The URL to retrieve the OAuth request token.
  @param authorizeURL The URL to perform the OAuth authorization.
@@ -24,11 +29,30 @@
  @return Newly initialized account.
  */
 + (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
-						  requestTokenURL:(NSURL *)requestTokenURL
-							 authorizeURL:(NSURL *)authorizeURL
-						   accessTokenURL:(NSURL *)accessTokenURL
-							  consumerKey:(NSString *)consumerKey
-						   consumerSecret:(NSString *)consumerSecret;
+						 requestTokenURL:(NSURL *)requestTokenURL
+							authorizeURL:(NSURL *)authorizeURL
+						  accessTokenURL:(NSURL *)accessTokenURL
+							 consumerKey:(NSString *)consumerKey
+						  consumerSecret:(NSString *)consumerSecret;
+
+/** Creates an account using OAuth.
+ @param type The type of the account.
+ @param requestTokenURL The URL to retrieve the OAuth request token.
+ @param authorizeURL The URL to perform the OAuth authorization.
+ @param accessTokenURL The URL to retrieve the OAuth access token.
+ @param consumerKey The consumer key for the app.
+ @param consumerSecret The consumer secret for the app.
+ @param signatureType The signature type to use, either DCTOAuthSignatureTypeHMAC_SHA1 or DCTOAuthSignatureTypePlaintext.
+ @return Newly initialized account.
+ */
++ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
+						 requestTokenURL:(NSURL *)requestTokenURL
+							authorizeURL:(NSURL *)authorizeURL
+						  accessTokenURL:(NSURL *)accessTokenURL
+							 consumerKey:(NSString *)consumerKey
+						  consumerSecret:(NSString *)consumerSecret
+						   signatureType:(DCTOAuthSignatureType)signatureType;
+
 
 /** Creates an account using OAuth 2.0.
  

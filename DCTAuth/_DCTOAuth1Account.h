@@ -15,6 +15,7 @@
 	  authorizeURL:(NSURL *)authorizeURL
 	accessTokenURL:(NSURL *)accessTokenURL
 	   consumerKey:(NSString *)consumerKey
-	consumerSecret:(NSString *)consumerSecret;
+	consumerSecret:(NSString *)consumerSecret
+	 signatureType:(DCTOAuthSignatureType)signatureType;
 
 @end

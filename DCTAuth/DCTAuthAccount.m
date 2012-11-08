@@ -24,18 +24,36 @@
 }
 
 + (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
+						 requestTokenURL:(NSURL *)requestTokenURL
+							authorizeURL:(NSURL *)authorizeURL
+						  accessTokenURL:(NSURL *)accessTokenURL
+							 consumerKey:(NSString *)consumerKey
+						  consumerSecret:(NSString *)consumerSecret
+						   signatureType:(DCTOAuthSignatureType)signatureType {
+	
+	return [[_DCTOAuth1Account alloc] initWithType:type
+								   requestTokenURL:requestTokenURL
+									  authorizeURL:authorizeURL
+									accessTokenURL:accessTokenURL
+									   consumerKey:consumerKey
+									consumerSecret:consumerSecret
+									 signatureType:signatureType];
+}
+
++ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
 						  requestTokenURL:(NSURL *)requestTokenURL
 							 authorizeURL:(NSURL *)authorizeURL
 						   accessTokenURL:(NSURL *)accessTokenURL
 							  consumerKey:(NSString *)consumerKey
 						   consumerSecret:(NSString *)consumerSecret {
 		
-	return [[_DCTOAuth1Account alloc] initWithType:type
-								  requestTokenURL:requestTokenURL
-									 authorizeURL:authorizeURL
-								   accessTokenURL:accessTokenURL
-									  consumerKey:consumerKey
-								   consumerSecret:consumerSecret];
+	return [self OAuthAccountWithType:type
+					  requestTokenURL:requestTokenURL
+						 authorizeURL:authorizeURL
+					   accessTokenURL:accessTokenURL
+						  consumerKey:consumerKey
+					   consumerSecret:consumerSecret
+						signatureType:DCTOAuthSignatureTypeHMAC_SHA1];
 }
 
 + (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type

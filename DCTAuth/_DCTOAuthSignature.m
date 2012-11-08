@@ -28,7 +28,8 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	   HTTPMethod:(NSString *)HTTPMethod
    consumerSecret:(NSString *)consumerSecret
 	  secretToken:(NSString *)secretToken
-	   parameters:(NSDictionary *)parameters {
+	   parameters:(NSDictionary *)parameters
+			 type:(DCTOAuthSignatureType)type {
 	
 	self = [self init];
 	if (!self) return nil;
@@ -38,6 +39,7 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	_consumerSecret = [consumerSecret copy];
 	_secretToken = [secretToken copy];
 	_parameters = [NSMutableDictionary new];
+	_type = type;
 	
 	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
 	NSString *timestamp = [NSString stringWithFormat:@"%i", (NSInteger)timeInterval];
@@ -52,7 +54,7 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	return self;
 }
 
-- (void)setType:(_DCTOAuthSignatureType)type {
+- (void)setType:(DCTOAuthSignatureType)type {
 	_type = type;
 	[_parameters setObject:_DTOAuthSignatureTypeString[_type] forKey:@"oauth_signature_method"];
 }
@@ -108,7 +110,7 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	}];
 
 	NSString *string = nil;
-	if (self.type == _DCTOAuthSignatureTypeHMAC_SHA1)
+	if (self.type == DCTOAuthSignatureTypeHMAC_SHA1)
 		string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [self _signedString]];
 	else
 		string = [NSString stringWithFormat:@"oauth_signature=\"%@&%@\"", _consumerSecret, (_secretToken != nil) ? _secretToken : @""];

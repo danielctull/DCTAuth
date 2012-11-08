@@ -32,6 +32,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	__strong NSString *_oauthToken;
 	__strong NSString *_oauthTokenSecret;
 	__strong NSString *_oauthVerifier;
+	DCTOAuthSignatureType _signatureType;
 }
 
 - (id)initWithType:(NSString *)type
@@ -39,7 +40,8 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	  authorizeURL:(NSURL *)authorizeURL
 	accessTokenURL:(NSURL *)accessTokenURL
 	   consumerKey:(NSString *)consumerKey
-	consumerSecret:(NSString *)consumerSecret {
+	consumerSecret:(NSString *)consumerSecret
+	 signatureType:(DCTOAuthSignatureType)signatureType {
 	
 	self = [super initWithType:type];
 	if (!self) return nil;
@@ -49,6 +51,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_authorizeURL = [authorizeURL copy];
 	_consumerKey = [consumerKey copy];
 	_consumerSecret = [consumerSecret copy];
+	_signatureType = signatureType;
 	
 	return self;
 }
@@ -234,8 +237,8 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 																 HTTPMethod:request.HTTPMethod
 															 consumerSecret:_consumerSecret
 																secretToken:_oauthTokenSecret
-																 parameters:OAuthParameters];
-
+																 parameters:OAuthParameters
+																	   type:_signatureType];
 	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
 }
 

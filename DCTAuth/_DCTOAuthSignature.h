@@ -9,20 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "DCTAuthRequest.h"
 
-typedef enum {
-	_DCTOAuthSignatureTypeHMAC_SHA1 = 0,
-	_DCTOAuthSignatureTypePlaintext
-} _DCTOAuthSignatureType;
-
 @interface _DCTOAuthSignature : NSObject
 
 - (id)initWithURL:(NSURL *)URL
 	   HTTPMethod:(NSString *)HTTPMethod
    consumerSecret:(NSString *)consumerSecret
 	  secretToken:(NSString *)secretToken
-	   parameters:(NSDictionary *)parameters;
+	   parameters:(NSDictionary *)parameters
+			 type:(DCTOAuthSignatureType)type;
 
-@property (nonatomic, assign) _DCTOAuthSignatureType type;
+@property (nonatomic, readonly) DCTOAuthSignatureType type;
 
 - (NSString *)authorizationHeader;
 
