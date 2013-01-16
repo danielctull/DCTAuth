@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 
-@interface _DCTOAuth1Account : DCTAuthAccount
+@interface _DCTOAuth1Account : DCTAuthAccount <DCTAuthAccountSubclass>
 
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
