@@ -34,4 +34,6 @@
 - (NSString *)secureValueForKey:(NSString *)key;
 - (void)removeSecureValueForKey:(NSString *)key;
 
+- (void)prepareForDeletion;
+
 @end

@@ -8,10 +8,10 @@
 
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTOAuth2Account.h"
-#import "_DCTAuthAccount.h"
 #import "_DCTAuthURLOpener.h"
 #import "NSString+DCTAuth.h"
 #import "NSURL+DCTAuth.h"
+#import "DCTAuthRequest.h"
 
 NSString *const _DCTOAuth2AccountAuthorizeResponseKey = @"AuthorizeResponse";
 NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse";

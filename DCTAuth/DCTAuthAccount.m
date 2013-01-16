@@ -8,7 +8,6 @@
 
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
-#import "_DCTAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
@@ -128,16 +127,12 @@
 
 @end
 
-@implementation DCTAuthAccount (Private)
-
-- (void)_willBeDeleted {
-	[self removeSecureValueForKey:nil];
-}
-
-@end
-
 @implementation DCTAuthAccount (SubclassMethods)
 @dynamic authorized;
+
+- (void)prepareForDeletion {
+	[self removeSecureValueForKey:nil];
+}
 
 - (void)setSecureValue:(NSString *)value forKey:(NSString *)key {
 	if (!value) return;

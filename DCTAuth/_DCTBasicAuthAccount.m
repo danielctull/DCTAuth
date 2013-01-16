@@ -8,8 +8,8 @@
 
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTBasicAuthAccount.h"
-#import "_DCTAuthAccount.h"
 #import "NSData+DCTAuth.h"
+#import "DCTAuthRequest.h"
 
 @interface _DCTBasicAuthAccount () <DCTAuthAccountSubclass>
 @end

@@ -8,7 +8,6 @@
 
 #import "DCTAuthRequest.h"
 #import "DCTAuthAccountSubclass.h"
-#import "_DCTAuthAccount.h"
 #import "_DCTAuthPlatform.h"
 #import "_DCTAuthMultipartData.h"
 #import "NSURL+DCTAuth.h"

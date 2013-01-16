@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthAccount.h"
+#import "DCTAuthAccount.h"
 
 @interface _DCTOAuth2Account : DCTAuthAccount
 

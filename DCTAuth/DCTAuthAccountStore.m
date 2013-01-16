@@ -7,7 +7,7 @@
 //
 
 #import "DCTAuthAccountStore.h"
-#import "_DCTAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 
 @implementation DCTAuthAccountStore {
 	__strong NSFileManager *_fileManager;
@@ -56,7 +56,7 @@
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
-	[account _willBeDeleted];
+	[account prepareForDeletion];
 	[_accounts removeObject:account];
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
 	[_fileManager removeItemAtURL:accountURL error:NULL];

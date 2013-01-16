@@ -9,7 +9,6 @@
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthRequest.h"
 #import "_DCTOAuth1Account.h"
-#import "_DCTAuthAccount.h"
 #import "_DCTOAuthSignature.h"
 #import "_DCTAuthURLOpener.h"
 #import "NSString+DCTAuth.h"
