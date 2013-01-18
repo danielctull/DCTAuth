@@ -158,7 +158,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 			return;
 		}
 		
-		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
+		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
 		if (!dictionary) {
 			NSString *string= [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 			dictionary = [string dctAuth_parameterDictionary];
