@@ -17,6 +17,7 @@ h3. OAuth
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
 * "Bitbucket":https://confluence.atlassian.com/display/BITBUCKET/oauth+Endpoint
 * "Flickr":http://www.flickr.com/services/api/auth.oauth.html
+* "Dropbox":http://www.dropbox.com/developers/reference/api
 
 h3. OAuth 2.0
 
