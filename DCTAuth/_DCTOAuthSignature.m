@@ -10,6 +10,7 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTAuth.h"
 #import "NSData+DCTAuth.h"
+#import "NSURL+DCTAuth.h"
 
 NSString * const _DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
@@ -76,10 +77,12 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	}];
 	
 	NSString *parameterString = [parameters componentsJoinedByString:@"&"];
+	NSURL *URL = [_URL dctAuth_URLByRemovingComponentType:kCFURLComponentQuery];
+	URL = [URL dctAuth_URLByRemovingComponentType:kCFURLComponentFragment];
 	
 	NSMutableArray *baseArray = [NSMutableArray new];
 	[baseArray addObject:_HTTPMethod];
-	[baseArray addObject:[[_URL absoluteString] dctAuth_URLEncodedString]];
+	[baseArray addObject:[[URL absoluteString] dctAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
 	
 	NSString *baseString = [baseArray componentsJoinedByString:@"&"];

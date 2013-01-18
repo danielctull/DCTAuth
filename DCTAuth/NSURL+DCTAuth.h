@@ -12,5 +12,6 @@
 
 - (NSURL *)dctAuth_URLBySettingUser:(NSString *)user password:(NSString *)password;
 - (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters;
+- (NSURL *)dctAuth_URLByRemovingComponentType:(CFURLComponentType)componentType;
 
 @end

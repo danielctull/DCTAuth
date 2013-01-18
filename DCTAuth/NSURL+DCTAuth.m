@@ -24,7 +24,7 @@ NSString * const _DCTAuthStartStringForComponentType[] = {
 	@":", // kCFURLComponentPassword = 6
 	@"", // kCFURLComponentUserInfo = 7
 	@"", // kCFURLComponentHost = 8
-	@"", // kCFURLComponentPort = 9
+	@":", // kCFURLComponentPort = 9
 	@"", // kCFURLComponentParameterString = 10
 	@"?", // kCFURLComponentQuery = 11
 	@"#" // kCFURLComponentFragment = 12
@@ -63,26 +63,43 @@ NSString * const _DCTAuthEndStringForComponentType[] = {
 										  withString:[query dctAuth_queryString]];
 }
 
+- (NSURL *)dctAuth_URLByRemovingComponentType:(CFURLComponentType)componentType {
+	NSString *URLString = [self absoluteString];
+	NSRange range = [self dctAuth_rangeForComponent:componentType fullRange:NULL];
+	if (range.location == NSNotFound) return self;
+	NSString *start = _DCTAuthStartStringForComponentType[componentType];
+	NSString *end = _DCTAuthEndStringForComponentType[componentType];
+	range.location -= start.length;
+	range.length += start.length + end.length;
+	URLString = [URLString stringByReplacingCharactersInRange:range withString:@""];
+	return [NSURL URLWithString:URLString];
+}
+
 - (NSURL *)dctAuth_URLByReplacingComponentType:(CFURLComponentType)componentType
 									withString:(NSString *)string {
 
 	if ([string length] == 0) return self;
 
-	CFURLRef cfURL = CFURLCopyAbsoluteURL((__bridge CFURLRef)self);
-	CFRange cfFullRange = CFRangeMake(0, 0);
-	CFRange cfRange = CFURLGetByteRangeForComponent(cfURL, componentType, &cfFullRange);
-	CFRelease(cfURL);
-
-	if (cfRange.location == kCFNotFound) {
+	NSRange fullRange;
+	NSRange range = [self dctAuth_rangeForComponent:componentType fullRange:&fullRange];
+	if (range.location == NSNotFound) {
 		string = [_DCTAuthStartStringForComponentType[componentType] stringByAppendingString:string];
 		string = [string stringByAppendingString:_DCTAuthEndStringForComponentType[componentType]];
-		cfRange = cfFullRange;
+		range = fullRange;
 	}
 
 	NSString *URLString = [self absoluteString];
-	NSRange range = DCTAuthMakeNSRangeFromCFRange(cfRange);
 	URLString = [URLString stringByReplacingCharactersInRange:range withString:string];
 	return [NSURL URLWithString:URLString];
+}
+
+- (NSRange)dctAuth_rangeForComponent:(CFURLComponentType)component fullRange:(NSRange*)fullRange {
+	CFURLRef cfURL = CFURLCopyAbsoluteURL((__bridge CFURLRef)self);
+	CFRange cfFullRange = CFRangeMake(0, 0);
+	CFRange cfRange = CFURLGetByteRangeForComponent(cfURL, component, &cfFullRange);
+	CFRelease(cfURL);
+	if (fullRange != NULL) *fullRange = DCTAuthMakeNSRangeFromCFRange(cfFullRange);
+	return DCTAuthMakeNSRangeFromCFRange(cfRange);
 }
 
 @end
