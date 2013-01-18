@@ -14,7 +14,7 @@
 /** DCTAuth is a library to handle multiple authentication types for services 
  that use OAuth, OAuth 2.0 and basic authentication.
  */
-@interface DCTAuth
+@interface DCTAuth : NSObject 
 /** Applications should call this method when they get opened with a URL
  to handle OAuth and OAuth 2.0 callbacks. This would be 
  application:handleOpenURL and
