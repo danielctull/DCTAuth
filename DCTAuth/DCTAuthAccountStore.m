@@ -28,7 +28,7 @@
 	
 	[identifiers enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger i, BOOL *stop) {
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[URL path]];
-		[_accounts addObject:account];
+		[self->_accounts addObject:account];
 	}];
 	
 	return self;

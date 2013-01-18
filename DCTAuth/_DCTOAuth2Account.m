@@ -110,7 +110,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		
 		// If there's no access token URL, skip it.
 		// This is the "Implicit Authentication Flow"
-		if (error || !_accessTokenURL) {
+		if (error || !self->_accessTokenURL) {
 			completion(error);
 			return;
 		}
@@ -233,13 +233,13 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"code"])
-			_code = value;
+			self->_code = value;
 		
 		else if ([key isEqualToString:@"refresh_token"])
-			_refreshToken = value;
+			self->_refreshToken = value;
 
 		else if ([key isEqualToString:@"access_token"]) {
-			_accessToken = value;
+			self->_accessToken = value;
 			self.authorized = YES;
 		}
 	}];

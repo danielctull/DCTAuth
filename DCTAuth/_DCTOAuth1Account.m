@@ -116,7 +116,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		
 		// If there's no authorizeURL, assume there is no authorize step.
 		// This is valid as shown by the server used in the demo app.
-		if (_authorizeURL)
+		if (self->_authorizeURL)
 			[self _authorizeWithHandler:authorizeHandler];
 		else
 			[self _fetchAccessTokenWithHandler:accessTokenHandler];
@@ -202,13 +202,13 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"oauth_token"])
-			_oauthToken = value;
+			self->_oauthToken = value;
 
 		else if ([key isEqualToString:@"oauth_verifier"])
-			_oauthVerifier = value;
+			self->_oauthVerifier = value;
 		
 		else if ([key isEqualToString:@"oauth_token_secret"])
-			_oauthTokenSecret = value;
+			self->_oauthTokenSecret = value;
 
 	}];
 }

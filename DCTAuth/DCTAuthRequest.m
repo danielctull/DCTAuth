@@ -55,7 +55,7 @@ NSString * const _DCTAuthRequestMethodString[] = {
 			multipartData.data = [[object description] dataUsingEncoding:NSUTF8StringEncoding];
 			multipartData.name = [key description];
 			multipartData.type = @"text/plain";
-			[_multipartDatas addObject:multipartData];
+			[self->_multipartDatas addObject:multipartData];
 		}];
 
 		_parameters = nil;

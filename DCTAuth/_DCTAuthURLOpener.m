@@ -47,7 +47,7 @@
 		
 		if ([URLString hasPrefix:[open.callbackURL absoluteString]]) {
 			open.handler(URL);
-			[_queue removeObject:open];
+			[self->_queue removeObject:open];
 			handled = YES;
 			*stop = YES;
 		}
