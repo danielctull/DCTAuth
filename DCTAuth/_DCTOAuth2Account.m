@@ -165,8 +165,11 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		}
 		[self _setValuesFromOAuthDictionary:dictionary];
 
-		if (!self.authorized && sendState) // Try again but don't include the state - Google fails on sending the state
-			return [self _fetchAccessTokenWithState:NO Handler:handler];
+		if (!self.authorized && sendState) {
+			// Try again but don't include the state - Google fails on sending the state
+			[self _fetchAccessTokenWithState:NO Handler:handler];
+			return;
+		}
 
 		NSError *oAuthError = [self _errorFromOAuthDictionary:dictionary];
 		handler(dictionary, oAuthError);
