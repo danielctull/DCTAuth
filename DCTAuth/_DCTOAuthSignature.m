@@ -64,28 +64,36 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	return [_parameters copy];
 }
 
-- (NSString *)_signedString {
-	
-	NSMutableArray *parameters = [NSMutableArray new];
-	
-	NSArray *keys = [[_parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
-	
+- (NSString *)signatureBaseString {
+
+	NSMutableDictionary *parameters = [_parameters mutableCopy];
+	NSDictionary *queryDictionary = [[_URL query] dctAuth_parameterDictionary];
+	[parameters addEntriesFromDictionary:queryDictionary];
+
+	NSArray *keys = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
+
+	NSMutableArray *parameterStrings = [NSMutableArray new];
 	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
-		NSString *value = [self->_parameters objectForKey:key];
+		NSString *value = [parameters objectForKey:key];
 		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, [value dctAuth_URLEncodedString]];
-		[parameters addObject:keyValueString];
+		[parameterStrings addObject:keyValueString];
 	}];
 	
-	NSString *parameterString = [parameters componentsJoinedByString:@"&"];
+	NSString *parameterString = [parameterStrings componentsJoinedByString:@"&"];
 	NSURL *URL = [_URL dctAuth_URLByRemovingComponentType:kCFURLComponentQuery];
 	URL = [URL dctAuth_URLByRemovingComponentType:kCFURLComponentFragment];
-	
+
 	NSMutableArray *baseArray = [NSMutableArray new];
 	[baseArray addObject:_HTTPMethod];
 	[baseArray addObject:[[URL absoluteString] dctAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
+
+	return [baseArray componentsJoinedByString:@"&"];
+}
+
+- (NSString *)signatureString {
 	
-	NSString *baseString = [baseArray componentsJoinedByString:@"&"];
+	NSString *baseString = [self signatureBaseString];
 	if (!_secretToken) _secretToken = @"";
 	NSString *secretString = [NSString stringWithFormat:@"%@&%@", _consumerSecret, _secretToken];
 	
@@ -99,13 +107,13 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	NSData *base64EncodedData = [theData dctAuth_base64EncodedData];
 	NSString *string = [[NSString alloc] initWithData:base64EncodedData encoding:NSUTF8StringEncoding];
 	
-	return [string dctAuth_URLEncodedString];
+	return string;
 }
 
 - (NSString *)authorizationHeader {
 	
 	NSMutableArray *parameterStringsArray = [NSMutableArray new];
-	[_parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+	[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         NSString *encodedKey = [key dctAuth_URLEncodedString];
         NSString *encodedValue = [value dctAuth_URLEncodedString];
 		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
@@ -114,7 +122,7 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 
 	NSString *string = nil;
 	if (self.type == DCTOAuthSignatureTypeHMAC_SHA1)
-		string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [self _signedString]];
+		string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [[self signatureString] dctAuth_URLEncodedString]];
 	else
 		string = [NSString stringWithFormat:@"oauth_signature=\"%@&%@\"", _consumerSecret, (_secretToken != nil) ? _secretToken : @""];
 	

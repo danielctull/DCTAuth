@@ -22,4 +22,7 @@
 
 - (NSString *)authorizationHeader;
 
+- (NSString *)signatureBaseString;
+- (NSString *)signatureString;
+
 @end

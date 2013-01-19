@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface DCTOAuthTests : SenTestCase
+@interface DCTOAuthSignatureTests : SenTestCase
 
 @end
