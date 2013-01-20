@@ -101,6 +101,7 @@ NSString * const _DCTAuthRequestMethodString[] = {
 	if ([_multipartDatas count] == 0) {
 		[request setHTTPBody:[self.parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
 		[request setValue:[NSString stringWithFormat:@"%d", [[request HTTPBody] length]] forHTTPHeaderField:@"Content-Length"];
+		[request addValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
 		return;
 	}
 
@@ -124,6 +125,12 @@ NSString * const _DCTAuthRequestMethodString[] = {
 		return [[self _URLRequest] copy];
 
 	NSMutableURLRequest *request = [self _URLRequest];
+
+	if (self.requestMethod == DCTAuthRequestMethodPOST) {
+		[request addValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+		[request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"X-Accept"];
+	}
+
 	[(id<DCTAuthAccountSubclass>)self.account signURLRequest:request forAuthRequest:self];
 	return [request copy];
 }
@@ -147,11 +154,37 @@ NSString * const _DCTAuthRequestMethodString[] = {
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %p; %@ %@>",
+	NSURLRequest *request = [self signedURLRequest];
+	NSData *body = [request HTTPBody];
+	NSString *bodyString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+	if (bodyString.length > 0) bodyString = [NSString stringWithFormat:@"\n\n%@", bodyString];
+	else bodyString = @"";
+
+	NSString *queryString = @"";
+	if (self.requestMethod == DCTAuthRequestMethodGET) {
+		NSURL *URL = [self.URL dctAuth_URLByAddingQueryParameters:self.parameters];
+		queryString = [NSString stringWithFormat:@"\nQuery: ?%@", [URL query]];
+	}
+
+	return [NSString stringWithFormat:@"<%@: %p>\n%@ %@ \nHost: %@%@%@%@\n\n",
 			NSStringFromClass([self class]),
 			self,
 			_DCTAuthRequestMethodString[self.requestMethod],
-			self.URL];
+			[self.URL path],
+			[self.URL host],
+			queryString,
+			[self headerDescription:request],
+			bodyString];
+}
+
+- (NSString *)headerDescription:(NSURLRequest *)request {
+	NSDictionary *headers = [request allHTTPHeaderFields];
+	
+	NSMutableString *string = [NSMutableString new];
+	[headers enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+		[string appendFormat:@"\n%@: %@", key, value];
+	}];
+	return [string copy];
 }
 
 @end
