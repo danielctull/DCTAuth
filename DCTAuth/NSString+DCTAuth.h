@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (DCTOAuth)
+@interface NSString (DCTAuth)
 
 - (NSString *)dctAuth_URLEncodedString;
 - (NSDictionary *)dctAuth_parameterDictionary;
