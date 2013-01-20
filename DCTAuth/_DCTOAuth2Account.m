@@ -30,6 +30,8 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	__strong NSString *_refreshToken;
 	
 	__strong NSString *_state;
+
+	id _openURLObject;
 }
 
 - (id)initWithType:(NSString *)type
@@ -121,6 +123,11 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[self _authorizeWithHandler:authorizeHandler];
 }
 
+- (void)cancelAuthentication {
+	[super cancelAuthentication];
+	[[_DCTAuthURLOpener sharedURLOpener] close:_openURLObject];
+}
+
 - (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
@@ -129,7 +136,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	[[_DCTAuthURLOpener sharedURLOpener] openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	_openURLObject = [[_DCTAuthURLOpener sharedURLOpener] openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSMutableDictionary *dictionary = [NSMutableDictionary new];
 		NSDictionary *queryDictionary = [[URL query] dctAuth_parameterDictionary];
 		[dictionary addEntriesFromDictionary:queryDictionary];
