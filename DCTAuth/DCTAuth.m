@@ -20,8 +20,12 @@
 	[[_DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
 }
 
-+ (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(NSURL *callbackURL))handler {
-	[[_DCTAuthURLOpener sharedURLOpener] openURL:URL withCallbackURL:callbackPrefixURL handler:handler];
++ (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(NSURL *callbackURL))handler {
+	return [[_DCTAuthURLOpener sharedURLOpener] openURL:URL withCallbackURL:callbackPrefixURL handler:handler];
+}
+
++ (void)cancelOpenURL:(id)object {
+	[[_DCTAuthURLOpener sharedURLOpener] close:object];
 }
 
 + (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer {

@@ -8,7 +8,7 @@
 
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuthSignature.h"
-#import "_DCTAuthURLOpener.h"
+#import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 
@@ -129,7 +129,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 - (void)cancelAuthentication {
 	[super cancelAuthentication];
-	[[_DCTAuthURLOpener sharedURLOpener] close:_openURLObject];
+	[DCTAuth cancelOpenURL:_openURLObject];
 }
 
 - (void)_fetchRequestTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
@@ -149,7 +149,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	_openURLObject = [[_DCTAuthURLOpener sharedURLOpener] openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	_openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
 		handler(dictionary, nil);
