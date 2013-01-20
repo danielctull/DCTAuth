@@ -14,18 +14,63 @@
 /** DCTAuth is a library to handle multiple authentication types for services 
  that use OAuth, OAuth 2.0 and basic authentication.
  */
-@interface DCTAuth : NSObject 
+@interface DCTAuth : NSObject
+
+#pragma mark - Handling Web Redirects
+
+
 /** Applications should call this method when they get opened with a URL
- to handle OAuth and OAuth 2.0 callbacks. This would be 
+ to handle OAuth and OAuth 2.0 callbacks. This would be
  application:handleOpenURL and
- application:openURL:sourceApplication:annotation: on iOS. 
+ application:openURL:sourceApplication:annotation: on iOS.
  @param URL The URL that was called to open the application.
  @return YES if the URL was handled; NO if it wasn't handled.
  */
 + (BOOL)handleURL:(NSURL *)URL;
 
+/** Applications can supply their own webview UI for opening a
+ web-based URL by providing a block to open the given URL and
+ indictate by returning YES, that the URL has been shown to the 
+ user;
+ 
+ The application should monitor when the browser loads pages and 
+ for each new request in the webview, should call handleURL: to 
+ see if that call is the callback that DCTAuth is waiting for.
+ 
+ Calling handleURL: will check to see if the URL is the callback
+ so you can use the result of that to decide to show the new load
+ or not.
+
+ @param opener The block that will handle the display of the web page.
+ @see handleURL:
+ */
 + (void)setURLOpener:(BOOL(^)(NSURL *URL))opener;
 
-+ (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer;
+/** Allows the application or custom DCTAuthAccount subclasses to 
+ open a webpage with the default or custom URLOpener.
+ 
+
+ 
+ @param URL URL of the webpage to load
+ @param callbackPrefixURL The URL that will be checked for
+ @param handler Block that is called with the full callbackURL
+ 
+ @see handleURL:
+ @see setURLOpener:
+ */
++ (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(NSURL *callbackURL))handler;
+
+#pragma mark - Performing requests
+
+/** Allows the application to provide a custom way of loading
+ URL requests made by DCTAuth. This could be used to allow 
+ requests to be added to a networking library such as AFNetworking.
+ 
+ The performer block must load the given URLRequest and call the 
+ handler block provided. 
+
+ @param requestPerformer Block to handle loading of a NSURLRequest
+ */
++ (void)setURLRequestPerformer:(void(^)(NSURLRequest *URLRequest, DCTAuthRequestHandler handler))requestPerformer;
 
 @end

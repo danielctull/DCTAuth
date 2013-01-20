@@ -47,7 +47,8 @@
 		
 		if ([URLString hasPrefix:[open.callbackURL absoluteString]]) {
 			open.handler(URL);
-			[self close:open];
+			[_queue removeObject:open];
+			if ([_currentOpen isEqual:open]) _currentOpen = nil;
 			handled = YES;
 			*stop = YES;
 		}
@@ -58,19 +59,13 @@
 	return handled;
 }
 
-- (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
+- (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
+	_currentOpen = nil;
 	_DCTAuthOpen *open = [_DCTAuthOpen new];
 	open.URL = URL;
 	open.callbackURL = callbackURL;
 	open.handler = handler;
 	[_queue addObject:open];
-	[self _openNextURL];
-	return open;
-}
-
-- (void)close:(id)object {
-	[_queue removeObject:object];
-	if ([_currentOpen isEqual:object]) _currentOpen = nil;
 	[self _openNextURL];
 }
 

@@ -146,8 +146,6 @@ typedef enum {
  @see [DCTAuth handleURL:] */
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler;
 
-- (void)cancelAuthentication;
-
 
 
 //- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;

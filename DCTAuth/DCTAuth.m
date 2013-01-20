@@ -20,6 +20,10 @@
 	[[_DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
 }
 
++ (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(NSURL *callbackURL))handler {
+	[[_DCTAuthURLOpener sharedURLOpener] openURL:URL withCallbackURL:callbackPrefixURL handler:handler];
+}
+
 + (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer {
 	[[_DCTAuthURLRequestPerformer sharedURLRequestPerformer] setURLRequestPerformer:requestPerformer];
 }
