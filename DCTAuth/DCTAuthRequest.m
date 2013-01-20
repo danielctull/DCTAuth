@@ -12,6 +12,7 @@
 #import "_DCTAuthMultipartData.h"
 #import "NSURL+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
+#import "_DCTAuthURLRequestPerformer.h"
 
 NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
 NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
@@ -132,21 +133,16 @@ NSString * const _DCTAuthRequestMethodString[] = {
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter postNotificationName:DCTAuthConnectionIncreasedNotification object:self];
 
+	_DCTAuthURLRequestPerformer *URLRequestPerformer = [_DCTAuthURLRequestPerformer sharedURLRequestPerformer];
+	NSURLRequest *URLRequest = [self signedURLRequest];
+
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
-    [NSURLConnection sendAsynchronousRequest:[self signedURLRequest]
-									   queue:[NSOperationQueue mainQueue]
-						   completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-
-		[_DCTAuthPlatform endBackgroundTask:object];
-		[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
-
-        if (handler == NULL) return;
-        
-        NSHTTPURLResponse *HTTPURLResponse = nil;
-        if ([response isKindOfClass:[NSHTTPURLResponse class]])
-            HTTPURLResponse = (NSHTTPURLResponse *)response;
-        
-        handler(data, HTTPURLResponse, error);
+	[URLRequestPerformer performRequest:URLRequest withHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[_DCTAuthPlatform endBackgroundTask:object];
+			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
+			if (handler != NULL) handler(responseData, urlResponse, error);
+		});
 	}];
 }
 

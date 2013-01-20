@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2407646E15EE35A2006E0B54 /* libDCTAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */; };
 		240764BB15EE3791006E0B54 /* _DCTBasicAuthAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 240764BA15EE3791006E0B54 /* _DCTBasicAuthAccount.m */; };
+		241298C816AC71310052A724 /* _DCTAuthURLRequestPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */; };
 		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
@@ -73,6 +74,8 @@
 /* Begin PBXFileReference section */
 		240764B915EE3791006E0B54 /* _DCTBasicAuthAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTBasicAuthAccount.h; sourceTree = "<group>"; };
 		240764BA15EE3791006E0B54 /* _DCTBasicAuthAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTBasicAuthAccount.m; sourceTree = "<group>"; };
+		241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthURLRequestPerformer.h; sourceTree = "<group>"; };
+		241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLRequestPerformer.m; sourceTree = "<group>"; };
 		2443E9C415F37A2A00845950 /* _DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthMultipartData.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 			children = (
 				24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */,
 				24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */,
+				241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */,
+				241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */,
 				24A331D615F15B93004FA7E4 /* _DCTAuthPlatform.h */,
 				24A331D715F15B93004FA7E4 /* _DCTAuthPlatform.m */,
 				2443E9C415F37A2A00845950 /* _DCTAuthMultipartData.h */,
@@ -439,6 +444,7 @@
 				24A3318315F14D63004FA7E4 /* _DCTAuthURLOpener.m in Sources */,
 				24A331D815F15B93004FA7E4 /* _DCTAuthPlatform.m in Sources */,
 				2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */,
+				241298C816AC71310052A724 /* _DCTAuthURLRequestPerformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

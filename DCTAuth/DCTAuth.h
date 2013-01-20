@@ -26,4 +26,6 @@
 
 + (void)setURLOpener:(BOOL(^)(NSURL *URL))opener;
 
++ (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer;
+
 @end

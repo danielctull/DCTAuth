@@ -8,6 +8,8 @@
 
 #import "DCTAuth.h"
 #import "_DCTAuthURLOpener.h"
+#import "_DCTAuthURLRequestPerformer.h"
+
 @implementation DCTAuth
 
 + (BOOL)handleURL:(NSURL *)URL {
@@ -16,6 +18,10 @@
 
 + (void)setURLOpener:(BOOL(^)(NSURL *URL))opener {
 	[[_DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
+}
+
++ (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer {
+	[[_DCTAuthURLRequestPerformer sharedURLRequestPerformer] setURLRequestPerformer:requestPerformer];
 }
 
 @end

@@ -15,6 +15,8 @@ typedef enum : NSUInteger {
 	DCTAuthRequestMethodDELETE
 } DCTAuthRequestMethod;
 
+typedef void(^DCTAuthRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
+
 /** The DCTAuthRequest object encapsulates the properties of an HTTP request that you send to a service to perform some operation on behalf of the user. The DCTAuthRequest class provides a convenient template for you to make requests, and handles user authentication.
 
  HTTP requests have these common components: a URL identifying the operation to perform, the HTTP method (GET, POST, or DELETE), a set of query parameters that depends on the operation, and an optional multipart POST body containing additional data. The values for these properties depend on the request you are sending.
@@ -84,6 +86,6 @@ typedef enum : NSUInteger {
 
  @param handler The handler to call when the request is done.
  */
-- (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler;
+- (void)performRequestWithHandler:(DCTAuthRequestHandler)handler;
 
 @end
