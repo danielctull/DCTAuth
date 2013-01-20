@@ -13,8 +13,8 @@
 + (_DCTAuthURLOpener *)sharedURLOpener;
 
 - (BOOL)handleURL:(NSURL *)URL;
-- (void)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
-
+- (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler;
+- (void)close:(id)object;
 @property (nonatomic, copy) BOOL (^URLOpener)(NSURL *URL);
 
 @end

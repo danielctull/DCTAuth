@@ -124,6 +124,7 @@
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {}
+- (void)cancelAuthentication {}
 
 @end
 
