@@ -17,10 +17,12 @@
 @implementation _DCTAuthOpen
 @end
 
-@implementation _DCTAuthURLOpener {
-	__strong NSMutableArray *_queue;
-	_DCTAuthOpen *_currentOpen;
-}
+@interface _DCTAuthURLOpener ()
+@property (nonatomic, strong) NSMutableArray *queue;
+@property (nonatomic, strong) _DCTAuthOpen *currentOpen;
+@end
+
+@implementation _DCTAuthURLOpener
 
 + (_DCTAuthURLOpener *)sharedURLOpener {
 	static _DCTAuthURLOpener *opener;
@@ -43,7 +45,7 @@
 	__block BOOL handled = NO;
 	NSString *URLString = [URL absoluteString];
 	
-	[[_queue copy] enumerateObjectsUsingBlock:^(_DCTAuthOpen *open, NSUInteger idx, BOOL *stop) {
+	[[self.queue copy] enumerateObjectsUsingBlock:^(_DCTAuthOpen *open, NSUInteger idx, BOOL *stop) {
 		
 		if ([URLString hasPrefix:[open.callbackURL absoluteString]]) {
 			open.handler(URL);
@@ -63,31 +65,31 @@
 	open.URL = URL;
 	open.callbackURL = callbackURL;
 	open.handler = handler;
-	[_queue addObject:open];
+	[self.queue addObject:open];
 	[self _openNextURL];
 	return open;
 }
 
 - (void)close:(id)object {
-	[_queue removeObject:object];
-	if ([_currentOpen isEqual:object]) _currentOpen = nil;
+	[self.queue removeObject:object];
+	if ([self.currentOpen isEqual:object]) self.currentOpen = nil;
 	[self _openNextURL];
 }
 
 - (void)_openNextURL {
-	if (_currentOpen != nil) return;
-	if ([_queue count] == 0) return;
+	if (self.currentOpen != nil) return;
+	if ([self.queue count] == 0) return;
 
-	_DCTAuthOpen *open = [_queue objectAtIndex:0];
+	_DCTAuthOpen *open = [self.queue objectAtIndex:0];
 
 	BOOL isOpen = NO;
 	if (self.URLOpener != NULL) isOpen = self.URLOpener(open.URL);
 	if (!isOpen) isOpen = [_DCTAuthPlatform openURL:open.URL];
 
 	if (isOpen)
-		_currentOpen = open;
+		self.currentOpen = open;
 	else {
-		[_queue removeObject:open];
+		[self.queue removeObject:open];
 		[self _openNextURL];
 	}
 }
