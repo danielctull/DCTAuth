@@ -125,12 +125,6 @@ NSString * const _DCTAuthRequestMethodString[] = {
 		return [[self _URLRequest] copy];
 
 	NSMutableURLRequest *request = [self _URLRequest];
-
-	if (self.requestMethod == DCTAuthRequestMethodPOST) {
-		[request addValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-		[request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"X-Accept"];
-	}
-
 	[(id<DCTAuthAccountSubclass>)self.account signURLRequest:request forAuthRequest:self];
 	return [request copy];
 }
