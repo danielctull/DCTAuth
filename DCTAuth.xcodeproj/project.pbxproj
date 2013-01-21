@@ -520,6 +520,7 @@
 					"-Weverything",
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-pedantic",
+					"-Wno-assign-enum",
 				);
 			};
 			name = Debug;
@@ -549,6 +550,7 @@
 					"-Weverything",
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-pedantic",
+					"-Wno-assign-enum",
 				);
 			};
 			name = Release;

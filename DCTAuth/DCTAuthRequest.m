@@ -32,9 +32,12 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	@"application/x-plist; charset=UTF-8"
 };
 
-@implementation DCTAuthRequest {
-	__strong NSMutableArray *_multipartDatas;
-}
+@interface DCTAuthRequest ()
+@property (nonatomic, strong) NSMutableArray *multipartDatas;
+@property (nonatomic, strong, readwrite) NSDictionary *parameters;
+@end
+
+@implementation DCTAuthRequest
 
 - (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
 						URL:(NSURL *)URL
@@ -56,7 +59,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	multipartData.data = data;
 	multipartData.name = name;
 	multipartData.type = type;
-	[_multipartDatas addObject:multipartData];
+	[self.multipartDatas addObject:multipartData];
 
 	if (self.parameters) {
 		
@@ -65,10 +68,10 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 			multipartData.data = [[object description] dataUsingEncoding:NSUTF8StringEncoding];
 			multipartData.name = [key description];
 			multipartData.type = @"text/plain";
-			[self->_multipartDatas addObject:multipartData];
+			[self.multipartDatas addObject:multipartData];
 		}];
 
-		_parameters = nil;
+		self.parameters = nil;
 	}
 }
 
@@ -124,7 +127,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 - (void)_setupPOSTRequest:(NSMutableURLRequest *)request {
 	[request setURL:self.URL];
 
-	if ([_multipartDatas count] == 0) {
+	if ([self.multipartDatas count] == 0) {
 		[request setHTTPBody:[self encodedBodyWithParameters:self.parameters contentType:self.contentType]];
 		NSString *contentLength = [@([[request HTTPBody] length]) stringValue];
 		[request setValue:contentLength forHTTPHeaderField:DCTAuthRequestContentLengthKey];
@@ -138,7 +141,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	[request setValue:contentType forHTTPHeaderField: @"Content-Type"];
 
 	NSMutableData *body = [NSMutableData new];
-	[_multipartDatas enumerateObjectsUsingBlock:^(_DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
+	[self.multipartDatas enumerateObjectsUsingBlock:^(_DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
 		[body appendData:[multipartData dataWithBoundary:boundary]];
 	}];
 	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
