@@ -16,6 +16,7 @@
 
 @interface DCTAuthAccount ()
 @property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
+@property (nonatomic, strong) NSURL *discoveredCallbackURL;
 @end
 
 @implementation DCTAuthAccount {
@@ -105,22 +106,25 @@
 	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
-	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
+	[coder encodeBool:self.authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
 }
 
 - (NSURL *)callbackURL {
-	
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 	if (_callbackURL) return _callbackURL;
-	
-	if (!_discoveredCallbackURL) {
+#pragma clang diagnostic pop
+
+	if (!self.discoveredCallbackURL) {
 		NSArray *types = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
 		NSDictionary *type = [types lastObject];
 		NSArray *schemes = [type objectForKey:@"CFBundleURLSchemes"];
 		NSString *scheme = [NSString stringWithFormat:@"%@://%i/", [schemes lastObject], [self.identifier hash]];
-		_discoveredCallbackURL = [NSURL URLWithString:scheme];
+		self.discoveredCallbackURL = [NSURL URLWithString:scheme];
 	}
 	
-	return _discoveredCallbackURL;
+	return self.discoveredCallbackURL;
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {}
