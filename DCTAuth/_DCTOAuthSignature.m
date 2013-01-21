@@ -17,13 +17,15 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	@"PLAINTEXT"
 };
 
-@implementation _DCTOAuthSignature {
-	__strong NSURL *_URL;
-	__strong NSString *_consumerSecret;
-	__strong NSString *_secretToken;
-	__strong NSMutableDictionary *_parameters;
-	__strong NSString *_HTTPMethod;
-}
+@interface _DCTOAuthSignature ()
+@property (nonatomic, copy) NSURL *URL;
+@property (nonatomic, copy) NSString *consumerSecret;
+@property (nonatomic, copy) NSString *secretToken;
+@property (nonatomic, copy) NSString *HTTPMethod;
+@property (nonatomic, strong) NSMutableDictionary *parameters;
+@end
+
+@implementation _DCTOAuthSignature
 
 - (id)initWithURL:(NSURL *)URL
 	   HTTPMethod:(NSString *)HTTPMethod
@@ -56,18 +58,19 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 }
 
 - (void)setType:(DCTOAuthSignatureType)type {
-	_type = type;
-	[_parameters setObject:_DTOAuthSignatureTypeString[_type] forKey:@"oauth_signature_method"];
-}
 
-- (NSDictionary *)parameters {
-	return [_parameters copy];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+	_type = type;
+#pragma clang diagnostic pop
+
+	[self.parameters setObject:_DTOAuthSignatureTypeString[type] forKey:@"oauth_signature_method"];
 }
 
 - (NSString *)signatureBaseString {
 
-	NSMutableDictionary *parameters = [_parameters mutableCopy];
-	NSDictionary *queryDictionary = [[_URL query] dctAuth_parameterDictionary];
+	NSMutableDictionary *parameters = [self.parameters mutableCopy];
+	NSDictionary *queryDictionary = [[self.URL query] dctAuth_parameterDictionary];
 	[parameters addEntriesFromDictionary:queryDictionary];
 
 	NSArray *keys = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -80,11 +83,11 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	}];
 	
 	NSString *parameterString = [parameterStrings componentsJoinedByString:@"&"];
-	NSURL *URL = [_URL dctAuth_URLByRemovingComponentType:kCFURLComponentQuery];
+	NSURL *URL = [self.URL dctAuth_URLByRemovingComponentType:kCFURLComponentQuery];
 	URL = [URL dctAuth_URLByRemovingComponentType:kCFURLComponentFragment];
 
 	NSMutableArray *baseArray = [NSMutableArray new];
-	[baseArray addObject:_HTTPMethod];
+	[baseArray addObject:self.HTTPMethod];
 	[baseArray addObject:[[URL absoluteString] dctAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
 
@@ -94,8 +97,8 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 - (NSString *)signatureString {
 	
 	NSString *baseString = [self signatureBaseString];
-	if (!_secretToken) _secretToken = @"";
-	NSString *secretString = [NSString stringWithFormat:@"%@&%@", _consumerSecret, _secretToken];
+	if (!self.secretToken) self.secretToken = @"";
+	NSString *secretString = [NSString stringWithFormat:@"%@&%@", self.consumerSecret, self.secretToken];
 	
 	NSData *baseData = [baseString dataUsingEncoding:NSUTF8StringEncoding];
 	NSData *secretData = [secretString dataUsingEncoding:NSUTF8StringEncoding];
@@ -124,7 +127,7 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	if (self.type == DCTOAuthSignatureTypeHMAC_SHA1)
 		string = [NSString stringWithFormat:@"oauth_signature=\"%@\"", [[self signatureString] dctAuth_URLEncodedString]];
 	else
-		string = [NSString stringWithFormat:@"oauth_signature=\"%@&%@\"", _consumerSecret, (_secretToken != nil) ? _secretToken : @""];
+		string = [NSString stringWithFormat:@"oauth_signature=\"%@&%@\"", self.consumerSecret, (self.secretToken != nil) ? self.secretToken : @""];
 	
 	[parameterStringsArray addObject:string];
 	NSString *parameterString = [parameterStringsArray componentsJoinedByString:@","];
