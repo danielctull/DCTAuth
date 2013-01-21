@@ -10,12 +10,18 @@
 
 @implementation NSString (DCTAuth)
 
+- (NSString *)dctAuth_bodyFormEncodedString {
+	NSArray *strings = [self componentsSeparatedByString:@" "];
+	strings = [strings valueForKey:@"dctAuth_URLEncodedString"];
+	return [strings componentsJoinedByString:@"+"];
+}
+
 - (NSString *)dctAuth_URLEncodedString {
 	
 	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
 																				  (CFStringRef)objc_unretainedPointer(self),
 																				  NULL,
-																				  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+																				  (CFStringRef)@"!*'\"();:@&=+$,/?%#[] ",
 																				  kCFStringEncodingUTF8);
 }
 

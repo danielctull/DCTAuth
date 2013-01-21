@@ -11,6 +11,7 @@
 @interface NSString (DCTAuth)
 
 - (NSString *)dctAuth_URLEncodedString;
+- (NSString *)dctAuth_bodyFormEncodedString;
 - (NSDictionary *)dctAuth_parameterDictionary;
 
 @end

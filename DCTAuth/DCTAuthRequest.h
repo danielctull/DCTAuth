@@ -15,6 +15,12 @@ typedef enum : NSUInteger {
 	DCTAuthRequestMethodDELETE
 } DCTAuthRequestMethod;
 
+typedef enum : NSUInteger {
+	DCTAuthRequestContentTypeForm,
+	DCTAuthRequestContentTypeJSON,
+	DCTAuthRequestContentTypePlist
+} DCTAuthRequestContentType;
+
 typedef void(^DCTAuthRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
 
 /** The DCTAuthRequest object encapsulates the properties of an HTTP request that you send to a service to perform some operation on behalf of the user. The DCTAuthRequest class provides a convenient template for you to make requests, and handles user authentication.
@@ -45,26 +51,31 @@ typedef void(^DCTAuthRequestHandler)(NSData *responseData, NSHTTPURLResponse *ur
  
  This is the URL for the HTTP request.
  */
-@property(nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) NSURL *URL;
 
 /** The method to use for this request.
  
  This property specifies the method of the HTTP request.
  */
-@property(nonatomic, readonly) DCTAuthRequestMethod requestMethod;
+@property (nonatomic, readonly) DCTAuthRequestMethod requestMethod;
 
 /** The parameters for this request.
 
  These are the query parameters for this HTTP request.
  */
-@property(nonatomic, readonly) NSDictionary *parameters;
+@property (nonatomic, readonly) NSDictionary *parameters;
 
-/**
- Optional account information used to authenticate the request.
+/** Optional account information used to authenticate the request.
  
  Default is nil.
  */
-@property(nonatomic, strong) DCTAuthAccount *account;
+@property (nonatomic, strong) DCTAuthAccount *account;
+
+/** The content type to encode the POST body parameters.
+ 
+ Default is DCTAuthRequestContentTypeForm
+ */
+@property (nonatomic, assign) DCTAuthRequestContentType contentType;
 
 /** Specifies a named multipart POST body for this request.
  

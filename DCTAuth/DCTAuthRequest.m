@@ -17,10 +17,19 @@
 NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
 NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
 
-NSString * const _DCTAuthRequestMethodString[] = {
+NSString *const _DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
 	@"DELETE"
+};
+
+NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
+
+NSString *const DCTAuthRequestContentTypeKey = @"Content-Type";
+NSString *const DCTAuthRequestContentTypeString[] = {
+	@"application/x-www-form-urlencoded; charset=UTF-8",
+	@"application/json; charset=UTF-8",
+	@"application/x-plist; charset=UTF-8"
 };
 
 @implementation DCTAuthRequest {
@@ -95,13 +104,32 @@ NSString * const _DCTAuthRequestMethodString[] = {
 	[request setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
 }
 
+- (NSData *)encodedBodyWithParameters:(NSDictionary *)parameters
+						  contentType:(DCTAuthRequestContentType)contentType {
+
+	NSData *body;
+
+	if (contentType == DCTAuthRequestContentTypeForm)
+		body = [parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding];
+
+	else if (contentType == DCTAuthRequestContentTypeJSON)
+		body = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:NULL];
+
+	else if (contentType == DCTAuthRequestContentTypePlist)
+		body = [NSPropertyListSerialization dataWithPropertyList:parameters format:NSPropertyListXMLFormat_v1_0 options:0 error:NULL];
+
+	return body;
+}
+
 - (void)_setupPOSTRequest:(NSMutableURLRequest *)request {
 	[request setURL:self.URL];
 
 	if ([_multipartDatas count] == 0) {
-		[request setHTTPBody:[self.parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding]];
-		[request setValue:[NSString stringWithFormat:@"%d", [[request HTTPBody] length]] forHTTPHeaderField:@"Content-Length"];
-		[request addValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+		[request setHTTPBody:[self encodedBodyWithParameters:self.parameters contentType:self.contentType]];
+		NSString *contentLength = [@([[request HTTPBody] length]) stringValue];
+		[request setValue:contentLength forHTTPHeaderField:DCTAuthRequestContentLengthKey];
+		NSString *contentType = DCTAuthRequestContentTypeString[self.contentType];
+		[request addValue:contentType forHTTPHeaderField:DCTAuthRequestContentTypeKey];
 		return;
 	}
 
