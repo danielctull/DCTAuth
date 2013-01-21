@@ -16,21 +16,20 @@ NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenRespons
 NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
 NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse";
 
-@implementation _DCTOAuth1Account {
-	__strong NSURL *_requestTokenURL;
-	__strong NSURL *_accessTokenURL;
-	__strong NSURL *_authorizeURL;
-	
-	__strong NSString *_consumerKey;
-	__strong NSString *_consumerSecret;
-	
-	__strong NSString *_oauthToken;
-	__strong NSString *_oauthTokenSecret;
-	__strong NSString *_oauthVerifier;
-	DCTOAuthSignatureType _signatureType;
+@interface _DCTOAuth1Account ()
+@property (nonatomic, copy) NSURL *requestTokenURL;
+@property (nonatomic, copy) NSURL *accessTokenURL;
+@property (nonatomic, copy) NSURL *authorizeURL;
+@property (nonatomic, copy) NSString *consumerKey;
+@property (nonatomic, copy) NSString *consumerSecret;
+@property (nonatomic, copy) NSString *oauthToken;
+@property (nonatomic, copy) NSString *oauthTokenSecret;
+@property (nonatomic, copy) NSString *oauthVerifier;
+@property (nonatomic, assign) DCTOAuthSignatureType signatureType;
+@property (nonatomic, strong) id openURLObject;
+@end
 
-	id _openURLObject;
-}
+@implementation _DCTOAuth1Account
 
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
@@ -74,16 +73,16 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	
-	[coder encodeObject:_requestTokenURL forKey:@"_requestTokenURL"];
-	[coder encodeObject:_accessTokenURL forKey:@"_accessTokenURL"];
-	[coder encodeObject:_authorizeURL forKey:@"_authorizeURL"];
+	[coder encodeObject:self.requestTokenURL forKey:@"_requestTokenURL"];
+	[coder encodeObject:self.accessTokenURL forKey:@"_accessTokenURL"];
+	[coder encodeObject:self.authorizeURL forKey:@"_authorizeURL"];
 	
-	[self setSecureValue:_consumerKey forKey:@"_consumerKey"];
-	[self setSecureValue:_consumerSecret forKey:@"_consumerSecret"];
+	[self setSecureValue:self.consumerKey forKey:@"_consumerKey"];
+	[self setSecureValue:self.consumerSecret forKey:@"_consumerSecret"];
 	
-	[self setSecureValue:_oauthToken forKey:@"_oauthToken"];
-	[self setSecureValue:_oauthTokenSecret forKey:@"_oauthTokenSecret"];
-	[self setSecureValue:_oauthVerifier forKey:@"_oauthVerifier"];
+	[self setSecureValue:self.oauthToken forKey:@"_oauthToken"];
+	[self setSecureValue:self.oauthTokenSecret forKey:@"_oauthTokenSecret"];
+	[self setSecureValue:self.oauthVerifier forKey:@"_oauthVerifier"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
@@ -118,7 +117,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		
 		// If there's no authorizeURL, assume there is no authorize step.
 		// This is valid as shown by the server used in the demo app.
-		if (self->_authorizeURL)
+		if (self.authorizeURL)
 			[self _authorizeWithHandler:authorizeHandler];
 		else
 			[self _fetchAccessTokenWithHandler:accessTokenHandler];
@@ -129,13 +128,13 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 - (void)cancelAuthentication {
 	[super cancelAuthentication];
-	[DCTAuth cancelOpenURL:_openURLObject];
+	[DCTAuth cancelOpenURL:self.openURLObject];
 }
 
 - (void)_fetchRequestTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:_requestTokenURL
+																		URL:self.requestTokenURL
 																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
@@ -144,12 +143,12 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 	
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:_authorizeURL
+																		URL:self.authorizeURL
 																 parameters:[self _OAuthParameters]];
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	_openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
+	self.openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
 		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
 		[self _setValuesFromOAuthDictionary:dictionary];
 		handler(dictionary, nil);
@@ -159,7 +158,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:_accessTokenURL
+																		URL:self.accessTokenURL
 																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
@@ -189,9 +188,9 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 }
 
 - (void)_nilCurrentOAuthValues {
-	_oauthToken = nil;
-	_oauthTokenSecret = nil;
-	_oauthVerifier = nil;
+	self.oauthToken = nil;
+	self.oauthTokenSecret = nil;
+	self.oauthVerifier = nil;
 	self.authorized = NO;
 }
 
@@ -209,23 +208,23 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 		
 		if ([key isEqualToString:@"oauth_token"])
-			self->_oauthToken = value;
+			self.oauthToken = value;
 
 		else if ([key isEqualToString:@"oauth_verifier"])
-			self->_oauthVerifier = value;
+			self.oauthVerifier = value;
 		
 		else if ([key isEqualToString:@"oauth_token_secret"])
-			self->_oauthTokenSecret = value;
+			self.oauthTokenSecret = value;
 
 	}];
 }
 
 - (NSDictionary *)_OAuthParameters {
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters setObject:_consumerKey forKey:@"oauth_consumer_key"];
+	[parameters setObject:self.consumerKey forKey:@"oauth_consumer_key"];
 	[parameters setObject:[self.callbackURL absoluteString] forKey:@"oauth_callback"];
-	if (_oauthToken) [parameters setObject:_oauthToken forKey:@"oauth_token"];
-	if (_oauthVerifier) [parameters setObject:_oauthVerifier forKey:@"oauth_verifier"];
+	if (self.oauthToken) [parameters setObject:self.oauthToken forKey:@"oauth_token"];
+	if (self.oauthVerifier) [parameters setObject:self.oauthVerifier forKey:@"oauth_verifier"];
 	return [parameters copy];
 }
 
@@ -237,10 +236,10 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
 																 HTTPMethod:request.HTTPMethod
-															 consumerSecret:_consumerSecret
-																secretToken:_oauthTokenSecret
+															 consumerSecret:self.consumerSecret
+																secretToken:self.oauthTokenSecret
 																 parameters:OAuthParameters
-																	   type:_signatureType];
+																	   type:self.signatureType];
 	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
 }
 
@@ -248,8 +247,8 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	return [NSString stringWithFormat:@"<%@: %p; consumerKey = %@; oauth_token = %@>",
 			NSStringFromClass([self class]),
 			self,
-			_consumerKey,
-			_oauthToken];
+			self.consumerKey,
+			self.oauthToken];
 }
 
 @end
