@@ -148,10 +148,9 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	
 	NSURL *authorizeURL = [[request signedURLRequest] URL];
 	
-	self.openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(NSURL *URL) {
-		NSDictionary *dictionary = [[URL query] dctAuth_parameterDictionary];
-		[self _setValuesFromOAuthDictionary:dictionary];
-		handler(dictionary, nil);
+	self.openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(DCTAuthResponse *response) {
+		[self _setValuesFromOAuthDictionary:response.contentObject];
+		handler(response.contentObject, nil);
 	}];
 }
 

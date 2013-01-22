@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthResponse.h"
+#import "NSString+DCTAuth.h"
 
 @implementation DCTAuthResponse
 
@@ -22,6 +23,11 @@
 	self = [self init];
 	if (!self) return nil;
 	_URL = [URL copy];
+
+	NSMutableDictionary *content = [NSMutableDictionary new];
+	[content addEntriesFromDictionary:[[URL query] dctAuth_parameterDictionary]];
+	[content addEntriesFromDictionary:[[URL fragment] dctAuth_parameterDictionary]];
+	_contentObject = [content copy];
 	
 	return self;
 }

@@ -12,7 +12,7 @@
 @interface _DCTAuthOpen : NSObject
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, copy) NSURL *callbackURL;
-@property (nonatomic, copy) void (^handler)(NSURL *URL);
+@property (nonatomic, copy) void (^handler)(DCTAuthResponse *response);
 @end
 @implementation _DCTAuthOpen
 @end
@@ -48,7 +48,8 @@
 	[[self.queue copy] enumerateObjectsUsingBlock:^(_DCTAuthOpen *open, NSUInteger idx, BOOL *stop) {
 		
 		if ([URLString hasPrefix:[open.callbackURL absoluteString]]) {
-			open.handler(URL);
+			DCTAuthResponse *response = [[DCTAuthResponse alloc] initWithURL:URL];
+			open.handler(response);
 			[self close:open];
 			handled = YES;
 			*stop = YES;
@@ -60,7 +61,7 @@
 	return handled;
 }
 
-- (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(NSURL *URL))handler {
+- (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler {
 	_DCTAuthOpen *open = [_DCTAuthOpen new];
 	open.URL = URL;
 	open.callbackURL = callbackURL;

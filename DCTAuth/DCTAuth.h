@@ -10,6 +10,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthRequest.h"
+#import "DCTAuthResponse.h"
 
 /** DCTAuth is a library to handle multiple authentication types for services 
  that use OAuth, OAuth 2.0 and basic authentication.
@@ -57,7 +58,7 @@
  @see handleURL:
  @see setURLOpener:
  */
-+ (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(NSURL *callbackURL))handler;
++ (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(DCTAuthResponse *response))handler;
 
 /** Used to cancel the search for a callback from an open URL call.
  
