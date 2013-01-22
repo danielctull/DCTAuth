@@ -31,7 +31,7 @@
 
 - (id)objectFromData:(NSData *)data contentType:(NSString *)contentType {
 
-	if ([contentType hasPrefix:@"application/x-www-form-urlencoded"])
+	if ([contentType isEqualToString:@"application/x-www-form-urlencoded"])
 		return [self dictionaryFromFormData:data];
 
 	//if ([contentType hasPrefix:@"text/xml"])
