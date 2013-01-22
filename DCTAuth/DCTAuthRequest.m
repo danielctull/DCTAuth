@@ -34,7 +34,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 
 @interface DCTAuthRequest ()
 @property (nonatomic, strong) NSMutableArray *multipartDatas;
-@property (nonatomic, strong, readwrite) NSDictionary *parameters;
+@property (nonatomic, readwrite) NSDictionary *parameters;
 @end
 
 @implementation DCTAuthRequest
@@ -48,7 +48,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	
 	_URL = [URL copy];
 	_requestMethod = requestMethod;
-	_parameters = parameters;
+	_parameters = [parameters copy];
 	_multipartDatas = [NSMutableArray new];
 
 	return self;
