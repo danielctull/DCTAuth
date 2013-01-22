@@ -13,6 +13,7 @@
 - (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)response;
 - (id)initWithURL:(NSURL *)URL;
 
+@property (nonatomic, readonly) NSInteger statusCode;
 @property (nonatomic, readonly) NSDictionary *HTTPHeaders;
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSData *data;

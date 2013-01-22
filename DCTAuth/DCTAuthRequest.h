@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DCTAuthAccount.h"
+#import "DCTAuthResponse.h"
 
 typedef enum : NSUInteger {
 	DCTAuthRequestMethodGET,
@@ -21,7 +22,7 @@ typedef enum : NSUInteger {
 	DCTAuthRequestContentTypePlist
 } DCTAuthRequestContentType;
 
-typedef void(^DCTAuthRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
+typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
 
 /** The DCTAuthRequest object encapsulates the properties of an HTTP request that you send to a service to perform some operation on behalf of the user. The DCTAuthRequest class provides a convenient template for you to make requests, and handles user authentication.
 

@@ -160,7 +160,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	return [request copy];
 }
 
-- (void)performRequestWithHandler:(void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))handler {
+- (void)performRequestWithHandler:(DCTAuthRequestHandler)handler {
 
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter postNotificationName:DCTAuthConnectionIncreasedNotification object:self];
@@ -169,11 +169,11 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
-	[URLRequestPerformer performRequest:URLRequest withHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[_DCTAuthPlatform endBackgroundTask:object];
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
-			if (handler != NULL) handler(responseData, urlResponse, error);
+			if (handler != NULL) handler(response, error);
 		});
 	}];
 }

@@ -16,6 +16,19 @@
 	if (!self) return nil;
 	_data = data;
 	_HTTPHeaders = response.allHeaderFields;
+	_statusCode = response.statusCode;
+	
+	NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+	if (!dictionary) {
+		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		dictionary = [string dctAuth_parameterDictionary];
+	}
+
+	NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	dictionary = [string dctAuth_parameterDictionary];
+
+	_contentObject = [dictionary copy];
+
 	return self;
 }
 

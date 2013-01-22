@@ -57,19 +57,19 @@
 																		URL:self.authenticationURL
 																 parameters:nil];
 	request.account = self;
-	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
+	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
-		self.authorized = (urlResponse.statusCode == 200);
+		self.authorized = (response.statusCode == 200);
 
 		if (handler == NULL) return;
 		
 		NSMutableDictionary *results = [NSMutableDictionary new];
-		if (data) [results setObject:data forKey:@"data"];
+		if (response.data) [results setObject:response.data forKey:@"data"];
 
-		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		NSString *string = [[NSString alloc] initWithData:response.data encoding:NSUTF8StringEncoding];
 		if (string) [results setObject:string forKey:@"dataString"];
 
-		[results setObject:@(urlResponse.statusCode) forKey:@"statusCode"];
+		[results setObject:@(response.statusCode) forKey:@"statusCode"];
 
 		handler([results copy], error);
 	}];

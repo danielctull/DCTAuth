@@ -26,13 +26,9 @@
 		return;
 	}
 
-	[NSURLConnection sendAsynchronousRequest:URLRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-
-		NSHTTPURLResponse *HTTPURLResponse = nil;
-        if ([response isKindOfClass:[NSHTTPURLResponse class]])
-            HTTPURLResponse = (NSHTTPURLResponse *)response;
-
-		handler(data, HTTPURLResponse, error);
+	[NSURLConnection sendAsynchronousRequest:URLRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *URLResponse, NSData *data, NSError *error) {
+		DCTAuthResponse *response = [[DCTAuthResponse alloc] initWithData:data URLResponse:(NSHTTPURLResponse *)URLResponse];
+		handler(response, error);
 	}];
 }
 

@@ -135,19 +135,9 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 																		URL:self.accessTokenURL
 																 parameters:[self _OAuthParametersWithState:sendState]];
 
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-		
-		if (!responseData) {
-			handler(nil, error);
-			return;
-		}
-		
-		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
-		if (!dictionary) {
-			NSString *string= [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-			dictionary = [string dctAuth_parameterDictionary];
-		}
-		[self _setValuesFromOAuthDictionary:dictionary];
+	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
+
+		[self _setValuesFromOAuthDictionary:response.contentObject];
 
 		if (!self.authorized && sendState) {
 			// Try again but don't include the state - Google fails on sending the state
@@ -155,8 +145,8 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 			return;
 		}
 
-		NSError *oAuthError = [self _errorFromOAuthDictionary:dictionary];
-		handler(dictionary, oAuthError);
+		NSError *oAuthError = [self _errorFromOAuthDictionary:response.contentObject];
+		handler(response.contentObject, oAuthError);
 	}];
 }
 

@@ -137,7 +137,11 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 																		URL:self.requestTokenURL
 																 parameters:nil];
 	request.account = self;
-	[request performRequestWithHandler:[self _requestHandlerFromHandler:handler]];
+	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
+		[self _setValuesFromOAuthDictionary:response.contentObject];
+		NSError *oAuthError = [self _errorFromOAuthDictionary:response.contentObject];
+		handler(response.contentObject, oAuthError);
+	}];
 }
 
 - (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
@@ -160,30 +164,12 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 																		URL:self.accessTokenURL
 																 parameters:nil];
 	request.account = self;
-	[request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
+		[self _setValuesFromOAuthDictionary:response.contentObject];
+		NSError *oAuthError = [self _errorFromOAuthDictionary:response.contentObject];
 		self.authorized = YES;
-		[self _requestHandlerFromHandler:handler](responseData, urlResponse, error);
+		handler(response.contentObject, oAuthError);
 	}];
-}
-
-- (void(^)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error))_requestHandlerFromHandler:(void(^)(NSDictionary *response, NSError *error))handler {
-	
-	return ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-		
-		if (!responseData) {
-			handler(nil, error);
-			return;
-		}
-		
-		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
-		if (!dictionary) {
-			NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-			dictionary = [string dctAuth_parameterDictionary];
-		}
-		[self _setValuesFromOAuthDictionary:dictionary];
-		NSError *oAuthError = [self _errorFromOAuthDictionary:dictionary];
-		handler(dictionary, oAuthError);
-	};
 }
 
 - (void)_nilCurrentOAuthValues {
