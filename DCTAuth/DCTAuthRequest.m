@@ -170,9 +170,6 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
 	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *response, NSError *error) {
-
-		NSLog(@"\n%@%@", self, response);
-
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[_DCTAuthPlatform endBackgroundTask:object];
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
@@ -189,7 +186,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	else bodyString = @"";
 
 	NSString *queryString = @"";
-	if (self.requestMethod == DCTAuthRequestMethodGET) {
+	if (self.requestMethod == DCTAuthRequestMethodGET && self.parameters.count > 0) {
 		NSURL *URL = [self.URL dctAuth_URLByAddingQueryParameters:self.parameters];
 		queryString = [NSString stringWithFormat:@"\nQuery: ?%@", [URL query]];
 	}

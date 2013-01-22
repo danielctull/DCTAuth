@@ -94,10 +94,11 @@
 	if (bodyString.length > 0) bodyString = [NSString stringWithFormat:@"\n\n%@", bodyString];
 	else bodyString = @"";
 
-	return [NSString stringWithFormat:@"<%@: %p>%@%@%@\n\n",
+	return [NSString stringWithFormat:@"<%@: %p>\nHTTP/1.1 %@ %@%@%@\n\n",
 			NSStringFromClass([self class]),
 			self,
-			URLString,
+			@(self.statusCode),
+			[[NSHTTPURLResponse localizedStringForStatusCode:self.statusCode] capitalizedString],
 			headerString,
 			bodyString];
 }

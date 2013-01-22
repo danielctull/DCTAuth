@@ -165,9 +165,9 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
+		self.authorized = (response.statusCode == 200);
 		[self _setValuesFromOAuthDictionary:response.contentObject];
 		NSError *oAuthError = [self _errorFromOAuthDictionary:response.contentObject];
-		self.authorized = YES;
 		handler(response.contentObject, oAuthError);
 	}];
 }
