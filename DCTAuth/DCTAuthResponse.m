@@ -8,7 +8,6 @@
 
 #import "DCTAuthResponse.h"
 #import "NSString+DCTAuth.h"
-#import "_DCTAuthXMLParser.h"
 
 #ifdef TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -28,18 +27,16 @@
 	return self;
 }
 
-
 - (id)objectFromData:(NSData *)data contentType:(NSString *)contentType {
 
 	if ([contentType isEqualToString:@"application/x-www-form-urlencoded"])
 		return [self dictionaryFromFormData:data];
 
-	//if ([contentType hasPrefix:@"text/xml"])
-	//	return [_DCTAuthXMLParser dictionaryFromXMLData:data];
-
-
 	if ([@[@"application/json", @"text/json", @"text/javascript"] containsObject:contentType])
 		return [self dictionaryFromJSONData:data];
+
+	if ([contentType isEqualToString:@"application/x-plist"])
+		return [self dictionaryFromPlistData:data];
 
 	if ([@[@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap"] containsObject:contentType])
 		return [self imageFromData:data];
@@ -56,6 +53,10 @@
 	return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 }
 
+- (NSDictionary *)dictionaryFromPlistData:(NSData *)data {
+	return [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
+}
+
 - (UIImage *)imageFromData:(NSData *)data {
 #ifdef TARGET_OS_IPHONE
 	return [[UIImage alloc] initWithData:data];
@@ -63,9 +64,6 @@
 	return [[NSImage alloc] initWithData:data];
 #endif
 }
-
-
-
 
 - (id)initWithURL:(NSURL *)URL {
 	self = [self init];
@@ -104,6 +102,3 @@
 }
 
 @end
-
-
-
