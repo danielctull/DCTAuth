@@ -8,12 +8,7 @@
 
 #import "DCTAuthResponse.h"
 #import "NSString+DCTAuth.h"
-
-#ifdef TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#else
-#import <Cocoa/Cocoa.h>
-#endif
+#import "_DCTAuthPlatform.h"
 
 @implementation DCTAuthResponse
 
@@ -39,7 +34,7 @@
 		return [self dictionaryFromPlistData:data];
 
 	if ([@[@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap"] containsObject:contentType])
-		return [self imageFromData:data];
+		return [_DCTAuthPlatform imageFromData:data];
 
 	return [self dictionaryFromFormData:data];
 }
@@ -55,14 +50,6 @@
 
 - (NSDictionary *)dictionaryFromPlistData:(NSData *)data {
 	return [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
-}
-
-- (UIImage *)imageFromData:(NSData *)data {
-#ifdef TARGET_OS_IPHONE
-	return [[UIImage alloc] initWithData:data];
-#else
-	return [[NSImage alloc] initWithData:data];
-#endif
 }
 
 - (id)initWithURL:(NSURL *)URL {
