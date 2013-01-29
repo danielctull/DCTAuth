@@ -171,9 +171,9 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
 	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[_DCTAuthPlatform endBackgroundTask:object];
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
 			if (handler != NULL) handler(response, error);
+			[_DCTAuthPlatform endBackgroundTask:object];
 		});
 	}];
 }
