@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+	DCTAuthResponseContentTypeForm,
+	DCTAuthResponseContentTypeJSON,
+	DCTAuthResponseContentTypePlist,
+	DCTAuthResponseContentTypeImagePNG,
+	DCTAuthResponseContentTypeImageJPEG,
+	DCTAuthResponseContentTypeImageTIFF,
+	DCTAuthResponseContentTypeImageGIF,
+	DCTAuthResponseContentTypeImageICO,
+	DCTAuthResponseContentTypeImageX_ICON,
+	DCTAuthResponseContentTypeImageBMP,
+	DCTAuthResponseContentTypeImageX_BMP,
+	DCTAuthResponseContentTypeImageX_XBITMAP,
+	DCTAuthResponseContentTypeImageX_WIN_BITMAP
+} DCTAuthResponseContentType;
+
 @interface DCTAuthResponse : NSObject
 
 - (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)response;
@@ -17,6 +33,7 @@
 @property (nonatomic, readonly) NSDictionary *HTTPHeaders;
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSData *data;
+@property (nonatomic, readonly) DCTAuthResponseContentType contentType;
 
 @property (nonatomic, readonly) id contentObject;
 

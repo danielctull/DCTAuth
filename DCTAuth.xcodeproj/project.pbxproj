@@ -10,6 +10,8 @@
 		2407646E15EE35A2006E0B54 /* libDCTAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */; };
 		240764BB15EE3791006E0B54 /* _DCTBasicAuthAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 240764BA15EE3791006E0B54 /* _DCTBasicAuthAccount.m */; };
 		241298C816AC71310052A724 /* _DCTAuthURLRequestPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */; };
+		2419EA3616B912B100901AA2 /* DCTAuthContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3516B912B100901AA2 /* DCTAuthContentType.m */; };
+		2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */; };
 		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
@@ -79,6 +81,10 @@
 		240764BA15EE3791006E0B54 /* _DCTBasicAuthAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTBasicAuthAccount.m; sourceTree = "<group>"; };
 		241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthURLRequestPerformer.h; sourceTree = "<group>"; };
 		241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLRequestPerformer.m; sourceTree = "<group>"; };
+		2419EA3416B912B100901AA2 /* DCTAuthContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthContentType.h; sourceTree = "<group>"; };
+		2419EA3516B912B100901AA2 /* DCTAuthContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthContentType.m; sourceTree = "<group>"; };
+		2419EA3716B918BD00901AA2 /* DCTAuthContentTypeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthContentTypeTests.h; sourceTree = "<group>"; };
+		2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthContentTypeTests.m; sourceTree = "<group>"; };
 		2443E9C415F37A2A00845950 /* _DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthMultipartData.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
@@ -254,6 +260,8 @@
 				24FA902915E93E1F00E1ED99 /* DCTAuthAccount.m */,
 				249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */,
 				249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */,
+				2419EA3416B912B100901AA2 /* DCTAuthContentType.h */,
+				2419EA3516B912B100901AA2 /* DCTAuthContentType.m */,
 				24FA902A15E93E1F00E1ED99 /* DCTAuthRequest.h */,
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				245F7C7216AF2809005B72BA /* DCTAuthResponse.h */,
@@ -275,6 +283,8 @@
 				24FA8FFF15E93D8E00E1ED99 /* Supporting Files */,
 				24DAD32215FCC776004FD601 /* DCTAuthURLTests.h */,
 				24DAD32315FCC776004FD601 /* DCTAuthURLTests.m */,
+				2419EA3716B918BD00901AA2 /* DCTAuthContentTypeTests.h */,
+				2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */,
 			);
 			path = DCTAuthTests;
 			sourceTree = "<group>";
@@ -453,6 +463,7 @@
 				2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */,
 				241298C816AC71310052A724 /* _DCTAuthURLRequestPerformer.m in Sources */,
 				245F7C7416AF2809005B72BA /* DCTAuthResponse.m in Sources */,
+				2419EA3616B912B100901AA2 /* DCTAuthContentType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +473,7 @@
 			files = (
 				24FA900615E93D8E00E1ED99 /* DCTOAuthSignatureTests.m in Sources */,
 				24DAD32415FCC776004FD601 /* DCTAuthURLTests.m in Sources */,
+				2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

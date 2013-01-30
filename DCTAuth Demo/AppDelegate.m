@@ -13,6 +13,19 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+	NSString *charset = @"UTF-8";
+	CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)charset);
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), @(encoding));
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), @(kCFStringEncodingUTF8));
+
+	NSStringEncoding stringEncoding = CFStringConvertEncodingToNSStringEncoding(encoding);
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), @(stringEncoding));
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), @(NSUTF8StringEncoding));
+
+	charset = (__bridge_transfer NSString *)CFStringConvertEncodingToIANACharSetName(encoding);
+	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), charset);
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AuthTestViewController new]];
