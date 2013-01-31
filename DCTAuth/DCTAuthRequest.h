@@ -32,7 +32,7 @@ typedef void(^DCTAuthRequestHandler)(NSData *responseData, NSHTTPURLResponse *ur
  If the request requires user authorization, set the account property to an DCTAuthAccount object.
  
  */
-@interface DCTAuthRequest : NSObject
+@interface DCTAuthRequest : NSObject <NSCoding>
 
 /// @name Initializing Requests
 

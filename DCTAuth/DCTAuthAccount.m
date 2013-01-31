@@ -17,6 +17,7 @@
 @interface DCTAuthAccount ()
 @property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
 @property (nonatomic, strong) NSURL *discoveredCallbackURL;
+@property (nonatomic, copy) NSString *encodingUUID;
 @end
 
 @implementation DCTAuthAccount {
@@ -93,6 +94,7 @@
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
+	_encodingUUID = [coder decodeObjectForKey:NSStringFromSelector(@selector(encodingUUID))];
 	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
 	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
 	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
@@ -102,6 +104,8 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+	self.encodingUUID = [[NSProcessInfo processInfo] globallyUniqueString];
+	[coder encodeObject:self.encodingUUID forKey:NSStringFromSelector(@selector(encodingUUID))];
 	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
 	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
@@ -173,7 +177,9 @@
 - (NSMutableDictionary *)_queryForKey:(NSString *)key {
 	NSMutableDictionary *query = [NSMutableDictionary new];
     [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:[NSString stringWithFormat:@"DCTAuth:%@", self.identifier] forKey:(__bridge id)kSecAttrService];
+	NSMutableString *service = [[NSMutableString alloc] initWithFormat:@"DCTAuth:%@", self.identifier];
+	if (self.encodingUUID) [service appendFormat:@":%@", self.encodingUUID];
+	[query setObject:[service copy] forKey:(__bridge id)kSecAttrService];
 	if (key) [query setObject:key forKey:(__bridge id)kSecAttrAccount];
 	return query;
 }
