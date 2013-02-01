@@ -161,8 +161,6 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	_DCTAuthURLRequestPerformer *URLRequestPerformer = [_DCTAuthURLRequestPerformer sharedURLRequestPerformer];
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
-	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), URLRequest.HTTPMethod, URLRequest.URL);
-
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
 	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
