@@ -37,4 +37,6 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, readonly) id contentObject;
 
+- (NSString *)responseDescription;
+
 @end

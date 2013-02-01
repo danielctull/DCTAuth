@@ -66,6 +66,13 @@
 }
 
 - (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p>\n%@",
+			NSStringFromClass([self class]),
+			self,
+			[self responseDescription]];
+}
+
+- (NSString *)responseDescription {
 
 	NSString *URLString = @"";
 	if (self.URL) URLString = [NSString stringWithFormat:@"\n%@", [self.URL absoluteString]];
@@ -79,9 +86,7 @@
 	if (bodyString.length > 0) bodyString = [NSString stringWithFormat:@"\n\n%@", bodyString];
 	else bodyString = @"";
 
-	return [NSString stringWithFormat:@"<%@: %p>\nHTTP/1.1 %@ %@%@%@\n\n",
-			NSStringFromClass([self class]),
-			self,
+	return [NSString stringWithFormat:@"HTTP/1.1 %@ %@%@%@\n\n",
 			@(self.statusCode),
 			[[NSHTTPURLResponse localizedStringForStatusCode:self.statusCode] capitalizedString],
 			headerString,
