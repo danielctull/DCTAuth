@@ -20,7 +20,8 @@ NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueAct
 NSString *const _DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
-	@"DELETE"
+	@"DELETE",
+	@"HEAD"
 };
 
 NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
@@ -86,24 +87,16 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
 	[mutableRequest setHTTPMethod:_DCTAuthRequestMethodString[self.requestMethod]];
-	
-	if (self.requestMethod == DCTAuthRequestMethodGET)
+
+	if (self.requestMethod == DCTAuthRequestMethodPOST)
+		[self _setupPOSTRequest:mutableRequest];
+	else
 		[self _setupGETRequest:mutableRequest];
 
-	else if (self.requestMethod == DCTAuthRequestMethodDELETE)
-		[self _setupDELETERequest:mutableRequest];
-
-	else if (self.requestMethod == DCTAuthRequestMethodPOST)
-		[self _setupPOSTRequest:mutableRequest];
-	
 	return mutableRequest;
 }
 
 - (void)_setupGETRequest:(NSMutableURLRequest *)request {
-	[request setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
-}
-
-- (void)_setupDELETERequest:(NSMutableURLRequest *)request {
 	[request setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
 }
 
@@ -167,6 +160,8 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 
 	_DCTAuthURLRequestPerformer *URLRequestPerformer = [_DCTAuthURLRequestPerformer sharedURLRequestPerformer];
 	NSURLRequest *URLRequest = [self signedURLRequest];
+
+	NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), URLRequest.HTTPMethod, URLRequest.URL);
 
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
 	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *response, NSError *error) {

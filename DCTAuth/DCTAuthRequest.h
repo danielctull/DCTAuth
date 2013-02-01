@@ -13,7 +13,8 @@
 typedef enum : NSUInteger {
 	DCTAuthRequestMethodGET,
 	DCTAuthRequestMethodPOST,
-	DCTAuthRequestMethodDELETE
+	DCTAuthRequestMethodDELETE,
+	DCTAuthRequestMethodHEAD
 } DCTAuthRequestMethod;
 
 typedef enum : NSUInteger {
