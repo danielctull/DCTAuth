@@ -13,6 +13,14 @@
  */
 @interface DCTAuthAccountStore : NSObject
 
+/// @name Getting an account store
+
++ (instancetype)defaultAccountStore;
+
++ (instancetype)accountStoreWithName:(NSString *)name;
+
++ (instancetype)accountStoreWithURL:(NSURL *)storeURL;
+
 /// @name Getting accounts
 
 /** The accounts managed by this account store. */
