@@ -148,7 +148,7 @@ typedef enum {
 
 - (void)cancelAuthentication;
 
-
+@property (nonatomic, copy) NSDictionary *userInfo;
 
 //- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;
 

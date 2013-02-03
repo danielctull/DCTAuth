@@ -98,6 +98,7 @@
 	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
 	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
 	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
+	_userInfo = [coder decodeObjectForKey:NSStringFromSelector(@selector(userInfo))];
 	return self;
 }
 
@@ -107,6 +108,7 @@
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
 	[coder encodeBool:self.authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
+	[coder encodeObject:self.userInfo forKey:NSStringFromSelector(@selector(userInfo))];
 }
 
 - (NSURL *)callbackURL {
