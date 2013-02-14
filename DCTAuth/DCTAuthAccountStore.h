@@ -34,10 +34,10 @@
 
 /** Saves an account to the Accounts database.
  @param account The account to save.*/
-- (void)saveAccount:(DCTAuthAccount *)account;
+- (void)saveAccount:(DCTAuthAccount *)account __attribute__((nonnull(1)));
 
 /** Deletes an account from the Accounts database.
  @param account The account to delete. */
-- (void)deleteAccount:(DCTAuthAccount *)account;
+- (void)deleteAccount:(DCTAuthAccount *)account __attribute__((nonnull(1)));
 
 @end

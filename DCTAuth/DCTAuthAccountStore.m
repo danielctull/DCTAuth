@@ -52,12 +52,14 @@
 }
 
 - (void)saveAccount:(DCTAuthAccount *)account {
+	NSParameterAssert(account);
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
 	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
 	[self.mutableAccounts addObject:account];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
+	NSParameterAssert(account);
 	[account prepareForDeletion];
 	[self.mutableAccounts removeObject:account];
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
