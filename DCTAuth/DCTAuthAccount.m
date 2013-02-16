@@ -11,7 +11,6 @@
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
-#import <Security/Security.h>
 #import "NSString+DCTAuth.h"
 
 @interface DCTAuthAccount ()
@@ -137,47 +136,6 @@
 @implementation DCTAuthAccount (SubclassMethods)
 @dynamic authorized;
 
-- (void)prepareForDeletion {
-	[self removeSecureValueForKey:nil];
-}
-
-- (void)setSecureValue:(NSString *)value forKey:(NSString *)key {
-	if (!value) return;
-	if (!key) return;
-
-	[self removeSecureValueForKey:key];
-
-	NSMutableDictionary *query = [self _queryForKey:key];
-	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
-#ifdef TARGET_OS_IPHONE
-	[query setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
-#endif
-	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
-}
-
-- (NSString *)secureValueForKey:(NSString *)key {
-	if (!key) return nil;
-
-	NSMutableDictionary *query = [self _queryForKey:key];
-	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
-	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
-	CFTypeRef result = NULL;
-	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
-	if (!result) return nil;
-	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
-}
-
-- (void)removeSecureValueForKey:(NSString *)key {
-	NSMutableDictionary *query = [self _queryForKey:key];
-    SecItemDelete((__bridge CFDictionaryRef)query);
-}
-
-- (NSMutableDictionary *)_queryForKey:(NSString *)key {
-	NSMutableDictionary *query = [NSMutableDictionary new];
-    [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:[NSString stringWithFormat:@"DCTAuth:%@", self.identifier] forKey:(__bridge id)kSecAttrService];
-	if (key) [query setObject:key forKey:(__bridge id)kSecAttrAccount];
-	return query;
-}
+- (void)prepareForDeletion {}
 
 @end

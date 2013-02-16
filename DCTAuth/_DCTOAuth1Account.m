@@ -11,6 +11,7 @@
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
+#import "DCTAuthSecureStorage.h"
 
 NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenResponse";
 NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
@@ -59,13 +60,16 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	_requestTokenURL = [coder decodeObjectForKey:@"_requestTokenURL"];
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
-	
-	_consumerKey = [self secureValueForKey:@"_consumerKey"];
-	_consumerSecret = [self secureValueForKey:@"_consumerSecret"];
-	
-	_oauthToken = [self secureValueForKey:@"_oauthToken"];
-	_oauthTokenSecret = [self secureValueForKey:@"_oauthTokenSecret"];
-	_oauthVerifier = [self secureValueForKey:@"_oauthVerifier"];
+
+	NSData *data = [coder decodeObjectForKey:@"secureStorage"];
+	DCTAuthSecureStorage *storage = [[DCTAuthSecureStorage alloc] initWithEncryptedData:data];
+	NSDictionary *dictionary = [storage decryptWithAccount:self];
+
+	_consumerKey = [dictionary objectForKey:@"_consumerKey"];
+	_consumerSecret = [dictionary objectForKey:@"_consumerSecret"];
+	_oauthToken = [dictionary objectForKey:@"_oauthToken"];
+	_oauthTokenSecret = [dictionary objectForKey:@"_oauthTokenSecret"];
+	_oauthVerifier = [dictionary objectForKey:@"_oauthVerifier"];
 	
 	return self;
 }
@@ -76,13 +80,17 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[coder encodeObject:self.requestTokenURL forKey:@"_requestTokenURL"];
 	[coder encodeObject:self.accessTokenURL forKey:@"_accessTokenURL"];
 	[coder encodeObject:self.authorizeURL forKey:@"_authorizeURL"];
-	
-	[self setSecureValue:self.consumerKey forKey:@"_consumerKey"];
-	[self setSecureValue:self.consumerSecret forKey:@"_consumerSecret"];
-	
-	[self setSecureValue:self.oauthToken forKey:@"_oauthToken"];
-	[self setSecureValue:self.oauthTokenSecret forKey:@"_oauthTokenSecret"];
-	[self setSecureValue:self.oauthVerifier forKey:@"_oauthVerifier"];
+
+	DCTAuthSecureStorage *storage = [[DCTAuthSecureStorage alloc] initWithDictionary:@{
+									 @"_consumerKey" : self.consumerKey,
+									 @"_consumerSecret" : self.consumerSecret,
+									 @"_oauthToken" : self.oauthToken,
+									 @"_oauthTokenSecret" : self.oauthTokenSecret,
+									 @"_oauthVerifier" : self.oauthVerifier
+									 }];
+
+	NSData *data = [storage encryptWithAccount:self];
+	[coder encodeObject:data forKey:@"secureStorage"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {

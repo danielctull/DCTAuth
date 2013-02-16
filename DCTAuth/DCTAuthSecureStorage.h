@@ -17,6 +17,9 @@
 - (NSData *)encryptWithAccount:(DCTAuthAccount *)account;
 - (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account;
 
+- (void)encryptValue:(NSString *)value forKey:(NSString *)key;
+- (NSString *)decryptValueForKey:(NSString *)key;
+
 + (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account;
 
 @end

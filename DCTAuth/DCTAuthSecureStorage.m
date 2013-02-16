@@ -54,6 +54,14 @@ NSString *const DCTAuthSecureStorageKeys = @"DCTAuthSecureStorageKeys";
 	return [decryptedDictionary copy];
 }
 
+- (void)encryptValue:(NSString *)value forKey:(NSString *)key {
+
+}
+
+- (NSString *)decryptValueForKey:(NSString *)key {
+	
+}
+
 + (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account {
 	[self removeSecureValueForKey:nil account:account];
 }

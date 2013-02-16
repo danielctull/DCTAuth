@@ -9,6 +9,7 @@
 #import "_DCTBasicAuthAccount.h"
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
+#import "DCTAuthSecureStorage.h"
 
 @interface _DCTBasicAuthAccount ()
 @property (nonatomic, strong) NSURL *authenticationURL;
@@ -37,16 +38,27 @@
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:@"_authenticationURL"];
-	_username = [self secureValueForKey:@"_username"];
-	_password = [self secureValueForKey:@"_password"];
+	
+	NSData *data = [coder decodeObjectForKey:@"secureStorage"];
+	DCTAuthSecureStorage *storage = [[DCTAuthSecureStorage alloc] initWithEncryptedData:data];
+	NSDictionary *dictionary = [storage decryptWithAccount:self];
+	_username = [dictionary objectForKey:@"_username"];
+	_password = [dictionary objectForKey:@"_password"];
+
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:self.authenticationURL forKey:@"_authenticationURL"];
-	[self setSecureValue:self.username forKey:@"_username"];
-	[self setSecureValue:self.password forKey:@"_password"];
+
+	DCTAuthSecureStorage *storage = [[DCTAuthSecureStorage alloc] initWithDictionary:@{
+									 @"_username" : self.username,
+									 @"_password" : self.password
+									 }];
+
+	NSData *data = [storage encryptWithAccount:self];
+	[coder encodeObject:data forKey:@"secureStorage"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {

@@ -8,6 +8,7 @@
 
 #import "DCTAuthAccount.h"
 #import "NSURL+DCTAuth.h"
+#import "DCTAuthSecureStorage.h"
 
 /** This is a protocol that should be adopted by DCTAuthAccount subclasses. */
 @protocol DCTAuthAccountSubclass <NSObject>
@@ -30,9 +31,7 @@
 
 @property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
 
-- (void)setSecureValue:(NSString *)value forKey:(NSString *)key;
-- (NSString *)secureValueForKey:(NSString *)key;
-- (void)removeSecureValueForKey:(NSString *)key;
+@property (nonatomic, readonly) DCTAuthSecureStorage *secureStorage;
 
 - (void)prepareForDeletion;
 
