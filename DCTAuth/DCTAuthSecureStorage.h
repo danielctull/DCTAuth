@@ -15,7 +15,7 @@
 @property (nonatomic, weak) DCTAuthAccount *account;
 
 
-- (void)setObject:(id)object forKey:(id<NSCopying>)key;
+- (void)setObject:(id<NSCoding>)object forKey:(NSString *)key;
 - (id)objectForKey:(NSString *)key;
 
 @end
