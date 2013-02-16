@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthSecureStorage.h"
+#import "_DCTAuthSecureStorage.h"
 #import "_DCTAuthPasswordProvider.h"
 #import <CommonCrypto/CommonCryptor.h>
 #import <Security/Security.h>
@@ -14,56 +14,28 @@
 NSString *const DCTAuthSecureStorageKeys = @"DCTAuthSecureStorageKeys";
 
 @interface DCTAuthSecureStorage ()
-@property (nonatomic, copy) NSDictionary *dictionary;
+@property (nonatomic, strong) NSMutableDictionary *dictionary;
 @property (nonatomic, copy) NSData *encryptedData;
+@property (nonatomic, weak) DCTAuthAccount *account;
 @end
 
 @implementation DCTAuthSecureStorage
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
+- (id)init {
 	self = [self init];
 	if (!self) return nil;
-	_dictionary = [dictionary copy];
+	_dictionary = [NSMutableDictionary new];
 	return self;
 }
 
-- (id)initWithEncryptedData:(NSData *)data {
-	self = [self init];
-	if (!self) return nil;
-	_encryptedData = [data copy];
-	return self;
+- (void)setObject:(NSString *)value forKey:(NSString *)key {
+	[self.dictionary setObject:value forKey:key];
 }
 
-- (NSData *)encryptWithAccount:(DCTAuthAccount *)account {
-	NSMutableDictionary *encryptedDictionary = [NSMutableDictionary new];
-	[encryptedDictionary setObject:self.dictionary.allKeys forKey:DCTAuthSecureStorageKeys];
-	[self.dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-		[[self class] setSecureValue:object forKey:key account:account];
-	}];
-	return [NSKeyedArchiver archivedDataWithRootObject:encryptedDictionary];
-}
-
-- (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account {
-	NSDictionary *encryptedDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:self.encryptedData];
-	NSArray *keys = [encryptedDictionary objectForKey:DCTAuthSecureStorageKeys];
-	NSMutableDictionary *decryptedDictionary = [[NSMutableDictionary alloc] initWithCapacity:encryptedDictionary.count];
-	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
-		NSString *value = [[self class] secureValueForKey:key account:account];
-		[decryptedDictionary setObject:value forKey:key];
-	}];
-	return [decryptedDictionary copy];
-}
-
-- (void)encryptValue:(NSString *)value forKey:(NSString *)key {
-
-}
-
-- (NSString *)decryptValueForKey:(NSString *)key {
-	
-}
-
-+ (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account {
-	[self removeSecureValueForKey:nil account:account];
+- (NSString *)objectForKey:(NSString *)key {
+	NSString *object = [self.dictionary objectForKey:key];
+	if (object) return object;
+	return [[self class] secureValueForKey:key account:self.account];
 }
 
 #pragma mark - Encryption
@@ -176,3 +148,50 @@ NSString *const DCTAuthSecureStorageKeys = @"DCTAuthSecureStorageKeys";
 }
 
 @end
+
+
+
+
+
+@implementation DCTAuthSecureStorage (Private)
+
+- (id)initWithEncryptedData:(NSData *)data {
+	self = [self init];
+	if (!self) return nil;
+	_encryptedData = [data copy];
+	return self;
+}
+
++ (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account {
+	[self removeSecureValueForKey:nil account:account];
+}
+
+- (NSData *)encryptWithAccount:(DCTAuthAccount *)account {
+	NSMutableDictionary *encryptedDictionary = [NSMutableDictionary new];
+	[encryptedDictionary setObject:self.dictionary.allKeys forKey:DCTAuthSecureStorageKeys];
+	[self.dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+		[[self class] setSecureValue:object forKey:key account:account];
+	}];
+	return [NSKeyedArchiver archivedDataWithRootObject:encryptedDictionary];
+}
+
+- (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account {
+	NSDictionary *encryptedDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:self.encryptedData];
+	NSArray *keys = [encryptedDictionary objectForKey:DCTAuthSecureStorageKeys];
+	NSMutableDictionary *decryptedDictionary = [[NSMutableDictionary alloc] initWithCapacity:encryptedDictionary.count];
+	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
+		NSString *value = [[self class] secureValueForKey:key account:account];
+		[decryptedDictionary setObject:value forKey:key];
+	}];
+	return [decryptedDictionary copy];
+}
+
+@end
+
+
+
+
+
+
+
+

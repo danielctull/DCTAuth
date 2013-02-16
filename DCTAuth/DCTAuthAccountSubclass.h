@@ -29,9 +29,10 @@
 
 @interface DCTAuthAccount (SubclassMethods)
 
-@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
+- (void)decodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage;
+- (void)encodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage;
 
-@property (nonatomic, readonly) DCTAuthSecureStorage *secureStorage;
+@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
 
 - (void)prepareForDeletion;
 

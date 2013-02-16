@@ -11,15 +11,7 @@
 
 @interface DCTAuthSecureStorage : NSObject
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-- (id)initWithEncryptedData:(NSData *)data;
-
-- (NSData *)encryptWithAccount:(DCTAuthAccount *)account;
-- (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account;
-
-- (void)encryptValue:(NSString *)value forKey:(NSString *)key;
-- (NSString *)decryptValueForKey:(NSString *)key;
-
-+ (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account;
+- (void)setObject:(NSString *)value forKey:(NSString *)key;
+- (NSString *)objectForKey:(NSString *)key;
 
 @end

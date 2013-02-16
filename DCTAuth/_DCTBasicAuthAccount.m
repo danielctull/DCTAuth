@@ -38,27 +38,24 @@
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:@"_authenticationURL"];
-	
-	NSData *data = [coder decodeObjectForKey:@"secureStorage"];
-	DCTAuthSecureStorage *storage = [[DCTAuthSecureStorage alloc] initWithEncryptedData:data];
-	NSDictionary *dictionary = [storage decryptWithAccount:self];
-	_username = [dictionary objectForKey:@"_username"];
-	_password = [dictionary objectForKey:@"_password"];
-
 	return self;
+}
+
+- (void)decodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage {
+	[super decodeWithSecureStorage:secureStorage];
+	self.username = [secureStorage objectForKey:@"_username"];
+	self.password = [secureStorage objectForKey:@"_password"];
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:self.authenticationURL forKey:@"_authenticationURL"];
+}
 
-	DCTAuthSecureStorage *storage = [[DCTAuthSecureStorage alloc] initWithDictionary:@{
-									 @"_username" : self.username,
-									 @"_password" : self.password
-									 }];
-
-	NSData *data = [storage encryptWithAccount:self];
-	[coder encodeObject:data forKey:@"secureStorage"];
+- (void)encodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage {
+	[super encodeWithSecureStorage:secureStorage];
+	[secureStorage setObject:self.username forKey:@"_username"];
+	[secureStorage setObject:self.password forKey:@"_password"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {

@@ -11,6 +11,7 @@
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
+#import "_DCTAuthSecureStorage.h"
 #import "NSString+DCTAuth.h"
 
 @interface DCTAuthAccount ()
@@ -98,6 +99,12 @@
 	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
 	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
 	_userInfo = [coder decodeObjectForKey:NSStringFromSelector(@selector(userInfo))];
+
+	NSData *data = [coder decodeObjectForKey:@"DCTAuthAccountSecureStorage"];
+	DCTAuthSecureStorage *secureStorage = [[DCTAuthSecureStorage alloc] initWithEncryptedData:data];
+	[secureStorage decryptWithAccount:self];
+	[self decodeWithSecureStorage:secureStorage];
+
 	return self;
 }
 
@@ -108,6 +115,11 @@
 	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
 	[coder encodeBool:self.authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
 	[coder encodeObject:self.userInfo forKey:NSStringFromSelector(@selector(userInfo))];
+
+	DCTAuthSecureStorage *secureStorage = [DCTAuthSecureStorage new];
+	[self encodeWithSecureStorage:secureStorage];
+	NSData *data = [secureStorage encryptWithAccount:self];
+	[coder encodeObject:data forKey:@"DCTAuthAccountSecureStorage"];
 }
 
 - (NSURL *)callbackURL {
@@ -136,6 +148,11 @@
 @implementation DCTAuthAccount (SubclassMethods)
 @dynamic authorized;
 
-- (void)prepareForDeletion {}
+- (void)prepareForDeletion {
+	[DCTAuthSecureStorage removeAllKeychainItemsForAccount:self];
+}
+
+- (void)decodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage {}
+- (void)encodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage {}
 
 @end

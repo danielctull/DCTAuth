@@ -52,27 +52,37 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	if (!self) return nil;
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
-	_clientID = [self secureValueForKey:@"_clientID"];
-	_clientSecret = [self secureValueForKey:@"_clientSecret"];
 	_scopes = [coder decodeObjectForKey:@"_scopes"];
-	_state = [self secureValueForKey:@"_state"];
-	_code = [self secureValueForKey:@"_code"];
-	_accessToken = [self secureValueForKey:@"_accessToken"];
-	_refreshToken = [self secureValueForKey:@"_refreshToken"];
 	return self;
 }
+
+- (void)decodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage {
+	[super decodeWithSecureStorage:secureStorage];
+	self.clientID = [secureStorage objectForKey:@"_clientID"];
+	self.clientSecret = [secureStorage objectForKey:@"_clientSecret"];
+	self.state = [secureStorage objectForKey:@"_state"];
+	self.code = [secureStorage objectForKey:@"_code"];
+	self.accessToken = [secureStorage objectForKey:@"_accessToken"];
+	self.refreshToken = [secureStorage objectForKey:@"_refreshToken"];
+}
+
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:self.authorizeURL forKey:@"_authorizeURL"];
 	[coder encodeObject:self.accessTokenURL forKey:@"_accessTokenURL"];
-	[self setSecureValue:self.clientID forKey:@"_clientID"];
-	[self setSecureValue:self.clientSecret forKey:@"_clientSecret"];
 	[coder encodeObject:self.scopes forKey:@"_scopes"];
-	[self setSecureValue:self.state forKey:@"_state"];
-	[self setSecureValue:self.code forKey:@"_code"];
-	[self setSecureValue:self.accessToken forKey:@"_accessToken"];
-	[self setSecureValue:self.refreshToken forKey:@"_refreshToken"];
+}
+
+- (void)encodeWithSecureStorage:(DCTAuthSecureStorage *)secureStorage {
+	[super encodeWithSecureStorage:secureStorage];
+	[secureStorage setObject:self.clientID forKey:@"_clientID"];
+	[secureStorage setObject:self.clientSecret forKey:@"_clientSecret"];
+	[secureStorage setObject:self.state forKey:@"_state"];
+	[secureStorage setObject:self.code forKey:@"_code"];
+	[secureStorage setObject:self.accessToken forKey:@"_accessToken"];
+	[secureStorage setObject:self.refreshToken forKey:@"_refreshToken"];
+	
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {

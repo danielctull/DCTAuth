@@ -96,6 +96,7 @@
 		2495CE2F16CF7273007C4111 /* DCTAuthSecureStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthSecureStorage.m; sourceTree = "<group>"; };
 		2495CE3116CF77EB007C4111 /* _DCTAuthPasswordProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthPasswordProvider.h; sourceTree = "<group>"; };
 		2495CE3216CF77EB007C4111 /* _DCTAuthPasswordProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthPasswordProvider.m; sourceTree = "<group>"; };
+		2495CE3416CFCC48007C4111 /* _DCTAuthSecureStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthSecureStorage.h; sourceTree = "<group>"; };
 		249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountStore.h; sourceTree = "<group>"; };
 		249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStore.m; sourceTree = "<group>"; };
 		249CAD1915EA214700FFD0D2 /* NSData+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+DCTAuth.h"; sourceTree = "<group>"; };
@@ -203,6 +204,7 @@
 		243B575815EE4CAC007F1CA6 /* Private Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2495CE3416CFCC48007C4111 /* _DCTAuthSecureStorage.h */,
 				24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */,
 				24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */,
 				241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */,
