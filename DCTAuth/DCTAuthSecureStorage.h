@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "DCTAuthAccount.h"
 
-@interface DCTAuthSecureStorage : NSObject <NSCoding>
+@interface DCTAuthSecureStorage : NSObject
 
-- (id)initWithAccount:(DCTAuthAccount *)account;
-@property (nonatomic, weak) DCTAuthAccount *account;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithEncryptedData:(NSData *)data;
 
+- (NSData *)encryptWithAccount:(DCTAuthAccount *)account;
+- (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account;
 
-- (void)setObject:(id<NSCoding>)object forKey:(NSString *)key;
-- (id)objectForKey:(NSString *)key;
++ (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account;
 
 @end

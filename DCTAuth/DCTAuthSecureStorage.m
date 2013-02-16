@@ -9,65 +9,56 @@
 #import "DCTAuthSecureStorage.h"
 #import "_DCTAuthPasswordProvider.h"
 #import <CommonCrypto/CommonCryptor.h>
+#import <Security/Security.h>
 
-NSString *const DCTAuthSecureStorageKey = @"DCTAuthSecureStorage";
-NSString *const DCTAuthSecureAccountKey = @"DCTAuthSecureAccount";
+NSString *const DCTAuthSecureStorageKeys = @"DCTAuthSecureStorageKeys";
 
 @interface DCTAuthSecureStorage ()
-@property (nonatomic, strong) NSMutableDictionary *dictionary;
+@property (nonatomic, copy) NSDictionary *dictionary;
+@property (nonatomic, copy) NSData *encryptedData;
 @end
 
 @implementation DCTAuthSecureStorage
 
-- (id)initWithAccount:(DCTAuthAccount *)account {
+- (id)initWithDictionary:(NSDictionary *)dictionary {
 	self = [self init];
 	if (!self) return nil;
-	_account = account;
-	_dictionary = [NSMutableDictionary new];
+	_dictionary = [dictionary copy];
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
-	self = [super init];
+- (id)initWithEncryptedData:(NSData *)data {
+	self = [self init];
 	if (!self) return nil;
-
-	DCTAuthAccount *account = [coder decodeObjectForKey:DCTAuthSecureAccountKey];
-	_account = account;
-
-	[[_DCTAuthPasswordProvider sharedPasswordProvider] passwordForAccount:account handler:^(NSString *password) {
-		NSMutableDictionary *encryptedDictionary = [coder decodeObjectForKey:DCTAuthSecureStorageKey];
-		self.dictionary = [[NSMutableDictionary alloc] initWithCapacity:encryptedDictionary.count];
-		[encryptedDictionary enumerateKeysAndObjectsUsingBlock:^(id key, NSData *encryptedData, BOOL *stop) {
-			NSData *data = [self decryptData:encryptedData withPassword:password];
-			id object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-			[self.dictionary setObject:object forKey:key];
-		}];
-	}];
-
+	_encryptedData = [data copy];
 	return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
-	DCTAuthAccount *account = self.account;
-	[[_DCTAuthPasswordProvider sharedPasswordProvider] passwordForAccount:account handler:^(NSString *password) {
-		NSMutableDictionary *encryptedDictionary = [[NSMutableDictionary alloc] initWithCapacity:self.dictionary.count];
-		[self.dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-			NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
-			NSData *encryptedData = [self encryptData:data withPassword:password];
-			[encryptedDictionary setObject:encryptedData forKey:key];
-		}];
-		[coder encodeObject:encryptedDictionary forKey:DCTAuthSecureStorageKey];
+- (NSData *)encryptWithAccount:(DCTAuthAccount *)account {
+	NSMutableDictionary *encryptedDictionary = [NSMutableDictionary new];
+	[encryptedDictionary setObject:self.dictionary.allKeys forKey:DCTAuthSecureStorageKeys];
+	[self.dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+		[[self class] setSecureValue:object forKey:key account:account];
 	}];
-	[coder encodeObject:account forKey:DCTAuthSecureAccountKey];
+	return [NSKeyedArchiver archivedDataWithRootObject:encryptedDictionary];
 }
 
-- (void)setObject:(id<NSCoding>)object forKey:(NSString *)key {
-	[self.dictionary setObject:object forKey:key];
+- (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account {
+	NSDictionary *encryptedDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:self.encryptedData];
+	NSArray *keys = [encryptedDictionary objectForKey:DCTAuthSecureStorageKeys];
+	NSMutableDictionary *decryptedDictionary = [[NSMutableDictionary alloc] initWithCapacity:encryptedDictionary.count];
+	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
+		NSString *value = [[self class] secureValueForKey:key account:account];
+		[decryptedDictionary setObject:value forKey:key];
+	}];
+	return [decryptedDictionary copy];
 }
 
-- (id)objectForKey:(NSString *)key {
-	return [self.dictionary objectForKey:key];
++ (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account {
+	[self removeSecureValueForKey:nil account:account];
 }
+
+#pragma mark - Encryption
 
 - (NSData *)decryptData:(NSData *)data withPassword:(NSString *)key {
 	// 'key' should be 32 bytes for AES256, will be null-padded otherwise
@@ -135,5 +126,45 @@ NSString *const DCTAuthSecureAccountKey = @"DCTAuthSecureAccount";
 	return nil;
 }
 
+#pragma mark - Keychain
+
++ (void)setSecureValue:(NSString *)value forKey:(NSString *)key account:(DCTAuthAccount *)account {
+	if (!value) return;
+	if (!key) return;
+
+	[self removeSecureValueForKey:key account:account];
+
+	NSMutableDictionary *query = [self queryForKey:key account:account];
+	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
+#ifdef TARGET_OS_IPHONE
+	[query setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
+#endif
+	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
+}
+
++ (NSString *)secureValueForKey:(NSString *)key account:(DCTAuthAccount *)account {
+	if (!key) return nil;
+
+	NSMutableDictionary *query = [self queryForKey:key account:account];
+	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+	CFTypeRef result = NULL;
+	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+	if (!result) return nil;
+	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
+}
+
++ (void)removeSecureValueForKey:(NSString *)key account:(DCTAuthAccount *)account {
+	NSMutableDictionary *query = [self queryForKey:key account:account];
+    SecItemDelete((__bridge CFDictionaryRef)query);
+}
+
++ (NSMutableDictionary *)queryForKey:(NSString *)key account:(DCTAuthAccount *)account {
+	NSMutableDictionary *query = [NSMutableDictionary new];
+    [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[query setObject:[NSString stringWithFormat:@"DCTAuth:%@", account.identifier] forKey:(__bridge id)kSecAttrService];
+	if (key) [query setObject:key forKey:(__bridge id)kSecAttrAccount];
+	return query;
+}
 
 @end
