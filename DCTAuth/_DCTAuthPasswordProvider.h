@@ -15,6 +15,6 @@
 
 @property (nonatomic, copy) NSString *(^passwordProvider)(DCTAuthAccount *account);
 
-- (void)passwordForAccount:(DCTAuthAccount *)account handler:(void(^)(NSString *))handler;
+- (NSString *)passwordForAccount:(DCTAuthAccount *)account;
 
 @end

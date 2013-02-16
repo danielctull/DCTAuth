@@ -118,8 +118,8 @@
 
 	DCTAuthSecureStorage *secureStorage = [DCTAuthSecureStorage new];
 	[self encodeWithSecureStorage:secureStorage];
-	NSData *data = [secureStorage encryptWithAccount:self];
-	[coder encodeObject:data forKey:@"DCTAuthAccountSecureStorage"];
+	[secureStorage encryptWithAccount:self];
+	[coder encodeObject:secureStorage.encryptedData forKey:@"DCTAuthAccountSecureStorage"];
 }
 
 - (NSURL *)callbackURL {

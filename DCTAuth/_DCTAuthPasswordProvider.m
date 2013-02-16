@@ -19,15 +19,12 @@
 	return provider;
 }
 
-- (void)passwordForAccount:(DCTAuthAccount *)account handler:(void(^)(NSString *))handler {
+- (NSString *)passwordForAccount:(DCTAuthAccount *)account {
 
-	if (!self.passwordProvider) {
-		handler(nil);
-		return;
-	}
+	if (!self.passwordProvider)
+		return nil;
 
-	NSString *string = self.passwordProvider(account);
-	handler(string);
+	return self.passwordProvider(account);
 }
 
 

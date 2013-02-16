@@ -10,10 +10,11 @@
 
 @interface DCTAuthSecureStorage (Private)
 
-- (id)initWithEncryptedData:(NSData *)data;
+- (id)initWithEncryptedData:(NSData *)encryptedData;
+@property (nonatomic, readonly) NSData *encryptedData;
 
-- (NSData *)encryptWithAccount:(DCTAuthAccount *)account;
-- (NSDictionary *)decryptWithAccount:(DCTAuthAccount *)account;
+- (void)encryptWithAccount:(DCTAuthAccount *)account;
+- (void)decryptWithAccount:(DCTAuthAccount *)account;
 
 + (void)removeAllKeychainItemsForAccount:(DCTAuthAccount *)account;
 
