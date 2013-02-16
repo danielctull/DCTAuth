@@ -69,6 +69,12 @@
  */
 + (void)cancelOpenURL:(id)object;
 
+#pragma mark - Providing a password
+
+/** Used to encrypt secrets to save to disk for the purpose of syncing with iCloud.
+ */
++ (void)setPasswordProvider:(NSString *(^)(DCTAuthAccount *account))handler;
+
 #pragma mark - Performing requests
 
 /** Allows the application to provide a custom way of loading

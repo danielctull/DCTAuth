@@ -9,6 +9,7 @@
 #import "DCTAuth.h"
 #import "_DCTAuthURLOpener.h"
 #import "_DCTAuthURLRequestPerformer.h"
+#import "_DCTAuthPasswordProvider.h"
 
 @implementation DCTAuth
 
@@ -26,6 +27,10 @@
 
 + (void)cancelOpenURL:(id)object {
 	[[_DCTAuthURLOpener sharedURLOpener] close:object];
+}
+
++ (void)setPasswordProvider:(NSString *(^)(DCTAuthAccount *account))handler {
+	[[_DCTAuthPasswordProvider sharedPasswordProvider] setPasswordProvider:handler];
 }
 
 + (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer {
