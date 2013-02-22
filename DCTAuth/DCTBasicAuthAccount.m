@@ -6,17 +6,17 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTBasicAuthAccount.h"
+#import "DCTBasicAuthAccount.h"
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
 
-@interface _DCTBasicAuthAccount ()
+@interface DCTBasicAuthAccount ()
 @property (nonatomic, strong) NSURL *authenticationURL;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 @end
 
-@implementation _DCTBasicAuthAccount
+@implementation DCTBasicAuthAccount
 
 - (id)initWithType:(NSString *)type
  authenticationURL:(NSURL *)authenticationURL
