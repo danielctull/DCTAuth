@@ -55,38 +55,23 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	
 	_requestTokenURL = [coder decodeObjectForKey:@"_requestTokenURL"];
 	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
 	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
-	
-	_consumerKey = [self secureValueForKey:@"_consumerKey"];
-	_consumerSecret = [self secureValueForKey:@"_consumerSecret"];
-	
-	_oauthToken = [self secureValueForKey:@"_oauthToken"];
-	_oauthTokenSecret = [self secureValueForKey:@"_oauthTokenSecret"];
-	_oauthVerifier = [self secureValueForKey:@"_oauthVerifier"];
-	
+	_signatureType = [coder decodeIntegerForKey:@"_signatureType"];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
-	
 	[coder encodeObject:self.requestTokenURL forKey:@"_requestTokenURL"];
 	[coder encodeObject:self.accessTokenURL forKey:@"_accessTokenURL"];
 	[coder encodeObject:self.authorizeURL forKey:@"_authorizeURL"];
-	[coder encodeObject:self.consumerKey forKey:@"_consumerKey"];
-	[self setSecureValue:self.consumerSecret forKey:@"_consumerSecret"];
-	
-	[self setSecureValue:self.oauthToken forKey:@"_oauthToken"];
-	[self setSecureValue:self.oauthTokenSecret forKey:@"_oauthTokenSecret"];
-	[self setSecureValue:self.oauthVerifier forKey:@"_oauthVerifier"];
+	[coder encodeInteger:self.signatureType forKey:@"_signatureType"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
 
-	[self _nilCurrentOAuthValues];
 	NSMutableDictionary *responses = [NSMutableDictionary new];
 
 	void (^completion)(NSError *) = ^(NSError *error) {
