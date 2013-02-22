@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DCTAuthAccountCredential.h"
 
-@interface DCTOAuth1AccountCredential : NSObject
+@interface DCTOAuth1AccountCredential : NSObject <DCTAuthAccountCredential>
+
+- (id)initWithConsumerKey:(NSString *)consumerKey
+		   consumerSecret:(NSString *)consumerSecret
+			   oauthToken:(NSString *)oauthToken
+		 oauthTokenSecret:(NSString *)oauthTokenSecret;
+
+@property (nonatomic, readonly) NSString *consumerKey;
+@property (nonatomic, readonly) NSString *consumerSecret;
+@property (nonatomic, readonly) NSString *oauthToken;
+@property (nonatomic, readonly) NSString *oauthTokenSecret;
 
 @end

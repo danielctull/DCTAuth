@@ -76,8 +76,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[coder encodeObject:self.requestTokenURL forKey:@"_requestTokenURL"];
 	[coder encodeObject:self.accessTokenURL forKey:@"_accessTokenURL"];
 	[coder encodeObject:self.authorizeURL forKey:@"_authorizeURL"];
-	
-	[self setSecureValue:self.consumerKey forKey:@"_consumerKey"];
+	[coder encodeObject:self.consumerKey forKey:@"_consumerKey"];
 	[self setSecureValue:self.consumerSecret forKey:@"_consumerSecret"];
 	
 	[self setSecureValue:self.oauthToken forKey:@"_oauthToken"];
