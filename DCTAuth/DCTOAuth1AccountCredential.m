@@ -14,7 +14,12 @@
 		   consumerSecret:(NSString *)consumerSecret
 			   oauthToken:(NSString *)oauthToken
 		 oauthTokenSecret:(NSString *)oauthTokenSecret {
-	
+
+	if (consumerKey.length == 0) return nil;
+	if (consumerSecret.length == 0) return nil;
+	if (oauthToken.length == 0) return nil;
+	if (oauthTokenSecret.length == 0) return nil;
+
 	self = [super init];
 	if (!self) return nil;
 	_consumerKey = [consumerKey copy];
