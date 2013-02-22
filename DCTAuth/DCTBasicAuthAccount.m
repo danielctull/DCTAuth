@@ -7,13 +7,14 @@
 //
 
 #import "DCTBasicAuthAccount.h"
+#import "DCTBasicAuthAccountCredential.h"
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
 
 @interface DCTBasicAuthAccount ()
 @property (nonatomic, strong) NSURL *authenticationURL;
 @property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) DCTBasicAuthAccountCredential *unauthorizedCredential;
 @end
 
 @implementation DCTBasicAuthAccount
@@ -28,7 +29,7 @@
 
 	_authenticationURL = [authenticationURL copy];
 	_username = [username copy];
-	_password = [password copy];
+	_unauthorizedCredential = [[DCTBasicAuthAccountCredential alloc] initWithPassword:password];
 	
 	return self;
 }
@@ -37,21 +38,17 @@
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:@"_authenticationURL"];
-	_username = [self secureValueForKey:@"_username"];
-	_password = [self secureValueForKey:@"_password"];
+	_username = [coder decodeObjectForKey:@"_username"];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:self.authenticationURL forKey:@"_authenticationURL"];
-	[self setSecureValue:self.username forKey:@"_username"];
-	[self setSecureValue:self.password forKey:@"_password"];
+	[coder encodeObject:self.username forKey:@"_username"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
-
-	self.authorized = NO;
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:self.authenticationURL
@@ -59,7 +56,10 @@
 	request.account = self;
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
-		self.authorized = (response.statusCode == 200);
+		if (response.statusCode == 200) {
+			self.credential = self.unauthorizedCredential;
+			self.unauthorizedCredential = nil;
+		}
 
 		if (handler == NULL) return;
 		
@@ -77,7 +77,11 @@
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)oauthRequest {
 
-	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", self.username, self.password];
+	DCTBasicAuthAccountCredential *credential = self.credential;
+	if (!credential) credential = self.unauthorizedCredential;
+	if (!credential) return;
+
+	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", self.username, credential.password];
 
 	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
 	authorisationData = [authorisationData dctAuth_base64EncodedData];

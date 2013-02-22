@@ -12,5 +12,6 @@
 @interface DCTBasicAuthAccountCredential : NSObject <DCTAuthAccountCredential>
 
 - (id)initWithPassword:(NSString *)password;
+@property (nonatomic, readonly) NSString *password;
 
 @end

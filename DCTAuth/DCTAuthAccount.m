@@ -129,6 +129,16 @@
 	return self.discoveredCallbackURL;
 }
 
+- (void)setCredential:(id<DCTAuthAccountCredential>)credential {
+	
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+	_credential = credential;
+#pragma clang diagnostic pop
+
+	self.authorized = (credential != nil);
+}
+
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {}
 - (void)cancelAuthentication {}
 

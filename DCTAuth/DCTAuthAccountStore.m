@@ -65,6 +65,7 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	
 	[identifiers enumerateObjectsUsingBlock:^(NSURL *accountURL, NSUInteger i, BOOL *stop) {
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[accountURL path]];
+		account.credential = [self credentialForIdentifier:account.identifier];
 		[self.mutableAccounts addObject:account];
 	}];
 	
