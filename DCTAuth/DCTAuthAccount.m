@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
-#import "_DCTOAuth1Account.h"
+#import "DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "DCTBasicAuthAccount.h"
 #import <Security/Security.h>
@@ -31,7 +31,7 @@
 						  consumerSecret:(NSString *)consumerSecret
 						   signatureType:(DCTOAuthSignatureType)signatureType {
 	
-	return [[_DCTOAuth1Account alloc] initWithType:type
+	return [[DCTOAuth1Account alloc] initWithType:type
 								   requestTokenURL:requestTokenURL
 									  authorizeURL:authorizeURL
 									accessTokenURL:accessTokenURL

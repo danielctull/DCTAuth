@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTOAuth1Account.h"
+#import "DCTOAuth1Account.h"
 #import "_DCTOAuthSignature.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
@@ -16,7 +16,7 @@ NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenRespons
 NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
 NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse";
 
-@interface _DCTOAuth1Account ()
+@interface DCTOAuth1Account ()
 @property (nonatomic, copy) NSURL *requestTokenURL;
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSURL *authorizeURL;
@@ -29,7 +29,7 @@ NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse"
 @property (nonatomic, strong) id openURLObject;
 @end
 
-@implementation _DCTOAuth1Account
+@implementation DCTOAuth1Account
 
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
