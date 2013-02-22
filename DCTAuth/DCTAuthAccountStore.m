@@ -87,16 +87,19 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 }
 
 - (void)saveAccount:(DCTAuthAccount *)account {
-	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
+	NSString *identifier = account.identifier;
+	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
 	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
 	[self.mutableAccounts addObject:account];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
+	NSString *identifier = account.identifier;
+	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
+	if (![self.fileManager removeItemAtURL:accountURL error:NULL]) return;
 	[account prepareForDeletion];
+	[self removeCredentialForIdentifier:identifier];
 	[self.mutableAccounts removeObject:account];
-	NSURL *accountURL = [self _URLForAccountWithIdentifier:account.identifier];
-	[self.fileManager removeItemAtURL:accountURL error:NULL];
 }
 
 - (NSURL *)_URLForAccountWithIdentifier:(NSString *)identifier {
@@ -106,6 +109,43 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 + (NSURL *)storeDirectoryURL {
 	NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 	return [documentsURL URLByAppendingPathComponent:NSStringFromClass([self class])];
+}
+
+- (void)setCredential:(id<DCTAuthAccountCredential>)credential
+		forIdentifier:(NSString *)identifier {
+	if (!credential) return;
+	if (!identifier) return;
+	[self removeCredentialForIdentifier:identifier];
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:credential];
+	NSMutableDictionary *query = [self queryForIdentifier:identifier];
+	[query setObject:data forKey:(__bridge id)kSecValueData];
+	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
+}
+
+- (id<DCTAuthAccountCredential>)credentialForIdentifier:(NSString *)identifier {
+	if (!identifier) return nil;
+	NSMutableDictionary *query = [self queryForIdentifier:identifier];
+	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+	CFTypeRef result = NULL;
+	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+	if (!result) return nil;
+	id credential = [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge_transfer NSData *)result];
+	if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
+	return credential;
+}
+
+- (void)removeCredentialForIdentifier:(NSString *)identifier {
+	NSMutableDictionary *query = [self queryForIdentifier:identifier];
+    SecItemDelete((__bridge CFDictionaryRef)query);
+}
+
+- (NSMutableDictionary *)queryForIdentifier:(NSString *)identifier {
+	NSMutableDictionary *query = [NSMutableDictionary new];
+    [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[query setObject:@"DCTAuth" forKey:(__bridge id)kSecAttrService];
+	if (identifier) [query setObject:identifier forKey:(__bridge id)kSecAttrAccount];
+	return query;
 }
 
 @end

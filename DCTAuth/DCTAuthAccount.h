@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DCTAuthAccountCredential.h"
 
 typedef enum {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
@@ -114,6 +115,8 @@ typedef enum {
  
  @see authenticateWithHandler: */
 @property (nonatomic, readonly, getter = isAuthorized) BOOL authorized;
+
+@property (nonatomic, strong) id<DCTAuthAccountCredential> credential;
 
 /** A human-readable description of the account. */
 @property (nonatomic, copy) NSString *accountDescription;

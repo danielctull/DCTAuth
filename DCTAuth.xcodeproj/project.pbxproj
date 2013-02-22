@@ -90,6 +90,7 @@
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
 		245F7C7216AF2809005B72BA /* DCTAuthResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthResponse.h; sourceTree = "<group>"; };
 		245F7C7316AF2809005B72BA /* DCTAuthResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthResponse.m; sourceTree = "<group>"; };
+		246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountCredential.h; sourceTree = "<group>"; };
 		249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountStore.h; sourceTree = "<group>"; };
 		249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStore.m; sourceTree = "<group>"; };
 		249CAD1915EA214700FFD0D2 /* NSData+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+DCTAuth.h"; sourceTree = "<group>"; };
@@ -258,15 +259,16 @@
 				24C6232C15EB932700B68FAD /* DCTAuth.m */,
 				24FA902815E93E1F00E1ED99 /* DCTAuthAccount.h */,
 				24FA902915E93E1F00E1ED99 /* DCTAuthAccount.m */,
+				246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */,
 				249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */,
 				249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */,
+				2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */,
 				2419EA3416B912B100901AA2 /* DCTAuthContentType.h */,
 				2419EA3516B912B100901AA2 /* DCTAuthContentType.m */,
 				24FA902A15E93E1F00E1ED99 /* DCTAuthRequest.h */,
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				245F7C7216AF2809005B72BA /* DCTAuthResponse.h */,
 				245F7C7316AF2809005B72BA /* DCTAuthResponse.m */,
-				2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */,
 				24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */,
 				24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */,
 				243B575815EE4CAC007F1CA6 /* Private Classes */,
