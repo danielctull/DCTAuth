@@ -111,6 +111,10 @@
 	[coder encodeObject:self.userInfo forKey:NSStringFromSelector(@selector(userInfo))];
 }
 
+- (BOOL)isAuthorized {
+	return (self.credential != nil);
+}
+
 - (NSURL *)callbackURL {
 
 #pragma clang diagnostic push
@@ -188,6 +192,14 @@
 	[query setObject:[NSString stringWithFormat:@"DCTAuth:%@", self.identifier] forKey:(__bridge id)kSecAttrService];
 	if (key) [query setObject:key forKey:(__bridge id)kSecAttrAccount];
 	return query;
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; identifier = %@; credential = %@>",
+			NSStringFromClass([self class]),
+			self,
+			self.identifier,
+			self.credential];
 }
 
 @end

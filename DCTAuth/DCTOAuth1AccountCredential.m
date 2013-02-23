@@ -46,4 +46,14 @@
 	[coder encodeObject:self.oauthTokenSecret forKey:@"oauthTokenSecret"];
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; consumerKey = %@; consumerSecret = %@; oauthToken = %@; oauthTokenSecret = %@>",
+			NSStringFromClass([self class]),
+			self,
+			self.consumerKey,
+			self.consumerSecret,
+			self.oauthToken,
+			self.oauthTokenSecret];
+}
+
 @end

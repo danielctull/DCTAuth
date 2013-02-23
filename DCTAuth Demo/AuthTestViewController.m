@@ -78,6 +78,7 @@
 			[textArray addObject:[NSString stringWithFormat:@"%@ = \"%@\"", key, obj]];
 		}];
 		self.resultTextView.text = [textArray componentsJoinedByString:@"\n"];
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), oauthAccount);
 	}];
 }
 

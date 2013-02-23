@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuth1Account.h"
+#import "DCTOAuth1AccountCredential.h"
 #import "_DCTOAuthSignature.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
@@ -80,6 +81,22 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 	[coder encodeObject:self.accessTokenURL forKey:DCTOAuth1AccountAccessTokenURL];
 	[coder encodeObject:self.authorizeURL forKey:DCTOAuth1AccountAuthorizeURL];
 	[coder encodeInteger:self.signatureType forKey:DCTOAuth1AccountSignatureType];
+}
+
+- (NSString *)consumerKey {
+	DCTOAuth1AccountCredential *credential = self.credential;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+	return (_consumerKey != nil) ? _consumerKey : credential.consumerKey;
+#pragma clang diagnostic pop
+}
+
+- (NSString *)consumerSecret {
+	DCTOAuth1AccountCredential *credential = self.credential;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+	return (_consumerSecret != nil) ? _consumerSecret : credential.consumerSecret;
+#pragma clang diagnostic pop
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
@@ -161,8 +178,15 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
-		self.authorized = (response.statusCode == 200);
+
 		[self setValuesFromOAuthDictionary:response.contentObject];
+
+		if (response.statusCode == 200)
+			self.credential = [[DCTOAuth1AccountCredential alloc] initWithConsumerKey:self.consumerKey
+																	   consumerSecret:self.consumerSecret
+																		   oauthToken:self.oauthToken
+																	 oauthTokenSecret:self.oauthTokenSecret];
+
 		NSError *oAuthError = [self errorFromOAuthDictionary:response.contentObject];
 		handler(response.contentObject, oAuthError);
 	}];
@@ -222,14 +246,6 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 																 parameters:OAuthParameters
 																	   type:self.signatureType];
 	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %p; consumerKey = %@; oauth_token = %@>",
-			NSStringFromClass([self class]),
-			self,
-			self.consumerKey,
-			self.oauthToken];
 }
 
 @end
