@@ -15,6 +15,7 @@
 		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
 		2454C24816D8BD4500E97367 /* _DCTOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */; };
+		2454C24B16D8E35400E97367 /* DCTAuthAccountCredential.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */; };
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; };
 		2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */; };
@@ -67,6 +68,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				2454C24B16D8E35400E97367 /* DCTAuthAccountCredential.h in CopyFiles */,
 				245F7C7716AF3371005B72BA /* DCTAuthResponse.h in CopyFiles */,
 				2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */,
 				2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */,
