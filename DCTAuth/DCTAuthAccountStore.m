@@ -10,11 +10,16 @@
 #import "DCTAuthAccountSubclass.h"
 
 NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
+NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 @interface DCTAuthAccountStore ()
 @property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSMutableArray *mutableAccounts;
 @property (nonatomic, strong) NSURL *URL;
+- (NSUInteger)countOfAccounts;
+- (id)objectInAccountsAtIndex:(NSUInteger)index;
+- (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromAccountsAtIndex:(NSUInteger)index;
 @end
 
 @implementation DCTAuthAccountStore
@@ -66,7 +71,7 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	[identifiers enumerateObjectsUsingBlock:^(NSURL *accountURL, NSUInteger i, BOOL *stop) {
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[accountURL path]];
 		account.credential = [self credentialForIdentifier:account.identifier];
-		[self.mutableAccounts addObject:account];
+		[self insertObject:account inAccountsAtIndex:i];
 	}];
 	
 	return self;
@@ -88,7 +93,8 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
 	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
 	[self setCredential:account.credential forIdentifier:identifier];
-	[self.mutableAccounts addObject:account];
+	if ([self.mutableAccounts indexOfObject:account] != NSNotFound) return;
+	[self insertObject:account inAccountsAtIndex:[self countOfAccounts]];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
@@ -96,29 +102,26 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
 	if (![self.fileManager removeItemAtURL:accountURL error:NULL]) return;
 	[self removeCredentialForIdentifier:identifier];
-	[self.mutableAccounts removeObject:account];
+	[self removeObjectFromAccountsAtIndex:[self.mutableAccounts indexOfObject:account]];
 }
 
 #pragma mark - Accounts accessors
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 
 - (NSArray *)accounts {
-	return [_mutableAccounts copy];
+	return [self.mutableAccounts copy];
 }
 - (NSUInteger)countOfAccounts {
-	return [_mutableAccounts count];
+	return [self.mutableAccounts count];
 }
 - (id)objectInAccountsAtIndex:(NSUInteger)index {
-	return [_mutableAccounts objectAtIndex:index];
+	return [self.mutableAccounts objectAtIndex:index];
 }
 - (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index {
-	[_mutableAccounts insertObject:object atIndex:index];
+	[self.mutableAccounts insertObject:object atIndex:index];
 }
 - (void)removeObjectFromAccountsAtIndex:(NSUInteger)index {
-	[_mutableAccounts removeObjectAtIndex:index];
+	[self.mutableAccounts removeObjectAtIndex:index];
 }
-#pragma clang diagnostic pop
 
 #pragma mark - Private
 

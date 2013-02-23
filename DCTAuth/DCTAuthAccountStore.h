@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "DCTAuthAccount.h"
 
+extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
+
 /** The DCTAuthAccountStore class provides an interface for accessing, manipulating, and storing accounts. To create and retrieve accounts from the database, you must create an DCTAuthAccountStore object. Each DCTAuthAccount object belongs to a single DCTAuthAccountStore object.
  */
 @interface DCTAuthAccountStore : NSObject
