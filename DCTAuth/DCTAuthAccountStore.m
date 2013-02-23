@@ -91,6 +91,7 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	NSString *identifier = account.identifier;
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
 	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
+	[self setCredential:account.credential forIdentifier:identifier];
 	[self.mutableAccounts addObject:account];
 }
 

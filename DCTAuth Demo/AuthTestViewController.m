@@ -72,7 +72,9 @@
 														 consumerSecret:consumerSecret];
 	
 	[oauthAccount authenticateWithHandler:^(NSArray *responses, NSError *error) {
-		
+
+		[[DCTAuthAccountStore defaultAccountStore] saveAccount:oauthAccount];
+
 		NSMutableArray *textArray = [NSMutableArray new];
 		[responses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			[textArray addObject:[NSString stringWithFormat:@"%@\n", obj]];

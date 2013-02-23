@@ -13,6 +13,9 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+	NSLog(@"%@", [[DCTAuthAccountStore defaultAccountStore] accounts]);
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AuthTestViewController new]];
