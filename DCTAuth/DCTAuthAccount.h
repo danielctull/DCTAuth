@@ -147,7 +147,7 @@ typedef enum {
  You should check the error value to see if there was an error. 
 
  @see [DCTAuth handleURL:] */
-- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler;
+- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler;
 
 - (void)cancelAuthentication;
 

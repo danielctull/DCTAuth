@@ -67,6 +67,8 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  */
 @property (nonatomic, readonly) NSDictionary *parameters;
 
+@property (nonatomic, copy) NSDictionary *HTTPHeaders;
+
 /** Optional account information used to authenticate the request.
  
  Default is nil.

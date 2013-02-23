@@ -13,10 +13,6 @@
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 
-NSString *const _DCTOAuth1AccountRequestTokenResponseKey = @"RequestTokenResponse";
-NSString *const _DCTOAuth1AccountAuthorizeResponseKey = @"AuthorizeResponse";
-NSString *const _DCTOAuth1AccountAccessTokenResponseKey = @"AccessTokenResponse";
-
 NSString *const DCTOAuth1AccountOAuthCallback = @"oauth_callback";
 NSString *const DCTOAuth1AccountOAuthConsumerKey = @"oauth_consumer_key";
 NSString *const DCTOAuth1AccountOAuthConsumerSecret = @"oauth_consumer_secret";
@@ -35,9 +31,6 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 @property (nonatomic, copy) NSURL *authorizeURL;
 @property (nonatomic, copy) NSString *consumerKey;
 @property (nonatomic, copy) NSString *consumerSecret;
-@property (nonatomic, copy) NSString *oauthToken;
-@property (nonatomic, copy) NSString *oauthTokenSecret;
-@property (nonatomic, copy) NSString *oauthVerifier;
 @property (nonatomic, assign) DCTOAuthSignatureType signatureType;
 @property (nonatomic, strong) id openURLObject;
 @end
@@ -83,60 +76,126 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 	[coder encodeInteger:self.signatureType forKey:DCTOAuth1AccountSignatureType];
 }
 
-- (NSString *)consumerKey {
+- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
+
+	NSMutableArray *responses = [NSMutableArray new];
+
 	DCTOAuth1AccountCredential *credential = self.credential;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-	return (_consumerKey != nil) ? _consumerKey : credential.consumerKey;
-#pragma clang diagnostic pop
-}
+	NSString *consumerKey = (self.consumerKey != nil) ? self.consumerKey : credential.consumerKey;
+	NSString *consumerSecret = (self.consumerSecret != nil) ? self.consumerSecret : credential.consumerSecret;
+	__block NSString *oauthToken;
+	__block NSString *oauthTokenSecret;
+	__block NSString *oauthVerifier;
 
-- (NSString *)consumerSecret {
-	DCTOAuth1AccountCredential *credential = self.credential;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-	return (_consumerSecret != nil) ? _consumerSecret : credential.consumerSecret;
-#pragma clang diagnostic pop
-}
-
-- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
-
-	NSMutableDictionary *responses = [NSMutableDictionary new];
-
-	void (^completion)(NSError *) = ^(NSError *error) {
-		if (handler != NULL) handler([responses copy], error);
+	NSDictionary *(^OAuthParameters)() = ^{
+		NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
+		if (oauthToken.length > 0) [OAuthParameters setObject:oauthToken forKey:DCTOAuth1AccountOAuthToken];
+		if (consumerKey.length > 0) [OAuthParameters setObject:consumerKey forKey:DCTOAuth1AccountOAuthConsumerKey];
+		if (oauthVerifier.length > 0) [OAuthParameters setObject:oauthVerifier forKey:DCTOAuth1AccountOAuthVerifier];
+		if (self.callbackURL) [OAuthParameters setObject:[self.callbackURL absoluteString] forKey:DCTOAuth1AccountOAuthCallback];
+		return [OAuthParameters copy];
 	};
 
-	void (^accessTokenHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
-		[responses setObject:response forKey:_DCTOAuth1AccountAccessTokenResponseKey];
-		completion(error);
+	NSString *(^signature)(DCTAuthRequest *) = ^(DCTAuthRequest *request) {
+
+		NSMutableDictionary *parameters = [OAuthParameters() mutableCopy];
+		[parameters addEntriesFromDictionary:request.parameters];
+
+		_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
+																	 HTTPMethod:@"GET"
+																 consumerSecret:consumerSecret
+																	secretToken:oauthTokenSecret
+																	 parameters:parameters
+																		   type:self.signatureType];
+		return [signature authorizationHeader];
 	};
 
-	void (^authorizeHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
-		[responses setObject:response forKey:_DCTOAuth1AccountAuthorizeResponseKey];
-		if (error) {
-			completion(error);
-			return;
+	BOOL (^shouldComplete)(DCTAuthResponse *, NSError *) = ^(DCTAuthResponse *response, NSError *error) {
+
+		NSError *returnError;
+		BOOL failure = NO;
+
+		if (!response) {
+			returnError = error;
+			failure = YES;
+		} else {
+
+			[responses addObject:response];
+			NSDictionary *dictionary = response.contentObject;
+
+			if (![dictionary isKindOfClass:[NSDictionary class]]) {
+				failure = YES;
+				returnError = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Response not dictionary."}];
+			} else {
+
+				id object = [dictionary objectForKey:@"error"];
+				if (object) {
+					failure = YES;
+					returnError = [NSError errorWithDomain:@"OAuth" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey : [object description]}];
+				} else {
+
+					[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
+
+						if ([key isEqualToString:DCTOAuth1AccountOAuthToken])
+							oauthToken = value;
+
+						else if	([key isEqualToString:DCTOAuth1AccountOAuthVerifier])
+							oauthVerifier = value;
+
+						else if ([key isEqualToString:DCTOAuth1AccountOAuthTokenSecret])
+							oauthTokenSecret = value;
+					}];
+				}
+			}
 		}
-		[self _fetchAccessTokenWithHandler:accessTokenHandler];
+
+		if (failure && handler != NULL) handler([responses copy], returnError);
+		return failure;
 	};
 
-	void (^requestTokenHandler)(NSDictionary *, NSError *) = ^(NSDictionary *response, NSError *error) {
-		if (response) [responses setObject:response forKey:_DCTOAuth1AccountRequestTokenResponseKey];
-		if (error) {
-			completion(error);
-			return;
-		}
+	void (^accessTokenHandler)(DCTAuthResponse *, NSError *) = ^(DCTAuthResponse *response, NSError *error) {
+		if (shouldComplete(response, error)) return;
+		self.credential = [[DCTOAuth1AccountCredential alloc] initWithConsumerKey:consumerKey
+																   consumerSecret:consumerSecret
+																	   oauthToken:oauthToken
+																 oauthTokenSecret:oauthTokenSecret];
+		if (handler != NULL) handler([responses copy], nil);
+	};
+
+	void (^fetchAccessToken)() = ^{
+		DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																			URL:self.accessTokenURL
+																	 parameters:nil];
+		request.HTTPHeaders = @{ @"Authorization" : signature(request) };
+		[request performRequestWithHandler:accessTokenHandler];
+	};
+
+	void (^authorizeHandler)(DCTAuthResponse *) = ^(DCTAuthResponse *response) {
+		if (shouldComplete(response, nil)) return;
+		fetchAccessToken();
+	};
+
+	void (^requestTokenHandler)(DCTAuthResponse *response, NSError *error) = ^(DCTAuthResponse *response, NSError *error) {
+
+		if (shouldComplete(response, error)) return;
 		
 		// If there's no authorizeURL, assume there is no authorize step.
 		// This is valid as shown by the server used in the demo app.
-		if (self.authorizeURL)
-			[self _authorizeWithHandler:authorizeHandler];
-		else
-			[self _fetchAccessTokenWithHandler:accessTokenHandler];
+		if (!self.authorizeURL) {
+			fetchAccessToken();
+			return;
+		}
+
+		DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
+																			URL:self.authorizeURL
+																	 parameters:OAuthParameters()];
+		NSURL *authorizeURL = [[request signedURLRequest] URL];
+		self.openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:authorizeHandler];
 	};
 
-	[self _fetchRequestTokenWithHandler:requestTokenHandler];
+	DCTAuthRequest *requestTokenRequest = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET URL:self.requestTokenURL parameters:nil];
+	requestTokenRequest.HTTPHeaders = @{ @"Authorization" : signature(requestTokenRequest) };
+	[requestTokenRequest performRequestWithHandler:requestTokenHandler];
 }
 
 - (void)cancelAuthentication {
@@ -144,105 +203,20 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 	[DCTAuth cancelOpenURL:self.openURLObject];
 }
 
-- (void)_fetchRequestTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
-	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:self.requestTokenURL
-																 parameters:nil];
-	request.account = self;
-	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
-		[self setValuesFromOAuthDictionary:response.contentObject];
-		NSError *oAuthError = [self errorFromOAuthDictionary:response.contentObject];
-		handler(response.contentObject, oAuthError);
-	}];
-}
-
-- (void)_authorizeWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
-	
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:self.authorizeURL
-																 parameters:[self OAuthParameters]];
-	
-	NSURL *authorizeURL = [[request signedURLRequest] URL];
-	
-	self.openURLObject = [DCTAuth openURL:authorizeURL withCallbackURL:self.callbackURL handler:^(DCTAuthResponse *response) {
-		[self setValuesFromOAuthDictionary:response.contentObject];
-		handler(response.contentObject, nil);
-	}];
-}
-
-- (void)_fetchAccessTokenWithHandler:(void(^)(NSDictionary *response, NSError *error))handler {
-
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:self.accessTokenURL
-																 parameters:nil];
-	request.account = self;
-	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
-
-		[self setValuesFromOAuthDictionary:response.contentObject];
-
-		if (response.statusCode == 200)
-			self.credential = [[DCTOAuth1AccountCredential alloc] initWithConsumerKey:self.consumerKey
-																	   consumerSecret:self.consumerSecret
-																		   oauthToken:self.oauthToken
-																	 oauthTokenSecret:self.oauthTokenSecret];
-
-		NSError *oAuthError = [self errorFromOAuthDictionary:response.contentObject];
-		handler(response.contentObject, oAuthError);
-	}];
-}
-
-- (void)_nilCurrentOAuthValues {
-	self.oauthToken = nil;
-	self.oauthTokenSecret = nil;
-	self.oauthVerifier = nil;
-	self.authorized = NO;
-}
-
-- (NSError *)errorFromOAuthDictionary:(NSDictionary *)dictionary {
-	
-	if ([dictionary count] == 0) {
-		return [NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{}];
-	}
-	
-	return nil;
-}
-
-- (void)setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
-
-	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
-		
-		if ([key isEqualToString:DCTOAuth1AccountOAuthToken])
-			self.oauthToken = value;
-
-		else if ([key isEqualToString:DCTOAuth1AccountOAuthVerifier])
-			self.oauthVerifier = value;
-		
-		else if ([key isEqualToString:DCTOAuth1AccountOAuthTokenSecret])
-			self.oauthTokenSecret = value;
-
-	}];
-}
-
-- (NSDictionary *)OAuthParameters {
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters setObject:self.consumerKey forKey:DCTOAuth1AccountOAuthConsumerKey];
-	[parameters setObject:[self.callbackURL absoluteString] forKey:DCTOAuth1AccountOAuthCallback];
-	if (self.oauthToken) [parameters setObject:self.oauthToken forKey:DCTOAuth1AccountOAuthToken];
-	if (self.oauthVerifier) [parameters setObject:self.oauthVerifier forKey:DCTOAuth1AccountOAuthVerifier];
-	return [parameters copy];
-}
-
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
-	
+
+	DCTOAuth1AccountCredential *credential = self.credential;
+	if (!credential) return;
+
 	NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
-	[OAuthParameters addEntriesFromDictionary:[self OAuthParameters]];
+	[OAuthParameters setObject:credential.oauthToken forKey:DCTOAuth1AccountOAuthToken];
+	[OAuthParameters setObject:credential.consumerKey forKey:DCTOAuth1AccountOAuthConsumerKey];
 	[OAuthParameters addEntriesFromDictionary:authRequest.parameters];
 	
 	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
 																 HTTPMethod:request.HTTPMethod
-															 consumerSecret:self.consumerSecret
-																secretToken:self.oauthTokenSecret
+															 consumerSecret:credential.consumerSecret
+																secretToken:credential.oauthTokenSecret
 																 parameters:OAuthParameters
 																	   type:self.signatureType];
 	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
