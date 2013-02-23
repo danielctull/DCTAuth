@@ -13,13 +13,11 @@
 
 - (id)initWithClientID:(NSString *)clientID
 		  clientSecret:(NSString *)clientSecret
-				  code:(NSString *)code
 		   accessToken:(NSString *)accessToken
 		  refreshToken:(NSString *)refreshToken;
 
 @property (nonatomic, readonly) NSString *clientID;
 @property (nonatomic, readonly) NSString *clientSecret;
-@property (nonatomic, readonly) NSString *code;
 @property (nonatomic, readonly) NSString *accessToken;
 @property (nonatomic, readonly) NSString *refreshToken;
 

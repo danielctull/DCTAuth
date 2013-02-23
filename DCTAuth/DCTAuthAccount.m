@@ -146,4 +146,13 @@
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {}
 - (void)cancelAuthentication {}
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; type = %@; identifier = %@; credential = %@>",
+			NSStringFromClass([self class]),
+			self,
+			self.type,
+			self.identifier,
+			self.credential];
+}
+
 @end

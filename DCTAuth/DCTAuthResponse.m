@@ -56,7 +56,8 @@
 	self = [self init];
 	if (!self) return nil;
 	_URL = [URL copy];
-
+	_statusCode = 200;
+	
 	NSMutableDictionary *content = [NSMutableDictionary new];
 	[content addEntriesFromDictionary:[[URL query] dctAuth_parameterDictionary]];
 	[content addEntriesFromDictionary:[[URL fragment] dctAuth_parameterDictionary]];
@@ -84,7 +85,7 @@
 
 	NSString *bodyString = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
 	if (bodyString.length > 0) bodyString = [NSString stringWithFormat:@"\n\n%@", bodyString];
-	else bodyString = @"";
+	else bodyString = [self.contentObject description];
 
 	return [NSString stringWithFormat:@"HTTP/1.1 %@ %@%@%@\n\n",
 			@(self.statusCode),
