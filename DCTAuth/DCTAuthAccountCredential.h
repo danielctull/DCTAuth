@@ -9,5 +9,9 @@
 #import <Foundation/Foundation.h>
 @class DCTAuthRequest;
 
+// Account credentials will always be stored securely.
+// DCTAuthAccountStore currently stores credentials in
+// the keychain. In the future, credentials may be stored
+// in other ways.
 @protocol DCTAuthAccountCredential <NSObject, NSCoding>
 @end
