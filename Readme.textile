@@ -29,11 +29,22 @@ h3. OAuth 2.0
 * "Google":https://developers.google.com/accounts/docs/OAuth2InstalledApp (Installed Applications)
 * "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
 * "SoundCloud":http://developers.soundcloud.com/docs#authentication
+* "Windows Live":http://msdn.microsoft.com/en-us/library/live/hh826541.aspx (See notes below)
 
 h3. Basic Authentication
 
 * "Instapaper":http://www.instapaper.com/api/simple
 * "Pinboard":http://pinboard.in/api
+
+h2. Service Notes
+
+h3. Facebook
+
+Facebook require the callback URL to be in the format fbXXX://blah/ where XXX is your app ID.
+
+h3. Windows Live
+
+Microsoft have enforced that the callback URL (redirect URI) must have a scheme of HTTP or HTTPS, so to authorise with Windows Live you should set your own URL handler on the DCTAuth class to open the authorization URL in a web view inside the app. This does go against general OAuth practice, but DCTAuth allows it. Setting a callback URL with http:// as the scheme will result in working authentication to Windows Live. As far as I can tell you should use at least `wl.signin` as the scope.
 
 h2. License
 
