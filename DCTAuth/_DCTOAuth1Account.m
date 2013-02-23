@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuth1Account.h"
+#import "_DCTOAuth1Account.h"
 #import "DCTOAuth1AccountCredential.h"
 #import "_DCTOAuthSignature.h"
 #import "DCTAuth.h"
@@ -25,7 +25,7 @@ NSString *const DCTOAuth1AccountAuthorizeURL = @"_authorizeURL";
 NSString *const DCTOAuth1AccountAccessTokenURL = @"_accessTokenURL";
 NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 
-@interface DCTOAuth1Account ()
+@interface _DCTOAuth1Account ()
 @property (nonatomic, copy) NSURL *requestTokenURL;
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSURL *authorizeURL;
@@ -35,7 +35,7 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 @property (nonatomic, strong) id openURLObject;
 @end
 
-@implementation DCTOAuth1Account
+@implementation _DCTOAuth1Account
 
 - (id)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
