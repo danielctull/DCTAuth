@@ -12,21 +12,21 @@ While the implementations _should_ work for all services using that standard, I 
 
 h3. OAuth
 
-* "Twitter":https://dev.twitter.com/docs/auth/oauth
+* "Bitbucket":https://confluence.atlassian.com/display/BITBUCKET/oauth+Endpoint
+* "Dropbox":http://www.dropbox.com/developers/reference/api
+* "Flickr":http://www.flickr.com/services/api/auth.oauth.html
 * "Readability":http://www.readability.com/developers/api
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
-* "Bitbucket":https://confluence.atlassian.com/display/BITBUCKET/oauth+Endpoint
-* "Flickr":http://www.flickr.com/services/api/auth.oauth.html
-* "Dropbox":http://www.dropbox.com/developers/reference/api
+* "Twitter":https://dev.twitter.com/docs/auth/oauth
 * "Yahoo!":http://developer.yahoo.com/oauth/guide/index.html
 
 h3. OAuth 2.0
 
 * "Facebook":https://developers.facebook.com/docs/authentication/
-* "GitHub":http://developer.github.com/v3/oauth/
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
-* "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
+* "GitHub":http://developer.github.com/v3/oauth/
 * "Google":https://developers.google.com/accounts/docs/OAuth2InstalledApp (Installed Applications)
+* "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
 
 h3. Basic Authentication
 
