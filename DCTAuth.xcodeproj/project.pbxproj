@@ -14,6 +14,7 @@
 		2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */; };
 		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
+		2454C24816D8BD4500E97367 /* _DCTOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */; };
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; };
 		2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */; };
@@ -89,6 +90,8 @@
 		2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthContentTypeTests.m; sourceTree = "<group>"; };
 		2443E9C415F37A2A00845950 /* _DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthMultipartData.m; sourceTree = "<group>"; };
+		2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth2Credential.h; sourceTree = "<group>"; };
+		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
 		245F7C7216AF2809005B72BA /* DCTAuthResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthResponse.h; sourceTree = "<group>"; };
 		245F7C7316AF2809005B72BA /* DCTAuthResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthResponse.m; sourceTree = "<group>"; };
@@ -220,6 +223,8 @@
 				246D3A9316D77D38008CDB63 /* DCTOAuth1AccountCredential.m */,
 				249CAD1D15EA235D00FFD0D2 /* _DCTOAuth2Account.h */,
 				249CAD1E15EA235E00FFD0D2 /* _DCTOAuth2Account.m */,
+				2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */,
+				2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */,
 				240764B915EE3791006E0B54 /* DCTBasicAuthAccount.h */,
 				240764BA15EE3791006E0B54 /* DCTBasicAuthAccount.m */,
 				246D3A8F16D7776A008CDB63 /* DCTBasicAuthAccountCredential.h */,
@@ -478,6 +483,7 @@
 				2419EA3616B912B100901AA2 /* DCTAuthContentType.m in Sources */,
 				246D3A9116D7776A008CDB63 /* DCTBasicAuthAccountCredential.m in Sources */,
 				246D3A9416D77D38008CDB63 /* DCTOAuth1AccountCredential.m in Sources */,
+				2454C24816D8BD4500E97367 /* _DCTOAuth2Credential.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
