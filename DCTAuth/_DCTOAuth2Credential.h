@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DCTAuthAccountCredential.h"
 
-@interface _DCTOAuth2Credential : NSObject
+@interface _DCTOAuth2Credential : NSObject <DCTAuthAccountCredential>
 
 - (id)initWithClientID:(NSString *)clientID
 		  clientSecret:(NSString *)clientSecret

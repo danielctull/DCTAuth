@@ -7,6 +7,7 @@
 //
 
 #import "_DCTOAuth2Account.h"
+#import "_DCTOAuth2Credential.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
@@ -139,6 +140,12 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 		[self _setValuesFromOAuthDictionary:response.contentObject];
 
+		self.credential = [[_DCTOAuth2Credential alloc] initWithClientID:self.clientID
+															clientSecret:self.clientSecret
+																	code:self.code
+															 accessToken:self.accessToken
+															refreshToken:self.refreshToken];
+
 		if (!self.authorized && sendState) {
 			// Try again but don't include the state - Google fails on sending the state
 			[self _fetchAccessTokenWithState:NO Handler:handler];
@@ -212,10 +219,8 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 		else if ([key isEqualToString:@"refresh_token"])
 			self.refreshToken = value;
 
-		else if ([key isEqualToString:@"access_token"]) {
+		else if ([key isEqualToString:@"access_token"])
 			self.accessToken = value;
-			self.authorized = YES;
-		}
 	}];
 }
 
