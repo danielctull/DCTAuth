@@ -24,16 +24,3 @@
  */
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest;
 @end
-
-
-@interface DCTAuthAccount (SubclassMethods)
-
-@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
-
-- (void)setSecureValue:(NSString *)value forKey:(NSString *)key;
-- (NSString *)secureValueForKey:(NSString *)key;
-- (void)removeSecureValueForKey:(NSString *)key;
-
-- (void)prepareForDeletion;
-
-@end

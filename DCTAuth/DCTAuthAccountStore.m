@@ -99,7 +99,6 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	NSString *identifier = account.identifier;
 	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
 	if (![self.fileManager removeItemAtURL:accountURL error:NULL]) return;
-	[account prepareForDeletion];
 	[self removeCredentialForIdentifier:identifier];
 	[self.mutableAccounts removeObject:account];
 }

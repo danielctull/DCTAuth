@@ -202,13 +202,6 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	return [parameters copy];
 }
 
-- (void)_nilCurrentOAuthValues {
-	self.code = nil;
-	self.accessToken = nil;
-	self.refreshToken = nil;
-	self.authorized = NO;
-}
-
 - (void)_setValuesFromOAuthDictionary:(NSDictionary *)dictionary {
 	
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
