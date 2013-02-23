@@ -7,7 +7,7 @@
 //
 
 #import "_DCTOAuth1Account.h"
-#import "DCTOAuth1AccountCredential.h"
+#import "_DCTOAuth1Credential.h"
 #import "_DCTOAuthSignature.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
@@ -80,7 +80,7 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 
 	NSMutableArray *responses = [NSMutableArray new];
 
-	DCTOAuth1AccountCredential *credential = self.credential;
+	_DCTOAuth1Credential *credential = self.credential;
 	NSString *consumerKey = (self.consumerKey != nil) ? self.consumerKey : credential.consumerKey;
 	NSString *consumerSecret = (self.consumerSecret != nil) ? self.consumerSecret : credential.consumerSecret;
 	__block NSString *oauthToken;
@@ -155,7 +155,7 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 
 	void (^accessTokenHandler)(DCTAuthResponse *, NSError *) = ^(DCTAuthResponse *response, NSError *error) {
 		if (shouldComplete(response, error)) return;
-		self.credential = [[DCTOAuth1AccountCredential alloc] initWithConsumerKey:consumerKey
+		self.credential = [[_DCTOAuth1Credential alloc] initWithConsumerKey:consumerKey
 																   consumerSecret:consumerSecret
 																	   oauthToken:oauthToken
 																 oauthTokenSecret:oauthTokenSecret];
@@ -205,7 +205,7 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
 
-	DCTOAuth1AccountCredential *credential = self.credential;
+	_DCTOAuth1Credential *credential = self.credential;
 	if (!credential) return;
 
 	NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];

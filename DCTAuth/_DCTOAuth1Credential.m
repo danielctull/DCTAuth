@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuth1AccountCredential.h"
+#import "_DCTOAuth1Credential.h"
 
-@implementation DCTOAuth1AccountCredential
+@implementation _DCTOAuth1Credential
 
 - (id)initWithConsumerKey:(NSString *)consumerKey
 		   consumerSecret:(NSString *)consumerSecret

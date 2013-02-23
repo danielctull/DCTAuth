@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCTAuthAccountCredential.h"
 
-@interface DCTOAuth1AccountCredential : NSObject <DCTAuthAccountCredential>
+@interface _DCTOAuth1Credential : NSObject <DCTAuthAccountCredential>
 
 - (id)initWithConsumerKey:(NSString *)consumerKey
 		   consumerSecret:(NSString *)consumerSecret
