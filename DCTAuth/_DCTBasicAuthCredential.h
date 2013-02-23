@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCTAuthAccountCredential.h"
 
-@interface DCTBasicAuthAccountCredential : NSObject <DCTAuthAccountCredential>
+@interface _DCTBasicAuthCredential : NSObject <DCTAuthAccountCredential>
 
 - (id)initWithPassword:(NSString *)password;
 @property (nonatomic, readonly) NSString *password;

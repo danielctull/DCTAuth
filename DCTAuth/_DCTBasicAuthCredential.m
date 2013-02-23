@@ -6,12 +6,9 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "DCTBasicAuthAccountCredential.h"
-#import "DCTBasicAuthAccount.h"
-#import "DCTAuthRequest.h"
-#import "NSData+DCTAuth.h"
+#import "_DCTBasicAuthCredential.h"
 
-@implementation DCTBasicAuthAccountCredential
+@implementation _DCTBasicAuthCredential
 
 - (id)initWithPassword:(NSString *)password {
 	self = [super init];

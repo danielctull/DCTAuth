@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountSubclass.h"
 
-@interface DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface _DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
 
 - (id)initWithType:(NSString *)type
  authenticationURL:(NSURL *)authenticationURL

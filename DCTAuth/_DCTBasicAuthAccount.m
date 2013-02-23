@@ -6,18 +6,18 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTBasicAuthAccount.h"
-#import "DCTBasicAuthAccountCredential.h"
+#import "_DCTBasicAuthAccount.h"
+#import "_DCTBasicAuthCredential.h"
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
 
-@interface DCTBasicAuthAccount ()
+@interface _DCTBasicAuthAccount ()
 @property (nonatomic, strong) NSURL *authenticationURL;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 @end
 
-@implementation DCTBasicAuthAccount
+@implementation _DCTBasicAuthAccount
 
 - (id)initWithType:(NSString *)type
  authenticationURL:(NSURL *)authenticationURL
@@ -54,7 +54,7 @@
 																		URL:self.authenticationURL
 																 parameters:nil];
 
-	DCTBasicAuthAccountCredential *credential = self.credential;
+	_DCTBasicAuthCredential *credential = self.credential;
 	NSString *password = (self.password != nil) ? self.password : credential.password;
 	NSString *authorisationString = [self authorizationStringForUsername:self.username password:password];
 	request.HTTPHeaders = @{ @"Authorization" : authorisationString };
@@ -62,7 +62,7 @@
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
 		if (response.statusCode == 200)
-			self.credential = [[DCTBasicAuthAccountCredential alloc] initWithPassword:password];
+			self.credential = [[_DCTBasicAuthCredential alloc] initWithPassword:password];
 
 		if (handler != NULL) handler(@[response], error);
 	}];
@@ -78,7 +78,7 @@
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)oauthRequest {
 
-	DCTBasicAuthAccountCredential *credential = self.credential;
+	_DCTBasicAuthCredential *credential = self.credential;
 	if (!credential) return;
 
 	NSString *authorisationString = [self authorizationStringForUsername:self.username password:credential.password];
