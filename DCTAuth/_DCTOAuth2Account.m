@@ -139,23 +139,20 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 			return;
 		}
 	
-		[self fetchAccessTokenWithURL:self.accessTokenURL
-							 clientID:clientID
-						 clientSecret:clientSecret
-								 code:code
-							  handler:^(DCTAuthResponse *response, NSError *error) {
-							  isFinishedAccessTokenHandler(response, error);
-						  }];
+		[self fetchAccessTokenWithClientID:clientID
+							  clientSecret:clientSecret
+									  code:code
+								   handler:^(DCTAuthResponse *response, NSError *error) {
+									   isFinishedAccessTokenHandler(response, error);
+								   }];
 	};
 
 	[self authorizeWithClientID:clientID
-						 scopes:self.scopes
 						  state:state
 						handler:authorizeHandler];
 }
 
 - (void)authorizeWithClientID:(NSString *)clientID
-					   scopes:(NSArray *)scopes
 						state:(NSString *)state
 					  handler:(void (^)(DCTAuthResponse *response))handler {
 
@@ -167,7 +164,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 
 	[parameters setObject:clientID forKey:@"client_id"];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	if (scopes.count > 0) [parameters setObject:[scopes componentsJoinedByString:@","] forKey:@"scope"];
+	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 	[parameters setObject:state forKey:@"state"];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
@@ -178,11 +175,10 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 								  handler:handler];
 }
 
-- (void)fetchAccessTokenWithURL:(NSURL *)accessTokenURL
-					   clientID:(NSString *)clientID
-				   clientSecret:(NSString *)clientSecret
-						   code:(NSString *)code
-						handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
+- (void)fetchAccessTokenWithClientID:(NSString *)clientID
+						clientSecret:(NSString *)clientSecret
+								code:(NSString *)code
+							 handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
 
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters setObject:@"authorization_code" forKey:@"grant_type"];
@@ -191,8 +187,8 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
 
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
-																		URL:accessTokenURL
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
+																		URL:self.accessTokenURL
 																 parameters:parameters];
 	[request performRequestWithHandler:handler];
 }
