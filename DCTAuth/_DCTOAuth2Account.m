@@ -76,7 +76,7 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 	[self setSecureValue:self.refreshToken forKey:@"_refreshToken"];
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
+- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
 	
 	[self _nilCurrentOAuthValues];
 	NSMutableDictionary *responses = [NSMutableDictionary new];

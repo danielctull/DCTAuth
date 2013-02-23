@@ -14,7 +14,7 @@
 @interface DCTBasicAuthAccount ()
 @property (nonatomic, strong) NSURL *authenticationURL;
 @property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) DCTBasicAuthAccountCredential *unauthorizedCredential;
+@property (nonatomic, strong) NSString *password;
 @end
 
 @implementation DCTBasicAuthAccount
@@ -29,7 +29,7 @@
 
 	_authenticationURL = [authenticationURL copy];
 	_username = [username copy];
-	_unauthorizedCredential = [[DCTBasicAuthAccountCredential alloc] initWithPassword:password];
+	_password = [password copy];
 	
 	return self;
 }
@@ -48,47 +48,40 @@
 	[coder encodeObject:self.username forKey:@"_username"];
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
+- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:self.authenticationURL
 																 parameters:nil];
-	request.account = self;
+
+	DCTBasicAuthAccountCredential *credential = self.credential;
+	NSString *password = (self.password != nil) ? self.password : credential.password;
+	NSString *authorisationString = [self authorizationStringForUsername:self.username password:password];
+	request.HTTPHeaders = @{ @"Authorization" : authorisationString };
+
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
-		if (response.statusCode == 200) {
-			self.credential = self.unauthorizedCredential;
-			self.unauthorizedCredential = nil;
-		}
+		if (response.statusCode == 200)
+			self.credential = [[DCTBasicAuthAccountCredential alloc] initWithPassword:password];
 
-		if (handler == NULL) return;
-		
-		NSMutableDictionary *results = [NSMutableDictionary new];
-		if (response.data) [results setObject:response.data forKey:@"data"];
-
-		NSString *string = [[NSString alloc] initWithData:response.data encoding:NSUTF8StringEncoding];
-		if (string) [results setObject:string forKey:@"dataString"];
-
-		[results setObject:@(response.statusCode) forKey:@"statusCode"];
-
-		handler([results copy], error);
+		if (handler != NULL) handler(@[response], error);
 	}];
+}
+
+- (NSString *)authorizationStringForUsername:(NSString *)username password:(NSString *)password {
+	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", username, password];
+	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
+	authorisationData = [authorisationData dctAuth_base64EncodedData];
+	NSString *authorisationEncodedString = [[NSString alloc] initWithData:authorisationData encoding:NSUTF8StringEncoding];
+	return [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
 }
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)oauthRequest {
 
 	DCTBasicAuthAccountCredential *credential = self.credential;
-	if (!credential) credential = self.unauthorizedCredential;
 	if (!credential) return;
 
-	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", self.username, credential.password];
-
-	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
-	authorisationData = [authorisationData dctAuth_base64EncodedData];
-
-	NSString *authorisationEncodedString = [[NSString alloc] initWithData:authorisationData encoding:NSUTF8StringEncoding];
-	authorisationString = [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
-
+	NSString *authorisationString = [self authorizationStringForUsername:self.username password:credential.password];
 	[request addValue:authorisationString forHTTPHeaderField:@"Authorization"];
 }
 

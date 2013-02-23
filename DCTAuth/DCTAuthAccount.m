@@ -143,7 +143,7 @@
 	self.authorized = (credential != nil);
 }
 
-- (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {}
+- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {}
 - (void)cancelAuthentication {}
 
 @end
