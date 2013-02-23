@@ -72,10 +72,6 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	return self;
 }
 
-- (NSArray *)accounts {
-	return [self.mutableAccounts copy];
-}
-
 - (NSArray *)accountsWithType:(NSString *)type {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == %@", type];
 	return [self.accounts filteredArrayUsingPredicate:predicate];
@@ -102,6 +98,29 @@ NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 	[self removeCredentialForIdentifier:identifier];
 	[self.mutableAccounts removeObject:account];
 }
+
+#pragma mark - Accounts accessors
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+
+- (NSArray *)accounts {
+	return [_mutableAccounts copy];
+}
+- (NSUInteger)countOfAccounts {
+	return [_mutableAccounts count];
+}
+- (id)objectInAccountsAtIndex:(NSUInteger)index {
+	return [_mutableAccounts objectAtIndex:index];
+}
+- (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index {
+	[_mutableAccounts insertObject:object atIndex:index];
+}
+- (void)removeObjectFromAccountsAtIndex:(NSUInteger)index {
+	[_mutableAccounts removeObjectAtIndex:index];
+}
+#pragma clang diagnostic pop
+
+#pragma mark - Private
 
 - (NSURL *)_URLForAccountWithIdentifier:(NSString *)identifier {
 	return [self.URL URLByAppendingPathComponent:identifier];
