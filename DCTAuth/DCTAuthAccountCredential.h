@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-@class DCTAuthRequest;
 
 // Account credentials will always be stored securely.
 // DCTAuthAccountStore currently stores credentials in
