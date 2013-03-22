@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
      LICENSE
    }
   s.author       = { "Daniel Tull" => "dt@danieltull.co.uk" }
-  s.source       = { :git => "https://github.com/danielctull/DCTAuth.git", :commit => "6065e582131a4b375bdb46924d848d0d245d8a8f" }
+  s.source       = { :git => "https://github.com/danielctull/DCTAuth.git", :commit => "09fb9fa666c9cbb8cd605c3da8c89946ca362449" }
 
   s.platform     = :ios, '5.0'
   s.source_files = 'DCTAuth/**/*.{h,m}'
