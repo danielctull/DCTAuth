@@ -12,13 +12,14 @@
 
 @implementation DCTAuthResponse
 
-- (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)response {
+- (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse {
 	self = [self init];
 	if (!self) return nil;
 	_data = data;
-	_HTTPHeaders = response.allHeaderFields;
-	_statusCode = response.statusCode;
-	_contentObject = [self objectFromData:data contentType:response.MIMEType];
+	_URLResponse = [URLResponse copy];
+	_HTTPHeaders = URLResponse.allHeaderFields;
+	_statusCode = URLResponse.statusCode;
+	_contentObject = [self objectFromData:data contentType:URLResponse.MIMEType];
 	return self;
 }
 
