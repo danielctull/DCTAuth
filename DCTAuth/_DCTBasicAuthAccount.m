@@ -11,6 +11,16 @@
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
 
+const struct _DCTBasicAuthAccountProperties {
+	__unsafe_unretained NSString *username;
+	__unsafe_unretained NSString *authenticationURL;
+} _DCTBasicAuthAccountProperties;
+
+const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountProperties = {
+	.username = @"username",
+	.authenticationURL = @"authenticationURL",
+};
+
 @interface _DCTBasicAuthAccount ()
 @property (nonatomic, strong) NSURL *authenticationURL;
 @property (nonatomic, strong) NSString *username;
@@ -37,15 +47,15 @@
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	_authenticationURL = [coder decodeObjectForKey:@"_authenticationURL"];
-	_username = [coder decodeObjectForKey:@"_username"];
+	_authenticationURL = [coder decodeObjectForKey:_DCTBasicAuthAccountProperties.authenticationURL];
+	_username = [coder decodeObjectForKey:_DCTBasicAuthAccountProperties.username];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
-	[coder encodeObject:self.authenticationURL forKey:@"_authenticationURL"];
-	[coder encodeObject:self.username forKey:@"_username"];
+	[coder encodeObject:self.authenticationURL forKey:_DCTBasicAuthAccountProperties.authenticationURL];
+	[coder encodeObject:self.username forKey:_DCTBasicAuthAccountProperties.username];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {

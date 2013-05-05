@@ -20,17 +20,32 @@ NSString *const DCTOAuth1AccountOAuthToken = @"oauth_token";
 NSString *const DCTOAuth1AccountOAuthTokenSecret = @"oauth_token_secret";
 NSString *const DCTOAuth1AccountOAuthVerifier = @"oauth_verifier";
 
-NSString *const DCTOAuth1AccountRequestTokenURL = @"_requestTokenURL";
-NSString *const DCTOAuth1AccountAuthorizeURL = @"_authorizeURL";
-NSString *const DCTOAuth1AccountAccessTokenURL = @"_accessTokenURL";
-NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
+const struct _DCTOAuth1AccountProperties {
+	__unsafe_unretained NSString *consumerKey;
+	__unsafe_unretained NSString *consumerSecret;
+	__unsafe_unretained NSString *requestTokenURL;
+	__unsafe_unretained NSString *accessTokenURL;
+	__unsafe_unretained NSString *authorizeURL;
+	__unsafe_unretained NSString *signatureType;
+	__unsafe_unretained NSString *openURLObject;
+} _DCTOAuth1AccountProperties;
+
+const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
+	.consumerKey = @"consumerKey",
+	.consumerSecret = @"consumerSecret",
+	.requestTokenURL = @"requestTokenURL",
+	.accessTokenURL = @"accessTokenURL",
+	.authorizeURL = @"authorizeURL",
+	.signatureType = @"signatureType",
+	.openURLObject = @"openURLObject"
+};
 
 @interface _DCTOAuth1Account ()
+@property (nonatomic, copy) NSString *consumerKey;
+@property (nonatomic, copy) NSString *consumerSecret;
 @property (nonatomic, copy) NSURL *requestTokenURL;
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSURL *authorizeURL;
-@property (nonatomic, copy) NSString *consumerKey;
-@property (nonatomic, copy) NSString *consumerSecret;
 @property (nonatomic, assign) DCTOAuthSignatureType signatureType;
 @property (nonatomic, strong) id openURLObject;
 @end
@@ -61,19 +76,19 @@ NSString *const DCTOAuth1AccountSignatureType = @"_signatureType";
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	_requestTokenURL = [coder decodeObjectForKey:DCTOAuth1AccountRequestTokenURL];
-	_accessTokenURL = [coder decodeObjectForKey:DCTOAuth1AccountAccessTokenURL];
-	_authorizeURL = [coder decodeObjectForKey:DCTOAuth1AccountAuthorizeURL];
-	_signatureType = [coder decodeIntegerForKey:DCTOAuth1AccountSignatureType];
+	_requestTokenURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.requestTokenURL];
+	_accessTokenURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.accessTokenURL];
+	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.authorizeURL];
+	_signatureType = [coder decodeIntegerForKey:_DCTOAuth1AccountProperties.signatureType];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
-	[coder encodeObject:self.requestTokenURL forKey:DCTOAuth1AccountRequestTokenURL];
-	[coder encodeObject:self.accessTokenURL forKey:DCTOAuth1AccountAccessTokenURL];
-	[coder encodeObject:self.authorizeURL forKey:DCTOAuth1AccountAuthorizeURL];
-	[coder encodeInteger:self.signatureType forKey:DCTOAuth1AccountSignatureType];
+	[coder encodeObject:self.requestTokenURL forKey:_DCTOAuth1AccountProperties.requestTokenURL];
+	[coder encodeObject:self.accessTokenURL forKey:_DCTOAuth1AccountProperties.accessTokenURL];
+	[coder encodeObject:self.authorizeURL forKey:_DCTOAuth1AccountProperties.authorizeURL];
+	[coder encodeInteger:self.signatureType forKey:_DCTOAuth1AccountProperties.signatureType];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {

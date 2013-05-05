@@ -8,6 +8,20 @@
 
 #import "_DCTOAuth1Credential.h"
 
+const struct _DCTOAuth1CredentialProperties {
+	__unsafe_unretained NSString *consumerKey;
+	__unsafe_unretained NSString *consumerSecret;
+	__unsafe_unretained NSString *oauthToken;
+	__unsafe_unretained NSString *oauthTokenSecret;
+} _DCTOAuth1CredentialProperties;
+
+const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialProperties = {
+	.consumerKey = @"consumerKey",
+	.consumerSecret = @"consumerSecret",
+	.oauthToken = @"oauthToken",
+	.oauthTokenSecret = @"oauthTokenSecret"
+};
+
 @implementation _DCTOAuth1Credential
 
 - (id)initWithConsumerKey:(NSString *)consumerKey
@@ -32,28 +46,28 @@
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	if (!self) return nil;
-	_consumerKey = [coder decodeObjectForKey:@"consumerKey"];
-	_consumerSecret = [coder decodeObjectForKey:@"consumerSecret"];
-	_oauthToken = [coder decodeObjectForKey:@"oauthToken"];
-	_oauthTokenSecret = [coder decodeObjectForKey:@"oauthTokenSecret"];
+	_consumerKey = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.consumerKey];
+	_consumerSecret = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.consumerSecret];
+	_oauthToken = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.oauthToken];
+	_oauthTokenSecret = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.oauthTokenSecret];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.consumerKey forKey:@"consumerKey"];
-	[coder encodeObject:self.consumerSecret forKey:@"consumerSecret"];
-	[coder encodeObject:self.oauthToken forKey:@"oauthToken"];
-	[coder encodeObject:self.oauthTokenSecret forKey:@"oauthTokenSecret"];
+	[coder encodeObject:self.consumerKey forKey:_DCTOAuth1CredentialProperties.consumerKey];
+	[coder encodeObject:self.consumerSecret forKey:_DCTOAuth1CredentialProperties.consumerSecret];
+	[coder encodeObject:self.oauthToken forKey:_DCTOAuth1CredentialProperties.oauthToken];
+	[coder encodeObject:self.oauthTokenSecret forKey:_DCTOAuth1CredentialProperties.oauthTokenSecret];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %p; consumerKey = %@; consumerSecret = %@; oauthToken = %@; oauthTokenSecret = %@>",
+	return [NSString stringWithFormat:@"<%@: %p; %@ = %@; %@ = %@; %@ = %@; %@ = %@>",
 			NSStringFromClass([self class]),
 			self,
-			self.consumerKey,
-			self.consumerSecret,
-			self.oauthToken,
-			self.oauthTokenSecret];
+			_DCTOAuth1CredentialProperties.consumerKey, self.consumerKey,
+			_DCTOAuth1CredentialProperties.consumerSecret, self.consumerSecret,
+			_DCTOAuth1CredentialProperties.oauthToken, self.oauthToken,
+			_DCTOAuth1CredentialProperties.oauthTokenSecret, self.oauthTokenSecret];
 }
 
 @end

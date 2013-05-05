@@ -13,8 +13,17 @@
 #import "NSString+DCTAuth.h"
 #import "NSURL+DCTAuth.h"
 
-NSString *const _DCTOAuth2AccountAuthorizeResponseKey = @"AuthorizeResponse";
-NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse";
+const struct _DCTOAuth2AccountProperties {
+	__unsafe_unretained NSString *authorizeURL;
+	__unsafe_unretained NSString *accessTokenURL;
+	__unsafe_unretained NSString *scopes;
+} _DCTOAuth2AccountProperties;
+
+const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
+	.authorizeURL = @"authorizeURL",
+	.accessTokenURL = @"accessTokenURL",
+	.scopes = @"scopes"
+};
 
 @interface _DCTOAuth2Account ()
 @property (nonatomic, copy) NSURL *authorizeURL;
@@ -46,17 +55,17 @@ NSString *const _DCTOAuth2AccountAccessTokenResponseKey = @"AccessTokenResponse"
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	_authorizeURL = [coder decodeObjectForKey:@"_authorizeURL"];
-	_accessTokenURL = [coder decodeObjectForKey:@"_accessTokenURL"];
-	_scopes = [coder decodeObjectForKey:@"_scopes"];
+	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.authorizeURL];
+	_accessTokenURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.accessTokenURL];
+	_scopes = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.scopes];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
-	[coder encodeObject:self.authorizeURL forKey:@"_authorizeURL"];
-	[coder encodeObject:self.accessTokenURL forKey:@"_accessTokenURL"];
-	[coder encodeObject:self.scopes forKey:@"_scopes"];
+	[coder encodeObject:self.authorizeURL forKey:_DCTOAuth2AccountProperties.authorizeURL];
+	[coder encodeObject:self.accessTokenURL forKey:_DCTOAuth2AccountProperties.accessTokenURL];
+	[coder encodeObject:self.scopes forKey:_DCTOAuth2AccountProperties.scopes];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
