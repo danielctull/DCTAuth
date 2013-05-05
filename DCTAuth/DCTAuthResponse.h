@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DCTAuthResponse : NSObject
+@interface DCTAuthResponse : NSObject <NSCoding>
 
 - (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse;
 - (id)initWithURL:(NSURL *)URL;

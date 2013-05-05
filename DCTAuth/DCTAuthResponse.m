@@ -10,6 +10,16 @@
 #import "NSString+DCTAuth.h"
 #import "_DCTAuthPlatform.h"
 
+const struct DCTAuthResponseProperties {
+	__unsafe_unretained NSString *data;
+	__unsafe_unretained NSString *URLResponse;
+} DCTAuthResponseProperties;
+
+const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
+	.data = @"data",
+	.URLResponse = @"URLResponse"
+};
+
 @implementation DCTAuthResponse
 
 - (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse {
@@ -93,6 +103,19 @@
 			[[NSHTTPURLResponse localizedStringForStatusCode:self.statusCode] capitalizedString],
 			headerString,
 			bodyString];
+}
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder {
+	NSData *data = [coder decodeObjectForKey:DCTAuthResponseProperties.data];
+	NSHTTPURLResponse *URLResponse = [coder decodeObjectForKey:DCTAuthResponseProperties.URLResponse];
+	return [self initWithData:data URLResponse:URLResponse];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.data forKey:DCTAuthResponseProperties.data];
+	[coder encodeObject:self.URLResponse forKey:DCTAuthResponseProperties.URLResponse];
 }
 
 @end

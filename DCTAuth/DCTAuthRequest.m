@@ -14,6 +14,22 @@
 #import "NSDictionary+DCTAuth.h"
 #import "_DCTAuthURLRequestPerformer.h"
 
+const struct DCTAuthRequestProperties {
+	__unsafe_unretained NSString *requestMethod;
+	__unsafe_unretained NSString *URL;
+	__unsafe_unretained NSString *parameters;
+	__unsafe_unretained NSString *multipartDatas;
+	__unsafe_unretained NSString *account;
+} DCTAuthRequestProperties;
+
+const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
+	.requestMethod = @"requestMethod",
+	.URL = @"URL",
+	.parameters = @"parameters",
+	.multipartDatas = @"multipartDatas",
+	.account = @"account"
+};
+
 NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
 NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
 
@@ -216,20 +232,20 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
-	_requestMethod = [coder decodeIntegerForKey:@"requestMethod"];
-	_URL = [[coder decodeObjectForKey:@"URL"] copy];
-	_parameters = [[coder decodeObjectForKey:@"parameters"] copy];
-	_multipartDatas = [[coder decodeObjectForKey:@"multipartDatas"] copy];
-	_account = [coder decodeObjectForKey:@"account"];
+	_requestMethod = [coder decodeIntegerForKey:DCTAuthRequestProperties.requestMethod];
+	_URL = [[coder decodeObjectForKey:DCTAuthRequestProperties.URL] copy];
+	_parameters = [[coder decodeObjectForKey:DCTAuthRequestProperties.parameters] copy];
+	_multipartDatas = [[coder decodeObjectForKey:DCTAuthRequestProperties.multipartDatas] copy];
+	_account = [coder decodeObjectForKey:DCTAuthRequestProperties.account];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeInteger:self.requestMethod forKey:@"requestMethod"];
-	[coder encodeObject:self.URL forKey:@"URL"];
-	[coder encodeObject:self.parameters forKey:@"parameters"];
-	[coder encodeObject:self.multipartDatas forKey:@"multipartDatas"];
-	[coder encodeObject:self.account forKey:@"account"];
+	[coder encodeInteger:self.requestMethod forKey:DCTAuthRequestProperties.requestMethod];
+	[coder encodeObject:self.URL forKey:DCTAuthRequestProperties.URL];
+	[coder encodeObject:self.parameters forKey:DCTAuthRequestProperties.parameters];
+	[coder encodeObject:self.multipartDatas forKey:DCTAuthRequestProperties.multipartDatas];
+	[coder encodeObject:self.account forKey:DCTAuthRequestProperties.account];
 }
 
 @end
