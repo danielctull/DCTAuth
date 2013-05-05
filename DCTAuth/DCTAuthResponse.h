@@ -26,13 +26,14 @@ typedef enum : NSUInteger {
 
 @interface DCTAuthResponse : NSObject
 
-- (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)response;
+- (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse;
 - (id)initWithURL:(NSURL *)URL;
 
 @property (nonatomic, readonly) NSInteger statusCode;
 @property (nonatomic, readonly) NSDictionary *HTTPHeaders;
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSData *data;
+@property (nonatomic, readonly) NSHTTPURLResponse *URLResponse;
 @property (nonatomic, readonly) DCTAuthResponseContentType contentType;
 
 @property (nonatomic, readonly) id contentObject;
