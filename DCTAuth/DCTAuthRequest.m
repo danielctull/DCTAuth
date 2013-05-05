@@ -40,6 +40,8 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 
 @implementation DCTAuthRequest
 
+#pragma mark - DCTAuthRequest
+
 - (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
 						URL:(NSURL *)URL
 				 parameters:(NSDictionary *)parameters {
@@ -207,6 +209,27 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 		[string appendFormat:@"\n%@: %@", key, value];
 	}];
 	return [string copy];
+}
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [self init];
+	if (!self) return nil;
+	_requestMethod = [coder decodeIntegerForKey:@"requestMethod"];
+	_URL = [[coder decodeObjectForKey:@"URL"] copy];
+	_parameters = [[coder decodeObjectForKey:@"parameters"] copy];
+	_multipartDatas = [[coder decodeObjectForKey:@"multipartDatas"] copy];
+	_account = [coder decodeObjectForKey:@"account"];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeInteger:self.requestMethod forKey:@"requestMethod"];
+	[coder encodeObject:self.URL forKey:@"URL"];
+	[coder encodeObject:self.parameters forKey:@"parameters"];
+	[coder encodeObject:self.multipartDatas forKey:@"multipartDatas"];
+	[coder encodeObject:self.account forKey:@"account"];
 }
 
 @end

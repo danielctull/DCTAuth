@@ -286,6 +286,7 @@
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				245F7C7216AF2809005B72BA /* DCTAuthResponse.h */,
 				245F7C7316AF2809005B72BA /* DCTAuthResponse.m */,
+				2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */,
 				24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */,
 				24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */,
 				243B575815EE4CAC007F1CA6 /* Private Classes */,
@@ -446,6 +447,8 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+<<<<<<< Updated upstream
+=======
 		2416D3C2171BF6600039DE01 /* Build Documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -460,6 +463,7 @@
 			shellPath = /bin/sh;
 			shellScript = "docsetutil=`xcrun --find docsetutil`\nbuild=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}/docset\"\n\nhash /usr/local/bin/appledoc 2>/dev/null || exit 0;\n\n/usr/local/bin/appledoc \\\n--install-docset \\\n--project-name \"${TARGET_NAME}\" \\\n--project-company \"Daniel Tull\" \\\n--company-id uk.co.danieltull \\\n--exit-threshold 1000 \\\n--clean-output \\\n-o \"$build\" \\\n\"${PROJECT_DIR}\" &\n";
 		};
+>>>>>>> Stashed changes
 		24FA8FF315E93D8E00E1ED99 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
