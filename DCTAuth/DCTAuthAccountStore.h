@@ -17,10 +17,19 @@ extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
 
 /// @name Getting an account store
 
+/** Retrieve the "default" global store. */
 + (instancetype)defaultAccountStore;
 
+/** Get a store in the default directory with a given name.
+ @param name The name of the store to retrieve.
+ @return The store with the given name.
+ */
 + (instancetype)accountStoreWithName:(NSString *)name;
 
+/** Get a store at a given URL.
+ @param storeURL A URL for a location on disk.
+ @return The store at the give URL on disk.
+ */
 + (instancetype)accountStoreWithURL:(NSURL *)storeURL;
 
 /// @name Getting accounts
@@ -31,6 +40,7 @@ extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
 /** Returns all accounts of the specified type.
  @param accountType The type of an account.
  @return All accounts that match accountType.
+ @see [DCTAuthAccount type]
  */
 - (NSArray *)accountsWithType:(NSString *)accountType;
 
@@ -43,11 +53,13 @@ extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
 /// @name Managing accounts
 
 /** Saves an account to the Accounts database.
- @param account The account to save.*/
+ @param account The account to save. Must not be nil.
+ */
 - (void)saveAccount:(DCTAuthAccount *)account __attribute__((nonnull(1)));
 
 /** Deletes an account from the Accounts database.
- @param account The account to delete. */
+ @param account The account to delete. Must not be nil.
+ */
 - (void)deleteAccount:(DCTAuthAccount *)account __attribute__((nonnull(1)));
 
 @end

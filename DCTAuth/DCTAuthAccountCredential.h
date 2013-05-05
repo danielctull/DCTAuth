@@ -8,9 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-// Account credentials will always be stored securely.
-// DCTAuthAccountStore currently stores credentials in
-// the keychain. In the future, credentials may be stored
-// in other ways.
+/** DCTAuthAccountCredential is a protocol that should 
+ be implemented alongside each DCTAuthAccount subclass
+ to store the values which should be kept secure. For 
+ example the Basic Auth implementation stores the just
+ the password in its credential.
+ 
+ When an account is saved by a DCTAuthAccountStore, it 
+ is acrhived to disk using NSCoding. The store then takes
+ the account credentials, archives it and stores the data
+ in the keychain. 
+ 
+ @see -[DCTAuthAccount credential]
+ */
 @protocol DCTAuthAccountCredential <NSObject, NSCoding>
 @end
