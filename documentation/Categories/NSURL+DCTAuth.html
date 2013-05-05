@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>DCTAuthAccountSubclass Protocol Reference</title>
+		<title>NSURL(DCTAuth) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">DCTAuthAccountSubclass Protocol Reference</h1>
+				<h1 class="hideInXcode">NSURL(DCTAuth) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -44,7 +44,11 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/signURLRequest:forAuthRequest:">&nbsp;&nbsp;&nbsp;&nbsp;- signURLRequest:forAuthRequest:</option>
+	<option value="//api/name/dctAuth_URLByAddingQueryParameters:">&nbsp;&nbsp;&nbsp;&nbsp;- dctAuth_URLByAddingQueryParameters:</option>
+	
+	<option value="//api/name/dctAuth_URLByRemovingComponentType:">&nbsp;&nbsp;&nbsp;&nbsp;- dctAuth_URLByRemovingComponentType:</option>
+	
+	<option value="//api/name/dctAuth_URLBySettingUser:password:">&nbsp;&nbsp;&nbsp;&nbsp;- dctAuth_URLBySettingUser:password:</option>
 	
 	
 	
@@ -74,7 +78,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/signURLRequest:forAuthRequest:">signURLRequest:forAuthRequest:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dctAuth_URLByAddingQueryParameters:">dctAuth_URLByAddingQueryParameters:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dctAuth_URLByRemovingComponentType:">dctAuth_URLByRemovingComponentType:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dctAuth_URLBySettingUser:password:">dctAuth_URLBySettingUser:password:</a></span></li>
 	
 </ul></li>
 
@@ -83,7 +91,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="DCTAuthAccountSubclass Protocol Reference" name="top"></a>
+				<a title="NSURL(DCTAuth) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -92,18 +100,15 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">DCTAuthAccountSubclass Protocol Reference</h1>
+						<h1 class="title title-header">NSURL(DCTAuth) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<td class="specification-title">Conforms to</td>
-	<td class="specification-value">NSObject</td>
-</tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">DCTAuthAccountSubclass.h</td>
+	<td class="specification-value">NSURL+DCTAuth.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -113,7 +118,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>This is a protocol that should be adopted by <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> subclasses.</p>
+						<p>Set of categories to aid the creation of <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> subclasses.</p>
 					</div>
 					
 					
@@ -131,11 +136,25 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/signURLRequest:forAuthRequest:">&ndash;&nbsp;signURLRequest:forAuthRequest:</a></code>
-		<span class="tooltip"><p>A method to allow account subclasses to sign a URL request.</p></span>
+		<code><a href="#//api/name/dctAuth_URLBySettingUser:password:">&ndash;&nbsp;dctAuth_URLBySettingUser:password:</a></code>
+		<span class="tooltip"><p>Sets the user and password components of the URL.</p></span>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dctAuth_URLByAddingQueryParameters:">&ndash;&nbsp;dctAuth_URLByAddingQueryParameters:</a></code>
+		<span class="tooltip"><p>Adds the parameters to the query component of the URL.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dctAuth_URLByRemovingComponentType:">&ndash;&nbsp;dctAuth_URLByRemovingComponentType:</a></code>
+		<span class="tooltip"><p>Adds the parameters to the query component of the URL.</p></span>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -154,18 +173,18 @@
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/signURLRequest:forAuthRequest:" title="signURLRequest:forAuthRequest:"></a>
-	<h3 class="subsubtitle method-title">signURLRequest:forAuthRequest:</h3>
+	<a name="//api/name/dctAuth_URLByAddingQueryParameters:" title="dctAuth_URLByAddingQueryParameters:"></a>
+	<h3 class="subsubtitle method-title">dctAuth_URLByAddingQueryParameters:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A method to allow account subclasses to sign a URL request.</p>
+		<p>Adds the parameters to the query component of the URL.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)signURLRequest:(NSMutableURLRequest *)<em>request</em> forAuthRequest:(DCTAuthRequest *)<em>authRequest</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)<em>parameters</em></code></div>
 
     
 	
@@ -173,18 +192,18 @@
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>request</em></dt>
-			<dd><p>The request to be signed.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>authRequest</em></dt>
-			<dd><p>The <a href="../Classes/DCTAuthRequest.html">DCTAuthRequest</a> object that is asking for the request to be signed.</p></dd>
+			<dt><em>parameters</em></dt>
+			<dd><p>The parameters to add.</p></dd>
 		</dl>
 		
 	</div>
 	
 	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A modified NSURL with the query component altered.</p>
+	</div>
 	
 	
 	
@@ -192,10 +211,8 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p><a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> subclasses need to implment this method and use their credentials to modify
-the given mutable request so that it is authorized for the user&rsquo;s account. For example in the
-case of OAuth 1.0, the account adds a signed Authorization header to the request, with the
-correct OAuth parameters.</p>
+		<p>It will not remove existing query parameters, however if the same
+keys exist then the newer value will be used.</p>
 	</div>
 	
 	
@@ -206,7 +223,120 @@ correct OAuth parameters.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthAccountSubclass.h</code><br />
+		<code class="declared-in-ref">NSURL+DCTAuth.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dctAuth_URLByRemovingComponentType:" title="dctAuth_URLByRemovingComponentType:"></a>
+	<h3 class="subsubtitle method-title">dctAuth_URLByRemovingComponentType:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Adds the parameters to the query component of the URL.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSURL *)dctAuth_URLByRemovingComponentType:(CFURLComponentType)<em>componentType</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>componentType</em></dt>
+			<dd><p>The component to remove.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A modified NSURL with the component removed.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>It will not remove existing query parameters, however if the same
+keys exist then the newer value will be used.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSURL+DCTAuth.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dctAuth_URLBySettingUser:password:" title="dctAuth_URLBySettingUser:password:"></a>
+	<h3 class="subsubtitle method-title">dctAuth_URLBySettingUser:password:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the user and password components of the URL.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSURL *)dctAuth_URLBySettingUser:(NSString *)<em>user</em> password:(NSString *)<em>password</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>user</em></dt>
+			<dd><p>The username to use.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>password</em></dt>
+			<dd><p>The password.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A modified NSURL with the user and password components altered.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSURL+DCTAuth.h</code><br />
 	</div>				
 	
 	

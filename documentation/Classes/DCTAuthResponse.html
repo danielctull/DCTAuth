@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>DCTAuthRequest Class Reference</title>
+		<title>DCTAuthResponse Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">DCTAuthRequest Class Reference</h1>
+				<h1 class="hideInXcode">DCTAuthResponse Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -44,13 +44,13 @@
 	
 	<option value="//api/name/URL">&nbsp;&nbsp;&nbsp;&nbsp;URL</option>
 	
-	<option value="//api/name/account">&nbsp;&nbsp;&nbsp;&nbsp;account</option>
+	<option value="//api/name/URLResponse">&nbsp;&nbsp;&nbsp;&nbsp;URLResponse</option>
 	
-	<option value="//api/name/contentType">&nbsp;&nbsp;&nbsp;&nbsp;contentType</option>
+	<option value="//api/name/contentObject">&nbsp;&nbsp;&nbsp;&nbsp;contentObject</option>
 	
-	<option value="//api/name/parameters">&nbsp;&nbsp;&nbsp;&nbsp;parameters</option>
+	<option value="//api/name/data">&nbsp;&nbsp;&nbsp;&nbsp;data</option>
 	
-	<option value="//api/name/requestMethod">&nbsp;&nbsp;&nbsp;&nbsp;requestMethod</option>
+	<option value="//api/name/statusCode">&nbsp;&nbsp;&nbsp;&nbsp;statusCode</option>
 	
 	
 	
@@ -59,13 +59,11 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/addMultiPartData:withName:type:">&nbsp;&nbsp;&nbsp;&nbsp;- addMultiPartData:withName:type:</option>
+	<option value="//api/name/initWithData:URLResponse:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithData:URLResponse:</option>
 	
-	<option value="//api/name/initWithRequestMethod:URL:parameters:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithRequestMethod:URL:parameters:</option>
+	<option value="//api/name/initWithURL:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithURL:</option>
 	
-	<option value="//api/name/performRequestWithHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- performRequestWithHandler:</option>
-	
-	<option value="//api/name/signedURLRequest">&nbsp;&nbsp;&nbsp;&nbsp;- signedURLRequest</option>
+	<option value="//api/name/responseDescription">&nbsp;&nbsp;&nbsp;&nbsp;- responseDescription</option>
 	
 	
 	
@@ -87,7 +85,7 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Accessing Properties">Accessing Properties</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Sending Requests">Sending Requests</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Getting a Response Description">Getting a Response Description</a></span></li>
 	
 </ul></li>
 
@@ -101,13 +99,13 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/URL">URL</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/account">account</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/URLResponse">URLResponse</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/contentType">contentType</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/contentObject">contentObject</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parameters">parameters</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/data">data</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestMethod">requestMethod</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/statusCode">statusCode</a></span></li>
 	
 </ul></li>
 
@@ -117,13 +115,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addMultiPartData:withName:type:">addMultiPartData:withName:type:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithData:URLResponse:">initWithData:URLResponse:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithRequestMethod:URL:parameters:">initWithRequestMethod:URL:parameters:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithURL:">initWithURL:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performRequestWithHandler:">performRequestWithHandler:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/signedURLRequest">signedURLRequest</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/responseDescription">responseDescription</a></span></li>
 	
 </ul></li>
 
@@ -132,7 +128,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="DCTAuthRequest Class Reference" name="top"></a>
+				<a title="DCTAuthResponse Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -141,7 +137,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">DCTAuthRequest Class Reference</h1>
+						<h1 class="title title-header">DCTAuthResponse Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -155,7 +151,7 @@
 	<td class="specification-value">NSCoding</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">DCTAuthRequest.h</td>
+	<td class="specification-value">DCTAuthResponse.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -165,13 +161,17 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The DCTAuthRequest object encapsulates the properties of an HTTP request that you send to a service to perform some operation on behalf of the user. The DCTAuthRequest class provides a convenient template for you to make requests, and handles user authentication.</p>
+						<p>DCTAuthResponse wraps two forms of response, either a standard
+HTTP <a href="#//api/name/URL">URL</a> response or a <a href="#//api/name/URL">URL</a> callback, such as one received when
+performing an OAuth authentication. The main goal is to abstract the
+<a href="#//api/name/contentObject">contentObject</a>, which aims to be populated with relavent native object.</p>
 
-<p>HTTP requests have these common components: a <a href="#//api/name/URL">URL</a> identifying the operation to perform, the HTTP method (GET, POST, or DELETE), a set of query <a href="#//api/name/parameters">parameters</a> that depends on the operation, and an optional multipart POST body containing additional data. The values for these properties depend on the request you are sending.</p>
+<p>In the case of a <a href="#//api/name/URL">URL</a> callback, it will take the values in the
+query and fragment components of the <a href="#//api/name/URL">URL</a> and populate a dictionary.</p>
 
-<p>Use the <a href="#//api/name/initWithRequestMethod:URL:parameters:">initWithRequestMethod:URL:parameters:</a> method to initialize a newly created DCTAuthRequest object passing the required property values. Use the <a href="#//api/name/addMultiPartData:withName:type:">addMultiPartData:withName:type:</a> to optionally specify a multipart POST body. Use the <a href="#//api/name/performRequestWithHandler:">performRequestWithHandler:</a> method to perform the actual request specifying the handler to call when the request is done. Alternatively, you can use the <a href="#//api/name/signedURLRequest">signedURLRequest</a> method to create a request that you send using an NSURLConnection object.</p>
-
-<p>If the request requires user authorization, set the <a href="#//api/name/account">account</a> property to an <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> object.</p>
+<p>In the case of a HTTP <a href="#//api/name/URL">URL</a> response, it will use the MIME type and
+try to create a dictionary (in the case of JSON, Plist or form <a href="#//api/name/data">data</a>)
+or an image (in the case of image <a href="#//api/name/data">data</a>).</p>
 					</div>
 					
 					
@@ -189,8 +189,15 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithRequestMethod:URL:parameters:">&ndash;&nbsp;initWithRequestMethod:URL:parameters:</a></code>
-		<span class="tooltip"><p>Initializes a newly created request object with the specified properties.</p></span>
+		<code><a href="#//api/name/initWithData:URLResponse:">&ndash;&nbsp;initWithData:URLResponse:</a></code>
+		<span class="tooltip"><p>Initializes an auth response object with <a href="#//api/name/data">data</a> and a HTTP <a href="#//api/name/URL">URL</a> response.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithURL:">&ndash;&nbsp;initWithURL:</a></code>
+		<span class="tooltip"><p>For use when the response is a callback <a href="#//api/name/URL">URL</a>.</p></span>
 	</span>
 	
 	
@@ -204,72 +211,61 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/URL">&nbsp;&nbsp;URL</a></code>
-		<span class="tooltip"><p>The destination URL for this request.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/requestMethod">&nbsp;&nbsp;requestMethod</a></code>
-		<span class="tooltip"><p>The method to use for this request.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/parameters">&nbsp;&nbsp;parameters</a></code>
-		<span class="tooltip"><p>The parameters for this request.</p></span>
+		<code><a href="#//api/name/statusCode">&nbsp;&nbsp;statusCode</a></code>
+		<span class="tooltip"><p>The status code of the response.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/HTTPHeaders">&nbsp;&nbsp;HTTPHeaders</a></code>
-		<span class="tooltip"><p>The HTTPHeaders for this request.</p></span>
+		<span class="tooltip"><p>The headers of the response.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/account">&nbsp;&nbsp;account</a></code>
-		<span class="tooltip"><p>Optional account information used to authenticate the request.</p></span>
+		<code><a href="#//api/name/URL">&nbsp;&nbsp;URL</a></code>
+		<span class="tooltip"><p>If the auth response is created</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/contentType">&nbsp;&nbsp;contentType</a></code>
-		<span class="tooltip"><p>The content type to encode the POST body <a href="#//api/name/parameters">parameters</a>.</p></span>
+		<code><a href="#//api/name/data">&nbsp;&nbsp;data</a></code>
+		<span class="tooltip"><p>The actual data received from the connection.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/addMultiPartData:withName:type:">&ndash;&nbsp;addMultiPartData:withName:type:</a></code>
-		<span class="tooltip"><p>Specifies a named multipart POST body for this request.</p></span>
+		<code><a href="#//api/name/URLResponse">&nbsp;&nbsp;URLResponse</a></code>
+		<span class="tooltip"><p>The actual <a href="#//api/name/URL">URL</a> response object received from the connection.</p></span>
 	</span>
+	<span class="task-item-suffix">property</span>
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/contentObject">&nbsp;&nbsp;contentObject</a></code>
+		<span class="tooltip"><p>The response object as a native class. For example if the
+<a href="#//api/name/data">data</a> is json or plist, this will be a dictionary. If the <a href="#//api/name/data">data</a>
+is an image, on iOS it will be a UIImage, on Mac OS X it will
+be an NSImage.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
 	
 </li>
 						</ul>
 						
 						
-						<a title="Sending Requests" name="task_Sending Requests"></a>
-						<h3 class="subsubtitle task-title">Sending Requests</h3>
+						<a title="Getting a Response Description" name="task_Getting a Response Description"></a>
+						<h3 class="subsubtitle task-title">Getting a Response Description</h3>
 
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/signedURLRequest">&ndash;&nbsp;signedURLRequest</a></code>
-		<span class="tooltip"><p>Returns an authorized request that can be sent using an NSURLConnection object.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/performRequestWithHandler:">&ndash;&nbsp;performRequestWithHandler:</a></code>
-		<span class="tooltip"><p>Performs the request and calls the specified handler when done.</p></span>
+		<code><a href="#//api/name/responseDescription">&ndash;&nbsp;responseDescription</a></code>
+		<span class="tooltip"><p>Provides a description of the response, in a familiar way.</p></span>
 	</span>
 	
 	
@@ -293,12 +289,12 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The HTTPHeaders for this request.</p>
+		<p>The headers of the response.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSDictionary *HTTPHeaders</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSDictionary *HTTPHeaders</code></div>
 
     
 	
@@ -316,7 +312,7 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
@@ -329,7 +325,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The destination URL for this request.</p>
+		<p>If the auth response is created</p>
 	</div>		
 	
     
@@ -344,11 +340,6 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>This is the URL for the HTTP request.</p>
-	</div>
-	
 	
 	
 	
@@ -357,25 +348,25 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/account" title="account"></a>
-	<h3 class="subsubtitle method-title">account</h3>
+	<a name="//api/name/URLResponse" title="URLResponse"></a>
+	<h3 class="subsubtitle method-title">URLResponse</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Optional account information used to authenticate the request.</p>
+		<p>The actual <a href="#//api/name/URL">URL</a> response object received from the connection.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) DCTAuthAccount *account</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSHTTPURLResponse *URLResponse</code></div>
 
     
 	
@@ -384,11 +375,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Default is nil.</p>
-	</div>
 	
 	
 	
@@ -398,25 +384,28 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/contentType" title="contentType"></a>
-	<h3 class="subsubtitle method-title">contentType</h3>
+	<a name="//api/name/contentObject" title="contentObject"></a>
+	<h3 class="subsubtitle method-title">contentObject</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The content type to encode the POST body <a href="#//api/name/parameters">parameters</a>.</p>
+		<p>The response object as a native class. For example if the
+<a href="#//api/name/data">data</a> is json or plist, this will be a dictionary. If the <a href="#//api/name/data">data</a>
+is an image, on iOS it will be a UIImage, on Mac OS X it will
+be an NSImage.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) DCTAuthRequestContentType contentType</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id contentObject</code></div>
 
     
 	
@@ -425,11 +414,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Default is DCTAuthRequestContentTypeForm</p>
-	</div>
 	
 	
 	
@@ -439,25 +423,25 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/parameters" title="parameters"></a>
-	<h3 class="subsubtitle method-title">parameters</h3>
+	<a name="//api/name/data" title="data"></a>
+	<h3 class="subsubtitle method-title">data</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The parameters for this request.</p>
+		<p>The actual data received from the connection.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSDictionary *parameters</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSData *data</code></div>
 
     
 	
@@ -466,11 +450,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>These are the query parameters for this HTTP request.</p>
-	</div>
 	
 	
 	
@@ -480,25 +459,25 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/requestMethod" title="requestMethod"></a>
-	<h3 class="subsubtitle method-title">requestMethod</h3>
+	<a name="//api/name/statusCode" title="statusCode"></a>
+	<h3 class="subsubtitle method-title">statusCode</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The method to use for this request.</p>
+		<p>The status code of the response.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) DCTAuthRequestMethod requestMethod</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSInteger statusCode</code></div>
 
     
 	
@@ -507,11 +486,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>This property specifies the method of the HTTP request.</p>
-	</div>
 	
 	
 	
@@ -521,7 +495,7 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
@@ -538,18 +512,18 @@
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/addMultiPartData:withName:type:" title="addMultiPartData:withName:type:"></a>
-	<h3 class="subsubtitle method-title">addMultiPartData:withName:type:</h3>
+	<a name="//api/name/initWithData:URLResponse:" title="initWithData:URLResponse:"></a>
+	<h3 class="subsubtitle method-title">initWithData:URLResponse:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Specifies a named multipart POST body for this request.</p>
+		<p>Initializes an auth response object with <a href="#//api/name/data">data</a> and a HTTP <a href="#//api/name/URL">URL</a> response.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)addMultiPartData:(NSData *)<em>data</em> withName:(NSString *)<em>name</em> type:(NSString *)<em>type</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (id)initWithData:(NSData *)<em>data</em> URLResponse:(NSHTTPURLResponse *)<em>URLResponse</em></code></div>
 
     
 	
@@ -558,73 +532,12 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>data</em></dt>
-			<dd><p>The data for the multipart POST body.</p></dd>
+			<dd><p>The <a href="#//api/name/data">data</a> received from the connection.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>name</em></dt>
-			<dd><p>The name of the multipart POST body.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>type</em></dt>
-			<dd><p>The type of the multipart POST body.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/initWithRequestMethod:URL:parameters:" title="initWithRequestMethod:URL:parameters:"></a>
-	<h3 class="subsubtitle method-title">initWithRequestMethod:URL:parameters:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Initializes a newly created request object with the specified properties.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (id)initWithRequestMethod:(DCTAuthRequestMethod)<em>requestMethod</em> URL:(NSURL *)<em>URL</em> parameters:(NSDictionary *)<em>parameters</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>requestMethod</em></dt>
-			<dd><p>The method to use for this HTTP request.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>URL</em></dt>
-			<dd><p>The destination <a href="#//api/name/URL">URL</a> for this HTTP request.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>parameters</em></dt>
-			<dd><p>The <a href="#//api/name/parameters">parameters</a> for this HTTP request.</p></dd>
+			<dt><em>URLResponse</em></dt>
+			<dd><p>The response from the connection.</p></dd>
 		</dl>
 		
 	</div>
@@ -648,25 +561,25 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/performRequestWithHandler:" title="performRequestWithHandler:"></a>
-	<h3 class="subsubtitle method-title">performRequestWithHandler:</h3>
+	<a name="//api/name/initWithURL:" title="initWithURL:"></a>
+	<h3 class="subsubtitle method-title">initWithURL:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Performs the request and calls the specified handler when done.</p>
+		<p>For use when the response is a callback <a href="#//api/name/URL">URL</a>.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)performRequestWithHandler:(DCTAuthRequestHandler)<em>handler</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (id)initWithURL:(NSURL *)<em>URL</em></code></div>
 
     
 	
@@ -674,53 +587,17 @@
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>handler</em></dt>
-			<dd><p>The handler to call when the request is done.</p></dd>
+			<dt><em>URL</em></dt>
+			<dd><p>The full <a href="#//api/name/URL">URL</a> that was called back.</p></dd>
 		</dl>
 		
 	</div>
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/signedURLRequest" title="signedURLRequest"></a>
-	<h3 class="subsubtitle method-title">signedURLRequest</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns an authorized request that can be sent using an NSURLConnection object.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (NSURLRequest *)signedURLRequest</code></div>
-
-    
-	
-	
-	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>An OAuth-compatible NSURLRequest object that allows an application to act on behalf of the user while keeping the user’s password private.</p>
+		<p>The newly initialized request object.</p>
 	</div>
 	
 	
@@ -735,7 +612,43 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">DCTAuthRequest.h</code><br />
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/responseDescription" title="responseDescription"></a>
+	<h3 class="subsubtitle method-title">responseDescription</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Provides a description of the response, in a familiar way.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)responseDescription</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuthResponse.h</code><br />
 	</div>				
 	
 	

@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -45,6 +45,15 @@
 	
 	
 	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/accountStoreWithName:">&nbsp;&nbsp;&nbsp;&nbsp;+ accountStoreWithName:</option>
+	
+	<option value="//api/name/accountStoreWithURL:">&nbsp;&nbsp;&nbsp;&nbsp;+ accountStoreWithURL:</option>
+	
+	<option value="//api/name/defaultAccountStore">&nbsp;&nbsp;&nbsp;&nbsp;+ defaultAccountStore</option>
+	
+	
 	
 	
 	<option value="instance_methods">Instance Methods</option>
@@ -73,6 +82,8 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Getting an account store">Getting an account store</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Getting accounts">Getting accounts</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing accounts">Managing accounts</a></span></li>
@@ -90,6 +101,16 @@
 </ul></li>
 
 
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/accountStoreWithName:">accountStoreWithName:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/accountStoreWithURL:">accountStoreWithURL:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/defaultAccountStore">defaultAccountStore</a></span></li>
+	
+</ul></li>
 
 
 
@@ -140,7 +161,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <a href="DCTAuthAccountStore.html">DCTAuthAccountStore</a> class provides an interface for accessing, manipulating, and storing <a href="#//api/name/accounts">accounts</a>. To create and retrieve <a href="#//api/name/accounts">accounts</a> from the database, you must create an <a href="DCTAuthAccountStore.html">DCTAuthAccountStore</a> object. Each <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> object belongs to a single <a href="DCTAuthAccountStore.html">DCTAuthAccountStore</a> object.</p>
+						<p>The DCTAuthAccountStore class provides an interface for accessing, manipulating, and storing <a href="#//api/name/accounts">accounts</a>. To create and retrieve <a href="#//api/name/accounts">accounts</a> from the database, you must create an DCTAuthAccountStore object. Each <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> object belongs to a single DCTAuthAccountStore object.</p>
 					</div>
 					
 					
@@ -152,6 +173,35 @@
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
 						
+						<a title="Getting an account store" name="task_Getting an account store"></a>
+						<h3 class="subsubtitle task-title">Getting an account store</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/defaultAccountStore">+&nbsp;defaultAccountStore</a></code>
+		<span class="tooltip"><p>Retrieve the &ldquo;default&rdquo; global store.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/accountStoreWithName:">+&nbsp;accountStoreWithName:</a></code>
+		<span class="tooltip"><p>Get a store in the default directory with a given name.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/accountStoreWithURL:">+&nbsp;accountStoreWithURL:</a></code>
+		<span class="tooltip"><p>Get a store at a given URL.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
 						<a title="Getting accounts" name="task_Getting accounts"></a>
 						<h3 class="subsubtitle task-title">Getting accounts</h3>
 
@@ -159,7 +209,7 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/accounts">&nbsp;&nbsp;accounts</a></code>
-		<span class="tooltip"><p>The <a href="#//api/name/accounts">accounts</a> managed by this account store.</p></span>
+		<span class="tooltip"><p>The accounts managed by this account store.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -219,7 +269,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The <a href="#//api/name/accounts">accounts</a> managed by this account store.</p>
+		<p>The accounts managed by this account store.</p>
 	</div>		
 	
     
@@ -251,6 +301,150 @@
 					</div>
 					
 					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/accountStoreWithName:" title="accountStoreWithName:"></a>
+	<h3 class="subsubtitle method-title">accountStoreWithName:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Get a store in the default directory with a given name.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)accountStoreWithName:(NSString *)<em>name</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the store to retrieve.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The store with the given name.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuthAccountStore.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/accountStoreWithURL:" title="accountStoreWithURL:"></a>
+	<h3 class="subsubtitle method-title">accountStoreWithURL:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Get a store at a given URL.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)accountStoreWithURL:(NSURL *)<em>storeURL</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>storeURL</em></dt>
+			<dd><p>A URL for a location on disk.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The store at the give URL on disk.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuthAccountStore.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/defaultAccountStore" title="defaultAccountStore"></a>
+	<h3 class="subsubtitle method-title">defaultAccountStore</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieve the &ldquo;default&rdquo; global store.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)defaultAccountStore</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuthAccountStore.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
 					
 					
 					
@@ -350,6 +544,15 @@
 	
 	
 	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="../Classes/DCTAuthAccount.html#//api/name/type">[DCTAuthAccount type]</a></p></code></li>
+			
+		</ul>
+	</div>
+	
 	
 	
 	<div class="method-subsection declared-in-section">
@@ -381,7 +584,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>account</em></dt>
-			<dd><p>The account to delete.</p></dd>
+			<dd><p>The account to delete. Must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -427,7 +630,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>account</em></dt>
-			<dd><p>The account to save.</p></dd>
+			<dd><p>The account to save. Must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -465,9 +668,9 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Daniel Tull. All rights reserved. (Last updated: 2012-09-03)</span><br />
+						<p><span class="copyright">&copy; 2013 Daniel Tull. All rights reserved. (Last updated: 2013-05-05)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>

@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -58,6 +58,8 @@
 	<option value="//api/name/OAuth2AccountWithType:authorizeURL:accessTokenURL:clientID:clientSecret:scopes:">&nbsp;&nbsp;&nbsp;&nbsp;+ OAuth2AccountWithType:authorizeURL:accessTokenURL:clientID:clientSecret:scopes:</option>
 	
 	<option value="//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:">&nbsp;&nbsp;&nbsp;&nbsp;+ OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:</option>
+	
+	<option value="//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:">&nbsp;&nbsp;&nbsp;&nbsp;+ OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:</option>
 	
 	<option value="//api/name/basicAuthAccountWithType:authenticationURL:username:password:">&nbsp;&nbsp;&nbsp;&nbsp;+ basicAuthAccountWithType:authenticationURL:username:password:</option>
 	
@@ -122,6 +124,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:">OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:">OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/basicAuthAccountWithType:authenticationURL:username:password:">basicAuthAccountWithType:authenticationURL:username:password:</a></span></li>
 	
 </ul></li>
@@ -160,6 +164,9 @@
 	<td class="specification-title">Inherits from</td>
 	<td class="specification-value">NSObject</td>
 </tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSCoding</td>
+</tr><tr>
 	<td class="specification-title">Declared in</td>
 	<td class="specification-value">DCTAuthAccount.h</td>
 </tr>
@@ -171,7 +178,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>A <a href="DCTAuthAccount.html">DCTAuthAccount</a> object encapsulates information about a user account stored in the database. You can create and retrieve accounts using an <a href="../Classes/DCTAuthAccountStore.html">DCTAuthAccountStore</a> object. The <a href="../Classes/DCTAuthAccountStore.html">DCTAuthAccountStore</a> object provides an interface to the persistent database. All account objects belong to a single <a href="../Classes/DCTAuthAccountStore.html">DCTAuthAccountStore</a> object.</p>
+						<p>A DCTAuthAccount object encapsulates information about a user account stored in the database. You can create and retrieve accounts using an <a href="../Classes/DCTAuthAccountStore.html">DCTAuthAccountStore</a> object. The <a href="../Classes/DCTAuthAccountStore.html">DCTAuthAccountStore</a> object provides an interface to the persistent database. All account objects belong to a single <a href="../Classes/DCTAuthAccountStore.html">DCTAuthAccountStore</a> object.</p>
 					</div>
 					
 					
@@ -190,6 +197,13 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:">+&nbsp;OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:</a></code>
+		<span class="tooltip"><p>Creates an account using OAuth using a HMAC-SHA1 signature <a href="#//api/name/type">type</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:">+&nbsp;OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:</a></code>
 		<span class="tooltip"><p>Creates an account using OAuth.</p></span>
 	</span>
 	
@@ -219,21 +233,21 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/type">&nbsp;&nbsp;type</a></code>
-		<span class="tooltip"><p>The <a href="#//api/name/type">type</a> of service account, which is user defined at the creation of an account.</p></span>
+		<span class="tooltip"><p>The type of service account, which is user defined at the creation of an account.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/identifier">&nbsp;&nbsp;identifier</a></code>
-		<span class="tooltip"><p>A unique <a href="#//api/name/identifier">identifier</a> for this account.</p></span>
+		<span class="tooltip"><p>A unique identifier for this account.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/authorized">&nbsp;&nbsp;authorized</a></code>
-		<span class="tooltip"><p>Shows if the account is <a href="#//api/name/authorized">authorized</a>.</p></span>
+		<span class="tooltip"><p>Shows if the account is authorized.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -277,7 +291,7 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/initWithType:">&ndash;&nbsp;initWithType:</a></code>
-		<span class="tooltip"><p>Initializer for <a href="DCTAuthAccount.html">DCTAuthAccount</a>, subclasses should call this method to initialize.</p></span>
+		<span class="tooltip"><p>Initializer for DCTAuthAccount, subclasses should call this method to initialize.</p></span>
 	</span>
 	
 	
@@ -337,7 +351,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Shows if the account is <a href="#//api/name/authorized">authorized</a>.</p>
+		<p>Shows if the account is authorized.</p>
 	</div>		
 	
     
@@ -430,7 +444,7 @@ fb[App ID]://authorize for authorizing against their iOS app.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A unique <a href="#//api/name/identifier">identifier</a> for this account.</p>
+		<p>A unique identifier for this account.</p>
 	</div>		
 	
     
@@ -449,7 +463,7 @@ fb[App ID]://authorize for authorizing against their iOS app.</p>
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>This identifier is random and assigned when the account is created.</p>
 
-<p>Use the <a href="../Classes/DCTAuthAccountStore.html#//api/name/accountWithIdentifier:">[DCTAuthAccountStore accountWithIdentifier:]</a> method to get an account with the specified <a href="#//api/name/identifier">identifier</a>.</p>
+<p>Use the <a href="../Classes/DCTAuthAccountStore.html#//api/name/accountWithIdentifier:">[DCTAuthAccountStore accountWithIdentifier:]</a> method to get an account with the specified identifier.</p>
 	</div>
 	
 	
@@ -482,7 +496,7 @@ fb[App ID]://authorize for authorizing against their iOS app.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The <a href="#//api/name/type">type</a> of service account, which is user defined at the creation of an account.</p>
+		<p>The type of service account, which is user defined at the creation of an account.</p>
 	</div>		
 	
     
@@ -626,7 +640,7 @@ for more information.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates an account using OAuth.</p>
+		<p>Creates an account using OAuth using a HMAC-SHA1 signature <a href="#//api/name/type">type</a>.</p>
 	</div>		
 	
     
@@ -666,6 +680,87 @@ for more information.</p>
 		<dl class="argument-def parameter-def">
 			<dt><em>consumerSecret</em></dt>
 			<dd><p>The consumer secret for the app.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Newly initialized account.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuthAccount.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:" title="OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:"></a>
+	<h3 class="subsubtitle method-title">OAuthAccountWithType:requestTokenURL:authorizeURL:accessTokenURL:consumerKey:consumerSecret:signatureType:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates an account using OAuth.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)<em>type</em> requestTokenURL:(NSURL *)<em>requestTokenURL</em> authorizeURL:(NSURL *)<em>authorizeURL</em> accessTokenURL:(NSURL *)<em>accessTokenURL</em> consumerKey:(NSString *)<em>consumerKey</em> consumerSecret:(NSString *)<em>consumerSecret</em> signatureType:(DCTOAuthSignatureType)<em>signatureType</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>type</em></dt>
+			<dd><p>The <a href="#//api/name/type">type</a> of the account.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>requestTokenURL</em></dt>
+			<dd><p>The URL to retrieve the OAuth request token.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>authorizeURL</em></dt>
+			<dd><p>The URL to perform the OAuth authorization.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>accessTokenURL</em></dt>
+			<dd><p>The URL to retrieve the OAuth access token.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>consumerKey</em></dt>
+			<dd><p>The consumer key for the app.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>consumerSecret</em></dt>
+			<dd><p>The consumer secret for the app.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>signatureType</em></dt>
+			<dd><p>The signature <a href="#//api/name/type">type</a> to use, either DCTOAuthSignatureTypeHMAC_SHA1 or DCTOAuthSignatureTypePlaintext.</p></dd>
 		</dl>
 		
 	</div>
@@ -781,7 +876,7 @@ for more information.</p>
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)authenticateWithHandler:(void ( ^ ) ( NSDictionary *responses , NSError *error ))<em>handler</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)authenticateWithHandler:(void ( ^ ) ( NSArray *responses , NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -840,7 +935,7 @@ will cause Safari to open for the user to login.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Initializer for <a href="DCTAuthAccount.html">DCTAuthAccount</a>, subclasses should call this method to initialize.</p>
+		<p>Initializer for DCTAuthAccount, subclasses should call this method to initialize.</p>
 	</div>		
 	
     
@@ -906,9 +1001,9 @@ will cause Safari to open for the user to login.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Daniel Tull. All rights reserved. (Last updated: 2012-09-03)</span><br />
+						<p><span class="copyright">&copy; 2013 Daniel Tull. All rights reserved. (Last updated: 2013-05-05)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>

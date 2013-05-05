@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -42,7 +42,15 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
+	<option value="//api/name/cancelOpenURL:">&nbsp;&nbsp;&nbsp;&nbsp;+ cancelOpenURL:</option>
+	
 	<option value="//api/name/handleURL:">&nbsp;&nbsp;&nbsp;&nbsp;+ handleURL:</option>
+	
+	<option value="//api/name/openURL:withCallbackURL:handler:">&nbsp;&nbsp;&nbsp;&nbsp;+ openURL:withCallbackURL:handler:</option>
+	
+	<option value="//api/name/setURLOpener:">&nbsp;&nbsp;&nbsp;&nbsp;+ setURLOpener:</option>
+	
+	<option value="//api/name/setURLRequestPerformer:">&nbsp;&nbsp;&nbsp;&nbsp;+ setURLRequestPerformer:</option>
 	
 	
 	
@@ -72,7 +80,15 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancelOpenURL:">cancelOpenURL:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handleURL:">handleURL:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/openURL:withCallbackURL:handler:">openURL:withCallbackURL:handler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setURLOpener:">setURLOpener:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setURLRequestPerformer:">setURLRequestPerformer:</a></span></li>
 	
 </ul></li>
 
@@ -99,6 +115,9 @@
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
 	<td class="specification-title">Declared in</td>
 	<td class="specification-value">DCTAuth.h</td>
 </tr>
@@ -110,7 +129,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p><a href="DCTAuth.html">DCTAuth</a> is a library to handle multiple authentication types for services
+						<p>DCTAuth is a library to handle multiple authentication types for services
 that use OAuth, OAuth 2.0 and basic authentication.</p>
 					</div>
 					
@@ -137,6 +156,40 @@ application:openURL:sourceApplication:annotation: on iOS.</p></span>
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setURLOpener:">+&nbsp;setURLOpener:</a></code>
+		<span class="tooltip"><p>Applications can supply their own webview UI for opening a
+web-based URL by providing a block to open the given URL and
+indictate by returning YES, that the URL has been shown to the
+user;</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/openURL:withCallbackURL:handler:">+&nbsp;openURL:withCallbackURL:handler:</a></code>
+		<span class="tooltip"><p>Allows the application or custom <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> subclasses to
+open a webpage with the default or custom URLOpener.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cancelOpenURL:">+&nbsp;cancelOpenURL:</a></code>
+		<span class="tooltip"><p>Used to cancel the search for a callback from an open URL call.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setURLRequestPerformer:">+&nbsp;setURLRequestPerformer:</a></code>
+		<span class="tooltip"><p>Allows the application to provide a custom way of loading
+URL requests made by DCTAuth. This could be used to allow
+requests to be added to a networking library such as AFNetworking.</p></span>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -151,6 +204,67 @@ application:openURL:sourceApplication:annotation: on iOS.</p></span>
 					<div class="section section-methods">
 						<a title="Class Methods" name="class_methods"></a>
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/cancelOpenURL:" title="cancelOpenURL:"></a>
+	<h3 class="subsubtitle method-title">cancelOpenURL:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Used to cancel the search for a callback from an open URL call.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)cancelOpenURL:(id)<em>object</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>object</em></dt>
+			<dd><p>The object received in <a href="#//api/name/openURL:withCallbackURL:handler:">openURL:withCallbackURL:handler:</a></p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This must be called if the authentication has been cancelled, otherwise
+future calls to openURL: will be mismatched.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/openURL:withCallbackURL:handler:">+ openURL:withCallbackURL:handler:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuth.h</code><br />
+	</div>				
+	
+	
+</div>
 						
 						<div class="section-method">
 	<a name="//api/name/handleURL:" title="handleURL:"></a>
@@ -206,6 +320,202 @@ application:openURL:sourceApplication:annotation: on iOS.</p>
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/openURL:withCallbackURL:handler:" title="openURL:withCallbackURL:handler:"></a>
+	<h3 class="subsubtitle method-title">openURL:withCallbackURL:handler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows the application or custom <a href="../Classes/DCTAuthAccount.html">DCTAuthAccount</a> subclasses to
+open a webpage with the default or custom URLOpener.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (id)openURL:(NSURL *)<em>URL</em> withCallbackURL:(NSURL *)<em>callbackPrefixURL</em> handler:(void ( ^ ) ( DCTAuthResponse *response ))<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>URL</em></dt>
+			<dd><p>URL of the webpage to load</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>callbackPrefixURL</em></dt>
+			<dd><p>The URL that will be checked for</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>Block that is called with the full callbackURL</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An opaque object that can be used to cancel this call.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/handleURL:">+ handleURL:</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/setURLOpener:">+ setURLOpener:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuth.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setURLOpener:" title="setURLOpener:"></a>
+	<h3 class="subsubtitle method-title">setURLOpener:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Applications can supply their own webview UI for opening a
+web-based URL by providing a block to open the given URL and
+indictate by returning YES, that the URL has been shown to the
+user;</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)setURLOpener:(BOOL ( ^ ) ( NSURL *URL ))<em>opener</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>opener</em></dt>
+			<dd><p>The block that will handle the display of the web page.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The application should monitor when the browser loads pages and
+for each new request in the webview, should call <a href="#//api/name/handleURL:">handleURL:</a> to
+see if that call is the callback that DCTAuth is waiting for.</p>
+
+<p>Calling <a href="#//api/name/handleURL:">handleURL:</a> will check to see if the URL is the callback
+so you can use the result of that to decide to show the new load
+or not.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/handleURL:">+ handleURL:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuth.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setURLRequestPerformer:" title="setURLRequestPerformer:"></a>
+	<h3 class="subsubtitle method-title">setURLRequestPerformer:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows the application to provide a custom way of loading
+URL requests made by DCTAuth. This could be used to allow
+requests to be added to a networking library such as AFNetworking.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)setURLRequestPerformer:(void ( ^ ) ( NSURLRequest *URLRequest , DCTAuthRequestHandler handler ))<em>requestPerformer</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>requestPerformer</em></dt>
+			<dd><p>Block to handle loading of a NSURLRequest</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The performer block must load the given URLRequest and call the
+handler block provided.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">DCTAuth.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -221,9 +531,9 @@ application:openURL:sourceApplication:annotation: on iOS.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Daniel Tull. All rights reserved. (Last updated: 2012-09-03)</span><br />
+						<p><span class="copyright">&copy; 2013 Daniel Tull. All rights reserved. (Last updated: 2013-05-05)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
