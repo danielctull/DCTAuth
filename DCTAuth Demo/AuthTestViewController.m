@@ -47,21 +47,27 @@
 
 - (IBAction)go:(id)sender {
 	
-	[self.consumerKeyTextField resignFirstResponder];
-	[self.consumerSecretTextField resignFirstResponder];
-	[self.requestTokenURLTextField resignFirstResponder];
-	[self.accessTokenURLTextField resignFirstResponder];
-	[self.authorizeURLTextField resignFirstResponder];
+	UITextField *consumerKeyTextField = self.consumerKeyTextField;
+	UITextField *consumerSecretTextField = self.consumerSecretTextField;
+	UITextField *requestTokenURLTextField = self.requestTokenURLTextField;
+	UITextField *accessTokenURLTextField = self.accessTokenURLTextField;
+	UITextField *authorizeURLTextField = self.authorizeURLTextField;
+	
+	[consumerKeyTextField resignFirstResponder];
+	[consumerSecretTextField resignFirstResponder];
+	[requestTokenURLTextField resignFirstResponder];
+	[accessTokenURLTextField resignFirstResponder];
+	[authorizeURLTextField resignFirstResponder];
 	self.resultTextView.text = nil;
 	
-	NSString *consumerKey = self.consumerKeyTextField.text;
-	NSString *consumerSecret = self.consumerSecretTextField.text;
+	NSString *consumerKey = consumerKeyTextField.text;
+	NSString *consumerSecret = consumerSecretTextField.text;
 	
-	NSURL *requestTokenURL = [NSURL URLWithString:self.requestTokenURLTextField.text];
-	NSURL *accessTokenURL = [NSURL URLWithString:self.accessTokenURLTextField.text];
+	NSURL *requestTokenURL = [NSURL URLWithString:requestTokenURLTextField.text];
+	NSURL *accessTokenURL = [NSURL URLWithString:accessTokenURLTextField.text];
 	
 	NSURL *authorizeURL = nil;
-	NSString *authorizeURLString = self.authorizeURLTextField.text;
+	NSString *authorizeURLString = authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
 	DCTAuthAccount *oauthAccount = [DCTAuthAccount OAuthAccountWithType:@"term.ie"
