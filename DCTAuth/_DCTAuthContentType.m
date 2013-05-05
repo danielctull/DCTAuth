@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthContentType.h"
+#import "_DCTAuthContentType.h"
 
 NSString *const DCTAuthContentTypeParameterCharset = @"charset";
 
-@implementation DCTAuthContentType
+@implementation _DCTAuthContentType
 
 - (id)initWithString:(NSString *)string {
 	self = [self init];
