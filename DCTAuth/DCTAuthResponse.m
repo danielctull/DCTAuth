@@ -19,11 +19,11 @@
 	_URLResponse = [URLResponse copy];
 	_HTTPHeaders = URLResponse.allHeaderFields;
 	_statusCode = URLResponse.statusCode;
-	_contentObject = [self objectFromData:data contentType:URLResponse.MIMEType];
+	_contentObject = [self objectFromData:data MIMEType:URLResponse.MIMEType];
 	return self;
 }
 
-- (id)objectFromData:(NSData *)data contentType:(NSString *)contentType {
+- (id)objectFromData:(NSData *)data MIMEType:(NSString *)contentType {
 
 	if ([contentType isEqualToString:@"application/x-www-form-urlencoded"])
 		return [self dictionaryFromFormData:data];
