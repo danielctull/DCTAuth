@@ -98,12 +98,10 @@ const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 				returnError = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Response not dictionary."}];
 			} else {
 
-				id object = [dictionary objectForKey:@"error"];
-				if (object) {
+				returnError = [self errorWithStatusCode:response.statusCode dictionary:dictionary];
+				if (returnError)
 					failure = YES;
-					returnError = [NSError errorWithDomain:@"OAuth" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey : [object description]}];
-				} else {
-
+				else
 					[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 
 						if ([key isEqualToString:@"code"])
@@ -115,7 +113,6 @@ const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 						else if ([key isEqualToString:@"access_token"])
 							accessToken = value;
 					}];
-				}
 			}
 		}
 		
@@ -237,6 +234,51 @@ const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	_DCTOAuth2Credential *credential = self.credential;
 	URL = [URL dctAuth_URLByAddingQueryParameters:@{ @"access_token" : credential.accessToken }];
 	request.URL = URL;
+}
+
+- (NSError *)errorWithStatusCode:(NSInteger)statusCode dictionary:(NSDictionary *)dictionary {
+	
+	
+	NSString *OAuthError = [dictionary objectForKey:@"error"];
+	
+	if (![OAuthError isKindOfClass:[NSString class]]) return nil;
+	
+	//NSString *description = [dictionary objectForKey:@"error_description"];
+	
+	NSString *description = @"An unknown error occured while attempting to authorize.";
+	
+	if ([OAuthError isEqualToString:@"access_denied"])
+		description = @"The request to authorize has been denied.";
+
+	// Invalid
+	else if ([OAuthError isEqualToString:@"invalid_request"])
+		description = @"invalid_request";
+	else if ([OAuthError isEqualToString:@"invalid_scope"])
+		description = @"invalid_scope";
+	else if ([OAuthError isEqualToString:@"invalid_client"])
+		description = @"invalid_client";
+	else if ([OAuthError isEqualToString:@"invalid_grant"])
+		description = @"invalid_grant";
+	
+	// Unauthorized
+	else if ([OAuthError isEqualToString:@"unauthorized_client"])
+		description = @"unauthorized_client";
+	
+	// Unsupported
+	else if ([OAuthError isEqualToString:@"unsupported_response_type"])
+		description = @"unsupported_response_type";	
+	else if ([OAuthError isEqualToString:@"unsupported_grant_type"])
+		description = @"unsupported_grant_type";
+	
+	// Server Errors
+	else if ([OAuthError isEqualToString:@"server_error"])
+		description = @"server_error";
+	else if ([OAuthError isEqualToString:@"temporarily_unavailable"])
+		description = @"temporarily_unavailable";
+	
+	return [NSError errorWithDomain:@"DCTAuth"
+							   code:statusCode
+						   userInfo:@{NSLocalizedDescriptionKey : description}];
 }
 
 @end
