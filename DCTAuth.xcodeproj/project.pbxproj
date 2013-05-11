@@ -16,6 +16,7 @@
 		243BA8AE1736C4B6002274B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 243BA8AD1736C4B6002274B5 /* Default-568h@2x.png */; };
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
 		244414A9173EBB320046D993 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244414A8173EBB320046D993 /* CoreFoundation.framework */; };
+		244414B8173EBC3A0046D993 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 244414BA173EBC3A0046D993 /* Localizable.strings */; };
 		2454C24816D8BD4500E97367 /* _DCTOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */; };
 		2454C24B16D8E35400E97367 /* DCTAuthAccountCredential.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */; };
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
@@ -108,6 +109,7 @@
 		244414A7173EBB320046D993 /* DCTAuth.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuth.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		244414A8173EBB320046D993 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		244414AC173EBB320046D993 /* DCTAuthBundle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTAuthBundle-Info.plist"; sourceTree = "<group>"; };
+		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth2Credential.h; sourceTree = "<group>"; };
 		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				244414AC173EBB320046D993 /* DCTAuthBundle-Info.plist */,
+				244414BA173EBC3A0046D993 /* Localizable.strings */,
 			);
 			path = DCTAuthBundle;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				244414B8173EBC3A0046D993 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +609,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		244414BA173EBC3A0046D993 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				244414B9173EBC3A0046D993 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		24FA900115E93D8E00E1ED99 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

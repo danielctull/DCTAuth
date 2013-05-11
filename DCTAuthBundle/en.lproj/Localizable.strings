@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  DCTAuth
+
+  Created by Daniel Tull on 11.05.2013.
+  Copyright (c) 2013 Daniel Tull. All rights reserved.
+*/
+
+"DCTAuth.OAuth2.access_denied" = "The request to authorize has been denied.";
+
+"DCTAuth.OAuth2.invalid_request" = "An unknown error has occured.";
+"DCTAuth.OAuth2.invalid_scope" = "An unknown error has occured.";
+"DCTAuth.OAuth2.invalid_client" = "An unknown error has occured.";
+"DCTAuth.OAuth2.invalid_grant" = "An unknown error has occured.";
+
+"DCTAuth.OAuth2.unauthorized_client" = "An unknown error has occured.";
+"DCTAuth.OAuth2.unsupported_response_type" = "An unknown error has occured.";
+"DCTAuth.OAuth2.unsupported_grant_type" = "An unknown error has occured.";
+
+"DCTAuth.OAuth2.server_error" = "An error has occured on the server. Please try again later.";
+"DCTAuth.OAuth2.temporarily_unavailable" = "The server is temporatily unavailable. Please try again later.";

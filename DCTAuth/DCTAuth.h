@@ -82,4 +82,22 @@
  */
 + (void)setURLRequestPerformer:(void(^)(NSURLRequest *URLRequest, DCTAuthRequestHandler handler))requestPerformer;
 
+/** A method to look up a localized error for an authentication failure.
+ 
+ It will look in the application bundle for a Localizable.strings file first
+ and try to get a string from that. If none is found it will get one from
+ it's own bundle's strings file.
+ 
+ DCTAuth contains some localized error codes for OAuth 2 only currently.
+ 
+ Error keys are as DCTAuth.OAuth2.access_denied and the domain passed here
+ refers to the "OAuth2" part and the key is "access_denied". This method creates
+ the full key.
+ 
+ @param domain The domain for the string, this is the second part of the total key
+ @param key The key for the string
+ @return Localized string
+ */
++ (NSString *)localizedStringForDomain:(NSString *)domain key:(NSString *)key;
+
 @end

@@ -243,38 +243,8 @@ const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	
 	if (![OAuthError isKindOfClass:[NSString class]]) return nil;
 	
-	//NSString *description = [dictionary objectForKey:@"error_description"];
-	
-	NSString *description = @"An unknown error occured while attempting to authorize.";
-	
-	if ([OAuthError isEqualToString:@"access_denied"])
-		description = @"The request to authorize has been denied.";
-
-	// Invalid
-	else if ([OAuthError isEqualToString:@"invalid_request"])
-		description = @"invalid_request";
-	else if ([OAuthError isEqualToString:@"invalid_scope"])
-		description = @"invalid_scope";
-	else if ([OAuthError isEqualToString:@"invalid_client"])
-		description = @"invalid_client";
-	else if ([OAuthError isEqualToString:@"invalid_grant"])
-		description = @"invalid_grant";
-	
-	// Unauthorized
-	else if ([OAuthError isEqualToString:@"unauthorized_client"])
-		description = @"unauthorized_client";
-	
-	// Unsupported
-	else if ([OAuthError isEqualToString:@"unsupported_response_type"])
-		description = @"unsupported_response_type";	
-	else if ([OAuthError isEqualToString:@"unsupported_grant_type"])
-		description = @"unsupported_grant_type";
-	
-	// Server Errors
-	else if ([OAuthError isEqualToString:@"server_error"])
-		description = @"server_error";
-	else if ([OAuthError isEqualToString:@"temporarily_unavailable"])
-		description = @"temporarily_unavailable";
+	NSString *description = [DCTAuth localizedStringForDomain:@"OAuth2" key:OAuthError];
+	if (description.length == 0) description = @"An unknown error occured while attempting to authorize.";
 	
 	return [NSError errorWithDomain:@"DCTAuth"
 							   code:statusCode
