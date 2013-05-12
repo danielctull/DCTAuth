@@ -37,7 +37,7 @@
 	return nil;
 }
 + (void)endBackgroundTask:(id)object {}
-+ (BOOL)_openURL:(NSURL *)URL {
++ (BOOL)openURL:(NSURL *)URL {
 	return [[NSWorkspace sharedWorkspace] openURL:URL];
 }
 + (id)imageFromData:(NSData *)data {
