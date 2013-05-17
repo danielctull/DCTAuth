@@ -38,7 +38,7 @@ const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 	if ([contentType isEqualToString:@"application/x-www-form-urlencoded"])
 		return [self dictionaryFromFormData:data];
 
-	if ([@[@"application/json", @"text/json", @"text/javascript"] containsObject:contentType])
+	if ([@[@"application/json", @"text/json", @"application/javascript", @"text/javascript"] containsObject:contentType])
 		return [self dictionaryFromJSONData:data];
 
 	if ([contentType isEqualToString:@"application/x-plist"])
