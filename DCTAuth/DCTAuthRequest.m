@@ -111,8 +111,12 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	else
 		[self _setupGETRequest:mutableRequest];
 
-	[self.HTTPHeaders enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		[mutableRequest setValue:obj forHTTPHeaderField:key];
+	[self.HTTPHeaders enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+		
+		if (![key isKindOfClass:[NSString class]]) key = [key description];
+		if (![object isKindOfClass:[NSString class]]) object = [object description];
+		
+		[mutableRequest setValue:object forHTTPHeaderField:key];
 	}];
 
 	return mutableRequest;
