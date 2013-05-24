@@ -166,7 +166,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
 	[request setHTTPBody:body];
-	[request setValue:[NSString stringWithFormat:@"%d", [body length]] forHTTPHeaderField:@"Content-Length"];
+	[request setValue:[NSString stringWithFormat:@"%@", @([body length])] forHTTPHeaderField:@"Content-Length"];
 }
 
 - (NSURLRequest *)signedURLRequest {

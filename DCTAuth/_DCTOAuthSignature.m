@@ -45,7 +45,7 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	_type = type;
 	
 	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-	NSString *timestamp = [NSString stringWithFormat:@"%i", (NSInteger)timeInterval];
+	NSString *timestamp = [NSString stringWithFormat:@"%@", @(timeInterval)];
 	NSString *nonce = [[NSProcessInfo processInfo] globallyUniqueString];
 	NSString *version = @"1.0";
 	[_parameters setObject:version forKey:@"oauth_version"];
