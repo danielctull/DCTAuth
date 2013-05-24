@@ -37,7 +37,8 @@ NSString *const _DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
 	@"DELETE",
-	@"HEAD"
+	@"HEAD",
+	@"PUT"
 };
 
 NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
@@ -106,7 +107,7 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
 	[mutableRequest setHTTPMethod:_DCTAuthRequestMethodString[self.requestMethod]];
 
-	if (self.requestMethod == DCTAuthRequestMethodPOST)
+	if ([self shouldSetupPOSTRequest])
 		[self _setupPOSTRequest:mutableRequest];
 	else
 		[self _setupGETRequest:mutableRequest];
@@ -120,6 +121,10 @@ NSString *const DCTAuthRequestContentTypeString[] = {
 	}];
 
 	return mutableRequest;
+}
+
+- (BOOL)shouldSetupPOSTRequest {
+	return (self.requestMethod == DCTAuthRequestMethodPOST || self.requestMethod == DCTAuthRequestMethodPUT);
 }
 
 - (void)_setupGETRequest:(NSMutableURLRequest *)request {
