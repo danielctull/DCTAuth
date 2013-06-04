@@ -56,10 +56,12 @@ const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 }
 
 - (NSDictionary *)dictionaryFromJSONData:(NSData *)data {
+	if (!data) return nil;
 	return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 }
 
 - (NSDictionary *)dictionaryFromPlistData:(NSData *)data {
+	if (!data) return nil;
 	return [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
 }
 
