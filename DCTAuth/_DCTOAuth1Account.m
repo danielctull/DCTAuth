@@ -60,7 +60,7 @@ const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
 	consumerSecret:(NSString *)consumerSecret
 	 signatureType:(DCTOAuthSignatureType)signatureType {
 	
-	self = [super initWithType:type];
+	self = [self initWithType:type];
 	if (!self) return nil;
 	
 	_requestTokenURL = [requestTokenURL copy];

@@ -42,7 +42,7 @@ const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 		  clientID:(NSString *)clientID
 	  clientSecret:(NSString *)clientSecret
 			scopes:(NSArray *)scopes {
-	self = [super initWithType:type];
+	self = [self initWithType:type];
 	if (!self) return nil;
 	_authorizeURL = [authorizeURL copy];
 	_accessTokenURL = [accessTokenURL copy];

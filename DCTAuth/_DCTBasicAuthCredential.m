@@ -19,14 +19,14 @@ const struct _DCTBasicAuthCredentialProperties _DCTBasicAuthCredentialProperties
 @implementation _DCTBasicAuthCredential
 
 - (id)initWithPassword:(NSString *)password {
-	self = [super init];
+	self = [self init];
 	if (!self) return nil;
 	_password = [password copy];
 	return self;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
-	self = [super init];
+	self = [self init];
 	if (!self) return nil;
 	_password = [coder decodeObjectForKey:_DCTBasicAuthCredentialProperties.password];
 	return self;

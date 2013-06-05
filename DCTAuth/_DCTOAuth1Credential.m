@@ -34,7 +34,7 @@ const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialProperties = {
 	if (oauthToken.length == 0) return nil;
 	if (oauthTokenSecret.length == 0) return nil;
 
-	self = [super init];
+	self = [self init];
 	if (!self) return nil;
 	_consumerKey = [consumerKey copy];
 	_consumerSecret = [consumerSecret copy];
@@ -44,7 +44,7 @@ const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialProperties = {
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
-	self = [super init];
+	self = [self init];
 	if (!self) return nil;
 	_consumerKey = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.consumerKey];
 	_consumerSecret = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.consumerSecret];

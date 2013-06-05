@@ -34,7 +34,7 @@ const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountProperties = {
 		  username:(NSString *)username
 		  password:(NSString *)password {
 
-	self = [super initWithType:type];
+	self = [self initWithType:type];
 	if (!self) return nil;
 
 	_authenticationURL = [authenticationURL copy];

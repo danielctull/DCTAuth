@@ -161,7 +161,7 @@ typedef enum {
  @param type The type of the account.
  @return The newly initialized object.
  @see type */
-- (id)initWithType:(NSString *)type;
+- (id)initWithType:(NSString *)type __attribute((objc_requires_super));
 
 @end
 

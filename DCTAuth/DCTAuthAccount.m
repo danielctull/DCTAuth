@@ -16,12 +16,10 @@
 
 @interface DCTAuthAccount ()
 @property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
-@property (nonatomic, strong) NSURL *discoveredCallbackURL;
+@property (nonatomic, copy) NSURL *discoveredCallbackURL;
 @end
 
-@implementation DCTAuthAccount {
-	__strong NSURL *_discoveredCallbackURL;
-}
+@implementation DCTAuthAccount
 
 + (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
 						 requestTokenURL:(NSURL *)requestTokenURL
