@@ -117,8 +117,8 @@ NSString * const _DTOAuthSignatureTypeString[] = {
 	
 	NSMutableArray *parameterStringsArray = [NSMutableArray new];
 	[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *encodedKey = [key dctAuth_URLEncodedString];
-        NSString *encodedValue = [value dctAuth_URLEncodedString];
+        NSString *encodedKey = [[key description] dctAuth_URLEncodedString];
+        NSString *encodedValue = [[value description] dctAuth_URLEncodedString];
 		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
 		[parameterStringsArray addObject:string];
 	}];
