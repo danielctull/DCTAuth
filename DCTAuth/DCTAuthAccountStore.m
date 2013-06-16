@@ -9,7 +9,7 @@
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthAccountSubclass.h"
 
-NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
+static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 @interface DCTAuthAccountStore ()

@@ -11,12 +11,12 @@
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
 
-const struct _DCTBasicAuthAccountProperties {
+static const struct _DCTBasicAuthAccountProperties {
 	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *authenticationURL;
 } _DCTBasicAuthAccountProperties;
 
-const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountProperties = {
+static const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountProperties = {
 	.username = @"username",
 	.authenticationURL = @"authenticationURL",
 };

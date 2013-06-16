@@ -14,7 +14,7 @@ NSRange DCTAuthMakeNSRangeFromCFRange(CFRange range) {
 	return NSMakeRange(range.location == kCFNotFound ? NSNotFound : range.location, range.length);
 }
 
-NSString * const _DCTAuthStartStringForComponentType[] = {
+static NSString * const _DCTAuthStartStringForComponentType[] = {
 	@"", // 0
 	@"", // kCFURLComponentScheme = 1
 	@"", // kCFURLComponentNetLocation = 2
@@ -30,7 +30,7 @@ NSString * const _DCTAuthStartStringForComponentType[] = {
 	@"#" // kCFURLComponentFragment = 12
 };
 
-NSString * const _DCTAuthEndStringForComponentType[] = {
+static NSString * const _DCTAuthEndStringForComponentType[] = {
 	@"", // 0
 	@"://", // kCFURLComponentScheme = 1
 	@"", // kCFURLComponentNetLocation = 2

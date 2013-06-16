@@ -13,13 +13,13 @@
 #import "NSString+DCTAuth.h"
 #import "NSURL+DCTAuth.h"
 
-const struct _DCTOAuth2AccountProperties {
+static const struct _DCTOAuth2AccountProperties {
 	__unsafe_unretained NSString *authorizeURL;
 	__unsafe_unretained NSString *accessTokenURL;
 	__unsafe_unretained NSString *scopes;
 } _DCTOAuth2AccountProperties;
 
-const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
+static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	.authorizeURL = @"authorizeURL",
 	.accessTokenURL = @"accessTokenURL",
 	.scopes = @"scopes"

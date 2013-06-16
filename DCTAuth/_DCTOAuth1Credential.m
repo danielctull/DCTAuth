@@ -8,14 +8,14 @@
 
 #import "_DCTOAuth1Credential.h"
 
-const struct _DCTOAuth1CredentialProperties {
+static const struct _DCTOAuth1CredentialProperties {
 	__unsafe_unretained NSString *consumerKey;
 	__unsafe_unretained NSString *consumerSecret;
 	__unsafe_unretained NSString *oauthToken;
 	__unsafe_unretained NSString *oauthTokenSecret;
 } _DCTOAuth1CredentialProperties;
 
-const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialProperties = {
+static const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialProperties = {
 	.consumerKey = @"consumerKey",
 	.consumerSecret = @"consumerSecret",
 	.oauthToken = @"oauthToken",

@@ -12,7 +12,7 @@
 #import "NSData+DCTAuth.h"
 #import "NSURL+DCTAuth.h"
 
-NSString * const _DTOAuthSignatureTypeString[] = {
+static NSString * const _DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
 	@"PLAINTEXT"
 };

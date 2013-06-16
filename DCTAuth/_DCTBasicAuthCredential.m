@@ -8,11 +8,11 @@
 
 #import "_DCTBasicAuthCredential.h"
 
-const struct _DCTBasicAuthCredentialProperties {
+static const struct _DCTBasicAuthCredentialProperties {
 	__unsafe_unretained NSString *password;
 } _DCTBasicAuthCredentialProperties;
 
-const struct _DCTBasicAuthCredentialProperties _DCTBasicAuthCredentialProperties = {
+static const struct _DCTBasicAuthCredentialProperties _DCTBasicAuthCredentialProperties = {
 	.password = @"password"
 };
 

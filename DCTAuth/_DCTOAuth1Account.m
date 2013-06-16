@@ -13,14 +13,14 @@
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 
-NSString *const DCTOAuth1AccountOAuthCallback = @"oauth_callback";
-NSString *const DCTOAuth1AccountOAuthConsumerKey = @"oauth_consumer_key";
-NSString *const DCTOAuth1AccountOAuthConsumerSecret = @"oauth_consumer_secret";
-NSString *const DCTOAuth1AccountOAuthToken = @"oauth_token";
-NSString *const DCTOAuth1AccountOAuthTokenSecret = @"oauth_token_secret";
-NSString *const DCTOAuth1AccountOAuthVerifier = @"oauth_verifier";
+static NSString *const DCTOAuth1AccountOAuthCallback = @"oauth_callback";
+static NSString *const DCTOAuth1AccountOAuthConsumerKey = @"oauth_consumer_key";
+static NSString *const DCTOAuth1AccountOAuthConsumerSecret = @"oauth_consumer_secret";
+static NSString *const DCTOAuth1AccountOAuthToken = @"oauth_token";
+static NSString *const DCTOAuth1AccountOAuthTokenSecret = @"oauth_token_secret";
+static NSString *const DCTOAuth1AccountOAuthVerifier = @"oauth_verifier";
 
-const struct _DCTOAuth1AccountProperties {
+static const struct _DCTOAuth1AccountProperties {
 	__unsafe_unretained NSString *consumerKey;
 	__unsafe_unretained NSString *consumerSecret;
 	__unsafe_unretained NSString *requestTokenURL;
@@ -30,7 +30,7 @@ const struct _DCTOAuth1AccountProperties {
 	__unsafe_unretained NSString *openURLObject;
 } _DCTOAuth1AccountProperties;
 
-const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
+static const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
 	.consumerKey = @"consumerKey",
 	.consumerSecret = @"consumerSecret",
 	.requestTokenURL = @"requestTokenURL",

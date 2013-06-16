@@ -10,12 +10,12 @@
 #import "NSString+DCTAuth.h"
 #import "_DCTAuthPlatform.h"
 
-const struct DCTAuthResponseProperties {
+static const struct DCTAuthResponseProperties {
 	__unsafe_unretained NSString *data;
 	__unsafe_unretained NSString *URLResponse;
 } DCTAuthResponseProperties;
 
-const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
+static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 	.data = @"data",
 	.URLResponse = @"URLResponse"
 };

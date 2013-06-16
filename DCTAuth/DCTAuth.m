@@ -10,7 +10,7 @@
 #import "_DCTAuthURLOpener.h"
 #import "_DCTAuthURLRequestPerformer.h"
 
-NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
+static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
 
 @implementation DCTAuth
 

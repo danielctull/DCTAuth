@@ -14,7 +14,7 @@
 #import "NSDictionary+DCTAuth.h"
 #import "_DCTAuthURLRequestPerformer.h"
 
-const struct DCTAuthRequestProperties {
+static const struct DCTAuthRequestProperties {
 	__unsafe_unretained NSString *requestMethod;
 	__unsafe_unretained NSString *URL;
 	__unsafe_unretained NSString *parameters;
@@ -22,7 +22,7 @@ const struct DCTAuthRequestProperties {
 	__unsafe_unretained NSString *account;
 } DCTAuthRequestProperties;
 
-const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
+static const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
 	.requestMethod = @"requestMethod",
 	.URL = @"URL",
 	.parameters = @"parameters",
@@ -30,10 +30,10 @@ const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
 	.account = @"account"
 };
 
-NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
-NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
+static NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
+static NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
 
-NSString *const _DCTAuthRequestMethodString[] = {
+static NSString *const _DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
 	@"DELETE",
@@ -41,10 +41,10 @@ NSString *const _DCTAuthRequestMethodString[] = {
 	@"PUT"
 };
 
-NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
+static NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
 
-NSString *const DCTAuthRequestContentTypeKey = @"Content-Type";
-NSString *const DCTAuthRequestContentTypeString[] = {
+static NSString *const DCTAuthRequestContentTypeKey = @"Content-Type";
+static NSString *const DCTAuthRequestContentTypeString[] = {
 	@"application/x-www-form-urlencoded; charset=UTF-8",
 	@"application/json; charset=UTF-8",
 	@"application/x-plist; charset=UTF-8"
