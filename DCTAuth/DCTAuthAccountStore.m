@@ -37,22 +37,30 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	return [self accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
 
-+ (instancetype)accountStoreWithName:(NSString *)name {
-	return [self accountStoreWithURL:[[self storeDirectoryURL] URLByAppendingPathComponent:name]];
++ (instancetype)accountStoreWithURL:(NSURL *)URL {
+	return [self accountStoreWithName:[URL absoluteString]];
 }
 
-+ (instancetype)accountStoreWithURL:(NSURL *)URL {
++ (instancetype)accountStoreWithName:(NSString *)name {
 	NSMutableDictionary *accountStores = [self accountStores];
-	DCTAuthAccountStore *accountStore = [accountStores objectForKey:URL];
+	DCTAuthAccountStore *accountStore = [accountStores objectForKey:name];
 	if (!accountStore) {
-		accountStore = [[self alloc] initWithURL:URL];
-		[accountStores setObject:accountStore forKey:URL];
+		accountStore = [[self alloc] initWithName:name];
+		[accountStores setObject:accountStore forKey:name];
 	}
 	return accountStore;
 }
 
 - (id)init {
-	return [self initWithURL:[[[self class] storeDirectoryURL] URLByAppendingPathComponent:DCTAuthAccountStoreDefaultStoreName]];
+	return [[self class] accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
+}
+
+- (id)initWithName:(NSString *)name {
+	self = [super init];
+	if (!self) return nil;
+	_mutableAccounts = [NSMutableArray new];
+	_name = [name copy];
+	return self;
 }
 
 - (id)initWithURL:(NSURL *)URL {

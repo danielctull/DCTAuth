@@ -30,7 +30,9 @@ extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
  @param storeURL A URL for a location on disk.
  @return The store at the give URL on disk.
  */
-+ (instancetype)accountStoreWithURL:(NSURL *)storeURL;
++ (instancetype)accountStoreWithURL:(NSURL *)storeURL __attribute__((deprecated));
+
+@property (nonatomic, readonly) NSString *name;
 
 /// @name Getting accounts
 
