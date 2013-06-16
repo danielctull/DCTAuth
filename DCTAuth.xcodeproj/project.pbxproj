@@ -28,6 +28,7 @@
 		246D3A9416D77D38008CDB63 /* _DCTOAuth1Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = 246D3A9316D77D38008CDB63 /* _DCTOAuth1Credential.m */; };
 		246F919016AABAE10045D206 /* libDCTAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */; };
 		246F919116AABAE80045D206 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
+		2484E11E176E4A91000EB00E /* _DCTAuthKeychainAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2484E11D176E4A1B000EB00E /* _DCTAuthKeychainAccess.m */; };
 		249CAD1715EA1F0200FFD0D2 /* DCTAuthAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */; };
 		249CAD1B15EA214700FFD0D2 /* NSData+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1A15EA214700FFD0D2 /* NSData+DCTAuth.m */; };
 		249CAD1C15EA22ED00FFD0D2 /* DCTAuthAccountStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */; };
@@ -109,7 +110,7 @@
 		244414A7173EBB320046D993 /* DCTAuth.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuth.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		244414A8173EBB320046D993 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		244414AC173EBB320046D993 /* DCTAuthBundle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTAuthBundle-Info.plist"; sourceTree = "<group>"; };
-		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth2Credential.h; sourceTree = "<group>"; };
 		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
@@ -120,6 +121,8 @@
 		246D3A9016D7776A008CDB63 /* _DCTBasicAuthCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTBasicAuthCredential.m; sourceTree = "<group>"; };
 		246D3A9216D77D38008CDB63 /* _DCTOAuth1Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth1Credential.h; sourceTree = "<group>"; };
 		246D3A9316D77D38008CDB63 /* _DCTOAuth1Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth1Credential.m; sourceTree = "<group>"; };
+		2484E11C176E4A1B000EB00E /* _DCTAuthKeychainAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _DCTAuthKeychainAccess.h; sourceTree = "<group>"; };
+		2484E11D176E4A1B000EB00E /* _DCTAuthKeychainAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthKeychainAccess.m; sourceTree = "<group>"; };
 		249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountStore.h; sourceTree = "<group>"; };
 		249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStore.m; sourceTree = "<group>"; };
 		249CAD1915EA214700FFD0D2 /* NSData+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+DCTAuth.h"; sourceTree = "<group>"; };
@@ -235,6 +238,8 @@
 		243B575815EE4CAC007F1CA6 /* Private Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2484E11C176E4A1B000EB00E /* _DCTAuthKeychainAccess.h */,
+				2484E11D176E4A1B000EB00E /* _DCTAuthKeychainAccess.m */,
 				2419EA3416B912B100901AA2 /* _DCTAuthContentType.h */,
 				2419EA3516B912B100901AA2 /* _DCTAuthContentType.m */,
 				24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */,
@@ -559,6 +564,7 @@
 				24FA903715E93E1F00E1ED99 /* _DCTOAuthSignature.m in Sources */,
 				24FA903915E93E1F00E1ED99 /* NSString+DCTAuth.m in Sources */,
 				249CAD1715EA1F0200FFD0D2 /* DCTAuthAccountStore.m in Sources */,
+				2484E11E176E4A91000EB00E /* _DCTAuthKeychainAccess.m in Sources */,
 				249CAD1B15EA214700FFD0D2 /* NSData+DCTAuth.m in Sources */,
 				249CAD1F15EA235E00FFD0D2 /* _DCTOAuth2Account.m in Sources */,
 				249CAD2215EA236B00FFD0D2 /* _DCTOAuth1Account.m in Sources */,
@@ -847,6 +853,7 @@
 				244414B2173EBB320046D993 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24FA8FDE15E93D8E00E1ED99 /* Build configuration list for PBXProject "DCTAuth" */ = {
 			isa = XCConfigurationList;
