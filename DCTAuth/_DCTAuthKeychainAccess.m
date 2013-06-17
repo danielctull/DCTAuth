@@ -11,11 +11,13 @@
 @implementation _DCTAuthKeychainAccess
 
 + (NSArray *)accountDataForStoreName:(NSString *)storeName {
+	
 	NSDictionary *query = @{
 		(__bridge id)kSecClass       : (__bridge id)kSecClassGenericPassword,
 		(__bridge id)kSecAttrService : @"DCTAuth",
 		(__bridge id)kSecAttrLabel   : storeName,
 		(__bridge id)kSecAttrType    : @(_DCTAuthKeychainAccessTypeAccount),
+		(__bridge id)kSecReturnData  : (__bridge id)kCFBooleanTrue,
 		(__bridge id)kSecMatchLimit  : (__bridge id)kSecMatchLimitAll
 	};
 
