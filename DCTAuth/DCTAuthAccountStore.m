@@ -8,14 +8,13 @@
 
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthAccountSubclass.h"
+#import "_DCTAuthKeychainAccess.h"
 
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 @interface DCTAuthAccountStore ()
-@property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSMutableArray *mutableAccounts;
-@property (nonatomic, strong) NSURL *URL;
 - (NSUInteger)countOfAccounts;
 - (id)objectInAccountsAtIndex:(NSUInteger)index;
 - (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index;
@@ -60,28 +59,13 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	if (!self) return nil;
 	_mutableAccounts = [NSMutableArray new];
 	_name = [name copy];
-	return self;
-}
 
-- (id)initWithURL:(NSURL *)URL {
-	self = [super init];
-	if (!self) return nil;
-	_fileManager = [NSFileManager new];
-	_mutableAccounts = [NSMutableArray new];
-	_URL = [URL copy];
-
-	[_fileManager createDirectoryAtURL:URL withIntermediateDirectories:YES attributes:nil error:nil];
-	NSArray *identifiers = [_fileManager contentsOfDirectoryAtURL:URL
-									   includingPropertiesForKeys:nil
-														  options:NSDirectoryEnumerationSkipsHiddenFiles
-															error:nil];
-	
-	[identifiers enumerateObjectsUsingBlock:^(NSURL *accountURL, NSUInteger i, BOOL *stop) {
-		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:[accountURL path]];
-		account.credential = [self credentialForIdentifier:account.identifier];
+	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name];
+	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
+		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		[self insertObject:account inAccountsAtIndex:i];
 	}];
-	
+
 	return self;
 }
 
@@ -98,18 +82,29 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 - (void)saveAccount:(DCTAuthAccount *)account {
 	NSString *identifier = account.identifier;
-	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
-	[NSKeyedArchiver archiveRootObject:account toFile:[accountURL path]];
-	[self setCredential:account.credential forIdentifier:identifier];
+	NSString *storeName = self.name;
+
+	NSData *accountData = [NSKeyedArchiver archivedDataWithRootObject:account];
+	[_DCTAuthKeychainAccess addData:accountData
+			   forAccountIdentifier:identifier
+						  storeName:storeName
+							   type:_DCTAuthKeychainAccessTypeAccount];
+
+	NSData *credentialData = [NSKeyedArchiver archivedDataWithRootObject:account.credential];
+	[_DCTAuthKeychainAccess addData:credentialData
+			   forAccountIdentifier:identifier
+						  storeName:storeName
+							   type:_DCTAuthKeychainAccessTypeCredential];
+
 	if ([self.mutableAccounts indexOfObject:account] != NSNotFound) return;
 	[self insertObject:account inAccountsAtIndex:[self countOfAccounts]];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
 	NSString *identifier = account.identifier;
-	NSURL *accountURL = [self _URLForAccountWithIdentifier:identifier];
-	if (![self.fileManager removeItemAtURL:accountURL error:NULL]) return;
-	[self removeCredentialForIdentifier:identifier];
+	NSString *storeName = self.name;
+	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount];
+	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential];
 	[self removeObjectFromAccountsAtIndex:[self.mutableAccounts indexOfObject:account]];
 }
 
@@ -129,54 +124,6 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 }
 - (void)removeObjectFromAccountsAtIndex:(NSUInteger)index {
 	[self.mutableAccounts removeObjectAtIndex:index];
-}
-
-#pragma mark - Private
-
-- (NSURL *)_URLForAccountWithIdentifier:(NSString *)identifier {
-	return [self.URL URLByAppendingPathComponent:identifier];
-}
-
-+ (NSURL *)storeDirectoryURL {
-	NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-	return [documentsURL URLByAppendingPathComponent:NSStringFromClass([self class])];
-}
-
-- (void)setCredential:(id<DCTAuthAccountCredential>)credential
-		forIdentifier:(NSString *)identifier {
-	if (!credential) return;
-	if (!identifier) return;
-	[self removeCredentialForIdentifier:identifier];
-	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:credential];
-	NSMutableDictionary *query = [self queryForIdentifier:identifier];
-	[query setObject:data forKey:(__bridge id)kSecValueData];
-	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
-}
-
-- (id<DCTAuthAccountCredential>)credentialForIdentifier:(NSString *)identifier {
-	if (!identifier) return nil;
-	NSMutableDictionary *query = [self queryForIdentifier:identifier];
-	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
-	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
-	CFTypeRef result = NULL;
-	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
-	if (!result) return nil;
-	id credential = [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge_transfer NSData *)result];
-	if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
-	return credential;
-}
-
-- (void)removeCredentialForIdentifier:(NSString *)identifier {
-	NSMutableDictionary *query = [self queryForIdentifier:identifier];
-    SecItemDelete((__bridge CFDictionaryRef)query);
-}
-
-- (NSMutableDictionary *)queryForIdentifier:(NSString *)identifier {
-	NSMutableDictionary *query = [NSMutableDictionary new];
-    [query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:@"DCTAuth" forKey:(__bridge id)kSecAttrService];
-	if (identifier) [query setObject:identifier forKey:(__bridge id)kSecAttrAccount];
-	return query;
 }
 
 @end
