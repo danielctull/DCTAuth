@@ -9,6 +9,7 @@
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthKeychainAccess.h"
+#import "_DCTAuthAccount.h"
 
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
@@ -63,6 +64,16 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		NSString *accountIdentifier = account.identifier;
+
+		account.credentialFetcher = ^id<DCTAuthAccountCredential>() {
+			NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
+																  storeName:name
+																	   type:_DCTAuthKeychainAccessTypeCredential];
+			id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
+			return credential;
+		};
 		[self insertObject:account inAccountsAtIndex:i];
 	}];
 

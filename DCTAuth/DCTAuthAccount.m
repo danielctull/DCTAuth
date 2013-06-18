@@ -6,7 +6,7 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthAccount.h"
+#import "_DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
@@ -15,7 +15,6 @@
 #import "NSString+DCTAuth.h"
 
 @interface DCTAuthAccount ()
-@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
 @end
 
@@ -85,6 +84,7 @@
 	if (!self) return nil;
 	_type = [type copy];
 	_identifier = [[[NSProcessInfo processInfo] globallyUniqueString] copy];
+	_credentialFetcher = ^id<DCTAuthAccountCredential>{return nil;};
 	return self;
 }
 
@@ -95,8 +95,8 @@
 	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
 	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
 	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
-	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
 	_userInfo = [coder decodeObjectForKey:NSStringFromSelector(@selector(userInfo))];
+	_credentialFetcher = ^id<DCTAuthAccountCredential>{return nil;};
 	return self;
 }
 
@@ -105,7 +105,6 @@
 	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
-	[coder encodeBool:self.authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
 	[coder encodeObject:self.userInfo forKey:NSStringFromSelector(@selector(userInfo))];
 }
 
@@ -113,12 +112,16 @@
 	return (self.credential != nil);
 }
 
+- (id<DCTAuthAccountCredential>)credential {
+
+	if (_credential) return _credential;
+
+	return self.credentialFetcher();
+}
+
 - (NSURL *)callbackURL {
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 	if (_callbackURL) return _callbackURL;
-#pragma clang diagnostic pop
 
 	if (!self.discoveredCallbackURL) {
 		NSArray *types = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
@@ -129,16 +132,6 @@
 	}
 	
 	return self.discoveredCallbackURL;
-}
-
-- (void)setCredential:(id<DCTAuthAccountCredential>)credential {
-	
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-	_credential = credential;
-#pragma clang diagnostic pop
-
-	self.authorized = (credential != nil);
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {}

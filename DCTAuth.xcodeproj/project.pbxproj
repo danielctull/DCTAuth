@@ -135,6 +135,7 @@
 		24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLOpener.m; sourceTree = "<group>"; };
 		24A331D615F15B93004FA7E4 /* _DCTAuthPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthPlatform.h; sourceTree = "<group>"; };
 		24A331D715F15B93004FA7E4 /* _DCTAuthPlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthPlatform.m; sourceTree = "<group>"; };
+		24BFD672176FCB7D006BBBC8 /* _DCTAuthAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthAccount.h; sourceTree = "<group>"; };
 		24C622E715EB5F8000B68FAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
 		24C6238815EBBB8800B68FAD /* NSDictionary+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+DCTAuth.h"; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 		243B575815EE4CAC007F1CA6 /* Private Classes */ = {
 			isa = PBXGroup;
 			children = (
+				24BFD672176FCB7D006BBBC8 /* _DCTAuthAccount.h */,
 				2484E11C176E4A1B000EB00E /* _DCTAuthKeychainAccess.h */,
 				2484E11D176E4A1B000EB00E /* _DCTAuthKeychainAccess.m */,
 				2419EA3416B912B100901AA2 /* _DCTAuthContentType.h */,
