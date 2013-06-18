@@ -6,8 +6,11 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthContentTypeTests.h"
 #import "_DCTAuthContentType.h"
+#import <XCTest/XCTest.h>
+
+@interface DCTAuthContentTypeTests : XCTestCase
+@end
 
 @implementation DCTAuthContentTypeTests
 

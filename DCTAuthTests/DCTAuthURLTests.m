@@ -6,8 +6,11 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthURLTests.h"
 #import "NSURL+DCTAuth.h"
+#import <XCTest/XCTest.h>
+
+@interface DCTAuthURLTests : XCTestCase
+@end
 
 @implementation DCTAuthURLTests
 
