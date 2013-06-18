@@ -22,6 +22,7 @@
 		2455D711163BE4A000BC6FD7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; };
 		2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */; };
+		24561B241770702200DD0051 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24561B231770702200DD0051 /* XCTest.framework */; };
 		245F7C7416AF2809005B72BA /* DCTAuthResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 245F7C7316AF2809005B72BA /* DCTAuthResponse.m */; };
 		245F7C7716AF3371005B72BA /* DCTAuthResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 245F7C7216AF2809005B72BA /* DCTAuthResponse.h */; };
 		246D3A9116D7776A008CDB63 /* _DCTBasicAuthCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 246D3A9016D7776A008CDB63 /* _DCTBasicAuthCredential.m */; };
@@ -43,7 +44,6 @@
 		24DAD32415FCC776004FD601 /* DCTAuthURLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DAD32315FCC776004FD601 /* DCTAuthURLTests.m */; };
 		24FA8FE815E93D8E00E1ED99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE715E93D8E00E1ED99 /* Foundation.framework */; };
 		24FA8FED15E93D8E00E1ED99 /* DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */; };
-		24FA8FF715E93D8E00E1ED99 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FF615E93D8E00E1ED99 /* SenTestingKit.framework */; };
 		24FA8FF915E93D8E00E1ED99 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FF815E93D8E00E1ED99 /* UIKit.framework */; };
 		24FA8FFA15E93D8E00E1ED99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE715E93D8E00E1ED99 /* Foundation.framework */; };
 		24FA900315E93D8E00E1ED99 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24FA900115E93D8E00E1ED99 /* InfoPlist.strings */; };
@@ -114,6 +114,7 @@
 		2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth2Credential.h; sourceTree = "<group>"; };
 		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
+		24561B231770702200DD0051 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		245F7C7216AF2809005B72BA /* DCTAuthResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthResponse.h; sourceTree = "<group>"; };
 		245F7C7316AF2809005B72BA /* DCTAuthResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthResponse.m; sourceTree = "<group>"; };
 		246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountCredential.h; sourceTree = "<group>"; };
@@ -147,7 +148,7 @@
 		24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA8FE715E93D8E00E1ED99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTAuth.h; sourceTree = "<group>"; };
-		24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuthTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA8FF615E93D8E00E1ED99 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		24FA8FF815E93D8E00E1ED99 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		24FA900015E93D8E00E1ED99 /* DCTAuthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTAuthTests-Info.plist"; sourceTree = "<group>"; };
@@ -198,10 +199,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24561B241770702200DD0051 /* XCTest.framework in Frameworks */,
 				246F919116AABAE80045D206 /* Security.framework in Frameworks */,
 				246F919016AABAE10045D206 /* libDCTAuth.a in Frameworks */,
 				2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */,
-				24FA8FF715E93D8E00E1ED99 /* SenTestingKit.framework in Frameworks */,
 				24FA8FF915E93D8E00E1ED99 /* UIKit.framework in Frameworks */,
 				24FA8FFA15E93D8E00E1ED99 /* Foundation.framework in Frameworks */,
 			);
@@ -295,7 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */,
-				24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.octest */,
+				24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.xctest */,
 				24FA901315E93E0200E1ED99 /* DCTAuth.app */,
 				244414A7173EBB320046D993 /* DCTAuth.bundle */,
 			);
@@ -305,6 +306,7 @@
 		24FA8FE615E93D8E00E1ED99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24561B231770702200DD0051 /* XCTest.framework */,
 				24C622E715EB5F8000B68FAD /* Security.framework */,
 				24FA904015E93E6C00E1ED99 /* libresolv.dylib */,
 				24FA8FE715E93D8E00E1ED99 /* Foundation.framework */,
@@ -441,8 +443,8 @@
 			);
 			name = DCTAuthTests;
 			productName = DCTOAuthTests;
-			productReference = 24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 24FA8FF515E93D8E00E1ED99 /* DCTAuthTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		24FA901215E93E0200E1ED99 /* DCTAuth Demo */ = {
 			isa = PBXNativeTarget;
@@ -691,6 +693,7 @@
 				"ARCHS[sdk=iphonesimulator*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=macosx*]" = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -731,6 +734,7 @@
 				"ARCHS[sdk=iphonesimulator*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=macosx*]" = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -778,13 +782,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP.app/Contents/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DCTAuthTests/DCTAuthTests-Info.plist";
 				PRODUCT_NAME = DCTAuthTests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -792,13 +795,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP.app/Contents/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "DCTAuthTests/DCTAuthTests-Info.plist";
 				PRODUCT_NAME = DCTAuthTests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

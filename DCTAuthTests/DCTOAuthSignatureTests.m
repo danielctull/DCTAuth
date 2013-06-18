@@ -24,11 +24,11 @@
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
-	STAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
+	XCTAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
 
 	NSString *signatureString = [signature signatureString];
 	NSString *expectedSignatureString = @"Vo3AveMDxJ2uH1CXUY69YfUzpQI=";
-	STAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
+	XCTAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
 }
 
 - (void)testHMAC_SHA1SignatureWithQuery {
@@ -44,11 +44,11 @@
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&key1%3Dvalue1%26key2%3Dvalue2%26oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
-	STAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
+	XCTAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
 
 	NSString *signatureString = [signature signatureString];
 	NSString *expectedSignatureString = @"NuOpOgRWpCjaqa5EMc79ReuwFTk=";
-	STAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
+	XCTAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
 }
 
 - (void)testHMAC_SHA1SignatureWithFragment {
@@ -64,11 +64,11 @@
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
-	STAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
+	XCTAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
 
 	NSString *signatureString = [signature signatureString];
 	NSString *expectedSignatureString = @"Vo3AveMDxJ2uH1CXUY69YfUzpQI=";
-	STAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should to %@", signatureString, expectedSignatureString);
+	XCTAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should to %@", signatureString, expectedSignatureString);
 }
 
 - (void)testHMAC_SHA1SignatureWithQueryAndFragment {
@@ -84,11 +84,11 @@
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&key1%3Dvalue1%26key2%3Dvalue2%26oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
-	STAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
+	XCTAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
 
 	NSString *signatureString = [signature signatureString];
 	NSString *expectedSignatureString = @"NuOpOgRWpCjaqa5EMc79ReuwFTk=";
-	STAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
+	XCTAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
 }
 
 @end
