@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** DCTAuthAccountCredential is a protocol that should 
  be implemented alongside each DCTAuthAccount subclass

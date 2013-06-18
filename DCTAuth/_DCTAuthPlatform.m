@@ -10,7 +10,7 @@
 
 #if TARGET_OS_IPHONE
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @implementation _DCTAuthPlatform
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
@@ -30,7 +30,7 @@
 
 #else
 
-#import <AppKit/AppKit.h>
+@import AppKit;
 
 @implementation _DCTAuthPlatform
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {

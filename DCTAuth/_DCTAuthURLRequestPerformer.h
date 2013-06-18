@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "DCTAuthRequest.h"
 
 @interface _DCTAuthURLRequestPerformer : NSObject

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface _DCTAuthPlatform : NSObject
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler;

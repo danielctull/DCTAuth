@@ -11,7 +11,6 @@
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
-#import <Security/Security.h>
 #import "NSString+DCTAuth.h"
 
 @interface DCTAuthAccount ()

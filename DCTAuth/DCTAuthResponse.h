@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** DCTAuthResponse wraps two forms of response, either a standard
  HTTP URL response or a URL callback, such as one received when 
