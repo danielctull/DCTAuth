@@ -31,7 +31,9 @@
 	UIBarButtonItem *load = [[UIBarButtonItem alloc] initWithTitle:@"Load" style:UIBarButtonItemStyleBordered target:self action:@selector(go:)];
 	UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(go:)];
 	self.navigationItem.leftBarButtonItems = @[load, save];
-	
+
+	self.edgesForExtendedLayout = UIExtendedEdgeNone;
+
 	return self;
 }
 
