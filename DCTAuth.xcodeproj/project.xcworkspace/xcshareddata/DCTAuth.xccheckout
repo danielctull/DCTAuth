@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>53EA6119-331A-4862-8FD2-EE17A185BE3F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DCTAuth</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1BB1072C-DD34-43C3-88FC-F0F9001A9A80</key>
+		<string>file:///Users/danielctull/Dropbox/.gitbox/repos/DCTAuth.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DCTAuth.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1BB1072C-DD34-43C3-88FC-F0F9001A9A80</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>file:///Users/danielctull/Dropbox/.gitbox/repos/DCTAuth.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1BB1072C-DD34-43C3-88FC-F0F9001A9A80</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1BB1072C-DD34-43C3-88FC-F0F9001A9A80</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DCTAuth</string>
+		</dict>
+	</array>
+</dict>
+</plist>
