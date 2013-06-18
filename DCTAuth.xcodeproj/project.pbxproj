@@ -23,6 +23,7 @@
 		2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; };
 		2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */; };
 		24561B241770702200DD0051 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24561B231770702200DD0051 /* XCTest.framework */; };
+		24561B261770733D00DD0051 /* DCTAuthKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */; };
 		245F7C7416AF2809005B72BA /* DCTAuthResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 245F7C7316AF2809005B72BA /* DCTAuthResponse.m */; };
 		245F7C7716AF3371005B72BA /* DCTAuthResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 245F7C7216AF2809005B72BA /* DCTAuthResponse.h */; };
 		246D3A9116D7776A008CDB63 /* _DCTBasicAuthCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 246D3A9016D7776A008CDB63 /* _DCTBasicAuthCredential.m */; };
@@ -114,6 +115,7 @@
 		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
 		24561B231770702200DD0051 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthKeychainTests.m; sourceTree = "<group>"; };
 		245F7C7216AF2809005B72BA /* DCTAuthResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthResponse.h; sourceTree = "<group>"; };
 		245F7C7316AF2809005B72BA /* DCTAuthResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthResponse.m; sourceTree = "<group>"; };
 		246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountCredential.h; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */,
 				24DAD32315FCC776004FD601 /* DCTAuthURLTests.m */,
 				2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */,
+				24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */,
 			);
 			path = DCTAuthTests;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24FA900615E93D8E00E1ED99 /* DCTOAuthSignatureTests.m in Sources */,
+				24561B261770733D00DD0051 /* DCTAuthKeychainTests.m in Sources */,
 				24DAD32415FCC776004FD601 /* DCTAuthURLTests.m in Sources */,
 				2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */,
 			);
