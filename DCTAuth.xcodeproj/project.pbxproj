@@ -45,7 +45,6 @@
 		24DAD32415FCC776004FD601 /* DCTAuthURLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DAD32315FCC776004FD601 /* DCTAuthURLTests.m */; };
 		24FA8FE815E93D8E00E1ED99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE715E93D8E00E1ED99 /* Foundation.framework */; };
 		24FA8FED15E93D8E00E1ED99 /* DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */; };
-		24FA8FF915E93D8E00E1ED99 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FF815E93D8E00E1ED99 /* UIKit.framework */; };
 		24FA8FFA15E93D8E00E1ED99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA8FE715E93D8E00E1ED99 /* Foundation.framework */; };
 		24FA900315E93D8E00E1ED99 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24FA900115E93D8E00E1ED99 /* InfoPlist.strings */; };
 		24FA900615E93D8E00E1ED99 /* DCTOAuthSignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */; };
@@ -202,7 +201,6 @@
 				246F919116AABAE80045D206 /* Security.framework in Frameworks */,
 				246F919016AABAE10045D206 /* libDCTAuth.a in Frameworks */,
 				2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */,
-				24FA8FF915E93D8E00E1ED99 /* UIKit.framework in Frameworks */,
 				24FA8FFA15E93D8E00E1ED99 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
