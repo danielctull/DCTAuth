@@ -14,6 +14,8 @@
 
 @implementation DCTAuthKeychainTests
 
+#if TARGET_OS_IPHONE
+
 - (void)testDataStorage {
 
 	NSData *data = [@"Input string" dataUsingEncoding:NSUTF8StringEncoding];
@@ -29,5 +31,7 @@
 	NSData *data3 = [_DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:_DCTAuthKeychainAccessTypeCredential];
 	XCTAssertFalse([data isEqualToData:data3], @"Credential data is same as account data");
 }
+
+#endif
 
 @end
