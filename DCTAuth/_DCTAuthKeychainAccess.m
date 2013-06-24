@@ -68,7 +68,7 @@ forAccountIdentifier:(NSString *)accountIdentifier
 
 	NSDictionary *query = @{
 		(__bridge id)kSecClass       : (__bridge id)kSecClassGenericPassword,
-		(__bridge id)kSecAttrService : @"DCTAuth",
+		(__bridge id)kSecAttrService : @"DCTAuth 3",
 		(__bridge id)kSecAttrLabel   : storeName,
 		(__bridge id)kSecAttrType    : @(type)
 	};
