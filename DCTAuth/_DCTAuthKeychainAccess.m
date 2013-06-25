@@ -66,11 +66,10 @@ forAccountIdentifier:(NSString *)accountIdentifier
 
 	NSAssert(storeName, @"storeName is required");
 
+	NSString *service = [NSString stringWithFormat:@"DCTAuth 3.%@.%@", storeName, @(type)];
 	NSDictionary *query = @{
 		(__bridge id)kSecClass       : (__bridge id)kSecClassGenericPassword,
-		(__bridge id)kSecAttrService : @"DCTAuth",
-		(__bridge id)kSecAttrLabel   : storeName,
-		(__bridge id)kSecAttrType    : @(type)
+		(__bridge id)kSecAttrService : service
 	};
 
 	NSMutableDictionary *mQuery = [query mutableCopy];

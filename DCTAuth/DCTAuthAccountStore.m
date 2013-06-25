@@ -63,6 +63,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
+		if (!data || [data isKindOfClass:[NSNull class]]) return;
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		NSString *accountIdentifier = account.identifier;
 
@@ -70,6 +71,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 			NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
 																  storeName:name
 																	   type:_DCTAuthKeychainAccessTypeCredential];
+			if (!data) return nil;
 			id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
 			return credential;
