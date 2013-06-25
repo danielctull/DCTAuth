@@ -688,7 +688,7 @@
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-pedantic",
 					"-Wno-assign-enum",
-					"-Wno-auto-import",
+					"-Wno-undef",
 				);
 			};
 			name = Debug;
@@ -726,7 +726,7 @@
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-pedantic",
 					"-Wno-assign-enum",
-					"-Wno-auto-import",
+					"-Wno-undef",
 				);
 			};
 			name = Release;
