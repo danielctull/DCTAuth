@@ -9,12 +9,12 @@
 #import "_DCTAuthKeychainAccess.h"
 #import <XCTest/XCTest.h>
 
+#if TARGET_OS_IPHONE
+
 @interface DCTAuthKeychainTests : XCTestCase
 @end
 
 @implementation DCTAuthKeychainTests
-
-#if TARGET_OS_IPHONE
 
 - (void)testDataStorage {
 
@@ -32,6 +32,6 @@
 	XCTAssertFalse([data isEqualToData:data3], @"Credential data is same as account data");
 }
 
-#endif
-
 @end
+
+#endif
