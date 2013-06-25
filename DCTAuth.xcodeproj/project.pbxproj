@@ -688,7 +688,6 @@
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-pedantic",
 					"-Wno-assign-enum",
-					"-Wno-undef",
 					"-Wno-system-headers",
 				);
 			};
@@ -727,7 +726,6 @@
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-pedantic",
 					"-Wno-assign-enum",
-					"-Wno-undef",
 					"-Wno-system-headers",
 				);
 			};
