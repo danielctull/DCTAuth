@@ -49,14 +49,6 @@ static NSString * const _DCTAuthEndStringForComponentType[] = {
 @implementation NSURL (DCTAuth)
 
 - (NSURL *)dctAuth_URLBySettingUser:(NSString *)user password:(NSString *)password {
-
-	if ([NSURLComponents class]) {
-		NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-		components.user = user;
-		components.password = password;
-		return components.URL;
-	}
-
 	NSURL *URL = [self dctAuth_URLByReplacingComponentType:kCFURLComponentUser withString:user];
 	return [URL dctAuth_URLByReplacingComponentType:kCFURLComponentPassword withString:password];
 }
@@ -64,19 +56,11 @@ static NSString * const _DCTAuthEndStringForComponentType[] = {
 - (NSURL *)dctAuth_URLByAddingQueryParameters:(NSDictionary *)parameters {
 
 	NSDictionary *existingQuery = [[self query] dctAuth_parameterDictionary];
-	NSMutableDictionary *queryParameters = [NSMutableDictionary new];
-	[queryParameters addEntriesFromDictionary:existingQuery];
-	[queryParameters addEntriesFromDictionary:parameters];
-	NSString *query = [queryParameters dctAuth_queryString];
-
-	if ([NSURLComponents class]) {
-		NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-		components.query = query;
-		return components.URL;
-	}
-
+	NSMutableDictionary *query = [NSMutableDictionary new];
+	[query addEntriesFromDictionary:existingQuery];
+	[query addEntriesFromDictionary:parameters];
 	return [self dctAuth_URLByReplacingComponentType:kCFURLComponentQuery
-										  withString:query];
+										  withString:[query dctAuth_queryString]];
 }
 
 - (NSURL *)dctAuth_URLByRemovingComponentType:(CFURLComponentType)componentType {
