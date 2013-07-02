@@ -88,9 +88,6 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 
 - (NSString *)responseDescription {
 
-	NSString *URLString = @"";
-	if (self.URL) URLString = [NSString stringWithFormat:@"\n%@", [self.URL absoluteString]];
-
 	NSMutableString *headerString = [NSMutableString new];
 	[self.HTTPHeaders enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
 		[headerString appendFormat:@"\n%@: %@", key, value];
