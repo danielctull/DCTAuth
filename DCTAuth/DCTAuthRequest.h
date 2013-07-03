@@ -36,6 +36,8 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  */
 @interface DCTAuthRequest : NSObject <NSCoding>
 
++ (NSString *)stringForRequestMethod:(DCTAuthRequestMethod)requestMethod;
+
 /// @name Initializing Requests
 
 /** Initializes a newly created request object with the specified properties.
