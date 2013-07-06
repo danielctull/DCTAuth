@@ -52,8 +52,8 @@ static NSString * const _DCTAuthEndStringForComponentType[] = {
 
 	if ([NSURLComponents class]) {
 		NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-		components.user = user;
-		components.password = password;
+		components.percentEncodedUser = user;
+		components.percentEncodedPassword = password;
 		return components.URL;
 	}
 
@@ -71,7 +71,7 @@ static NSString * const _DCTAuthEndStringForComponentType[] = {
 
 	if ([NSURLComponents class]) {
 		NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-		components.query = query;
+		components.percentEncodedQuery = query;
 		return components.URL;
 	}
 
