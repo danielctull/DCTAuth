@@ -16,6 +16,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 @interface DCTAuthAccountStore ()
 @property (nonatomic, strong) NSMutableArray *mutableAccounts;
+@property (nonatomic, copy) NSString *accessGroup;
 - (NSUInteger)countOfAccounts;
 - (id)objectInAccountsAtIndex:(NSUInteger)index;
 - (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index;
@@ -42,10 +43,14 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 }
 
 + (instancetype)accountStoreWithName:(NSString *)name {
+	return [self accountStoreWithName:name accessGroup:nil];
+}
+
++ (instancetype)accountStoreWithName:(NSString *)name accessGroup:(NSString *)accessGroup {
 	NSMutableDictionary *accountStores = [self accountStores];
 	DCTAuthAccountStore *accountStore = [accountStores objectForKey:name];
 	if (!accountStore) {
-		accountStore = [[self alloc] initWithName:name];
+		accountStore = [[self alloc] initWithName:name accessGroup:accessGroup];
 		[accountStores setObject:accountStore forKey:name];
 	}
 	return accountStore;
@@ -55,11 +60,12 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	return [[self class] accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
 
-- (id)initWithName:(NSString *)name {
+- (id)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup {
 	self = [super init];
 	if (!self) return nil;
 	_mutableAccounts = [NSMutableArray new];
 	_name = [name copy];
+	_accessGroup = [accessGroup copy];
 
 	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {

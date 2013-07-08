@@ -25,6 +25,8 @@ extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
  */
 + (instancetype)accountStoreWithName:(NSString *)name;
 
++ (instancetype)accountStoreWithName:(NSString *)name accessGroup:(NSString *)accessGroup;
+
 /** Get a store at a given URL.
  @param storeURL A URL for a location on disk.
  @return The store at the give URL on disk.
