@@ -16,12 +16,14 @@
 static const struct _DCTOAuth2AccountProperties {
 	__unsafe_unretained NSString *authorizeURL;
 	__unsafe_unretained NSString *accessTokenURL;
+	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *scopes;
 } _DCTOAuth2AccountProperties;
 
 static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	.authorizeURL = @"authorizeURL",
 	.accessTokenURL = @"accessTokenURL",
+	.username = @"username",
 	.scopes = @"scopes"
 };
 
@@ -30,6 +32,8 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSString *clientID;
 @property (nonatomic, copy) NSString *clientSecret;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSArray *scopes;
 @property (nonatomic, strong) id openURLObject;
 @end
@@ -52,11 +56,26 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	return self;
 }
 
+- (id)initWithType:(NSString *)type
+	  authorizeURL:(NSURL *)authorizeURL
+		  username:(NSString *)username
+		  password:(NSString *)password
+			scopes:(NSArray *)scopes {
+	self = [self initWithType:type];
+	if (!self) return nil;
+	_authorizeURL = [authorizeURL copy];
+	_username = [username copy];
+	_password = [password copy];
+	_scopes = [scopes copy];
+	return self;
+}
+
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.authorizeURL];
 	_accessTokenURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.accessTokenURL];
+	_username = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.username];
 	_scopes = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.scopes];
 	return self;
 }
@@ -65,6 +84,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:self.authorizeURL forKey:_DCTOAuth2AccountProperties.authorizeURL];
 	[coder encodeObject:self.accessTokenURL forKey:_DCTOAuth2AccountProperties.accessTokenURL];
+	[coder encodeObject:self.username forKey:_DCTOAuth2AccountProperties.username];
 	[coder encodeObject:self.scopes forKey:_DCTOAuth2AccountProperties.scopes];
 }
 
@@ -75,6 +95,8 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	_DCTOAuth2Credential *credential = self.credential;
 	NSString *clientID = (self.clientID != nil) ? self.clientID : credential.clientID;
 	NSString *clientSecret = (self.clientSecret != nil) ? self.clientSecret : credential.clientSecret;
+	NSString *password = (self.password != nil) ? self.password : credential.password;
+	NSString *username = self.username;
 	NSString *state = [[NSProcessInfo processInfo] globallyUniqueString];
 	__block NSString *code;
 	__block NSString *accessToken = credential.accessToken;
@@ -125,6 +147,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 
 		self.credential = [[_DCTOAuth2Credential alloc] initWithClientID:clientID
 															clientSecret:clientSecret
+																password:password
 															 accessToken:accessToken
 															refreshToken:refreshToken];
 
@@ -154,6 +177,12 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 							handler:authorizeHandler];
 	};
 
+	void (^passwordAuthorize)() = ^{
+		[self passwordAuthorizeWithUsername:username
+								   password:password
+									handler:accessTokenHandler];
+	};
+
 	void (^refresh)() = ^{
 		[self refreshAccessTokenWithRefreshToken:refreshToken handler:^(DCTAuthResponse *response, NSError *error) {
 			if (shouldComplete(response, error))
@@ -165,8 +194,28 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 
 	if (refreshToken.length > 0)
 		refresh();
+	else if (password.length > 0)
+		passwordAuthorize();
 	else
 		authorize();
+}
+
+- (void)passwordAuthorizeWithUsername:(NSString *)username
+							 password:(NSString *)password
+							  handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
+
+	NSMutableDictionary *parameters = [NSMutableDictionary new];
+	parameters[@"grant_type"] = @"password";
+	parameters[@"username"] = username;
+	parameters[@"password"] = password;
+
+	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
+
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
+																		URL:self.authorizeURL
+																 parameters:parameters];
+
+	[request performRequestWithHandler:handler];
 }
 
 - (void)authorizeWithClientID:(NSString *)clientID

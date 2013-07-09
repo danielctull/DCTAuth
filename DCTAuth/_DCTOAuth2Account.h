@@ -17,4 +17,10 @@
 	  clientSecret:(NSString *)clientSecret
 			scopes:(NSArray *)scopes;
 
+- (id)initWithType:(NSString *)type
+	  authorizeURL:(NSURL *)authorizeURL
+		  username:(NSString *)username
+		  password:(NSString *)password
+			scopes:(NSArray *)scopes;
+
 @end

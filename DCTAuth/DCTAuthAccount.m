@@ -67,6 +67,19 @@
 											scopes:scopes];
 }
 
++ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
+							 authorizeURL:(NSURL *)authorizeURL
+								 username:(NSString *)username
+								 password:(NSString *)password
+								   scopes:(NSArray *)scopes {
+
+	return [[_DCTOAuth2Account alloc] initWithType:type
+									  authorizeURL:authorizeURL
+										  username:username
+										  password:password
+											scopes:scopes];
+}
+
 + (DCTAuthAccount *)basicAuthAccountWithType:(NSString *)type
 						   authenticationURL:(NSURL *)authenticationURL
 									username:(NSString *)username
