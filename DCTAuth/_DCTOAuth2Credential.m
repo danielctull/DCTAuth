@@ -32,8 +32,10 @@ static const struct _DCTOAuth2CredentialProperties _DCTOAuth2CredentialPropertie
 		   accessToken:(NSString *)accessToken
 		  refreshToken:(NSString *)refreshToken {
 
-	if (clientID.length == 0) return nil;
-	if (accessToken.length == 0) return nil;
+	if (password.length == 0) {
+		if (clientID.length == 0) return nil;
+		if (accessToken.length == 0) return nil;
+	}
 
 	self = [self init];
 	if (!self) return nil;
