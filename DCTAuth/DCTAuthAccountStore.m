@@ -82,7 +82,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
 			return credential;
 		};
-		[self insertObject:account inAccountsAtIndex:i];
+		[self insertAccount:account];
 	}];
 
 	return self;
@@ -116,7 +116,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 							   type:_DCTAuthKeychainAccessTypeCredential];
 
 	if ([self.mutableAccounts indexOfObject:account] != NSNotFound) return;
-	[self insertObject:account inAccountsAtIndex:[self countOfAccounts]];
+	[self insertAccount:account];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
@@ -125,6 +125,14 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount];
 	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential];
 	[self removeObjectFromAccountsAtIndex:[self.mutableAccounts indexOfObject:account]];
+}
+
+- (void)insertAccount:(DCTAuthAccount *)account {
+	NSMutableArray *accounts = [self.mutableAccounts mutableCopy];
+	[accounts addObject:account];
+	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"accountDescription" ascending:YES]]];
+	NSUInteger index = [accounts indexOfObject:account];
+	[self insertObject:account inAccountsAtIndex:index];
 }
 
 #pragma mark - Accounts accessors
