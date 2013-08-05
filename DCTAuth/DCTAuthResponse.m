@@ -23,6 +23,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 @implementation DCTAuthResponse
 
 - (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse {
+	if (!data) return nil;
 	self = [self init];
 	if (!self) return nil;
 	_data = data;
