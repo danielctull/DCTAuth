@@ -54,12 +54,8 @@
 	UITextField *requestTokenURLTextField = self.requestTokenURLTextField;
 	UITextField *accessTokenURLTextField = self.accessTokenURLTextField;
 	UITextField *authorizeURLTextField = self.authorizeURLTextField;
-	
-	[consumerKeyTextField resignFirstResponder];
-	[consumerSecretTextField resignFirstResponder];
-	[requestTokenURLTextField resignFirstResponder];
-	[accessTokenURLTextField resignFirstResponder];
-	[authorizeURLTextField resignFirstResponder];
+
+	[self.view endEditing:YES];
 	self.resultTextView.text = nil;
 	
 	NSString *consumerKey = consumerKeyTextField.text;
