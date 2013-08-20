@@ -74,7 +74,8 @@ static const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountPropertie
 		if (response.statusCode == 200)
 			self.credential = [[_DCTBasicAuthCredential alloc] initWithPassword:password];
 
-		if (handler != NULL) handler(@[response], error);
+		NSArray *array = response ? @[response] : nil;
+		if (handler != NULL) handler(array, error);
 	}];
 }
 
