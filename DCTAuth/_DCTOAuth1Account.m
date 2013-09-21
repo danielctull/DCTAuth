@@ -79,7 +79,7 @@ static const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
 	_requestTokenURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.requestTokenURL];
 	_accessTokenURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.accessTokenURL];
 	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.authorizeURL];
-	_signatureType = [coder decodeIntegerForKey:_DCTOAuth1AccountProperties.signatureType];
+	_signatureType = (DCTOAuthSignatureType)[coder decodeIntegerForKey:_DCTOAuth1AccountProperties.signatureType];
 	return self;
 }
 
