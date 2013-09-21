@@ -79,7 +79,7 @@ static const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
 	_requestTokenURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.requestTokenURL];
 	_accessTokenURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.accessTokenURL];
 	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth1AccountProperties.authorizeURL];
-	_signatureType = (DCTOAuthSignatureType)[coder decodeIntegerForKey:_DCTOAuth1AccountProperties.signatureType];
+	_signatureType = [coder decodeInt32ForKey:_DCTOAuth1AccountProperties.signatureType];
 	return self;
 }
 
@@ -88,7 +88,7 @@ static const struct _DCTOAuth1AccountProperties _DCTOAuth1AccountProperties = {
 	[coder encodeObject:self.requestTokenURL forKey:_DCTOAuth1AccountProperties.requestTokenURL];
 	[coder encodeObject:self.accessTokenURL forKey:_DCTOAuth1AccountProperties.accessTokenURL];
 	[coder encodeObject:self.authorizeURL forKey:_DCTOAuth1AccountProperties.authorizeURL];
-	[coder encodeInteger:self.signatureType forKey:_DCTOAuth1AccountProperties.signatureType];
+	[coder encodeInt32:self.signatureType forKey:_DCTOAuth1AccountProperties.signatureType];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {

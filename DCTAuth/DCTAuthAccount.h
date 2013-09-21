@@ -8,10 +8,10 @@
 
 #import "DCTAuthAccountCredential.h"
 
-typedef enum {
+typedef NS_ENUM(int32_t, DCTOAuthSignatureType) {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
 	DCTOAuthSignatureTypePlaintext
-} DCTOAuthSignatureType;
+};
 
 /** A DCTAuthAccount object encapsulates information about a user account stored in the database. You can create and retrieve accounts using an DCTAuthAccountStore object. The DCTAuthAccountStore object provides an interface to the persistent database. All account objects belong to a single DCTAuthAccountStore object.
  */
