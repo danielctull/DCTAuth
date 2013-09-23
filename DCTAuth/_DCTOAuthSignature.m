@@ -107,10 +107,7 @@ static NSString * const _DTOAuthSignatureTypeString[] = {
 	CCHmac(kCCHmacAlgSHA1, secretData.bytes, secretData.length, baseData.bytes, baseData.length, result);
 	
 	NSData *theData = [NSData dataWithBytes:result length:20];
-	NSData *base64EncodedData = [theData dctAuth_base64EncodedData];
-	NSString *string = [[NSString alloc] initWithData:base64EncodedData encoding:NSUTF8StringEncoding];
-	
-	return string;
+	return [theData dctAuth_base64EncodedString];
 }
 
 - (NSString *)authorizationHeader {

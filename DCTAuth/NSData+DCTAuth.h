@@ -10,6 +10,6 @@
 
 @interface NSData (DCTAuth)
 
-- (NSData *)dctAuth_base64EncodedData;
+- (NSString *)dctAuth_base64EncodedString;
 
 @end

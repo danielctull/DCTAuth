@@ -82,8 +82,7 @@ static const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountPropertie
 - (NSString *)authorizationStringForUsername:(NSString *)username password:(NSString *)password {
 	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", username, password];
 	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
-	authorisationData = [authorisationData dctAuth_base64EncodedData];
-	NSString *authorisationEncodedString = [[NSString alloc] initWithData:authorisationData encoding:NSUTF8StringEncoding];
+	NSString *authorisationEncodedString = [authorisationData dctAuth_base64EncodedString];
 	return [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
 }
 
