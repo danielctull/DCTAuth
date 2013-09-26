@@ -15,6 +15,7 @@
 
 @interface DCTAuthAccount ()
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
+@property (nonatomic) NSMutableDictionary *extraParameters;
 @end
 
 @implementation DCTAuthAccount
@@ -91,8 +92,15 @@
 											 password:password];
 }
 
-- (id)initWithType:(NSString *)type {
+- (id)init {
 	self = [super init];
+	if (!self) return nil;
+	_extraParameters = [NSMutableDictionary new];
+	return self;
+}
+
+- (id)initWithType:(NSString *)type {
+	self = [self init];
 	if (!self) return nil;
 	_type = [type copy];
 	_identifier = [[[NSProcessInfo processInfo] globallyUniqueString] copy];
@@ -118,6 +126,15 @@
 	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
 	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
 	[coder encodeObject:self.userInfo forKey:NSStringFromSelector(@selector(userInfo))];
+}
+
+- (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType {
+	NSAssert([parameters isKindOfClass:[NSDictionary class]], @"Needs to be a dictionary");
+	[self.extraParameters setObject:[parameters copy] forKey:requestType];
+}
+
+- (NSDictionary *)parametersForRequestType:(NSString *)requestType {
+	return [self.extraParameters objectForKey:requestType];
 }
 
 - (BOOL)isAuthorized {

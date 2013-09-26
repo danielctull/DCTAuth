@@ -171,6 +171,8 @@ typedef NS_ENUM(int32_t, DCTOAuthSignatureType) {
 
 - (void)cancelAuthentication;
 
+- (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType;
+
 @property (nonatomic, copy) NSDictionary *userInfo;
 
 //- (void)renewCredentialsWithHandler:(void(^)(BOOL success, NSError *error))handler;

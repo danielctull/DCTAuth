@@ -8,10 +8,17 @@
 
 #import "_DCTOAuth2Account.h"
 #import "_DCTOAuth2Credential.h"
+#import "_DCTAuthAccount.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 #import "NSURL+DCTAuth.h"
+#import "DCTOAuth2Account.h"
+
+NSString *const DCTOAuth2AccountAccessTokenRequestType = @"DCTOAuth2AccountAccessTokenRequestType";
+NSString *const DCTOAuth2AccountAuthorizeRequestType = @"DCTOAuth2AccountAuthorizeRequestType";
+NSString *const DCTOAuth2AccountRefreshRequestType = @"DCTOAuth2AccountRefreshRequestType";
+NSString *const DCTOAuth2AccountSigningRequestType = @"DCTOAuth2AccountSigningRequestType";
 
 static const struct _DCTOAuth2AccountProperties {
 	__unsafe_unretained NSString *authorizeURL;
@@ -233,6 +240,9 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 	[parameters setObject:state forKey:@"state"];
 
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountAuthorizeRequestType];
+	[parameters addEntriesFromDictionary:extras];
+
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:self.authorizeURL
 																 parameters:parameters];
@@ -250,8 +260,12 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	[parameters setObject:@"authorization_code" forKey:@"grant_type"];
 	[parameters setObject:code forKey:@"code"];
 	[parameters setObject:clientID forKey:@"client_id"];
+	[parameters setObject:@"web_server" forKey:@"type"];
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
 	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
+
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountAccessTokenRequestType];
+	[parameters addEntriesFromDictionary:extras];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
 																		URL:self.accessTokenURL
@@ -265,6 +279,10 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters setObject:@"refresh_token" forKey:@"grant_type"];
 	[parameters setObject:refreshToken forKey:@"refresh_token"];
+
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountRefreshRequestType];
+	[parameters addEntriesFromDictionary:extras];
+
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
@@ -281,7 +299,11 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
 	NSURL *URL = [request URL];
 	_DCTOAuth2Credential *credential = self.credential;
-	URL = [URL dctAuth_URLByAddingQueryParameters:@{ @"access_token" : credential.accessToken }];
+	NSMutableDictionary *parameters = [NSMutableDictionary new];
+	[parameters setObject:credential.accessToken forKey:@"access_token"];
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountSigningRequestType];
+	[parameters addEntriesFromDictionary:extras];
+	URL = [URL dctAuth_URLByAddingQueryParameters:parameters];
 	request.URL = URL;
 }
 

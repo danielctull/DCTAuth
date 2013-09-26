@@ -10,5 +10,6 @@
 #import "DCTAuthAccountCredential.h"
 
 @interface DCTAuthAccount ()
+- (NSDictionary *)parametersForRequestType:(NSString *)requestType;
 @property (nonatomic, copy) id<DCTAuthAccountCredential> (^credentialFetcher)();
 @end
