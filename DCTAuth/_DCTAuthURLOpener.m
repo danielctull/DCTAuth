@@ -7,19 +7,11 @@
 //
 
 #import "_DCTAuthURLOpener.h"
+#import "_DCTAuthURLOpenerOperation.h"
 #import "_DCTAuthPlatform.h"
 
-@interface _DCTAuthOpen : NSObject
-@property (nonatomic, copy) NSURL *URL;
-@property (nonatomic, copy) NSURL *callbackURL;
-@property (nonatomic, copy) void (^handler)(DCTAuthResponse *response);
-@end
-@implementation _DCTAuthOpen
-@end
-
 @interface _DCTAuthURLOpener ()
-@property (nonatomic, strong) NSMutableArray *queue;
-@property (nonatomic, strong) _DCTAuthOpen *currentOpen;
+@property (nonatomic, strong) NSOperationQueue *queue;
 @end
 
 @implementation _DCTAuthURLOpener
@@ -36,63 +28,43 @@
 - (id)init {
     self = [super init];
     if (!self) return nil;
-	_queue = [NSMutableArray new];
+	_queue = [NSOperationQueue new];
+	_queue.maxConcurrentOperationCount = 1;
     return self;
 }
 
 - (BOOL)handleURL:(NSURL *)URL {
 
 	__block BOOL handled = NO;
-	NSString *URLString = [URL absoluteString];
 	
-	[[self.queue copy] enumerateObjectsUsingBlock:^(_DCTAuthOpen *open, NSUInteger idx, BOOL *stop) {
-		
-		if ([URLString hasPrefix:[open.callbackURL absoluteString]]) {
-			DCTAuthResponse *response = [[DCTAuthResponse alloc] initWithURL:URL];
-			open.handler(response);
-			[self close:open];
-			handled = YES;
-			*stop = YES;
-		}
+	[self.queue.operations enumerateObjectsUsingBlock:^(_DCTAuthURLOpenerOperation *operation, NSUInteger i, BOOL *stop) {
+		*stop = handled = [operation handleURL:URL];
 	}];
-
-	[self _openNextURL];
 
 	return handled;
 }
 
 - (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler {
-	_DCTAuthOpen *open = [_DCTAuthOpen new];
-	open.URL = URL;
-	open.callbackURL = callbackURL;
-	open.handler = handler;
-	[self.queue addObject:open];
-	[self _openNextURL];
-	return open;
+
+
+	_DCTAuthURLOpenerOperation *operation = [[_DCTAuthURLOpenerOperation alloc] initWithURL:URL
+																				callbackURL:callbackURL
+																					handler:handler];
+	[self.queue addOperation:operation];
+	return operation;
 }
 
 - (void)close:(id)object {
-	[self.queue removeObject:object];
-	if ([self.currentOpen isEqual:object]) self.currentOpen = nil;
-	[self _openNextURL];
+	NSAssert([object isKindOfClass:[_DCTAuthURLOpenerOperation class]], @"Object should be the object returned from openURL:withCallbackURL:handler:");
+	_DCTAuthURLOpenerOperation *operation = object;
+	[operation cancel];
 }
 
-- (void)_openNextURL {
-	if (self.currentOpen != nil) return;
-	if ([self.queue count] == 0) return;
-
-	_DCTAuthOpen *open = [self.queue objectAtIndex:0];
-
+- (BOOL)openURL:(NSURL *)URL {
 	BOOL isOpen = NO;
-	if (self.URLOpener != NULL) isOpen = self.URLOpener(open.URL);
-	if (!isOpen) isOpen = [_DCTAuthPlatform openURL:open.URL];
-
-	if (isOpen)
-		self.currentOpen = open;
-	else {
-		[self.queue removeObject:open];
-		[self _openNextURL];
-	}
+	if (self.URLOpener != NULL) isOpen = self.URLOpener(URL);
+	if (!isOpen) isOpen = [_DCTAuthPlatform openURL:URL];
+	return isOpen;
 }
 
 @end
