@@ -734,7 +734,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -745,7 +744,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
