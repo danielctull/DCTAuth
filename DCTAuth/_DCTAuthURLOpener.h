@@ -17,7 +17,7 @@
 
 @property (nonatomic, copy) BOOL (^URLOpener)(NSURL *URL);
 
-- (BOOL)openURL:(NSURL *)URL;
+- (void)openURL:(NSURL *)URL;
 - (BOOL)handleURL:(NSURL *)URL;
 
 @end

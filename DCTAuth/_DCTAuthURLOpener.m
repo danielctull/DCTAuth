@@ -36,7 +36,7 @@
 - (BOOL)handleURL:(NSURL *)URL {
 
 	__block BOOL handled = NO;
-	
+
 	[self.queue.operations enumerateObjectsUsingBlock:^(_DCTAuthURLOpenerOperation *operation, NSUInteger i, BOOL *stop) {
 		*stop = handled = [operation handleURL:URL];
 	}];
@@ -60,11 +60,12 @@
 	[operation cancel];
 }
 
-- (BOOL)openURL:(NSURL *)URL {
-	BOOL isOpen = NO;
-	if (self.URLOpener != NULL) isOpen = self.URLOpener(URL);
-	if (!isOpen) isOpen = [_DCTAuthPlatform openURL:URL];
-	return isOpen;
+- (void)openURL:(NSURL *)URL {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		BOOL isOpen = NO;
+		if (self.URLOpener != NULL) isOpen = self.URLOpener(URL);
+		if (!isOpen) [_DCTAuthPlatform openURL:URL];
+	});
 }
 
 @end
