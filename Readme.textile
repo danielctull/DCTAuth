@@ -22,15 +22,15 @@ h3. OAuth
 
 h3. OAuth 2.0
 
-* "37signals":https://github.com/37signals/api/blob/master/sections/authentication.md#oauth-2 ["Notes":#37signals]
+* "37signals":https://github.com/37signals/api/blob/master/sections/authentication.md#oauth-2 "[Notes]":#thirtysevensignals
 * "Box":http://developers.box.com/oauth/
-* "Facebook":https://developers.facebook.com/docs/authentication/ ["Notes":#facebook]
+* "Facebook":https://developers.facebook.com/docs/authentication/ "[Notes]":#facebook
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
 * "GitHub":http://developer.github.com/v3/oauth/
 * "Google":https://developers.google.com/accounts/docs/OAuth2InstalledApp (Installed Applications)
 * "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
 * "SoundCloud":http://developers.soundcloud.com/docs#authentication
-* "Windows Live":http://msdn.microsoft.com/en-us/library/live/hh826541.aspx ["Notes":#windowslive]
+* "Windows Live":http://msdn.microsoft.com/en-us/library/live/hh826541.aspx "[Notes]":#windowslive
 
 h3. Basic Authentication
 
@@ -47,7 +47,7 @@ h3(#windowslive). Windows Live
 
 Microsoft have enforced that the callback URL (redirect URI) must have a scheme of HTTP or HTTPS, so to authorise with Windows Live you should set your own URL handler on the DCTAuth class to open the authorization URL in a web view inside the app. This does go against general OAuth practice, but DCTAuth allows it. Setting a callback URL with http:// as the scheme will result in working authentication to Windows Live. As far as I can tell you should use at least `wl.signin` as the scope.
 
-h3(#37signals). 37signals (Basecamp, Highrise, Campfire)
+h3(#thirtysevensignals). 37signals (Basecamp, Highrise, Campfire)
 
 37signals require a @type@ parameter to be passed into all authentication calls. To deal with this DCTAuth 3 includes @[DCTAuthAccount setParameters:forRequestType:]@ which allows you to add service specific parameters to the different requests.
 
