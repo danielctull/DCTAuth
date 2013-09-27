@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountCredential.h"
 
-typedef NS_ENUM(int32_t, DCTOAuthSignatureType) {
+typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
 	DCTOAuthSignatureTypePlaintext
 };
