@@ -22,15 +22,15 @@ h3. OAuth
 
 h3. OAuth 2.0
 
-* "37signals":https://github.com/37signals/api/blob/master/sections/authentication.md#oauth-2 "[Notes]":#thirtysevensignals
+* "37signals":https://github.com/37signals/api/blob/master/sections/authentication.md#oauth-2 ("Notes":#thirtysevensignals)
 * "Box":http://developers.box.com/oauth/
-* "Facebook":https://developers.facebook.com/docs/authentication/ "[Notes]":#facebook
+* "Facebook":https://developers.facebook.com/docs/authentication/ ("Notes":#facebook)
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
 * "GitHub":http://developer.github.com/v3/oauth/
 * "Google":https://developers.google.com/accounts/docs/OAuth2InstalledApp (Installed Applications)
 * "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
 * "SoundCloud":http://developers.soundcloud.com/docs#authentication
-* "Windows Live":http://msdn.microsoft.com/en-us/library/live/hh826541.aspx "[Notes]":#windowslive
+* "Windows Live":http://msdn.microsoft.com/en-us/library/live/hh826541.aspx ("Notes":#windowslive)
 
 h3. Basic Authentication
 
