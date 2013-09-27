@@ -55,18 +55,18 @@ To get 37signals auth working, you use the following code:
 
 <pre>
 <code>
-	NSURL *authorizeURL = [NSURL URLWithString:@"https://launchpad.37signals.com/authorization/new"];
-	NSURL *accessTokenURL = [NSURL URLWithString:@"https://launchpad.37signals.com/authorization/token"]
-	DCTAuthAccount *campfireAccount = [DCTAuthAccount OAuth2AccountWithType:@"Campfire"
-	                                                           authorizeURL:authorizeURL
-	                                                         accessTokenURL:accessTokenURL
-	                                                               clientID:@"client_id"
-	                                                           clientSecret:@"client_secret"
-	                                                                 scopes:nil];
-	campfireAccount.callbackURL = [NSURL URLWithString:@"callback://url"];
-	NSDictionary *parameters = @{ @"type" : @"web_server" };
-	[campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAccessTokenRequestType];
-	[campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAuthorizeRequestType];
+NSURL *authorizeURL = [NSURL URLWithString:@"https://launchpad.37signals.com/authorization/new"];
+NSURL *accessTokenURL = [NSURL URLWithString:@"https://launchpad.37signals.com/authorization/token"]
+DCTAuthAccount *campfireAccount = [DCTAuthAccount OAuth2AccountWithType:@"Campfire"
+                                                           authorizeURL:authorizeURL
+                                                         accessTokenURL:accessTokenURL
+                                                               clientID:@"client_id"
+                                                           clientSecret:@"client_secret"
+                                                                 scopes:nil];
+campfireAccount.callbackURL = [NSURL URLWithString:@"callback://url"];
+NSDictionary *parameters = @{ @"type" : @"web_server" };
+[campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAccessTokenRequestType];
+[campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAuthorizeRequestType];
 </code>
 </pre>
 
