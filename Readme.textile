@@ -16,6 +16,7 @@ h3. OAuth
 * "Dropbox":http://www.dropbox.com/developers/reference/api
 * "Flickr":http://www.flickr.com/services/api/auth.oauth.html
 * "Readability":http://www.readability.com/developers/api
+* "Trello":https://trello.com/docs/gettingstarted/oauth.html
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
 * "Twitter":https://dev.twitter.com/docs/auth/oauth
 * "Yahoo!":http://developer.yahoo.com/oauth/guide/index.html
