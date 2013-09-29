@@ -36,7 +36,9 @@ h3. OAuth 2.0
 h3. Basic Authentication
 
 * "Instapaper":http://www.instapaper.com/api/simple
+* "JIRA":https://developer.atlassian.com/display/JIRADEV/JIRA+REST+API+Example+-+Basic+Authentication
 * "Pinboard":http://pinboard.in/api
+* "Redmine":http://www.redmine.org/projects/redmine/wiki/Rest_api#Authentication
 
 h2. Service Notes
 
