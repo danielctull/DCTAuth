@@ -19,6 +19,7 @@ h3. OAuth
 * "Trello":https://trello.com/docs/gettingstarted/oauth.html
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
 * "Twitter":https://dev.twitter.com/docs/auth/oauth
+* "Xero":http://developer.xero.com/documentation/getting-started/public-applications/ ("Notes":#xero)
 * "Yahoo!":http://developer.yahoo.com/oauth/guide/index.html
 
 h3. OAuth 2.0
@@ -66,6 +67,12 @@ campfireAccount.callbackURL = [NSURL URLWithString:@"callback://url"];
 NSDictionary *parameters = @{ @"type" : @"web_server" };
 [campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAccessTokenRequestType];
 [campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAuthorizeRequestType];</code></pre>
+
+h3. Xero
+
+When making a public application, Xero says that supplying a domain name for the callback URL is optional, the format of which is explained "here":http://developer.xero.com/documentation/advanced-docs/oauth-callback-domains-explained/. It turns out that if we want a full OAuth experience, it is required, otherwise the user will be shown a number to type into the app (this is completely unsupported by DCTAuth, not to mention completely horrible).
+
+So the domain on the "application's settings":https://api.xero.com/Application is set to @danieltull.co.uk@,  the callback URL should use a scheme, for example @dctauth://danieltull.co.uk@. The domain must match the one given in the application settings, though you can also add a subdomain like so: @dctauth://subdomain.danieltull.co.uk@.
 
 h2. License
 
