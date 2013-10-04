@@ -102,7 +102,7 @@
 
 - (void)cancel {
 	self.cancelled = YES;
-	self.executing = NO;
+	[self finish];
 }
 
 - (void)finish {
