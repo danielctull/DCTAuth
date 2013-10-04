@@ -65,7 +65,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	return _DCTAuthRequestMethodString[requestMethod];
 }
 
-- (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
+- (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
 						URL:(NSURL *)URL
 				 parameters:(NSDictionary *)parameters {
 	
@@ -244,7 +244,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 #pragma mark - NSCoding
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
 	_requestMethod = [coder decodeIntegerForKey:DCTAuthRequestProperties.requestMethod];

@@ -10,7 +10,7 @@
 
 @interface _DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
  authenticationURL:(NSURL *)authenticationURL
 		  username:(NSString *)username
 		  password:(NSString *)password;

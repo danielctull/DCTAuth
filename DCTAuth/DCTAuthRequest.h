@@ -49,7 +49,7 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  @param parameters The parameters for this HTTP request.
  @return The newly initialized request object.
  */
-- (id)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL parameters:(NSDictionary *)parameters;
+- (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL parameters:(NSDictionary *)parameters;
 
 /// @name Accessing Properties
 

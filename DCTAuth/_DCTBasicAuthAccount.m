@@ -29,7 +29,7 @@ static const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountPropertie
 
 @implementation _DCTBasicAuthAccount
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
  authenticationURL:(NSURL *)authenticationURL
 		  username:(NSString *)username
 		  password:(NSString *)password {
@@ -44,7 +44,7 @@ static const struct _DCTBasicAuthAccountProperties _DCTBasicAuthAccountPropertie
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:_DCTBasicAuthAccountProperties.authenticationURL];

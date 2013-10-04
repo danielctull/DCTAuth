@@ -10,7 +10,7 @@
 
 @interface _DCTOAuth1Credential : NSObject <DCTAuthAccountCredential>
 
-- (id)initWithConsumerKey:(NSString *)consumerKey
+- (instancetype)initWithConsumerKey:(NSString *)consumerKey
 		   consumerSecret:(NSString *)consumerSecret
 			   oauthToken:(NSString *)oauthToken
 		 oauthTokenSecret:(NSString *)oauthTokenSecret;

@@ -24,7 +24,7 @@ static const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialPropertie
 
 @implementation _DCTOAuth1Credential
 
-- (id)initWithConsumerKey:(NSString *)consumerKey
+- (instancetype)initWithConsumerKey:(NSString *)consumerKey
 		   consumerSecret:(NSString *)consumerSecret
 			   oauthToken:(NSString *)oauthToken
 		 oauthTokenSecret:(NSString *)oauthTokenSecret {
@@ -43,7 +43,7 @@ static const struct _DCTOAuth1CredentialProperties _DCTOAuth1CredentialPropertie
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
 	_consumerKey = [coder decodeObjectForKey:_DCTOAuth1CredentialProperties.consumerKey];

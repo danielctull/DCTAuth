@@ -10,14 +10,14 @@
 
 @interface _DCTOAuth2Account : DCTAuthAccount <DCTAuthAccountSubclass>
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
 	accessTokenURL:(NSURL *)accessTokenURL
 		  clientID:(NSString *)clientID
 	  clientSecret:(NSString *)clientSecret
 			scopes:(NSArray *)scopes;
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
 		  username:(NSString *)username
 		  password:(NSString *)password

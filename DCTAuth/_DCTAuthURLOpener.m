@@ -25,7 +25,7 @@
 	return opener;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (!self) return nil;
 	_queue = [NSOperationQueue new];

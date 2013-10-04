@@ -17,7 +17,7 @@
 
 @implementation _DCTAuthURLOpenerOperation
 
-- (id)initWithURL:(NSURL *)URL callbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler {
+- (instancetype)initWithURL:(NSURL *)URL callbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler {
 	self = [self init];
 	if (!self) return nil;
 	_URL = [URL copy];

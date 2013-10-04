@@ -47,7 +47,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 
 @implementation _DCTOAuth2Account
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
 	accessTokenURL:(NSURL *)accessTokenURL
 		  clientID:(NSString *)clientID
@@ -63,7 +63,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	return self;
 }
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
 		  username:(NSString *)username
 		  password:(NSString *)password
@@ -77,7 +77,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.authorizeURL];

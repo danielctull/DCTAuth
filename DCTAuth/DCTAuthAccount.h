@@ -28,12 +28,12 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  @param consumerSecret The consumer secret for the app.
  @return Newly initialized account.
  */
-+ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
-						 requestTokenURL:(NSURL *)requestTokenURL
-							authorizeURL:(NSURL *)authorizeURL
-						  accessTokenURL:(NSURL *)accessTokenURL
-							 consumerKey:(NSString *)consumerKey
-						  consumerSecret:(NSString *)consumerSecret;
++ (instancetype)OAuthAccountWithType:(NSString *)type
+					 requestTokenURL:(NSURL *)requestTokenURL
+						authorizeURL:(NSURL *)authorizeURL
+					  accessTokenURL:(NSURL *)accessTokenURL
+						 consumerKey:(NSString *)consumerKey
+					  consumerSecret:(NSString *)consumerSecret;
 
 /** Creates an account using OAuth.
  @param type The type of the account.
@@ -45,13 +45,13 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  @param signatureType The signature type to use, either DCTOAuthSignatureTypeHMAC_SHA1 or DCTOAuthSignatureTypePlaintext.
  @return Newly initialized account.
  */
-+ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
-						 requestTokenURL:(NSURL *)requestTokenURL
-							authorizeURL:(NSURL *)authorizeURL
-						  accessTokenURL:(NSURL *)accessTokenURL
-							 consumerKey:(NSString *)consumerKey
-						  consumerSecret:(NSString *)consumerSecret
-						   signatureType:(DCTOAuthSignatureType)signatureType;
++ (instancetype)OAuthAccountWithType:(NSString *)type
+					 requestTokenURL:(NSURL *)requestTokenURL
+						authorizeURL:(NSURL *)authorizeURL
+					  accessTokenURL:(NSURL *)accessTokenURL
+						 consumerKey:(NSString *)consumerKey
+					  consumerSecret:(NSString *)consumerSecret
+					   signatureType:(DCTOAuthSignatureType)signatureType;
 
 
 /** Creates an account using OAuth 2.0.
@@ -70,12 +70,12 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  @param scopes The desired OAuth 2.0 scopes, if any, for this acccount.
  @return Newly initialized account.
  */
-+ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
-							  authorizeURL:(NSURL *)authorizeURL
-							accessTokenURL:(NSURL *)accessTokenURL
-								  clientID:(NSString *)clientID
-							  clientSecret:(NSString *)clientSecret
-									scopes:(NSArray *)scopes;
++ (instancetype)OAuth2AccountWithType:(NSString *)type
+						 authorizeURL:(NSURL *)authorizeURL
+					   accessTokenURL:(NSURL *)accessTokenURL
+							 clientID:(NSString *)clientID
+						 clientSecret:(NSString *)clientSecret
+							   scopes:(NSArray *)scopes;
 
 /** Creates an account using OAuth 2.0.
 
@@ -92,11 +92,11 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  @param scopes The desired OAuth 2.0 scopes, if any, for this acccount.
  @return Newly initialized account.
  */
-+ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
-							 authorizeURL:(NSURL *)authorizeURL
-								 username:(NSString *)username
-								 password:(NSString *)password
-								   scopes:(NSArray *)scopes;
++ (instancetype)OAuth2AccountWithType:(NSString *)type
+						 authorizeURL:(NSURL *)authorizeURL
+							 username:(NSString *)username
+							 password:(NSString *)password
+							   scopes:(NSArray *)scopes;
 
 /** Creates an account using basic authentication. 
  @param type The type of the account.
@@ -105,10 +105,10 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  @param password The password for this account.
  @return Newly initialized account.
  */
-+ (DCTAuthAccount *)basicAuthAccountWithType:(NSString *)type
-						   authenticationURL:(NSURL *)authenticationURL
-									username:(NSString *)username
-									password:(NSString *)password;
++ (instancetype)basicAuthAccountWithType:(NSString *)type
+					   authenticationURL:(NSURL *)authenticationURL
+								username:(NSString *)username
+								password:(NSString *)password;
 
 /// @name Accessing Properties
 
@@ -183,7 +183,7 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  @param type The type of the account.
  @return The newly initialized object.
  @see type */
-- (id)initWithType:(NSString *)type __attribute((objc_requires_super));
+- (instancetype)initWithType:(NSString *)type __attribute((objc_requires_super));
 
 @end
 

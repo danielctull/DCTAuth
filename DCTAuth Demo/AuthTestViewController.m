@@ -20,7 +20,7 @@
 
 @implementation AuthTestViewController
 
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle {
+- (instancetype)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle {
 	
 	self = [super initWithNibName:nibName bundle:nibBundle];
 	if (!self) return nil;

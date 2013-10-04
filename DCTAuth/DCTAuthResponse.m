@@ -22,7 +22,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 
 @implementation DCTAuthResponse
 
-- (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse {
+- (instancetype)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse {
 	if (!data) return nil;
 	self = [self init];
 	if (!self) return nil;
@@ -66,7 +66,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 	return [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
 }
 
-- (id)initWithURL:(NSURL *)URL {
+- (instancetype)initWithURL:(NSURL *)URL {
 	self = [self init];
 	if (!self) return nil;
 	_URL = [URL copy];
@@ -107,7 +107,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 
 #pragma mark - NSCoding
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	NSData *data = [coder decodeObjectForKey:DCTAuthResponseProperties.data];
 	NSHTTPURLResponse *URLResponse = [coder decodeObjectForKey:DCTAuthResponseProperties.URLResponse];
 	return [self initWithData:data URLResponse:URLResponse];

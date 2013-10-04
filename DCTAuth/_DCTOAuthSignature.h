@@ -10,7 +10,7 @@
 
 @interface _DCTOAuthSignature : NSObject
 
-- (id)initWithURL:(NSURL *)URL
+- (instancetype)initWithURL:(NSURL *)URL
 	   HTTPMethod:(NSString *)HTTPMethod
    consumerSecret:(NSString *)consumerSecret
 	  secretToken:(NSString *)secretToken

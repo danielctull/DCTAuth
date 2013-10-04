@@ -11,7 +11,7 @@
 
 @interface _DCTAuthURLOpenerOperation : NSOperation
 
-- (id)initWithURL:(NSURL *)URL callbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler;
+- (instancetype)initWithURL:(NSURL *)URL callbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler;
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSURL *callbackURL;
 @property (nonatomic, readonly) void (^handler)(DCTAuthResponse *response);

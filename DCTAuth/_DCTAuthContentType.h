@@ -20,9 +20,9 @@ typedef NS_ENUM(NSInteger, DCTAuthContentTypeType) {
 
 @interface _DCTAuthContentType : NSObject
 
-- (id)initWithString:(NSString *)string;
-- (id)initWithContentType:(DCTAuthContentTypeType)contentType;
-- (id)initWithContentType:(DCTAuthContentTypeType)contentType parameters:(NSDictionary *)parameters;
+- (instancetype)initWithString:(NSString *)string;
+- (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType;
+- (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType parameters:(NSDictionary *)parameters;
 
 @property (nonatomic, readonly) NSString *string;
 @property (nonatomic, readonly) DCTAuthContentTypeType contentType;

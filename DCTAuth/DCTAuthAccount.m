@@ -20,13 +20,13 @@
 
 @implementation DCTAuthAccount
 
-+ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
-						 requestTokenURL:(NSURL *)requestTokenURL
-							authorizeURL:(NSURL *)authorizeURL
-						  accessTokenURL:(NSURL *)accessTokenURL
-							 consumerKey:(NSString *)consumerKey
-						  consumerSecret:(NSString *)consumerSecret
-						   signatureType:(DCTOAuthSignatureType)signatureType {
++ (instancetype)OAuthAccountWithType:(NSString *)type
+					 requestTokenURL:(NSURL *)requestTokenURL
+						authorizeURL:(NSURL *)authorizeURL
+					  accessTokenURL:(NSURL *)accessTokenURL
+						 consumerKey:(NSString *)consumerKey
+					  consumerSecret:(NSString *)consumerSecret
+					   signatureType:(DCTOAuthSignatureType)signatureType {
 	
 	return [[_DCTOAuth1Account alloc] initWithType:type
 								   requestTokenURL:requestTokenURL
@@ -37,12 +37,12 @@
 									 signatureType:signatureType];
 }
 
-+ (DCTAuthAccount *)OAuthAccountWithType:(NSString *)type
-						  requestTokenURL:(NSURL *)requestTokenURL
-							 authorizeURL:(NSURL *)authorizeURL
-						   accessTokenURL:(NSURL *)accessTokenURL
-							  consumerKey:(NSString *)consumerKey
-						   consumerSecret:(NSString *)consumerSecret {
++ (instancetype)OAuthAccountWithType:(NSString *)type
+					 requestTokenURL:(NSURL *)requestTokenURL
+						authorizeURL:(NSURL *)authorizeURL
+					  accessTokenURL:(NSURL *)accessTokenURL
+						 consumerKey:(NSString *)consumerKey
+					  consumerSecret:(NSString *)consumerSecret {
 		
 	return [self OAuthAccountWithType:type
 					  requestTokenURL:requestTokenURL
@@ -53,12 +53,12 @@
 						signatureType:DCTOAuthSignatureTypeHMAC_SHA1];
 }
 
-+ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
-							  authorizeURL:(NSURL *)authorizeURL
-							accessTokenURL:(NSURL *)accessTokenURL
-								  clientID:(NSString *)clientID
-							  clientSecret:(NSString *)clientSecret
-									scopes:(NSArray *)scopes {
++ (instancetype)OAuth2AccountWithType:(NSString *)type
+						 authorizeURL:(NSURL *)authorizeURL
+					   accessTokenURL:(NSURL *)accessTokenURL
+							 clientID:(NSString *)clientID
+						 clientSecret:(NSString *)clientSecret
+							   scopes:(NSArray *)scopes {
 	
 	return [[_DCTOAuth2Account alloc] initWithType:type
 									  authorizeURL:authorizeURL
@@ -68,11 +68,11 @@
 											scopes:scopes];
 }
 
-+ (DCTAuthAccount *)OAuth2AccountWithType:(NSString *)type
-							 authorizeURL:(NSURL *)authorizeURL
-								 username:(NSString *)username
-								 password:(NSString *)password
-								   scopes:(NSArray *)scopes {
++ (instancetype)OAuth2AccountWithType:(NSString *)type
+						 authorizeURL:(NSURL *)authorizeURL
+							 username:(NSString *)username
+							 password:(NSString *)password
+							   scopes:(NSArray *)scopes {
 
 	return [[_DCTOAuth2Account alloc] initWithType:type
 									  authorizeURL:authorizeURL
@@ -81,10 +81,10 @@
 											scopes:scopes];
 }
 
-+ (DCTAuthAccount *)basicAuthAccountWithType:(NSString *)type
-						   authenticationURL:(NSURL *)authenticationURL
-									username:(NSString *)username
-									password:(NSString *)password {
++ (instancetype)basicAuthAccountWithType:(NSString *)type
+					   authenticationURL:(NSURL *)authenticationURL
+								username:(NSString *)username
+								password:(NSString *)password {
 
 	return [[_DCTBasicAuthAccount alloc] initWithType:type
 									authenticationURL:authenticationURL
@@ -92,14 +92,14 @@
 											 password:password];
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (!self) return nil;
 	_extraParameters = [NSMutableDictionary new];
 	return self;
 }
 
-- (id)initWithType:(NSString *)type {
+- (instancetype)initWithType:(NSString *)type {
 	self = [self init];
 	if (!self) return nil;
 	_type = [type copy];
@@ -108,7 +108,7 @@
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
 	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];

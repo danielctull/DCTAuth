@@ -29,13 +29,13 @@
  @param URLResponse The response from the connection.
  @return The newly initialized request object.
  */
-- (id)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse;
+- (instancetype)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse;
 
 /** For use when the response is a callback URL.
  @param URL The full URL that was called back.
  @return The newly initialized request object.
  */
-- (id)initWithURL:(NSURL *)URL;
+- (instancetype)initWithURL:(NSURL *)URL;
 
 /// @name Accessing Properties
 

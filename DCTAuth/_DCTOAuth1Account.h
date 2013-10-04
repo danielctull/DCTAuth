@@ -10,7 +10,7 @@
 
 @interface _DCTOAuth1Account : DCTAuthAccount <DCTAuthAccountSubclass>
 
-- (id)initWithType:(NSString *)type
+- (instancetype)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
 	  authorizeURL:(NSURL *)authorizeURL
 	accessTokenURL:(NSURL *)accessTokenURL

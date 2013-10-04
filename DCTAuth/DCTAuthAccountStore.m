@@ -56,11 +56,11 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	return accountStore;
 }
 
-- (id)init {
+- (instancetype)init {
 	return [[self class] accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
 
-- (id)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup {
+- (instancetype)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup {
 	self = [super init];
 	if (!self) return nil;
 	_mutableAccounts = [NSMutableArray new];

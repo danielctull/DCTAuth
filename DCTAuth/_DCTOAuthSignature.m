@@ -27,7 +27,7 @@ static NSString * const _DTOAuthSignatureTypeString[] = {
 
 @implementation _DCTOAuthSignature
 
-- (id)initWithURL:(NSURL *)URL
+- (instancetype)initWithURL:(NSURL *)URL
 	   HTTPMethod:(NSString *)HTTPMethod
    consumerSecret:(NSString *)consumerSecret
 	  secretToken:(NSString *)secretToken

@@ -10,7 +10,7 @@
 
 @interface _DCTOAuth2Credential : NSObject <DCTAuthAccountCredential>
 
-- (id)initWithClientID:(NSString *)clientID
+- (instancetype)initWithClientID:(NSString *)clientID
 		  clientSecret:(NSString *)clientSecret
 			  password:(NSString *)password
 		   accessToken:(NSString *)accessToken

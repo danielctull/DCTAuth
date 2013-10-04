@@ -12,7 +12,7 @@ NSString *const DCTAuthContentTypeParameterCharset = @"charset";
 
 @implementation _DCTAuthContentType
 
-- (id)initWithString:(NSString *)string {
+- (instancetype)initWithString:(NSString *)string {
 	self = [self init];
 	if (!self) return nil;
 	_string = [string copy];
@@ -36,11 +36,11 @@ NSString *const DCTAuthContentTypeParameterCharset = @"charset";
 	return self;
 }
 
-- (id)initWithContentType:(DCTAuthContentTypeType)contentType {
+- (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType {
 	return [self initWithContentType:contentType parameters:nil];
 }
 
-- (id)initWithContentType:(DCTAuthContentTypeType)contentType parameters:(NSDictionary *)parameters {
+- (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType parameters:(NSDictionary *)parameters {
 	self = [self init];
 	if (!self) return nil;
 	_contentType = contentType;

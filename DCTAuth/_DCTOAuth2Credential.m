@@ -26,7 +26,7 @@ static const struct _DCTOAuth2CredentialProperties _DCTOAuth2CredentialPropertie
 
 @implementation _DCTOAuth2Credential
 
-- (id)initWithClientID:(NSString *)clientID
+- (instancetype)initWithClientID:(NSString *)clientID
 		  clientSecret:(NSString *)clientSecret
 			  password:(NSString *)password
 		   accessToken:(NSString *)accessToken
@@ -47,7 +47,7 @@ static const struct _DCTOAuth2CredentialProperties _DCTOAuth2CredentialPropertie
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
 	_clientID = [coder decodeObjectForKey:_DCTOAuth2CredentialProperties.clientID];
