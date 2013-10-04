@@ -96,6 +96,7 @@
 	self = [super init];
 	if (!self) return nil;
 	_extraParameters = [NSMutableDictionary new];
+	_credentialFetcher = ^id<DCTAuthAccountCredential>{return nil;};
 	return self;
 }
 
@@ -104,7 +105,6 @@
 	if (!self) return nil;
 	_type = [type copy];
 	_identifier = [[[NSProcessInfo processInfo] globallyUniqueString] copy];
-	_credentialFetcher = ^id<DCTAuthAccountCredential>{return nil;};
 	return self;
 }
 
@@ -116,7 +116,6 @@
 	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
 	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
 	_userInfo = [coder decodeObjectForKey:NSStringFromSelector(@selector(userInfo))];
-	_credentialFetcher = ^id<DCTAuthAccountCredential>{return nil;};
 	return self;
 }
 
