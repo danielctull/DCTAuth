@@ -70,7 +70,7 @@ static NSString * const _DCTAuthEndStringForComponentType[] = {
 	NSString *query = [queryParameters dctAuth_queryString];
 
 	if ([NSURLComponents class]) {
-		NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+		NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
 		components.percentEncodedQuery = query;
 		return components.URL;
 	}
