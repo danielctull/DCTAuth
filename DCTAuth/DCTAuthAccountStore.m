@@ -100,6 +100,16 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 }
 
 - (void)saveAccount:(DCTAuthAccount *)account {
+
+	NSUInteger accountIndex = [self.mutableAccounts indexOfObject:account];
+	BOOL exists = accountIndex != NSNotFound;
+
+	if (exists)
+		[self willChange:NSKeyValueChangeReplacement
+		 valuesAtIndexes:[NSIndexSet indexSetWithIndex:accountIndex]
+				  forKey:DCTAuthAccountStoreAccountsKeyPath];
+
+
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
 
@@ -115,8 +125,12 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 						  storeName:storeName
 							   type:_DCTAuthKeychainAccessTypeCredential];
 
-	if ([self.mutableAccounts indexOfObject:account] != NSNotFound) return;
-	[self insertAccount:account];
+	if (exists)
+		[self didChange:NSKeyValueChangeReplacement
+		valuesAtIndexes:[NSIndexSet indexSetWithIndex:accountIndex]
+				 forKey:DCTAuthAccountStoreAccountsKeyPath];
+	else
+		[self insertAccount:account];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
