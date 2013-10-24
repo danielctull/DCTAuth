@@ -11,9 +11,9 @@
 
 @implementation _DCTAuthKeychainAccess
 
-+ (NSArray *)accountDataForStoreName:(NSString *)storeName {
++ (NSArray *)accountDataForStoreName:(NSString *)storeName accessGroup:(NSString *)accessGroup {
 	
-	NSMutableDictionary *query = [self queryForAccountIdentifier:nil storeName:storeName type:_DCTAuthKeychainAccessTypeAccount];
+	NSMutableDictionary *query = [self queryForAccountIdentifier:nil storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:accessGroup];
 	[query addEntriesFromDictionary:@{
 		(__bridge id)kSecReturnData : (__bridge id)kCFBooleanTrue,
 		(__bridge id)kSecMatchLimit : (__bridge id)kSecMatchLimitAll
@@ -26,18 +26,20 @@
 
 + (void)removeDataForAccountIdentifier:(NSString *)accountIdentifier
 							 storeName:(NSString *)storeName
-								  type:(_DCTAuthKeychainAccessType)type {
+								  type:(_DCTAuthKeychainAccessType)type
+						   accessGroup:(NSString *)accessGroup {
 
-	NSMutableDictionary *query = [self queryForAccountIdentifier:accountIdentifier storeName:storeName type:type];
+	NSMutableDictionary *query = [self queryForAccountIdentifier:accountIdentifier storeName:storeName type:type accessGroup:accessGroup];
 	SecItemDelete((__bridge CFDictionaryRef)query);
 }
 
 + (void)addData:(NSData *)data
 forAccountIdentifier:(NSString *)accountIdentifier
 	  storeName:(NSString *)storeName
-		   type:(_DCTAuthKeychainAccessType)type {
+		   type:(_DCTAuthKeychainAccessType)type
+	accessGroup:(NSString *)accessGroup {
 
-	NSMutableDictionary *query = [self queryForAccountIdentifier:accountIdentifier storeName:storeName type:type];
+	NSMutableDictionary *query = [self queryForAccountIdentifier:accountIdentifier storeName:storeName type:type accessGroup:accessGroup];
 	SecItemDelete((__bridge CFDictionaryRef)query);
 	query[(__bridge id)kSecValueData] = data;
 	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
@@ -45,11 +47,13 @@ forAccountIdentifier:(NSString *)accountIdentifier
 
 + (NSData *)dataForAccountIdentifier:(NSString *)accountIdentifier
 						   storeName:(NSString *)storeName
-								type:(_DCTAuthKeychainAccessType)type  {
+								type:(_DCTAuthKeychainAccessType)type
+						 accessGroup:(NSString *)accessGroup {
 
 	NSMutableDictionary *query = [self queryForAccountIdentifier:accountIdentifier
 													   storeName:storeName
-															type:type];
+															type:type
+													 accessGroup:accessGroup];
 	query[(__bridge id)kSecReturnData] = (__bridge id)kCFBooleanTrue;
 	query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
 
@@ -62,20 +66,17 @@ forAccountIdentifier:(NSString *)accountIdentifier
 	return data;
 }
 
-+ (NSMutableDictionary *)queryForAccountIdentifier:(NSString *)accountIdentifier storeName:(NSString *)storeName type:(_DCTAuthKeychainAccessType)type {
++ (NSMutableDictionary *)queryForAccountIdentifier:(NSString *)accountIdentifier storeName:(NSString *)storeName type:(_DCTAuthKeychainAccessType)type accessGroup:(NSString *)accessGroup {
 
 	NSAssert(storeName, @"storeName is required");
 
 	NSString *service = [NSString stringWithFormat:@"DCTAuth 3.%@.%@", storeName, @(type)];
-	NSDictionary *query = @{
-		(__bridge id)kSecClass       : (__bridge id)kSecClassGenericPassword,
-		(__bridge id)kSecAttrService : service
-	};
-
-	NSMutableDictionary *mQuery = [query mutableCopy];
-	if (accountIdentifier.length > 0) mQuery[(__bridge id)kSecAttrAccount] = accountIdentifier;
-
-	return mQuery;
+	NSMutableDictionary *query = [NSMutableDictionary new];
+	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+	query[(__bridge id)kSecAttrService] = service;
+	if (accessGroup.length > 0) query[(__bridge id)kSecAttrAccessGroup] = accessGroup;
+	if (accountIdentifier.length > 0) query[(__bridge id)kSecAttrAccount] = accountIdentifier;
+	return query;
 }
 
 @end

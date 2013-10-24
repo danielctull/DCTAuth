@@ -67,16 +67,17 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	_name = [name copy];
 	_accessGroup = [accessGroup copy];
 
-	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name];
+	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:self.accessGroup];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		NSString *accountIdentifier = account.identifier;
-
+		NSString *accessGroup = self.accessGroup;
 		account.credentialFetcher = ^id<DCTAuthAccountCredential>() {
 			NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
 																  storeName:name
-																	   type:_DCTAuthKeychainAccessTypeCredential];
+																	   type:_DCTAuthKeychainAccessTypeCredential
+																accessGroup:accessGroup];
 			if (!data) return nil;
 			id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
@@ -117,13 +118,15 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	[_DCTAuthKeychainAccess addData:accountData
 			   forAccountIdentifier:identifier
 						  storeName:storeName
-							   type:_DCTAuthKeychainAccessTypeAccount];
+							   type:_DCTAuthKeychainAccessTypeAccount
+						accessGroup:self.accessGroup];
 
 	NSData *credentialData = [NSKeyedArchiver archivedDataWithRootObject:account.credential];
 	[_DCTAuthKeychainAccess addData:credentialData
 			   forAccountIdentifier:identifier
 						  storeName:storeName
-							   type:_DCTAuthKeychainAccessTypeCredential];
+							   type:_DCTAuthKeychainAccessTypeCredential
+						accessGroup:self.accessGroup];
 
 	if (exists)
 		[self didChange:NSKeyValueChangeReplacement
@@ -136,8 +139,8 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 - (void)deleteAccount:(DCTAuthAccount *)account {
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
-	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount];
-	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential];
+	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup];
+	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup];
 	[self removeObjectFromAccountsAtIndex:[self.mutableAccounts indexOfObject:account]];
 }
 
