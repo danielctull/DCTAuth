@@ -17,6 +17,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 @interface DCTAuthAccountStore ()
 @property (nonatomic, strong) NSMutableArray *mutableAccounts;
 @property (nonatomic, copy) NSString *accessGroup;
+@property (nonatomic) BOOL synchronizable;
 - (NSUInteger)countOfAccounts;
 - (id)objectInAccountsAtIndex:(NSUInteger)index;
 - (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index;
@@ -43,14 +44,14 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 }
 
 + (instancetype)accountStoreWithName:(NSString *)name {
-	return [self accountStoreWithName:name accessGroup:nil];
+	return [self accountStoreWithName:name accessGroup:nil synchronizable:NO];
 }
 
-+ (instancetype)accountStoreWithName:(NSString *)name accessGroup:(NSString *)accessGroup {
++ (instancetype)accountStoreWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 	NSMutableDictionary *accountStores = [self accountStores];
 	DCTAuthAccountStore *accountStore = [accountStores objectForKey:name];
 	if (!accountStore) {
-		accountStore = [[self alloc] initWithName:name accessGroup:accessGroup];
+		accountStore = [[self alloc] initWithName:name accessGroup:accessGroup synchronizable:synchronizable];
 		[accountStores setObject:accountStore forKey:name];
 	}
 	return accountStore;
@@ -60,24 +61,26 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	return [[self class] accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
 
-- (instancetype)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup {
+- (instancetype)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 	self = [super init];
 	if (!self) return nil;
 	_mutableAccounts = [NSMutableArray new];
 	_name = [name copy];
 	_accessGroup = [accessGroup copy];
-
-	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:self.accessGroup];
+	_synchronizable = synchronizable;
+	
+	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:self.accessGroup synchronizable:self.synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		NSString *accountIdentifier = account.identifier;
-		NSString *accessGroup = self.accessGroup;
+
 		account.credentialFetcher = ^id<DCTAuthAccountCredential>() {
 			NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
 																  storeName:name
 																	   type:_DCTAuthKeychainAccessTypeCredential
-																accessGroup:accessGroup];
+																accessGroup:accessGroup
+															 synchronizable:synchronizable];
 			if (!data) return nil;
 			id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
@@ -119,14 +122,16 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 			   forAccountIdentifier:identifier
 						  storeName:storeName
 							   type:_DCTAuthKeychainAccessTypeAccount
-						accessGroup:self.accessGroup];
+						accessGroup:self.accessGroup
+					 synchronizable:self.synchronizable];
 
 	NSData *credentialData = [NSKeyedArchiver archivedDataWithRootObject:account.credential];
 	[_DCTAuthKeychainAccess addData:credentialData
 			   forAccountIdentifier:identifier
 						  storeName:storeName
 							   type:_DCTAuthKeychainAccessTypeCredential
-						accessGroup:self.accessGroup];
+						accessGroup:self.accessGroup
+					 synchronizable:self.synchronizable];
 
 	if (exists)
 		[self didChange:NSKeyValueChangeReplacement
@@ -139,8 +144,8 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 - (void)deleteAccount:(DCTAuthAccount *)account {
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
-	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup];
-	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup];
+	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
+	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup synchronizable:self.synchronizable];
 	[self removeObjectFromAccountsAtIndex:[self.mutableAccounts indexOfObject:account]];
 }
 

@@ -16,22 +16,26 @@ typedef NS_ENUM(NSInteger, _DCTAuthKeychainAccessType) {
 @interface _DCTAuthKeychainAccess : NSObject
 
 + (NSArray *)accountDataForStoreName:(NSString *)storeName
-						 accessGroup:(NSString *)accessGroup;
+						 accessGroup:(NSString *)accessGroup
+					  synchronizable:(BOOL)synchronizable;
 
 + (void)removeDataForAccountIdentifier:(NSString *)accountIdentifier
 							 storeName:(NSString *)storeName
 								  type:(_DCTAuthKeychainAccessType)type
-						   accessGroup:(NSString *)accessGroup;
+						   accessGroup:(NSString *)accessGroup
+						synchronizable:(BOOL)synchronizable;
 
 + (void)addData:(NSData *)data
 forAccountIdentifier:(NSString *)accountIdentifier
 	  storeName:(NSString *)storeName
 		   type:(_DCTAuthKeychainAccessType)type
-	accessGroup:(NSString *)accessGroup;
+	accessGroup:(NSString *)accessGroup
+ synchronizable:(BOOL)synchronizable;
 
 + (NSData *)dataForAccountIdentifier:(NSString *)accountIdentifier
 						   storeName:(NSString *)storeName
 								type:(_DCTAuthKeychainAccessType)type
-						 accessGroup:(NSString *)accessGroup;
+						 accessGroup:(NSString *)accessGroup
+					  synchronizable:(BOOL)synchronizable;
 
 @end
