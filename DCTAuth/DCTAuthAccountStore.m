@@ -11,6 +11,12 @@
 #import "_DCTAuthKeychainAccess.h"
 #import "_DCTAuthAccount.h"
 
+#if TARGET_OS_IPHONE
+@import UIKit;
+#else
+@import Cocoa;
+#endif
+
 const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
 	.name = @"name",
 	.accessGroup = @"accessGroup",
@@ -78,15 +84,29 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 	_name = [name copy];
 	_accessGroup = [accessGroup copy];
 	_synchronizable = synchronizable;
-	[self updateAccountList];
+	[self updateAccountList:nil];
+
+#if TARGET_OS_IPHONE
+	NSString *notificationName = UIApplicationDidBecomeActiveNotification;
+#else
+	NSString *notificationName = NSApplicationDidBecomeActiveNotification;
+#endif
+
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter addObserver:self selector:@selector(updateAccountList:) name:notificationName object:nil];
+
 	return self;
 }
 
-- (void)updateAccountList {
+- (void)updateAccountList:(NSNotification *)notification {
 
 	NSString *name = self.name;
 	NSString *accessGroup = self.accessGroup;
 	BOOL synchronizable = self.synchronizable;
+
+	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
+	[array removeAllObjects];
+
 	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
