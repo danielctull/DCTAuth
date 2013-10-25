@@ -119,20 +119,20 @@ static const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
-	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
-	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
-	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
-	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
-	_userInfo = [coder decodeObjectForKey:NSStringFromSelector(@selector(userInfo))];
+	_type = [coder decodeObjectForKey:DCTAuthAccountProperties.type];
+	_identifier = [coder decodeObjectForKey:DCTAuthAccountProperties.identifier];
+	_callbackURL = [coder decodeObjectForKey:DCTAuthAccountProperties.callbackURL];
+	_accountDescription = [coder decodeObjectForKey:DCTAuthAccountProperties.accountDescription];
+	_userInfo = [coder decodeObjectForKey:DCTAuthAccountProperties.userInfo];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
-	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
-	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
-	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
-	[coder encodeObject:self.userInfo forKey:NSStringFromSelector(@selector(userInfo))];
+	[coder encodeObject:self.type forKey:DCTAuthAccountProperties.type];
+	[coder encodeObject:self.identifier forKey:DCTAuthAccountProperties.identifier];
+	[coder encodeObject:self.callbackURL forKey:DCTAuthAccountProperties.callbackURL];
+	[coder encodeObject:self.accountDescription forKey:DCTAuthAccountProperties.accountDescription];
+	[coder encodeObject:self.userInfo forKey:DCTAuthAccountProperties.userInfo];
 }
 
 - (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType {
