@@ -51,8 +51,6 @@ forAccountIdentifier:(NSString *)accountIdentifier
 	accessGroup:(NSString *)accessGroup
  synchronizable:(BOOL)synchronizable {
 
-	NSLog(@"%@:%@ type:%@ length:%@", self, NSStringFromSelector(_cmd), @(type), @(data.length));
-
 	NSMutableDictionary *query = [self queryForAccountIdentifier:accountIdentifier
 													   storeName:storeName
 															type:type
@@ -60,8 +58,7 @@ forAccountIdentifier:(NSString *)accountIdentifier
 												  synchronizable:synchronizable];
 	SecItemDelete((__bridge CFDictionaryRef)query);
 	query[(__bridge id)kSecValueData] = data;
-	OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), @(status));
+	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
 }
 
 + (NSData *)dataForAccountIdentifier:(NSString *)accountIdentifier
@@ -89,7 +86,6 @@ forAccountIdentifier:(NSString *)accountIdentifier
 
 + (NSMutableDictionary *)queryForAccountIdentifier:(NSString *)accountIdentifier storeName:(NSString *)storeName type:(_DCTAuthKeychainAccessType)type accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 
-	NSLog(@"%@:%@ synchronizable:%@", self, NSStringFromSelector(_cmd), @(synchronizable));
 	NSAssert(storeName, @"storeName is required");
 
 	NSString *service = [NSString stringWithFormat:@"DCTAuth 3.%@.%@", storeName, @(type)];
