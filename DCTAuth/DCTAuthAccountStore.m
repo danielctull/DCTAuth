@@ -26,10 +26,12 @@ const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
 };
 
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
+static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 @interface DCTAuthAccountStore ()
 @property (nonatomic, copy) NSString *accessGroup;
 @property (nonatomic) BOOL synchronizable;
+@property (nonatomic) NSTimer *updateTimer;
 @end
 
 @implementation DCTAuthAccountStore
@@ -74,6 +76,10 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 	return accountStore;
 }
 
+- (void)dealloc {
+	self.updateTimer = nil;
+}
+
 - (instancetype)init {
 	return [[self class] accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
@@ -84,32 +90,58 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 	_name = [name copy];
 	_accessGroup = [accessGroup copy];
 	_synchronizable = synchronizable;
-	[self updateAccountList:nil];
+	[self updateAccountList];
+
+	if (accessGroup.length == 0 && !synchronizable) return self;
 
 #if TARGET_OS_IPHONE
-	NSString *notificationName = UIApplicationDidBecomeActiveNotification;
+	NSString *becomeActiveNotification = UIApplicationDidBecomeActiveNotification;
+	NSString *resignActiveNotification = UIApplicationWillResignActiveNotification;
 #else
-	NSString *notificationName = NSApplicationDidBecomeActiveNotification;
+	NSString *becomeActiveNotification = NSApplicationDidBecomeActiveNotification;
+	NSString *resignActiveNotification = NSApplicationWillResignActiveNotification;
 #endif
 
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter addObserver:self selector:@selector(updateAccountList:) name:notificationName object:nil];
+	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActiveNotification:) name:becomeActiveNotification object:nil];
+	[notificationCenter addObserver:self selector:@selector(applicationWillResignActiveNotification:) name:resignActiveNotification object:nil];
+
+	_updateTimer = [NSTimer scheduledTimerWithTimeInterval:DCTAuthAccountStoreUpdateTimeInterval target:self selector:@selector(updateTimer:) userInfo:nil repeats:YES];
 
 	return self;
 }
 
-- (void)updateAccountList:(NSNotification *)notification {
+- (void)applicationDidBecomeActiveNotification:(NSNotification *)notification {
+	[self updateAccountList];
+	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:DCTAuthAccountStoreUpdateTimeInterval target:self selector:@selector(updateTimer:) userInfo:nil repeats:YES];
+}
+
+- (void)applicationWillResignActiveNotification:(NSNotification *)notification {
+	self.updateTimer = nil;
+}
+
+- (void)setUpdateTimer:(NSTimer *)updateTimer {
+	[_updateTimer invalidate];
+	_updateTimer = updateTimer;
+}
+
+- (void)updateTimer:(NSTimer *)timer {
+	[self updateAccountList];
+}
+
+- (void)updateAccountList {
 
 	NSString *name = self.name;
 	NSString *accessGroup = self.accessGroup;
 	BOOL synchronizable = self.synchronizable;
 
-	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
-	[array removeAllObjects];
+	NSMutableArray *accountIdentifiersToDelete = [[self.accounts valueForKey:DCTAuthAccountProperties.identifier] mutableCopy];
 
 	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
+
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
+
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		NSString *accountIdentifier = account.identifier;
 
@@ -124,8 +156,15 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
 			return credential;
 		};
-		[self insertAccount:account];
+
+		[self updateAccount:account];
+		[accountIdentifiersToDelete removeObject:accountIdentifier];
 	}];
+
+	for (NSString *accountIdentifier in accountIdentifiersToDelete) {
+		DCTAuthAccount *account = [self accountWithIdentifier:accountIdentifier];
+		[self deleteAccount:account];
+	}
 }
 
 - (NSArray *)accountsWithType:(NSString *)type {
@@ -143,6 +182,7 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
+	account.saveUUID = [[NSUUID UUID] UUIDString];
 
 	NSData *accountData = [NSKeyedArchiver archivedDataWithRootObject:account];
 	[_DCTAuthKeychainAccess addData:accountData
@@ -173,7 +213,6 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 }
 
 - (void)removeAccount:(DCTAuthAccount *)account {
-	if (![self.accounts containsObject:account]) return;
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[array removeObject:account];
 }
@@ -188,7 +227,30 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 }
 
 - (void)updateAccount:(DCTAuthAccount *)account {
-	[self removeAccount:account];
+
+	DCTAuthAccount *currentAccount = [self accountWithIdentifier:account.identifier];
+	if ([currentAccount.saveUUID isEqualToString:account.saveUUID]) return;
+
+	if (!currentAccount) {
+		[self insertAccount:account];
+		return;
+	}
+
+	NSMutableArray *accounts = [self.accounts mutableCopy];
+	NSUInteger currentIndex = [accounts indexOfObject:currentAccount];
+	[accounts removeObject:currentAccount];
+	[accounts addObject:account];
+	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
+	NSUInteger newIndex = [accounts indexOfObject:account];
+
+	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
+
+	if (currentIndex == newIndex) {
+		[array replaceObjectAtIndex:currentIndex withObject:account];
+		return;
+	}
+
+	[self removeAccount:currentAccount];
 	[self insertAccount:account];
 }
 

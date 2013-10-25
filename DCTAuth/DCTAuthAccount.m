@@ -18,7 +18,8 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.identifier = @"identifier",
 	.accountDescription = @"accountDescription",
 	.callbackURL = @"callbackURL",
-	.userInfo = @"userInfo"
+	.userInfo = @"userInfo",
+	.saveUUID = @"saveUUID"
 };
 
 @interface DCTAuthAccount ()
@@ -124,6 +125,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	_callbackURL = [coder decodeObjectForKey:DCTAuthAccountProperties.callbackURL];
 	_accountDescription = [coder decodeObjectForKey:DCTAuthAccountProperties.accountDescription];
 	_userInfo = [coder decodeObjectForKey:DCTAuthAccountProperties.userInfo];
+	_saveUUID = [coder decodeObjectForKey:DCTAuthAccountProperties.saveUUID];
 	return self;
 }
 
@@ -133,6 +135,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	[coder encodeObject:self.callbackURL forKey:DCTAuthAccountProperties.callbackURL];
 	[coder encodeObject:self.accountDescription forKey:DCTAuthAccountProperties.accountDescription];
 	[coder encodeObject:self.userInfo forKey:DCTAuthAccountProperties.userInfo];
+	[coder encodeObject:self.saveUUID forKey:DCTAuthAccountProperties.saveUUID];
 }
 
 - (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType {

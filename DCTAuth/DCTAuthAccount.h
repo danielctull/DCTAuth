@@ -8,14 +8,6 @@
 
 #import "DCTAuthAccountCredential.h"
 
-extern const struct DCTAuthAccountProperties {
-	__unsafe_unretained NSString *type;
-	__unsafe_unretained NSString *identifier;
-	__unsafe_unretained NSString *accountDescription;
-	__unsafe_unretained NSString *callbackURL;
-	__unsafe_unretained NSString *userInfo;
-} DCTAuthAccountProperties;
-
 typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
 	DCTOAuthSignatureTypePlaintext
