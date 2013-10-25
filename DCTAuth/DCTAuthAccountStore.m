@@ -11,8 +11,15 @@
 #import "_DCTAuthKeychainAccess.h"
 #import "_DCTAuthAccount.h"
 
+const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
+	.name = @"name",
+	.accessGroup = @"accessGroup",
+	.synchronizable = @"synchronizable",
+	.identifier = @"identifier",
+	.accounts = @"accounts"
+};
+
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
-NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 @interface DCTAuthAccountStore ()
 @property (nonatomic, strong) NSMutableArray *mutableAccounts;
@@ -26,11 +33,11 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 
 @implementation DCTAuthAccountStore
 
-+ (NSMutableDictionary *)accountStores {
-	static NSMutableDictionary *accountStores = nil;
++ (NSMutableArray *)accountStores {
+	static NSMutableArray *accountStores = nil;
 	static dispatch_once_t accountStoresToken;
 	dispatch_once(&accountStoresToken, ^{
-		accountStores = [NSMutableDictionary new];
+		accountStores = [NSMutableArray new];
 	});
 	return accountStores;
 }
@@ -48,12 +55,21 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 }
 
 + (instancetype)accountStoreWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
-	NSMutableDictionary *accountStores = [self accountStores];
-	DCTAuthAccountStore *accountStore = [accountStores objectForKey:name];
+
+	NSMutableArray *accountStores = [self accountStores];
+
+	NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountStoreProperties.name, name];
+	NSPredicate *accessGroupPredicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountStoreProperties.accessGroup, accessGroup];
+	NSPredicate *synchronizablePredicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountStoreProperties.synchronizable, @(synchronizable)];
+	NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[namePredicate, accessGroupPredicate, synchronizablePredicate]];
+	NSArray *filteredArray = [accountStores filteredArrayUsingPredicate:predicate];
+
+	DCTAuthAccountStore *accountStore = [filteredArray firstObject];
 	if (!accountStore) {
 		accountStore = [[self alloc] initWithName:name accessGroup:accessGroup synchronizable:synchronizable];
-		[accountStores setObject:accountStore forKey:name];
+		[accountStores addObject:accountStore];
 	}
+
 	return accountStore;
 }
 
@@ -93,12 +109,12 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 }
 
 - (NSArray *)accountsWithType:(NSString *)type {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == %@", type];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountProperties.type, type];
 	return [self.accounts filteredArrayUsingPredicate:predicate];
 }
 
 - (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountProperties.identifier, identifier];
 	NSArray *filteredAccounts = [self.accounts filteredArrayUsingPredicate:predicate];
 	return [filteredAccounts lastObject];
 }
@@ -111,7 +127,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	if (exists)
 		[self willChange:NSKeyValueChangeReplacement
 		 valuesAtIndexes:[NSIndexSet indexSetWithIndex:accountIndex]
-				  forKey:DCTAuthAccountStoreAccountsKeyPath];
+				  forKey:DCTAuthAccountStoreProperties.accounts];
 
 
 	NSString *identifier = account.identifier;
@@ -136,7 +152,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 	if (exists)
 		[self didChange:NSKeyValueChangeReplacement
 		valuesAtIndexes:[NSIndexSet indexSetWithIndex:accountIndex]
-				 forKey:DCTAuthAccountStoreAccountsKeyPath];
+				 forKey:DCTAuthAccountStoreProperties.accounts];
 	else
 		[self insertAccount:account];
 }
@@ -152,7 +168,7 @@ NSString *const DCTAuthAccountStoreAccountsKeyPath = @"accounts";
 - (void)insertAccount:(DCTAuthAccount *)account {
 	NSMutableArray *accounts = [self.mutableAccounts mutableCopy];
 	[accounts addObject:account];
-	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"accountDescription" ascending:YES]]];
+	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAuthAccountProperties.accountDescription ascending:YES]]];
 	NSUInteger index = [accounts indexOfObject:account];
 	[self insertObject:account inAccountsAtIndex:index];
 }

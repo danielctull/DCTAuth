@@ -13,6 +13,14 @@
 #import "_DCTBasicAuthAccount.h"
 #import "NSString+DCTAuth.h"
 
+static const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
+	.type = @"type",
+	.identifier = @"identifier",
+	.accountDescription = @"accountDescription",
+	.callbackURL = @"callbackURL",
+	.userInfo = @"userInfo"
+};
+
 @interface DCTAuthAccount ()
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
 @property (nonatomic) NSMutableDictionary *extraParameters;

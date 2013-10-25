@@ -8,7 +8,13 @@
 
 #import "DCTAuthAccount.h"
 
-extern NSString *const DCTAuthAccountStoreAccountsKeyPath;
+extern const struct DCTAuthAccountStoreProperties {
+	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *accessGroup;
+	__unsafe_unretained NSString *synchronizable;
+	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *accounts;
+} DCTAuthAccountStoreProperties;
 
 /** The DCTAuthAccountStore class provides an interface for accessing, manipulating, and storing accounts. To create and retrieve accounts from the database, you must create an DCTAuthAccountStore object. Each DCTAuthAccount object belongs to a single DCTAuthAccountStore object.
  */
