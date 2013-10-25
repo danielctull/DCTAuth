@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountCredential.h"
 
-static const struct DCTAuthAccountProperties {
+extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *type;
 	__unsafe_unretained NSString *identifier;
 	__unsafe_unretained NSString *accountDescription;

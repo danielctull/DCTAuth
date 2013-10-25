@@ -22,13 +22,8 @@ const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 
 @interface DCTAuthAccountStore ()
-@property (nonatomic, strong) NSMutableArray *mutableAccounts;
 @property (nonatomic, copy) NSString *accessGroup;
 @property (nonatomic) BOOL synchronizable;
-- (NSUInteger)countOfAccounts;
-- (id)objectInAccountsAtIndex:(NSUInteger)index;
-- (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index;
-- (void)removeObjectFromAccountsAtIndex:(NSUInteger)index;
 @end
 
 @implementation DCTAuthAccountStore
@@ -80,12 +75,19 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 - (instancetype)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 	self = [super init];
 	if (!self) return nil;
-	_mutableAccounts = [NSMutableArray new];
 	_name = [name copy];
 	_accessGroup = [accessGroup copy];
 	_synchronizable = synchronizable;
-	
-	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:self.accessGroup synchronizable:self.synchronizable];
+	[self updateAccountList];
+	return self;
+}
+
+- (void)updateAccountList {
+
+	NSString *name = self.name;
+	NSString *accessGroup = self.accessGroup;
+	BOOL synchronizable = self.synchronizable;
+	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
 		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -104,8 +106,6 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 		};
 		[self insertAccount:account];
 	}];
-
-	return self;
 }
 
 - (NSArray *)accountsWithType:(NSString *)type {
@@ -120,15 +120,6 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 }
 
 - (void)saveAccount:(DCTAuthAccount *)account {
-
-	NSUInteger accountIndex = [self.mutableAccounts indexOfObject:account];
-	BOOL exists = accountIndex != NSNotFound;
-
-	if (exists)
-		[self willChange:NSKeyValueChangeReplacement
-		 valuesAtIndexes:[NSIndexSet indexSetWithIndex:accountIndex]
-				  forKey:DCTAuthAccountStoreProperties.accounts];
-
 
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
@@ -149,12 +140,8 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 						accessGroup:self.accessGroup
 					 synchronizable:self.synchronizable];
 
-	if (exists)
-		[self didChange:NSKeyValueChangeReplacement
-		valuesAtIndexes:[NSIndexSet indexSetWithIndex:accountIndex]
-				 forKey:DCTAuthAccountStoreProperties.accounts];
-	else
-		[self insertAccount:account];
+	[self removeAccount:account];
+	[self insertAccount:account];
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
@@ -162,33 +149,27 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 	NSString *storeName = self.name;
 	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
 	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup synchronizable:self.synchronizable];
-	[self removeObjectFromAccountsAtIndex:[self.mutableAccounts indexOfObject:account]];
+	[self removeAccount:account];
+}
+
+- (void)removeAccount:(DCTAuthAccount *)account {
+	if (![self.accounts containsObject:account]) return;
+	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
+	[array removeObject:account];
 }
 
 - (void)insertAccount:(DCTAuthAccount *)account {
-	NSMutableArray *accounts = [self.mutableAccounts mutableCopy];
+	NSMutableArray *accounts = [self.accounts mutableCopy];
 	[accounts addObject:account];
-	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAuthAccountProperties.accountDescription ascending:YES]]];
+	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
 	NSUInteger index = [accounts indexOfObject:account];
-	[self insertObject:account inAccountsAtIndex:index];
+	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
+	[array insertObject:account atIndex:index];
 }
 
-#pragma mark - Accounts accessors
-
-- (NSArray *)accounts {
-	return [self.mutableAccounts copy];
-}
-- (NSUInteger)countOfAccounts {
-	return [self.mutableAccounts count];
-}
-- (id)objectInAccountsAtIndex:(NSUInteger)index {
-	return [self.mutableAccounts objectAtIndex:index];
-}
-- (void)insertObject:(DCTAuthAccount *)object inAccountsAtIndex:(NSUInteger)index {
-	[self.mutableAccounts insertObject:object atIndex:index];
-}
-- (void)removeObjectFromAccountsAtIndex:(NSUInteger)index {
-	[self.mutableAccounts removeObjectAtIndex:index];
+- (void)updateAccount:(DCTAuthAccount *)account {
+	[self removeAccount:account];
+	[self insertAccount:account];
 }
 
 @end

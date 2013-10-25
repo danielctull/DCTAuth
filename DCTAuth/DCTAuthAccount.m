@@ -13,7 +13,7 @@
 #import "_DCTBasicAuthAccount.h"
 #import "NSString+DCTAuth.h"
 
-static const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
+const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.type = @"type",
 	.identifier = @"identifier",
 	.accountDescription = @"accountDescription",
