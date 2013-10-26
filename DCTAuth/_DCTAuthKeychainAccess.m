@@ -86,6 +86,17 @@ forAccountIdentifier:(NSString *)accountIdentifier
 
 + (NSMutableDictionary *)queryForAccountIdentifier:(NSString *)accountIdentifier storeName:(NSString *)storeName type:(_DCTAuthKeychainAccessType)type accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 
+// Ignore the access group if running on the iPhone simulator.
+//
+// Apps that are built for the simulator aren't signed, so there's no keychain access group
+// for the simulator to check.
+//
+// If a SecItem contains an access group attribute, SecItemAdd and SecItemUpdate on the
+// simulator will return -25243 (errSecNoAccessForItem).
+#if TARGET_IPHONE_SIMULATOR
+	accessGroup = nil;
+#endif
+
 	NSAssert(storeName, @"storeName is required");
 
 	NSString *service = [NSString stringWithFormat:@"DCTAuth 3.%@.%@", storeName, @(type)];
