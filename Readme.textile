@@ -2,6 +2,30 @@ h1. DCTAuth
 
 A library for performing authorised web requests to services using OAuth, OAuth 2.0 and basic authentiaction.
 
+h2. Features
+
+* Multiple account type architecture
+** Built-in support for OAuth, OAuth 2.0 and Basic authentication
+** Add extra headers to authentication requests
+** Create your own custom authentication system
+
+* Works on Mac and iOS
+** OS X 10.7+
+** iOS 5+
+
+* Web view authorization step
+** Launch Safari and return with a callback URL
+** Provide in-app web view
+
+* Keychain
+** Accounts save to the keychain
+** Supports iCloud Keychain sync
+** Supports keychain access groups
+
+* Account Stores
+** Multiple account stores, for different types of account
+** KVO accounts property for easy listing of accounts
+
 h2. Documentation
 
 DCTAuth is "fully documented":http://danieltull.co.uk/DCTAuth/documentation/ and there is a "feed for the docset":http://danieltull.co.uk/DCTAuth/documentation/docset.atom that you can add to Xcode.
