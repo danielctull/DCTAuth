@@ -142,23 +142,36 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
 
-		DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		NSString *accountIdentifier = account.identifier;
 
-		account.credentialFetcher = ^id<DCTAuthAccountCredential>() {
-			NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
-																  storeName:name
-																	   type:_DCTAuthKeychainAccessTypeCredential
-																accessGroup:accessGroup
-															 synchronizable:synchronizable];
-			if (!data) return nil;
-			id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-			if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
-			return credential;
-		};
+		@try {
+			DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 
-		[self updateAccount:account];
-		[accountIdentifiersToDelete removeObject:accountIdentifier];
+			NSString *accountIdentifier = account.identifier;
+
+			account.credentialFetcher = ^id<DCTAuthAccountCredential>() {
+				NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
+																	  storeName:name
+																		   type:_DCTAuthKeychainAccessTypeCredential
+																	accessGroup:accessGroup
+																 synchronizable:synchronizable];
+				if (!data) return nil;
+				id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+				if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
+				return credential;
+			};
+
+			[self updateAccount:account];
+			[accountIdentifiersToDelete removeObject:accountIdentifier];
+
+		}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-exception-parameter"
+		@catch (NSException *exception) {
+			return;
+		}
+#pragma clang diagnostic pop
+
 	}];
 
 	for (NSString *accountIdentifier in accountIdentifiersToDelete) {
