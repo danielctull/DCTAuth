@@ -131,6 +131,13 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 - (void)updateAccountList {
 
+	if (![NSThread isMainThread]) {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[self updateAccountList];
+		});
+		return;
+	}
+
 	NSString *name = self.name;
 	NSString *accessGroup = self.accessGroup;
 	BOOL synchronizable = self.synchronizable;
@@ -178,6 +185,13 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 - (void)saveAccount:(DCTAuthAccount *)account {
 
+	if (![NSThread isMainThread]) {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[self saveAccount:account];
+		});
+		return;
+	}
+
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
 	account.saveUUID = [[NSUUID UUID] UUIDString];
@@ -198,6 +212,14 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
+
+	if (![NSThread isMainThread]) {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[self deleteAccount:account];
+		});
+		return;
+	}
+
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
 	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
@@ -252,6 +274,8 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 @implementation DCTAuthAccountStore (Private)
 
 - (void)saveCredential:(id<DCTAuthAccountCredential>)credential forAccount:(DCTAuthAccount *)account {
+
+	if (!credential) return;
 
 	NSString *storeName = self.name;
 	NSString *accessGroup = self.accessGroup;
