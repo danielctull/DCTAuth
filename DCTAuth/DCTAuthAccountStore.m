@@ -189,11 +189,11 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 							   type:_DCTAuthKeychainAccessTypeAccount
 						accessGroup:self.accessGroup
 					 synchronizable:self.synchronizable];
-	
-	[self saveCredential:account.credential forAccount:account];
 
 	[self removeAccount:account];
 	[self insertAccount:account];
+
+	// This will cause the account to call back to save its credential
 	account.accountStore = self;
 }
 
