@@ -8,6 +8,7 @@
 
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountCredential.h"
+#import "DCTAuthAccountStore.h"
 
 extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *type;
@@ -20,6 +21,7 @@ extern const struct DCTAuthAccountProperties {
 
 @interface DCTAuthAccount ()
 - (NSDictionary *)parametersForRequestType:(NSString *)requestType;
-@property (nonatomic, copy) id<DCTAuthAccountCredential> (^credentialFetcher)();
+//@property (nonatomic, copy) id<DCTAuthAccountCredential> (^credentialFetcher)();
 @property (nonatomic, copy) NSString *saveUUID;
+@property (nonatomic, weak) DCTAuthAccountStore *accountStore;
 @end

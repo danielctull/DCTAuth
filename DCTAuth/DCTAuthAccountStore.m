@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthAccountStore.h"
+#import "_DCTAuthAccountStore.h"
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthKeychainAccess.h"
 #import "_DCTAuthAccount.h"
@@ -142,27 +142,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
 
-
 		@try {
 			DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-
+			account.accountStore = self;
 			NSString *accountIdentifier = account.identifier;
-
-			account.credentialFetcher = ^id<DCTAuthAccountCredential>() {
-				NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
-																	  storeName:name
-																		   type:_DCTAuthKeychainAccessTypeCredential
-																	accessGroup:accessGroup
-																 synchronizable:synchronizable];
-				if (!data) return nil;
-				id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-				if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
-				return credential;
-			};
-
 			[self updateAccount:account];
 			[accountIdentifiersToDelete removeObject:accountIdentifier];
-
 		}
 
 #pragma clang diagnostic push
@@ -204,17 +189,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 							   type:_DCTAuthKeychainAccessTypeAccount
 						accessGroup:self.accessGroup
 					 synchronizable:self.synchronizable];
-
-	NSData *credentialData = [NSKeyedArchiver archivedDataWithRootObject:account.credential];
-	[_DCTAuthKeychainAccess addData:credentialData
-			   forAccountIdentifier:identifier
-						  storeName:storeName
-							   type:_DCTAuthKeychainAccessTypeCredential
-						accessGroup:self.accessGroup
-					 synchronizable:self.synchronizable];
+	
+	[self saveCredential:account.credential forAccount:account];
 
 	[self removeAccount:account];
 	[self insertAccount:account];
+	account.accountStore = self;
 }
 
 - (void)deleteAccount:(DCTAuthAccount *)account {
@@ -268,3 +248,43 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 }
 
 @end
+
+@implementation DCTAuthAccountStore (Private)
+
+- (void)saveCredential:(id<DCTAuthAccountCredential>)credential forAccount:(DCTAuthAccount *)account {
+
+	NSString *storeName = self.name;
+	NSString *accessGroup = self.accessGroup;
+	BOOL synchronizable = self.synchronizable;
+	NSString *accountIdentifier = account.identifier;
+
+	NSData *credentialData = [NSKeyedArchiver archivedDataWithRootObject:credential];
+	[_DCTAuthKeychainAccess addData:credentialData
+			   forAccountIdentifier:accountIdentifier
+						  storeName:storeName
+							   type:_DCTAuthKeychainAccessTypeCredential
+						accessGroup:accessGroup
+					 synchronizable:synchronizable];
+}
+
+- (id<DCTAuthAccountCredential>)retrieveCredentialForAccount:(DCTAuthAccount *)account {
+
+	NSString *name = self.name;
+	NSString *accessGroup = self.accessGroup;
+	BOOL synchronizable = self.synchronizable;
+	NSString *accountIdentifier = account.identifier;
+	NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
+														  storeName:name
+															   type:_DCTAuthKeychainAccessTypeCredential
+														accessGroup:accessGroup
+													 synchronizable:synchronizable];
+	if (!data) return nil;
+	id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;
+	return credential;
+}
+
+@end
+
+
+

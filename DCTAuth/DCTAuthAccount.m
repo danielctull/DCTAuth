@@ -7,11 +7,12 @@
 //
 
 #import "_DCTAuthAccount.h"
-#import "DCTAuthAccountSubclass.h"
+#import "_DCTAuthAccountStore.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
 #import "NSString+DCTAuth.h"
+#import "DCTAuthAccountSubclass.h"
 
 const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.type = @"type",
@@ -23,6 +24,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 };
 
 @interface DCTAuthAccount ()
+@property (nonatomic, strong) id<DCTAuthAccountCredential> internalCredential;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
 @property (nonatomic) NSMutableDictionary *extraParameters;
 @end
@@ -105,7 +107,6 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	self = [super init];
 	if (!self) return nil;
 	_extraParameters = [NSMutableDictionary new];
-	_credentialFetcher = ^id<DCTAuthAccountCredential>{return nil;};
 	return self;
 }
 
@@ -153,9 +154,28 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 
 - (id<DCTAuthAccountCredential>)credential {
 
-	if (_credential) return _credential;
+	if (self.internalCredential)
+		return self.internalCredential;
 
-	return self.credentialFetcher();
+	return [self.accountStore retrieveCredentialForAccount:self];
+}
+
+- (void)setCredential:(id<DCTAuthAccountCredential>)credential {
+
+	if (self.accountStore)
+		[self.accountStore saveCredential:credential forAccount:self];
+	else
+		self.internalCredential = credential;
+}
+
+- (void)setAccountStore:(DCTAuthAccountStore *)accountStore {
+
+	_accountStore = accountStore;
+
+	if (self.internalCredential) {
+		[accountStore saveCredential:self.internalCredential forAccount:self];
+		self.internalCredential = nil;
+	}
 }
 
 - (NSURL *)callbackURL {
