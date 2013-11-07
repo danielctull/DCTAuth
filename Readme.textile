@@ -40,6 +40,7 @@ h3. OAuth
 * "Dropbox":http://www.dropbox.com/developers/reference/api
 * "Fitbit":http://dev.fitbit.com
 * "Flickr":http://www.flickr.com/services/api/auth.oauth.html
+* "Goodreads":https://www.goodreads.com/api/documentation
 * "Readability":http://www.readability.com/developers/api
 * "Trello":https://trello.com/docs/gettingstarted/oauth.html
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
