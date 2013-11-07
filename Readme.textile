@@ -38,6 +38,7 @@ h3. OAuth
 
 * "Bitbucket":https://confluence.atlassian.com/display/BITBUCKET/oauth+Endpoint
 * "Dropbox":http://www.dropbox.com/developers/reference/api
+* "Fitbit":http://dev.fitbit.com
 * "Flickr":http://www.flickr.com/services/api/auth.oauth.html
 * "Readability":http://www.readability.com/developers/api
 * "Trello":https://trello.com/docs/gettingstarted/oauth.html
