@@ -627,6 +627,7 @@
 /* Begin XCBuildConfiguration section */
 		244414B1173EBB320046D993 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 240BE44417ED7AE4007AB802 /* Universal.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -645,6 +646,7 @@
 		};
 		244414B2173EBB320046D993 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 240BE44417ED7AE4007AB802 /* Universal.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
