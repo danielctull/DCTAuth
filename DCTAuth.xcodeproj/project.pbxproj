@@ -699,7 +699,6 @@
 					"-Wno-pedantic",
 					"-Wno-assign-enum",
 					"-Wno-system-headers",
-					"-Wno-auto-import",
 				);
 			};
 			name = Debug;
@@ -732,7 +731,6 @@
 					"-Wno-pedantic",
 					"-Wno-assign-enum",
 					"-Wno-system-headers",
-					"-Wno-auto-import",
 				);
 			};
 			name = Release;
