@@ -191,7 +191,10 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	};
 
 	void (^refresh)() = ^{
-		[self refreshAccessTokenWithRefreshToken:refreshToken handler:^(DCTAuthResponse *response, NSError *error) {
+		[self refreshAccessTokenWithRefreshToken:refreshToken
+										 clientID:clientID
+									clientSecret:clientSecret
+										 handler:^(DCTAuthResponse *response, NSError *error) {
 			if (shouldComplete(response, error))
 				authorize();
 			else
@@ -274,11 +277,16 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 }
 
 - (void)refreshAccessTokenWithRefreshToken:(NSString *)refreshToken
+								  clientID:(NSString *)clientID
+							  clientSecret:(NSString *)clientSecret
 								   handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
 
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters setObject:@"refresh_token" forKey:@"grant_type"];
 	[parameters setObject:refreshToken forKey:@"refresh_token"];
+	[parameters setObject:clientID forKey:@"client_id"];
+	[parameters setObject:@"web_server" forKey:@"type"];
+	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountRefreshRequestType];
 	[parameters addEntriesFromDictionary:extras];
