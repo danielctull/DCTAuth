@@ -17,9 +17,9 @@
 	
 	NSMutableArray *parameterStrings = [NSMutableArray new];
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-		NSString *encodedKey = [[key description] dctAuth_URLEncodedString];
-		NSString *encodedValue = [[value description] dctAuth_URLEncodedString];
-		NSString *parameterString = [NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue];
+		key = [key description];
+		value = [value description];
+		NSString *parameterString = [NSString stringWithFormat:@"%@=%@", key, value];
 		[parameterStrings addObject:parameterString];
 	}];
 	return [parameterStrings componentsJoinedByString:@"&"];

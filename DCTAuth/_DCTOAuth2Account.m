@@ -12,7 +12,7 @@
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
-#import "NSURL+DCTAuth.h"
+#import "NSDictionary+DCTAuth.h"
 #import "DCTOAuth2Account.h"
 
 NSString *const DCTOAuth2AccountAccessTokenRequestType = @"DCTOAuth2AccountAccessTokenRequestType";
@@ -297,14 +297,20 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 }
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
-	NSURL *URL = [request URL];
-	_DCTOAuth2Credential *credential = self.credential;
+
+	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
+	NSDictionary *exitingParameters = [URLComponents.query dctAuth_parameterDictionary];
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters setObject:credential.accessToken forKey:@"access_token"];
+	[parameters addEntriesFromDictionary:exitingParameters];
+	
+	_DCTOAuth2Credential *credential = self.credential;
+	parameters[@"access_token"] = credential.accessToken;
+
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountSigningRequestType];
 	[parameters addEntriesFromDictionary:extras];
-	URL = [URL dctAuth_URLByAddingQueryParameters:parameters];
-	request.URL = URL;
+
+	URLComponents.query = [parameters dctAuth_queryString];
+	request.URL = URLComponents.URL;
 }
 
 - (NSError *)errorWithStatusCode:(NSInteger)statusCode dictionary:(NSDictionary *)dictionary {

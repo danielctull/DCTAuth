@@ -21,7 +21,6 @@
 		2454C24816D8BD4500E97367 /* _DCTOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = 2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */; };
 		2454C24B16D8E35400E97367 /* DCTAuthAccountCredential.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */; };
 		2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; };
-		2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */; };
 		24561B241770702200DD0051 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24561B231770702200DD0051 /* XCTest.framework */; };
 		24561B261770733D00DD0051 /* DCTAuthKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */; };
 		245F7C7416AF2809005B72BA /* DCTAuthResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 245F7C7316AF2809005B72BA /* DCTAuthResponse.m */; };
@@ -41,7 +40,6 @@
 		24C622E915EB5F9200B68FAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C622E715EB5F8000B68FAD /* Security.framework */; };
 		24C6232D15EB932700B68FAD /* DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6232C15EB932700B68FAD /* DCTAuth.m */; };
 		24C6238C15EBBB8800B68FAD /* NSDictionary+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238915EBBB8800B68FAD /* NSDictionary+DCTAuth.m */; };
-		24C6238D15EBBB8800B68FAD /* NSURL+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */; };
 		24DAD32415FCC776004FD601 /* DCTAuthURLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DAD32315FCC776004FD601 /* DCTAuthURLTests.m */; };
 		24FA8FED15E93D8E00E1ED99 /* DCTAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */; };
 		24FA900315E93D8E00E1ED99 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24FA900115E93D8E00E1ED99 /* InfoPlist.strings */; };
@@ -82,7 +80,6 @@
 			files = (
 				2454C24B16D8E35400E97367 /* DCTAuthAccountCredential.h in CopyFiles */,
 				245F7C7716AF3371005B72BA /* DCTAuthResponse.h in CopyFiles */,
-				2455D71B163BE92C00BC6FD7 /* NSURL+DCTAuth.h in CopyFiles */,
 				2455D71A163BE72B00BC6FD7 /* DCTAuthAccountSubclass.h in CopyFiles */,
 				24FA8FED15E93D8E00E1ED99 /* DCTAuth.h in CopyFiles */,
 				24FA904A15E940BA00E1ED99 /* DCTAuthRequest.h in CopyFiles */,
@@ -145,8 +142,6 @@
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
 		24C6238815EBBB8800B68FAD /* NSDictionary+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+DCTAuth.h"; sourceTree = "<group>"; };
 		24C6238915EBBB8800B68FAD /* NSDictionary+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+DCTAuth.m"; sourceTree = "<group>"; };
-		24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DCTAuth.h"; sourceTree = "<group>"; };
-		24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DCTAuth.m"; sourceTree = "<group>"; };
 		24DAD32315FCC776004FD601 /* DCTAuthURLTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthURLTests.m; sourceTree = "<group>"; };
 		24FA8FE415E93D8E00E1ED99 /* libDCTAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCTAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA8FE715E93D8E00E1ED99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -335,8 +330,6 @@
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				245F7C7216AF2809005B72BA /* DCTAuthResponse.h */,
 				245F7C7316AF2809005B72BA /* DCTAuthResponse.m */,
-				24C6238A15EBBB8800B68FAD /* NSURL+DCTAuth.h */,
-				24C6238B15EBBB8800B68FAD /* NSURL+DCTAuth.m */,
 				243B575815EE4CAC007F1CA6 /* Private Classes */,
 				243B575615EE4C96007F1CA6 /* Private Categories */,
 			);
@@ -551,7 +544,6 @@
 				249CAD2215EA236B00FFD0D2 /* _DCTOAuth1Account.m in Sources */,
 				24C6232D15EB932700B68FAD /* DCTAuth.m in Sources */,
 				24C6238C15EBBB8800B68FAD /* NSDictionary+DCTAuth.m in Sources */,
-				24C6238D15EBBB8800B68FAD /* NSURL+DCTAuth.m in Sources */,
 				240764BB15EE3791006E0B54 /* _DCTBasicAuthAccount.m in Sources */,
 				24A3318315F14D63004FA7E4 /* _DCTAuthURLOpener.m in Sources */,
 				24A331D815F15B93004FA7E4 /* _DCTAuthPlatform.m in Sources */,

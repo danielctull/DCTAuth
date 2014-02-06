@@ -10,8 +10,8 @@
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthPlatform.h"
 #import "_DCTAuthMultipartData.h"
-#import "NSURL+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
+#import "NSString+DCTAuth.h"
 #import "_DCTAuthURLRequestPerformer.h"
 
 static const struct DCTAuthRequestProperties {
@@ -134,7 +134,15 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 }
 
 - (void)_setupGETRequest:(NSMutableURLRequest *)request {
-	[request setURL:[self.URL dctAuth_URLByAddingQueryParameters:self.parameters]];
+
+	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.URL resolvingAgainstBaseURL:YES];
+	NSDictionary *exitingParameters = [URLComponents.query dctAuth_parameterDictionary];
+	NSMutableDictionary *queryParameters = [NSMutableDictionary new];
+	[queryParameters addEntriesFromDictionary:exitingParameters];
+	[queryParameters addEntriesFromDictionary:self.parameters];
+	URLComponents.query = [queryParameters dctAuth_queryString];
+
+	[request setURL:URLComponents.URL];
 }
 
 - (NSData *)encodedBodyWithParameters:(NSDictionary *)parameters
@@ -217,8 +225,8 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 	NSString *queryString = @"";
 	if (self.requestMethod == DCTAuthRequestMethodGET && self.parameters.count > 0) {
-		NSURL *URL = [self.URL dctAuth_URLByAddingQueryParameters:self.parameters];
-		queryString = [NSString stringWithFormat:@"\nQuery: ?%@", [URL query]];
+		NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
+		queryString = [NSString stringWithFormat:@"\nQuery: ?%@", URLComponents.query];
 	}
 
 	return [NSString stringWithFormat:@"<%@: %p>\n%@ %@ \nHost: %@%@%@%@\n\n",
