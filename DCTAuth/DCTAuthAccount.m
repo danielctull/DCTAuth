@@ -194,6 +194,14 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {}
+
+- (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *, NSError *))handler {
+	NSError *error = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{
+		NSLocalizedDescriptionKey : @"Reauthentication not supported for this account type."
+	}];
+	handler(nil, error);
+}
+
 - (void)cancelAuthentication {}
 
 - (NSString *)description {

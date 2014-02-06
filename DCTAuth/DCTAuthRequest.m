@@ -198,7 +198,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	return [request copy];
 }
 
-- (void)performRequestWithHandler:(DCTAuthRequestHandler)handler {
+- (void)performRequestWithHandler:(DCTAuthRequestHandler)originalHandler {
 
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter postNotificationName:DCTAuthConnectionIncreasedNotification object:self];
@@ -207,12 +207,31 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
 	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
-	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *response, NSError *error) {
+
+	void (^handler)(DCTAuthResponse *response, NSError *error) = ^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
-			if (handler != NULL) handler(response, error);
+			if (originalHandler) originalHandler(response, error);
 			[_DCTAuthPlatform endBackgroundTask:object];
 		});
+	};
+
+	[URLRequestPerformer performRequest:URLRequest withHandler:^(DCTAuthResponse *originalResponse, NSError *originalError) {
+
+		if (!originalError || !self.account) {
+			handler(originalResponse, originalError);
+			return;
+		}
+
+		[self.account reauthenticateWithHandler:^(DCTAuthResponse *response, NSError *error) {
+
+			if (error) {
+				handler(originalResponse, originalError);
+				return;
+			}
+
+			[URLRequestPerformer performRequest:[self signedURLRequest] withHandler:handler];
+		}];
 	}];
 }
 

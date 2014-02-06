@@ -6,7 +6,9 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthAccountCredential.h"
+@import Foundation;
+@class DCTAuthResponse;
+@protocol DCTAuthAccountCredential;
 
 typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
@@ -168,6 +170,22 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 
  @see [DCTAuth handleURL:] */
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler;
+
+
+/** This will cause the account to refresh its credentials if it supports it, eg OAuth2.
+ Otherwise this calls the handler with a nil response and an error, you should probably then
+ call -authenticateWithHandler.
+ 
+ For included account types, this method  never require user input and never attempt
+ to open a WebView. For your own DCTAuthAccount subclasses, you should adhere to the same principles 
+ and use this as a headless method.
+ 
+ If you use -[DCTAuthRequest performRequest:] it will automatically call this method if there is 
+ an error and if it succeds, will attempt to perform the request again before calling its completion 
+ handler.
+ */
+
+- (void)reauthenticateWithHandler:(void(^)(DCTAuthResponse *response, NSError *error))handler;
 
 - (void)cancelAuthentication;
 
