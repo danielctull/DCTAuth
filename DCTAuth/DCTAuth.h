@@ -10,6 +10,7 @@
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthRequest.h"
 #import "DCTOAuth2Account.h"
+#import "DCTAuthAccountCredential.h"
 
 /** DCTAuth is a library to handle multiple authentication types for services 
  that use OAuth, OAuth 2.0 and basic authentication.
