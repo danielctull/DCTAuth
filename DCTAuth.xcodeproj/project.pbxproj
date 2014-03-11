@@ -401,6 +401,7 @@
 				24FA8FE015E93D8E00E1ED99 /* Sources */,
 				24FA8FE115E93D8E00E1ED99 /* Frameworks */,
 				24FA8FE215E93D8E00E1ED99 /* CopyFiles */,
+				24A423CD18CFB98F003C735E /* Documentation */,
 			);
 			buildRules = (
 			);
@@ -506,6 +507,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		24A423CD18CFB98F003C735E /* Documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Documentation;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Add this to Xcode's PATH to find homebrew installation\nPATH=$PATH:/usr/local/bin\n\nappledoc=`which appledoc`\n\nif [ $appledoc ]; then\n\ncompany=\"Daniel Tull\";\ncompanyID=\"uk.co.danieltull\";\ncompanyURL=\"http://danieltull.co.uk\";\noutputPath=\"/tmp/${PRODUCT_NAME}\";\n\n$appledoc \\\n--project-name \"${PRODUCT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--output \"${outputPath}\" \\\n--create-docset \\\n--install-docset \\\n--create-html \\\n--docset-platform-family \"${SUPPORTED_PLATFORMS}\" \\\n--exit-threshold 2 \\\n--no-repeat-first-par \\\n\"${BUILT_PRODUCTS_DIR}/include/${PRODUCT_NAME}\"\n\nelse\n\necho \"appledoc not found.\"\n\nfi;";
+		};
 		24FA8FF315E93D8E00E1ED99 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
