@@ -237,7 +237,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters setObject:@"authorization_code" forKey:@"grant_type"];
-	[parameters setObject:code forKey:@"code"];
+	if (code) [parameters setObject:code forKey:@"code"];
 	[parameters setObject:clientID forKey:@"client_id"];
 	[parameters setObject:@"web_server" forKey:@"type"];
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
