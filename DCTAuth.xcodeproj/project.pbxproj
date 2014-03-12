@@ -183,13 +183,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		24FA8FE115E93D8E00E1ED99 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		24FA8FF115E93D8E00E1ED99 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -399,7 +392,6 @@
 			buildConfigurationList = 24FA900915E93D8E00E1ED99 /* Build configuration list for PBXNativeTarget "DCTAuth" */;
 			buildPhases = (
 				24FA8FE015E93D8E00E1ED99 /* Sources */,
-				24FA8FE115E93D8E00E1ED99 /* Frameworks */,
 				24FA8FE215E93D8E00E1ED99 /* CopyFiles */,
 				24A423CD18CFB98F003C735E /* Documentation */,
 			);
