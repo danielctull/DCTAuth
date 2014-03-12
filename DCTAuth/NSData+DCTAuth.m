@@ -15,7 +15,10 @@
 	if ([self respondsToSelector:@selector(base64EncodedDataWithOptions:)])
 		return [self base64EncodedStringWithOptions:0];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	return [self base64Encoding];
+#pragma clang diagnostic pop
 }
 
 @end
