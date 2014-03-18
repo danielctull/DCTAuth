@@ -136,6 +136,11 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 								username:(NSString *)username
 								password:(NSString *)password;
 
++ (DCTAuthAccount *)certificateAccountWithType:(NSString *)type
+							 authenticationURL:(NSURL *)authenticationURL
+								   certificate:(NSData *)certificate
+									  password:(NSString *)password;
+
 /// @name Accessing Properties
 
 /**

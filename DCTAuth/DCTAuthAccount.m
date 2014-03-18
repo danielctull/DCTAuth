@@ -11,6 +11,7 @@
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
+#import "DCTCertificateAccount.h"
 #import "NSString+DCTAuth.h"
 #import "DCTAuthAccountSubclass.h"
 
@@ -101,6 +102,17 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 									authenticationURL:authenticationURL
 											 username:username
 											 password:password];
+}
+
++ (DCTAuthAccount *)certificateAccountWithType:(NSString *)type
+							 authenticationURL:(NSURL *)authenticationURL
+								   certificate:(NSData *)certificate
+									  password:(NSString *)password {
+
+	return [[DCTCertificateAccount alloc] initWithType:type
+									 authenticationURL:authenticationURL
+										   certificate:certificate
+											  password:password];
 }
 
 - (instancetype)init {
