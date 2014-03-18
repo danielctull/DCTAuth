@@ -7,9 +7,14 @@
 //
 
 @import Foundation;
-
-extern NSString *const DCTCertificateAuthURLProtocolScheme;
-extern NSString *const DCTCertificateAuthURLProtocolAccount;
+@class DCTCertificateAccount;
 
 @interface DCTCertificateAuthURLProtocol : NSURLProtocol
+
++ (NSString *)modifiedSchemeForScheme:(NSString *)scheme;
++ (NSString *)schemeForModifiedScheme:(NSString *)scheme;
+
++ (void)setAccount:(DCTCertificateAccount *)account forRequest:(NSMutableURLRequest *)request;
++ (DCTCertificateAccount *)accountForRequest:(NSURLRequest *)request;
+
 @end

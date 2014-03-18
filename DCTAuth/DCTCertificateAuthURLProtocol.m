@@ -9,8 +9,8 @@
 #import "DCTCertificateAuthURLProtocol.h"
 #import "DCTCertificateAccount.h"
 
-NSString *const DCTCertificateAuthURLProtocolScheme = @"dctcertificateauth";
-NSString *const DCTCertificateAuthURLProtocolAccount = @"DCTCertificateAuthURLProtocolAccount";
+static NSString *const DCTCertificateAuthURLProtocolScheme = @"dctcertificateauth";
+static NSString *const DCTCertificateAuthURLProtocolAccount = @"DCTCertificateAuthURLProtocolAccount";
 
 @interface DCTCertificateAuthURLProtocol ()
 @property (nonatomic) NSURLConnection *connection;
@@ -23,13 +23,13 @@ NSString *const DCTCertificateAuthURLProtocolAccount = @"DCTCertificateAuthURLPr
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-	return [request.URL.scheme isEqualToString:DCTCertificateAuthURLProtocolScheme];
+	return [request.URL.scheme hasPrefix:DCTCertificateAuthURLProtocolScheme];
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
 	NSMutableURLRequest *mutable = [request mutableCopy];
 	NSURLComponents *components = [NSURLComponents componentsWithURL:mutable.URL resolvingAgainstBaseURL:YES];
-	components.scheme = @"https";
+	components.scheme = [self schemeForModifiedScheme:components.scheme];
 	mutable.URL = [components URL];
 	return [mutable copy];
 }
@@ -65,9 +65,25 @@ NSString *const DCTCertificateAuthURLProtocolAccount = @"DCTCertificateAuthURLPr
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-	DCTCertificateAccount *account = [NSURLProtocol propertyForKey:DCTCertificateAuthURLProtocolAccount inRequest:self.request];
+	DCTCertificateAccount *account = [[self class] accountForRequest:self.request];
 	NSURLCredential *credential = [account URLCredential];
 	[[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+}
+
++ (NSString *)modifiedSchemeForScheme:(NSString *)scheme {
+	return [NSString stringWithFormat:@"%@%@", DCTCertificateAuthURLProtocolScheme, scheme];
+}
+
++ (NSString *)schemeForModifiedScheme:(NSString *)scheme {
+	return [scheme stringByReplacingOccurrencesOfString:DCTCertificateAuthURLProtocolScheme withString:@""];
+}
+
++ (void)setAccount:(DCTCertificateAccount *)account forRequest:(NSMutableURLRequest *)request {
+	[NSURLProtocol setProperty:account forKey:DCTCertificateAuthURLProtocolAccount inRequest:request];
+}
+
++ (DCTCertificateAccount *)accountForRequest:(NSURLRequest *)request {
+	return [NSURLProtocol propertyForKey:DCTCertificateAuthURLProtocolAccount inRequest:request];
 }
 
 @end

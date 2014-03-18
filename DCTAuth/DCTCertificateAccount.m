@@ -109,10 +109,10 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 		forAuthRequest:(DCTAuthRequest *)authRequest {
 
 	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
-	URLComponents.scheme = DCTCertificateAuthURLProtocolScheme;
+	URLComponents.scheme = [DCTCertificateAuthURLProtocol modifiedSchemeForScheme:URLComponents.scheme];
 	request.URL = [URLComponents URL];
 
-	[DCTCertificateAuthURLProtocol setProperty:self forKey:DCTCertificateAuthURLProtocolAccount inRequest:request];
+	[DCTCertificateAuthURLProtocol setAccount:self forRequest:request];
 }
 
 - (NSURLCredential *)URLCredential {
