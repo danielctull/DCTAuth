@@ -105,4 +105,7 @@
  */
 + (NSString *)localizedStringForDomain:(NSString *)domain key:(NSString *)key;
 
+
++ (NSArray *)protocolClasses;
+
 @end

@@ -9,6 +9,7 @@
 #import "DCTAuth.h"
 #import "_DCTAuthURLOpener.h"
 #import "_DCTAuthURLRequestPerformer.h"
+#import "DCTCertificateAuthURLProtocol.h"
 
 static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
 
@@ -47,6 +48,10 @@ static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
 	if (![value isEqualToString:uniqueString]) return value;
 	
 	return nil;
+}
+
++ (NSArray *)protocolClasses {
+	return @[[DCTCertificateAuthURLProtocol class]];
 }
 
 + (NSBundle *)_bundle {
