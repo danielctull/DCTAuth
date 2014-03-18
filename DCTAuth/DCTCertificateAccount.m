@@ -119,13 +119,14 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 
 	DCTCertificateAccountCredential *credential = self.credential;
 	NSString *password = self.password ? self.password : credential.password;
+	NSData *certificate = self.certificate ? self.certificate : credential.certificate;
 
 	if (!password) return nil;
 
 	NSDictionary *options = @{ (__bridge id)kSecImportExportPassphrase : password };
 
 	CFArrayRef itemsRef = CFArrayCreate(NULL, 0, 0, NULL);
-	OSStatus securityError = SecPKCS12Import((__bridge CFDataRef)self.certificate, (__bridge CFDictionaryRef)options, &itemsRef);
+	OSStatus securityError = SecPKCS12Import((__bridge CFDataRef)certificate, (__bridge CFDictionaryRef)options, &itemsRef);
 	NSArray *items = (__bridge NSArray *)itemsRef;
 	CFRelease(itemsRef);
 
