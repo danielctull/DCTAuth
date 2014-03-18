@@ -91,6 +91,7 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  *  @param clientID The client ID for the app.
  *  @param clientSecret The client secret for the app or nil.
  *  @param scopes The desired OAuth 2.0 scopes, if any, for this acccount.
+ *
  *  @return Newly initialized account.
  */
 + (instancetype)OAuth2AccountWithType:(NSString *)type
@@ -114,6 +115,7 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  *  @param username Username
  *  @param password Password
  *  @param scopes The desired OAuth 2.0 scopes, if any, for this acccount.
+ *
  *  @return Newly initialized account.
  */
 + (instancetype)OAuth2AccountWithType:(NSString *)type
@@ -126,9 +128,10 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
  *  Creates an account using basic authentication.
  *
  *  @param type The type of the account.
- *  @param authenticationURL The URL to authenticate to.
+ *  @param authenticationURL The URL to authenticate with.
  *  @param username The username for this account.
  *  @param password The password for this account.
+ *
  *  @return Newly initialized account.
  */
 + (instancetype)basicAuthAccountWithType:(NSString *)type
@@ -136,6 +139,16 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 								username:(NSString *)username
 								password:(NSString *)password;
 
+/**
+ *  Creates an account which is authorized with a certificate.
+ *
+ *  @param type              The type of the account.
+ *  @param authenticationURL The URL to authenticate with.
+ *  @param certificate       A p12 certificate.
+ *  @param password          The password for the certificate.
+ *
+ *  @return An account.
+ */
 + (DCTAuthAccount *)certificateAccountWithType:(NSString *)type
 							 authenticationURL:(NSURL *)authenticationURL
 								   certificate:(NSData *)certificate

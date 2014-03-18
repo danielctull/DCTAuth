@@ -7,8 +7,9 @@
 //
 
 #import "DCTCertificateAccount.h"
-#import "DCTAuthRequest.h"
+#import "DCTCertificateAccountCredential.h"
 #import "DCTCertificateAuthURLProtocol.h"
+#import "DCTAuthRequest.h"
 @import Security;
 
 static const struct DCTCertificateAccountProperties {
@@ -46,11 +47,9 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 
 - (void)authenticateWithHandler:(void (^)(NSArray *responses, NSError *error))handler {
 
-//	[self extractInformationFromCertificate:self.certificate
-//								   password:self.password
-//								 completion:^(SecIdentityRef identity, SecTrustRef trust) {
-//									 NSLog(@"%@:%@ %@ %@", self, NSStringFromSelector(_cmd), identity, trust);
-//								 }];
+	DCTCertificateAccountCredential *credential = self.credential;
+	NSString *password = self.password ? self.password : credential.password;
+	NSData *certificate = self.certificate ? self.certificate : credential.certificate;
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:self.authenticationURL
@@ -58,10 +57,13 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 	request.account = self;
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
-		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), response);
-
 		NSArray *responses;
-		if (response) responses = @[response];
+		if (response) {
+			self.credential = [[DCTCertificateAccountCredential alloc] initWithCertificate:certificate password:password];
+			responses = @[response];
+		} else {
+			self.credential = nil;
+		}
 
 		handler(responses, error);
 	}];
@@ -110,14 +112,17 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 	URLComponents.scheme = DCTCertificateAuthURLProtocolScheme;
 	request.URL = [URLComponents URL];
 
-	NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), request);
-
 	[DCTCertificateAuthURLProtocol setProperty:self forKey:DCTCertificateAuthURLProtocolAccount inRequest:request];
 }
 
 - (NSURLCredential *)URLCredential {
 
-	NSDictionary *options = @{ (__bridge id)kSecImportExportPassphrase : self.password };
+	DCTCertificateAccountCredential *credential = self.credential;
+	NSString *password = self.password ? self.password : credential.password;
+
+	if (!password) return nil;
+
+	NSDictionary *options = @{ (__bridge id)kSecImportExportPassphrase : password };
 
 	CFArrayRef itemsRef = CFArrayCreate(NULL, 0, 0, NULL);
 	OSStatus securityError = SecPKCS12Import((__bridge CFDataRef)self.certificate, (__bridge CFDictionaryRef)options, &itemsRef);
@@ -129,24 +134,14 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 	NSDictionary *information =  [items firstObject];
 
 	SecIdentityRef identityRef = (__bridge SecIdentityRef)information[(__bridge id)kSecImportItemIdentity];
-	//SecTrustRef trust = (__bridge SecTrustRef)information[(__bridge id)kSecImportItemTrust];
 
 	SecCertificateRef certificateRef;
 	SecIdentityCopyCertificate(identityRef, &certificateRef);
 	NSArray *certificates = @[(__bridge id)certificateRef];
 
-	NSURLCredential *credential = [NSURLCredential credentialWithIdentity:identityRef
-															 certificates:certificates
-															  persistence:NSURLCredentialPersistenceForSession];
-	return credential;
-//
-//	NSURLProtectionSpace *protectionSpace = [[NSURLProtectionSpace alloc] initWithHost:self.authenticationURL.host
-//																				  port:[self.authenticationURL.port integerValue]
-//																			  protocol:self.authenticationURL.scheme
-//																				 realm:nil
-//																  authenticationMethod:nil];
-//
-//	[[NSURLCredentialStorage sharedCredentialStorage] setDefaultCredential:credential forProtectionSpace:protectionSpace];
+	return [NSURLCredential credentialWithIdentity:identityRef
+									  certificates:certificates
+									   persistence:NSURLCredentialPersistenceNone];
 }
 
 @end
