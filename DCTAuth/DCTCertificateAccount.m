@@ -92,7 +92,7 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-	self = [self initWithCoder:coder];
+	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:DCTCertificateAccountProperties.authenticationURL];
 	return self;
