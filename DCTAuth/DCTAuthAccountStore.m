@@ -80,10 +80,6 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	self.updateTimer = nil;
 }
 
-- (instancetype)init {
-	return [[self class] accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
-}
-
 - (instancetype)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 	self = [super init];
 	if (!self) return nil;

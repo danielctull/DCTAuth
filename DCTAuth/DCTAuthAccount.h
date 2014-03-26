@@ -26,6 +26,15 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 	DCTOAuthSignatureTypePlaintext
 };
 
+extern const struct DCTAuthAccountProperties {
+	__unsafe_unretained NSString *type;
+	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *accountDescription;
+	__unsafe_unretained NSString *callbackURL;
+	__unsafe_unretained NSString *userInfo;
+	__unsafe_unretained NSString *saveUUID;
+} DCTAuthAccountProperties;
+
 /** 
  *  A DCTAuthAccount object encapsulates information about a user account
  *  stored in the database. You can create and retrieve accounts using an 
