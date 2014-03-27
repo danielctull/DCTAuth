@@ -168,6 +168,11 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	}
 }
 
+- (void)setAccountPredicate:(NSPredicate *)accountPredicate {
+	_accountPredicate = accountPredicate;
+	[self updateAccountList];
+}
+
 - (NSArray *)accountsWithType:(NSString *)type {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountProperties.type, type];
 	return [self.accounts filteredArrayUsingPredicate:predicate];
@@ -240,6 +245,17 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 - (void)updateAccount:(DCTAuthAccount *)account {
 
 	DCTAuthAccount *currentAccount = [self accountWithIdentifier:account.identifier];
+
+	// If no predicate is set, we show all the accounts we can
+	BOOL shouldListAccount = self.accountPredicate ? [self.accountPredicate evaluateWithObject:account] : YES;
+	if (!shouldListAccount) {
+
+		if (currentAccount)
+			[self removeAccount:currentAccount];
+
+		return;
+	}
+
 	if ([currentAccount.saveUUID isEqualToString:account.saveUUID]) return;
 
 	if (!currentAccount) {

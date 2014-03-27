@@ -63,6 +63,16 @@ extern const struct DCTAuthAccountStoreProperties {
 /// @name Getting accounts
 
 /**
+ *  Allows filtering of the list of accounts. It only prevents an account from
+ *  being added to the accounts array it doesn't change the underlying storage; 
+ *  Accounts will not be removed from the keychain regardless of whether this
+ *  predicate is set or not.
+ *
+ *  The predicate is asked to evaluate a DCTAuthAccount object.
+ */
+@property (nonatomic) NSPredicate *accountPredicate;
+
+/**
  *  The accounts managed by this account store. 
  */
 @property(nonatomic, readonly) NSArray *accounts;
