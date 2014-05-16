@@ -25,6 +25,8 @@ const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
 	.accounts = @"accounts"
 };
 
+NSString *const DCTAuthAccountStoreDidChangeNotification = @"DCTAuthAccountStoreDidChangeNotification";
+
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
@@ -231,6 +233,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 - (void)removeAccount:(DCTAuthAccount *)account {
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[array removeObject:account];
+	[[NSNotificationCenter defaultCenter] postNotificationName:DCTAuthAccountStoreDidChangeNotification object:self];
 }
 
 - (void)insertAccount:(DCTAuthAccount *)account {
@@ -240,6 +243,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSUInteger index = [accounts indexOfObject:account];
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[array insertObject:account atIndex:index];
+	[[NSNotificationCenter defaultCenter] postNotificationName:DCTAuthAccountStoreDidChangeNotification object:self];
 }
 
 - (void)updateAccount:(DCTAuthAccount *)account {

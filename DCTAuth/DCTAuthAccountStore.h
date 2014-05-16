@@ -16,6 +16,8 @@ extern const struct DCTAuthAccountStoreProperties {
 	__unsafe_unretained NSString *accounts;
 } DCTAuthAccountStoreProperties;
 
+extern NSString *const DCTAuthAccountStoreDidChangeNotification;
+
 /** 
  *  The DCTAuthAccountStore class provides an interface for accessing,
  *  manipulating, and storing accounts. To create and retrieve accounts 
