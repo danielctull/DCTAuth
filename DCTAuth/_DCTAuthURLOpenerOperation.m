@@ -16,6 +16,9 @@
 @end
 
 @implementation _DCTAuthURLOpenerOperation
+@synthesize cancelled = _cancelled;
+@synthesize executing = _executing;
+@synthesize finished = _finished;
 
 - (instancetype)initWithURL:(NSURL *)URL callbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler {
 	self = [self init];
