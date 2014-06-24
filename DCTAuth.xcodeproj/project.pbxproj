@@ -448,7 +448,7 @@
 		24FA8FDB15E93D8E00E1ED99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Daniel Tull";
 			};
 			buildConfigurationList = 24FA8FDE15E93D8E00E1ED99 /* Build configuration list for PBXProject "DCTAuth" */;
@@ -742,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 240BE44417ED7AE4007AB802 /* Universal.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
@@ -752,6 +753,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 240BE44417ED7AE4007AB802 /* Universal.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				PRODUCT_NAME = DCTAuth;
 				SKIP_INSTALL = YES;
