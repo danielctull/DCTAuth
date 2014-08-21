@@ -1,0 +1,12 @@
+
+PRODUCT_NAME = $(TARGET_NAME)
+
+// Linking
+WARNING_CFLAGS = $(inherited) -Wno-gnu -Wno-variadic-macros -Wno-auto-import -Wno-objc-interface-ivars -Wno-incomplete-module
+OTHER_LDFLAGS = $(inherited) -framework XCTest -ObjC
+
+// Search Paths
+FRAMEWORK_SEARCH_PATHS = $(SDKROOT)/Developer/Library/Frameworks $(inherited) $(DEVELOPER_FRAMEWORKS_DIR)
+
+// Packaging
+WRAPPER_EXTENSION = xctest
