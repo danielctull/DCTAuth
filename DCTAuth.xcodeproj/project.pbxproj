@@ -156,7 +156,7 @@
 		2443E9C415F37A2A00845950 /* _DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthMultipartData.m; sourceTree = "<group>"; };
 		244414A7173EBB320046D993 /* DCTAuth.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuth.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		244414AC173EBB320046D993 /* DCTAuthBundle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DCTAuthBundle-Info.plist"; sourceTree = "<group>"; };
+		244414AC173EBB320046D993 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth2Credential.h; sourceTree = "<group>"; };
 		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
@@ -327,7 +327,7 @@
 		244414AA173EBB320046D993 /* DCTAuthBundle */ = {
 			isa = PBXGroup;
 			children = (
-				244414AC173EBB320046D993 /* DCTAuthBundle-Info.plist */,
+				244414AC173EBB320046D993 /* Info.plist */,
 				244414BA173EBC3A0046D993 /* Localizable.strings */,
 			);
 			path = DCTAuthBundle;
@@ -799,7 +799,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24959EA419A6606A00C17E48 /* Bundle.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "DCTAuthBundle/DCTAuthBundle-Info.plist";
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -808,7 +807,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24959EA419A6606A00C17E48 /* Bundle.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "DCTAuthBundle/DCTAuthBundle-Info.plist";
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
@@ -820,7 +818,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				INFOPLIST_FILE = "$(SRCROOT)/DCTAuth/Info.plist";
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -832,7 +829,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				INFOPLIST_FILE = "$(SRCROOT)/DCTAuth/Info.plist";
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;

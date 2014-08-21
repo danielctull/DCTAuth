@@ -12,3 +12,6 @@ LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/
 
 // Packaging 
 DEFINES_MODULE = YES
+INFOPLIST_FILE  = $(SRCROOT)/$(PRODUCT_NAME)/Info.plist
+
+WARNING_CFLAGS = $(inherited) -Wno-missing-variable-declarations
