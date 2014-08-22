@@ -853,7 +853,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24959EA619A6606A00C17E48 /* Library.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
 		};
@@ -861,7 +860,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24959EA619A6606A00C17E48 /* Library.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
 		};

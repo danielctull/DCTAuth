@@ -1,5 +1,0 @@
-
-WRAPPER_EXTENSION = app
-
-// Linking
-OTHER_LDFLAGS = $(inherited) -ObjC
