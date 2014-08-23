@@ -23,12 +23,12 @@
 	NSString *storeName = @"Store";
 	_DCTAuthKeychainAccessType type = _DCTAuthKeychainAccessTypeAccount;
 
-	[_DCTAuthKeychainAccess addData:data forAccountIdentifier:account storeName:storeName type:type];
+	[_DCTAuthKeychainAccess addData:data forAccountIdentifier:account storeName:storeName type:type accessGroup:@"group" synchronizable:NO];
 
-	NSData *data2 = [_DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:type];
+	NSData *data2 = [_DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:type accessGroup:@"group" synchronizable:NO];
 	XCTAssertEqualObjects(data, data2, @"Data in is not the same as data out");
 
-	NSData *data3 = [_DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:_DCTAuthKeychainAccessTypeCredential];
+	NSData *data3 = [_DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:@"group" synchronizable:NO];
 	XCTAssertFalse([data isEqualToData:data3], @"Credential data is same as account data");
 }
 

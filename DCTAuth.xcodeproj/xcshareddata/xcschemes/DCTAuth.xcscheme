@@ -34,7 +34,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24FA8FF415E93D8E00E1ED99"
                BuildableName = "DCTAuthTests.xctest"
-               BlueprintName = "DCTAuthTests"
+               BlueprintName = "DCTAuth Tests"
                ReferencedContainer = "container:DCTAuth.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -49,6 +49,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "24FA8FE315E93D8E00E1ED99"
+            BuildableName = "libDCTAuth.a"
+            BlueprintName = "DCTAuth"
+            ReferencedContainer = "container:DCTAuth.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
