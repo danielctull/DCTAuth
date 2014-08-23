@@ -12,10 +12,11 @@
 		241298C816AC71310052A724 /* _DCTAuthURLRequestPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */; };
 		2419EA3616B912B100901AA2 /* _DCTAuthContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3516B912B100901AA2 /* _DCTAuthContentType.m */; };
 		2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */; };
-		242BEF8119A900330063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
 		242BEF8219A900470063F2F2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		242BEF8419A9012D0063F2F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242BEF8319A9012D0063F2F2 /* Images.xcassets */; };
 		242BEF8519A901B30063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
+		242BEFBC19A907990063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
+		242BEFBD19A907990063F2F2 /* DCTAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2443E9C615F37A2A00845950 /* _DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* _DCTAuthMultipartData.m */; };
 		244414B8173EBC3A0046D993 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 244414BA173EBC3A0046D993 /* Localizable.strings */; };
@@ -119,6 +120,13 @@
 			remoteGlobalIDString = 24FA901215E93E0200E1ED99;
 			remoteInfo = "DCTAuth Demo";
 		};
+		242BEFBE19A9079A0063F2F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FA8FDB15E93D8E00E1ED99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2454F2BF1959601600E8643C;
+			remoteInfo = "DCTAuth iOS";
+		};
 		244414B4173EBB660046D993 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 24FA8FDB15E93D8E00E1ED99 /* Project object */;
@@ -129,6 +137,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		242BEFC019A9079A0063F2F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				242BEFBD19A907990063F2F2 /* DCTAuth.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24FA8FE215E93D8E00E1ED99 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,8 +283,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				242BEFBC19A907990063F2F2 /* DCTAuth.framework in Frameworks */,
 				242BEF8219A900470063F2F2 /* libresolv.dylib in Frameworks */,
-				242BEF8119A900330063F2F2 /* DCTAuth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,10 +576,12 @@
 				24FA900F15E93E0200E1ED99 /* Sources */,
 				24FA901015E93E0200E1ED99 /* Frameworks */,
 				24FA901115E93E0200E1ED99 /* Resources */,
+				242BEFC019A9079A0063F2F2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				242BEFBF19A9079A0063F2F2 /* PBXTargetDependency */,
 			);
 			name = "DCTAuth Demo";
 			productName = "DCTOAuth Demo";
@@ -767,6 +788,11 @@
 			target = 24FA901215E93E0200E1ED99 /* DCTAuth Demo */;
 			targetProxy = 242BEF8619A902540063F2F2 /* PBXContainerItemProxy */;
 		};
+		242BEFBF19A9079A0063F2F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2454F2BF1959601600E8643C /* DCTAuth iOS */;
+			targetProxy = 242BEFBE19A9079A0063F2F2 /* PBXContainerItemProxy */;
+		};
 		244414B5173EBB660046D993 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 244414A6173EBB320046D993 /* DCTAuth Bundle */;
@@ -873,6 +899,7 @@
 			baseConfigurationReference = 24959EA319A6606A00C17E48 /* Application.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = Debug;
 		};
@@ -881,6 +908,7 @@
 			baseConfigurationReference = 24959EA319A6606A00C17E48 /* Application.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = Release;
 		};

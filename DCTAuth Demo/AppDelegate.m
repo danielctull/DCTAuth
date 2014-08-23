@@ -6,16 +6,13 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+@import DCTAuth;
 #import "AppDelegate.h"
-#import <DCTAuth/DCTAuth.h>
 #import "AuthTestViewController.h"
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-	NSLog(@"%@", [[DCTAuthAccountStore defaultAccountStore] accounts]);
-	
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 	self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AuthTestViewController new]];

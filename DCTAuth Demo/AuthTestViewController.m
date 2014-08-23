@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+@import DCTAuth;
 #import "AuthTestViewController.h"
-#import <DCTAuth/DCTAuth.h>
 
 @interface AuthTestViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *consumerKeyTextField;
