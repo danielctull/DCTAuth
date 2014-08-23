@@ -183,6 +183,15 @@
 		244414A7173EBB320046D993 /* DCTAuth.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DCTAuth.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		244414AC173EBB320046D993 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		244DE80B19A91A4A00A91DC7 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		244DE80C19A91A4A00A91DC7 /* iOS Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Application.xcconfig"; sourceTree = "<group>"; };
+		244DE80D19A91A4A00A91DC7 /* iOS Bundle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Bundle.xcconfig"; sourceTree = "<group>"; };
+		244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Framework.xcconfig"; sourceTree = "<group>"; };
+		244DE80F19A91A4A00A91DC7 /* iOS Static Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Static Library.xcconfig"; sourceTree = "<group>"; };
+		244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Tests.xcconfig"; sourceTree = "<group>"; };
+		244DE81119A91A4A00A91DC7 /* OS X Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Framework.xcconfig"; sourceTree = "<group>"; };
+		244DE81219A91A4A00A91DC7 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		244DE81319A91A4A00A91DC7 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		2454C24616D8BD4500E97367 /* _DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTOAuth2Credential.h; sourceTree = "<group>"; };
 		2454C24716D8BD4500E97367 /* _DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2454F2C01959601600E8643C /* DCTAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,14 +207,6 @@
 		246D3A9316D77D38008CDB63 /* _DCTOAuth1Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth1Credential.m; sourceTree = "<group>"; };
 		2484E11C176E4A1B000EB00E /* _DCTAuthKeychainAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _DCTAuthKeychainAccess.h; sourceTree = "<group>"; };
 		2484E11D176E4A1B000EB00E /* _DCTAuthKeychainAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthKeychainAccess.m; sourceTree = "<group>"; };
-		24959EA319A6606A00C17E48 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
-		24959EA419A6606A00C17E48 /* Bundle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Bundle.xcconfig; sourceTree = "<group>"; };
-		24959EA519A6606A00C17E48 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		24959EA619A6606A00C17E48 /* Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Library.xcconfig; sourceTree = "<group>"; };
-		24959EA719A6606A00C17E48 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		24959EA819A6606A00C17E48 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
-		24959EA919A6606A00C17E48 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
-		24959EAA19A6612F00C17E48 /* iOS Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS Framework.xcconfig"; sourceTree = "<group>"; };
 		249A145217F4974A004C2D1A /* DCTOAuth2Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth2Account.h; sourceTree = "<group>"; };
 		249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountStore.h; sourceTree = "<group>"; };
 		249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStore.m; sourceTree = "<group>"; };
@@ -356,17 +357,18 @@
 			path = "DCTAuth Bundle";
 			sourceTree = "<group>";
 		};
-		24959EA219A6606A00C17E48 /* Configurations */ = {
+		244DE80A19A91A4A00A91DC7 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				24959EA319A6606A00C17E48 /* Application.xcconfig */,
-				24959EA419A6606A00C17E48 /* Bundle.xcconfig */,
-				24959EA519A6606A00C17E48 /* Debug.xcconfig */,
-				24959EAA19A6612F00C17E48 /* iOS Framework.xcconfig */,
-				24959EA619A6606A00C17E48 /* Library.xcconfig */,
-				24959EA719A6606A00C17E48 /* Release.xcconfig */,
-				24959EA819A6606A00C17E48 /* Shared.xcconfig */,
-				24959EA919A6606A00C17E48 /* Tests.xcconfig */,
+				244DE80B19A91A4A00A91DC7 /* Debug.xcconfig */,
+				244DE80C19A91A4A00A91DC7 /* iOS Application.xcconfig */,
+				244DE80D19A91A4A00A91DC7 /* iOS Bundle.xcconfig */,
+				244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */,
+				244DE80F19A91A4A00A91DC7 /* iOS Static Library.xcconfig */,
+				244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */,
+				244DE81119A91A4A00A91DC7 /* OS X Framework.xcconfig */,
+				244DE81219A91A4A00A91DC7 /* Release.xcconfig */,
+				244DE81319A91A4A00A91DC7 /* Shared.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -378,7 +380,7 @@
 				244414AA173EBB320046D993 /* DCTAuth Bundle */,
 				24FA8FFE15E93D8E00E1ED99 /* DCTAuth Tests */,
 				24FA901915E93E0200E1ED99 /* DCTAuth Demo */,
-				24959EA219A6606A00C17E48 /* Configurations */,
+				244DE80A19A91A4A00A91DC7 /* Configurations */,
 				24FA8FE615E93D8E00E1ED99 /* Frameworks */,
 				24FA8FE515E93D8E00E1ED99 /* Products */,
 			);
@@ -814,7 +816,7 @@
 /* Begin XCBuildConfiguration section */
 		244414B1173EBB320046D993 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA419A6606A00C17E48 /* Bundle.xcconfig */;
+			baseConfigurationReference = 244DE80D19A91A4A00A91DC7 /* iOS Bundle.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = DCTAuth;
 			};
@@ -822,7 +824,7 @@
 		};
 		244414B2173EBB320046D993 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA419A6606A00C17E48 /* Bundle.xcconfig */;
+			baseConfigurationReference = 244DE80D19A91A4A00A91DC7 /* iOS Bundle.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = DCTAuth;
 			};
@@ -830,7 +832,7 @@
 		};
 		2454F2D31959601600E8643C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EAA19A6612F00C17E48 /* iOS Framework.xcconfig */;
+			baseConfigurationReference = 244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -842,7 +844,7 @@
 		};
 		2454F2D41959601600E8643C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EAA19A6612F00C17E48 /* iOS Framework.xcconfig */;
+			baseConfigurationReference = 244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -854,49 +856,49 @@
 		};
 		24FA900715E93D8E00E1ED99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA519A6606A00C17E48 /* Debug.xcconfig */;
+			baseConfigurationReference = 244DE80B19A91A4A00A91DC7 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		24FA900815E93D8E00E1ED99 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA719A6606A00C17E48 /* Release.xcconfig */;
+			baseConfigurationReference = 244DE81219A91A4A00A91DC7 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		24FA900A15E93D8E00E1ED99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA619A6606A00C17E48 /* Library.xcconfig */;
+			baseConfigurationReference = 244DE80F19A91A4A00A91DC7 /* iOS Static Library.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		24FA900B15E93D8E00E1ED99 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA619A6606A00C17E48 /* Library.xcconfig */;
+			baseConfigurationReference = 244DE80F19A91A4A00A91DC7 /* iOS Static Library.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		24FA900D15E93D8E00E1ED99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA919A6606A00C17E48 /* Tests.xcconfig */;
+			baseConfigurationReference = 244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		24FA900E15E93D8E00E1ED99 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA919A6606A00C17E48 /* Tests.xcconfig */;
+			baseConfigurationReference = 244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		24FA902615E93E0200E1ED99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA319A6606A00C17E48 /* Application.xcconfig */;
+			baseConfigurationReference = 244DE80C19A91A4A00A91DC7 /* iOS Application.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -905,7 +907,7 @@
 		};
 		24FA902715E93E0200E1ED99 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24959EA319A6606A00C17E48 /* Application.xcconfig */;
+			baseConfigurationReference = 244DE80C19A91A4A00A91DC7 /* iOS Application.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
