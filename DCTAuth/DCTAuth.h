@@ -12,10 +12,8 @@
 #import "DCTOAuth2Account.h"
 #import "DCTAuthAccountCredential.h"
 
-//! Project version number for DCTAuth.
+//! Project version number and string for DCTAuth.
 FOUNDATION_EXPORT double DCTAuthVersionNumber;
-
-//! Project version string for DCTAuth.
 FOUNDATION_EXPORT const unsigned char DCTAuthVersionString[];
 
 /** DCTAuth is a library to handle multiple authentication types for services 
