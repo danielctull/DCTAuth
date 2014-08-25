@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24FA8FF415E93D8E00E1ED99"
-               BuildableName = "DCTAuthTests.xctest"
+               BuildableName = "DCTAuth Tests.xctest"
                BlueprintName = "DCTAuth Tests"
                ReferencedContainer = "container:DCTAuth.xcodeproj">
             </BuildableReference>
