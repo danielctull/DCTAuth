@@ -153,8 +153,11 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	if (contentType == DCTAuthRequestContentTypeForm)
 		body = [parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wassign-enum"
 	else if (contentType == DCTAuthRequestContentTypeJSON)
 		body = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:NULL];
+#pragma clang diagnostic pop
 
 	else if (contentType == DCTAuthRequestContentTypePlist)
 		body = [NSPropertyListSerialization dataWithPropertyList:parameters format:NSPropertyListXMLFormat_v1_0 options:0 error:NULL];
