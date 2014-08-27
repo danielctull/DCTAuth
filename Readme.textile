@@ -101,7 +101,7 @@ NSDictionary *parameters = @{ @"type" : @"web_server" };
 
 h3. Tumblr
 
-Tumblr calls will fail if the callback URL is sent in the request, you should set the callback URL to match the one given when you create the application entry on their site and set `shouldSendCallbackURL` to NO.
+Tumblr calls will fail if the callback URL is sent in the request, you should set the callback URL to match the one given when you create the application entry on their site and set @shouldSendCallbackURL@ to NO.
 
 h3. Xero
 
