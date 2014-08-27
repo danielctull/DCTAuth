@@ -43,6 +43,7 @@ h3. OAuth
 * "Goodreads":https://www.goodreads.com/api/documentation
 * "Plurk":http://www.plurk.com/API
 * "Readability":http://www.readability.com/developers/api
+* "Tumblr":https://www.tumblr.com/docs/en/api/v2#auth ("Notes":#tumblr)
 * "Trello":https://trello.com/docs/gettingstarted/oauth.html
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
 * "Twitter":https://dev.twitter.com/docs/auth/oauth
@@ -97,6 +98,10 @@ campfireAccount.callbackURL = [NSURL URLWithString:@"callback://url"];
 NSDictionary *parameters = @{ @"type" : @"web_server" };
 [campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAccessTokenRequestType];
 [campfireAccount setParameters:parameters forRequestType:DCTOAuth2AccountAuthorizeRequestType];</code></pre>
+
+h3. Tumblr
+
+Tumblr calls will fail if the callback URL is sent in the request, you should set the callback URL to match the one given when you create the application entry on their site and set `shouldSendCallbackURL` to NO.
 
 h3. Xero
 

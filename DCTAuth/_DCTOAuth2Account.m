@@ -215,7 +215,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 		[parameters setObject:@"token" forKey:@"response_type"];
 
 	[parameters setObject:clientID forKey:@"client_id"];
-	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
+	if (self.shouldSendCallbackURL && self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 	[parameters setObject:state forKey:@"state"];
 
@@ -241,7 +241,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	[parameters setObject:clientID forKey:@"client_id"];
 	[parameters setObject:@"web_server" forKey:@"type"];
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
-	if (self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
+	if (self.shouldSendCallbackURL && self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountAccessTokenRequestType];
 	[parameters addEntriesFromDictionary:extras];

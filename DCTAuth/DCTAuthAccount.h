@@ -31,6 +31,7 @@ extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *identifier;
 	__unsafe_unretained NSString *accountDescription;
 	__unsafe_unretained NSString *callbackURL;
+	__unsafe_unretained NSString *shouldSendCallbackURL;
 	__unsafe_unretained NSString *userInfo;
 	__unsafe_unretained NSString *saveUUID;
 } DCTAuthAccountProperties;
@@ -205,16 +206,19 @@ extern const struct DCTAuthAccountProperties {
 /** 
  *  The URL the OAuth authorization process will call back to.
  *
- *  If a callbackURL isn't supplied, and one is needed, it is generated using one of the URL types in the
- *  Info.plist. This sometimes works, though many services expect you to pass the same callback URL you specify
- *  in the application information on their site.
- *
- *  As a note, Twitter, Readability work fine with the generated callbackURL.
- *
  *  Facebook expects the URL to have a callback URL of fb[App ID]://authorize/ for the website or
  *  fb[App ID]://authorize for authorizing against their iOS app.
+ *
+ *  @see shouldSendCallbackURL
  */
 @property (nonatomic, copy) NSURL *callbackURL;
+
+/**
+ *  When authenticating, if this is yes the callbackURL will be sent in requests.
+ *
+ *  Defaults to NO.
+ */
+@property (nonatomic) BOOL shouldSendCallbackURL;
 
 /**
  *  Authenticate the account.

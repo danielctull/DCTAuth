@@ -20,6 +20,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.identifier = @"identifier",
 	.accountDescription = @"accountDescription",
 	.callbackURL = @"callbackURL",
+	.shouldSendCallbackURL = @"shouldSendCallbackURL",
 	.userInfo = @"userInfo",
 	.saveUUID = @"saveUUID"
 };
@@ -119,6 +120,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	self = [super init];
 	if (!self) return nil;
 	_extraParameters = [NSMutableDictionary new];
+	_shouldSendCallbackURL = YES;
 	return self;
 }
 
@@ -136,6 +138,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	_type = [coder decodeObjectForKey:DCTAuthAccountProperties.type];
 	_identifier = [coder decodeObjectForKey:DCTAuthAccountProperties.identifier];
 	_callbackURL = [coder decodeObjectForKey:DCTAuthAccountProperties.callbackURL];
+	_shouldSendCallbackURL = [coder decodeBoolForKey:DCTAuthAccountProperties.shouldSendCallbackURL];
 	_accountDescription = [coder decodeObjectForKey:DCTAuthAccountProperties.accountDescription];
 	_userInfo = [coder decodeObjectForKey:DCTAuthAccountProperties.userInfo];
 	_saveUUID = [coder decodeObjectForKey:DCTAuthAccountProperties.saveUUID];
@@ -146,6 +149,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	[coder encodeObject:self.type forKey:DCTAuthAccountProperties.type];
 	[coder encodeObject:self.identifier forKey:DCTAuthAccountProperties.identifier];
 	[coder encodeObject:self.callbackURL forKey:DCTAuthAccountProperties.callbackURL];
+	[coder encodeBool:self.shouldSendCallbackURL forKey:DCTAuthAccountProperties.shouldSendCallbackURL];
 	[coder encodeObject:self.accountDescription forKey:DCTAuthAccountProperties.accountDescription];
 	[coder encodeObject:self.userInfo forKey:DCTAuthAccountProperties.userInfo];
 	[coder encodeObject:self.saveUUID forKey:DCTAuthAccountProperties.saveUUID];
