@@ -55,6 +55,7 @@ h3. OAuth 2.0
 
 * "37signals":https://github.com/37signals/api/blob/master/sections/authentication.md#oauth-2 ("Notes":#37signals)
 * "Box":http://developers.box.com/oauth/
+* "Coinbase":https://coinbase.com/docs/api/authentication
 * "Facebook":https://developers.facebook.com/docs/authentication/ ("Notes":#facebook)
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
 * "GitHub":http://developer.github.com/v3/oauth/
