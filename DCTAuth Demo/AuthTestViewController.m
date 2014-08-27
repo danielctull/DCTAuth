@@ -43,8 +43,8 @@
 	self.consumerKeyTextField.text = @"key";
 	self.consumerSecretTextField.text = @"secret";
 	
-	self.requestTokenURLTextField.text = @"http://term.ie/oauth/example/request_token.php";
-	self.accessTokenURLTextField.text = @"http://term.ie/oauth/example/access_token.php";
+	self.requestTokenURLTextField.text = @"http://echo.lab.madgex.com/request-token.ashx";
+	self.accessTokenURLTextField.text = @"http://echo.lab.madgex.com/access-token.ashx";
 }
 
 - (IBAction)go:(id)sender {
@@ -68,13 +68,13 @@
 	NSString *authorizeURLString = authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
-	DCTAuthAccount *oauthAccount = [DCTAuthAccount OAuthAccountWithType:@"term.ie"
+	DCTAuthAccount *oauthAccount = [DCTAuthAccount OAuthAccountWithType:@"echo.lab.madgex"
 														requestTokenURL:requestTokenURL
 														   authorizeURL:authorizeURL
 														 accessTokenURL:accessTokenURL
 															consumerKey:consumerKey
 														 consumerSecret:consumerSecret];
-	
+	oauthAccount.shouldSendCallbackURL = NO;
 	[oauthAccount authenticateWithHandler:^(NSArray *responses, NSError *error) {
 
 		[[DCTAuthAccountStore defaultAccountStore] saveAccount:oauthAccount];
