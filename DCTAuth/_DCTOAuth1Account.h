@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+#import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 
 @interface _DCTOAuth1Account : DCTAuthAccount <DCTAuthAccountSubclass>

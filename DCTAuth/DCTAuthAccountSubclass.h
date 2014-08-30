@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthAccount.h"
+@import Foundation;
+@class DCTAuthRequest;
 
 /**
  *  This is a protocol that should be adopted by DCTAuthAccount subclasses. 
