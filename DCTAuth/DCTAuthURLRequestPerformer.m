@@ -1,17 +1,17 @@
 //
-//  _DCTAuthURLRequestPerformer.m
+//  DCTAuthURLRequestPerformer.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 20.01.2013.
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthURLRequestPerformer.h"
+#import "DCTAuthURLRequestPerformer.h"
 
-@implementation _DCTAuthURLRequestPerformer
+@implementation DCTAuthURLRequestPerformer
 
-+ (_DCTAuthURLRequestPerformer *)sharedURLRequestPerformer {
-	static _DCTAuthURLRequestPerformer *URLRequestPerformer;
++ (DCTAuthURLRequestPerformer *)sharedURLRequestPerformer {
+	static DCTAuthURLRequestPerformer *URLRequestPerformer;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		URLRequestPerformer = [self new];

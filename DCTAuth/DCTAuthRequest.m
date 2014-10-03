@@ -12,7 +12,7 @@
 #import "DCTAuthMultipartData.h"
 #import "NSDictionary+DCTAuth.h"
 #import "NSString+DCTAuth.h"
-#import "_DCTAuthURLRequestPerformer.h"
+#import "DCTAuthURLRequestPerformer.h"
 
 static const struct DCTAuthRequestProperties {
 	__unsafe_unretained NSString *requestMethod;
@@ -206,7 +206,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 	[defaultCenter postNotificationName:DCTAuthConnectionIncreasedNotification object:self];
 
-	_DCTAuthURLRequestPerformer *URLRequestPerformer = [_DCTAuthURLRequestPerformer sharedURLRequestPerformer];
+	DCTAuthURLRequestPerformer *URLRequestPerformer = [DCTAuthURLRequestPerformer sharedURLRequestPerformer];
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
 	id object = [DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];

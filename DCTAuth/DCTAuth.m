@@ -8,7 +8,7 @@
 
 #import "DCTAuth.h"
 #import "DCTAuthURLOpener.h"
-#import "_DCTAuthURLRequestPerformer.h"
+#import "DCTAuthURLRequestPerformer.h"
 #import "DCTCertificateAuthURLProtocol.h"
 
 static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
@@ -32,7 +32,7 @@ static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
 }
 
 + (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer {
-	[[_DCTAuthURLRequestPerformer sharedURLRequestPerformer] setURLRequestPerformer:requestPerformer];
+	[[DCTAuthURLRequestPerformer sharedURLRequestPerformer] setURLRequestPerformer:requestPerformer];
 }
 
 + (NSString *)localizedStringForDomain:(NSString *)domain key:(NSString *)key {

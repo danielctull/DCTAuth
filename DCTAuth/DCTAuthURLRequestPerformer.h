@@ -1,5 +1,5 @@
 //
-//  _DCTAuthURLRequestPerformer.h
+//  DCTAuthURLRequestPerformer.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 20.01.2013.
@@ -8,7 +8,7 @@
 
 #import "DCTAuthRequest.h"
 
-@interface _DCTAuthURLRequestPerformer : NSObject
+@interface DCTAuthURLRequestPerformer : NSObject
 
 + (instancetype)sharedURLRequestPerformer;
 
