@@ -9,6 +9,8 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountStore.h"
 #import "DCTAuthRequest.h"
+
+#import "DCTAuthAccountSubclass.h"
 #import "DCTAuthAccountCredential.h"
 
 //! Project version number and string for DCTAuth.
