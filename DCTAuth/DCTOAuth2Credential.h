@@ -1,5 +1,5 @@
 //
-//  _DCTOAuth2Credential.h
+//  DCTOAuth2Credential.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 23/02/2013.
@@ -8,13 +8,13 @@
 
 #import "DCTAuthAccountCredential.h"
 
-@interface _DCTOAuth2Credential : NSObject <DCTAuthAccountCredential>
+@interface DCTOAuth2Credential : NSObject <DCTAuthAccountCredential>
 
 - (instancetype)initWithClientID:(NSString *)clientID
-		  clientSecret:(NSString *)clientSecret
-			  password:(NSString *)password
-		   accessToken:(NSString *)accessToken
-		  refreshToken:(NSString *)refreshToken;
+					clientSecret:(NSString *)clientSecret
+						password:(NSString *)password
+					 accessToken:(NSString *)accessToken
+					refreshToken:(NSString *)refreshToken;
 
 @property (nonatomic, readonly) NSString *clientID;
 @property (nonatomic, readonly) NSString *clientSecret;

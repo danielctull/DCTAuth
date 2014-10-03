@@ -9,7 +9,7 @@
 #import "DCTAuthAccount+Private.h"
 #import "DCTAuthAccountStore+Private.h"
 #import "DCTOAuth1Account.h"
-#import "_DCTOAuth2Account.h"
+#import "DCTOAuth2Account.h"
 #import "DCTBasicAuthAccount.h"
 #import "DCTCertificateAccount.h"
 #import "NSString+DCTAuth.h"
@@ -84,12 +84,12 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 						 clientSecret:(NSString *)clientSecret
 							   scopes:(NSArray *)scopes {
 	
-	return [[_DCTOAuth2Account alloc] initWithType:type
-									  authorizeURL:authorizeURL
-									accessTokenURL:accessTokenURL
-										  clientID:clientID
-									  clientSecret:clientSecret
-											scopes:scopes];
+	return [[DCTOAuth2Account alloc] initWithType:type
+									 authorizeURL:authorizeURL
+								   accessTokenURL:accessTokenURL
+										 clientID:clientID
+									 clientSecret:clientSecret
+										   scopes:scopes];
 }
 
 + (instancetype)OAuth2AccountWithType:(NSString *)type
@@ -98,11 +98,11 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 							 password:(NSString *)password
 							   scopes:(NSArray *)scopes {
 
-	return [[_DCTOAuth2Account alloc] initWithType:type
-									  authorizeURL:authorizeURL
-										  username:username
-										  password:password
-											scopes:scopes];
+	return [[DCTOAuth2Account alloc] initWithType:type
+									 authorizeURL:authorizeURL
+										 username:username
+										 password:password
+										   scopes:scopes];
 }
 
 + (instancetype)basicAuthAccountWithType:(NSString *)type

@@ -1,5 +1,5 @@
 //
-//  _DCTOAuth2Account.h
+//  DCTOAuth2Account.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
@@ -9,7 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 
-@interface _DCTOAuth2Account : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface DCTOAuth2Account : DCTAuthAccount <DCTAuthAccountSubclass>
 
 - (instancetype)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL

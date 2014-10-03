@@ -1,34 +1,34 @@
 //
-//  _DCTAuth2Account.m
+//  DCTAuth2Account.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTOAuth2Account.h"
-#import "_DCTOAuth2Credential.h"
+#import "DCTOAuth2Account.h"
+#import "DCTOAuth2Credential.h"
 #import "DCTAuthAccount+Private.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
 
-static const struct _DCTOAuth2AccountProperties {
+static const struct DCTOAuth2AccountProperties {
 	__unsafe_unretained NSString *authorizeURL;
 	__unsafe_unretained NSString *accessTokenURL;
 	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *scopes;
-} _DCTOAuth2AccountProperties;
+} DCTOAuth2AccountProperties;
 
-static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
+static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	.authorizeURL = @"authorizeURL",
 	.accessTokenURL = @"accessTokenURL",
 	.username = @"username",
 	.scopes = @"scopes"
 };
 
-@interface _DCTOAuth2Account ()
+@interface DCTOAuth2Account ()
 @property (nonatomic, copy) NSURL *authorizeURL;
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSString *clientID;
@@ -39,7 +39,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 @property (nonatomic, strong) id openURLObject;
 @end
 
-@implementation _DCTOAuth2Account
+@implementation DCTOAuth2Account
 
 - (instancetype)initWithType:(NSString *)type
 	  authorizeURL:(NSURL *)authorizeURL
@@ -74,19 +74,19 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	_authorizeURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.authorizeURL];
-	_accessTokenURL = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.accessTokenURL];
-	_username = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.username];
-	_scopes = [coder decodeObjectForKey:_DCTOAuth2AccountProperties.scopes];
+	_authorizeURL = [coder decodeObjectForKey:DCTOAuth2AccountProperties.authorizeURL];
+	_accessTokenURL = [coder decodeObjectForKey:DCTOAuth2AccountProperties.accessTokenURL];
+	_username = [coder decodeObjectForKey:DCTOAuth2AccountProperties.username];
+	_scopes = [coder decodeObjectForKey:DCTOAuth2AccountProperties.scopes];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
-	[coder encodeObject:self.authorizeURL forKey:_DCTOAuth2AccountProperties.authorizeURL];
-	[coder encodeObject:self.accessTokenURL forKey:_DCTOAuth2AccountProperties.accessTokenURL];
-	[coder encodeObject:self.username forKey:_DCTOAuth2AccountProperties.username];
-	[coder encodeObject:self.scopes forKey:_DCTOAuth2AccountProperties.scopes];
+	[coder encodeObject:self.authorizeURL forKey:DCTOAuth2AccountProperties.authorizeURL];
+	[coder encodeObject:self.accessTokenURL forKey:DCTOAuth2AccountProperties.accessTokenURL];
+	[coder encodeObject:self.username forKey:DCTOAuth2AccountProperties.username];
+	[coder encodeObject:self.scopes forKey:DCTOAuth2AccountProperties.scopes];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
@@ -95,7 +95,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 
 	NSMutableArray *responses = [NSMutableArray new];
 
-	_DCTOAuth2Credential *credential = self.credential;
+	DCTOAuth2Credential *credential = self.credential;
 	NSString *clientID = (self.clientID != nil) ? self.clientID : credential.clientID;
 	NSString *clientSecret = (self.clientSecret != nil) ? self.clientSecret : credential.clientSecret;
 	NSString *password = (self.password != nil) ? self.password : credential.password;
@@ -109,11 +109,11 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken) {
 
 			if (!error)
-				self.credential = [[_DCTOAuth2Credential alloc] initWithClientID:clientID
-																	clientSecret:clientSecret
-																		password:password
-																	 accessToken:accessToken
-																	refreshToken:refreshToken];
+				self.credential = [[DCTOAuth2Credential alloc] initWithClientID:clientID
+																   clientSecret:clientSecret
+																	   password:password
+																	accessToken:accessToken
+																   refreshToken:refreshToken];
 
 			handler([responses copy], error);
 		}];
@@ -158,7 +158,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 
 	if (!handler) handler = ^(DCTAuthResponse *response, NSError *error) {};
 
-	_DCTOAuth2Credential *credential = self.credential;
+	DCTOAuth2Credential *credential = self.credential;
 	NSString *clientID = (self.clientID != nil) ? self.clientID : credential.clientID;
 	NSString *clientSecret = (self.clientSecret != nil) ? self.clientSecret : credential.clientSecret;
 	NSString *password = (self.password != nil) ? self.password : credential.password;
@@ -169,11 +169,11 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken) {
 
 			if (!error)
-				self.credential = [[_DCTOAuth2Credential alloc] initWithClientID:clientID
-																	clientSecret:clientSecret
-																		password:password
-																	 accessToken:accessToken
-																	refreshToken:refreshToken];
+				self.credential = [[DCTOAuth2Credential alloc] initWithClientID:clientID
+																   clientSecret:clientSecret
+																	   password:password
+																	accessToken:accessToken
+																   refreshToken:refreshToken];
 
 			handler(response, error);
 		}];
@@ -281,7 +281,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters addEntriesFromDictionary:exitingParameters];
 	
-	_DCTOAuth2Credential *credential = self.credential;
+	DCTOAuth2Credential *credential = self.credential;
 	parameters[@"access_token"] = credential.accessToken;
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.signing];
