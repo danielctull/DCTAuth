@@ -1,5 +1,5 @@
 //
-//  _DCTAuthPlatform.h
+//  DCTAuthPlatform.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 31/08/2012.
@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@interface _DCTAuthPlatform : NSObject
+@interface DCTAuthPlatform : NSObject
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler;
 + (void)endBackgroundTask:(id)object;
 + (BOOL)openURL:(NSURL *)URL;

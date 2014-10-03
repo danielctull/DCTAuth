@@ -8,7 +8,7 @@
 
 #import "DCTAuthResponse.h"
 #import "NSString+DCTAuth.h"
-#import "_DCTAuthPlatform.h"
+#import "DCTAuthPlatform.h"
 
 static const struct DCTAuthResponseProperties {
 	__unsafe_unretained NSString *data;
@@ -46,7 +46,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 		return [self dictionaryFromPlistData:data];
 
 	if ([@[@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap"] containsObject:contentType])
-		return [_DCTAuthPlatform imageFromData:data];
+		return [DCTAuthPlatform imageFromData:data];
 
 	return [self dictionaryFromFormData:data];
 }

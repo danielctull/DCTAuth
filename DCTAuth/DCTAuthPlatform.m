@@ -1,18 +1,18 @@
 //
-//  _DCTAuthPlatform.m
+//  DCTAuthPlatform.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 31/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthPlatform.h"
+#import "DCTAuthPlatform.h"
 
 #if TARGET_OS_IPHONE
 
 @import UIKit;
 
-@implementation _DCTAuthPlatform
+@implementation DCTAuthPlatform
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
 	UIBackgroundTaskIdentifier identifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:handler];
 	return @(identifier);
@@ -32,7 +32,7 @@
 
 @import AppKit;
 
-@implementation _DCTAuthPlatform
+@implementation DCTAuthPlatform
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
 	return nil;
 }

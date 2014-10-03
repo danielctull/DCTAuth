@@ -8,7 +8,7 @@
 
 #import "_DCTAuthURLOpener.h"
 #import "_DCTAuthURLOpenerOperation.h"
-#import "_DCTAuthPlatform.h"
+#import "DCTAuthPlatform.h"
 
 @interface _DCTAuthURLOpener ()
 @property (nonatomic, strong) NSOperationQueue *queue;
@@ -64,7 +64,7 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
 		BOOL isOpen = NO;
 		if (self.URLOpener != NULL) isOpen = self.URLOpener(URL);
-		if (!isOpen) [_DCTAuthPlatform openURL:URL];
+		if (!isOpen) [DCTAuthPlatform openURL:URL];
 	});
 }
 

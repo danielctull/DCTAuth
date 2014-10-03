@@ -8,7 +8,7 @@
 
 #import "DCTAuthRequest.h"
 #import "DCTAuthAccountSubclass.h"
-#import "_DCTAuthPlatform.h"
+#import "DCTAuthPlatform.h"
 #import "DCTAuthMultipartData.h"
 #import "NSDictionary+DCTAuth.h"
 #import "NSString+DCTAuth.h"
@@ -209,13 +209,13 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	_DCTAuthURLRequestPerformer *URLRequestPerformer = [_DCTAuthURLRequestPerformer sharedURLRequestPerformer];
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
-	id object = [_DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
+	id object = [DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
 
 	void (^handler)(DCTAuthResponse *response, NSError *error) = ^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
 			if (originalHandler) originalHandler(response, error);
-			[_DCTAuthPlatform endBackgroundTask:object];
+			[DCTAuthPlatform endBackgroundTask:object];
 		});
 	};
 
