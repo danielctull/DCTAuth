@@ -1,5 +1,5 @@
 //
-//  DCTBasicAuthAccountCredential.h
+//  DCTBasicAuthCredential.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 22/02/2013.
@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountCredential.h"
 
-@interface _DCTBasicAuthCredential : NSObject <DCTAuthAccountCredential>
+@interface DCTBasicAuthCredential : NSObject <DCTAuthAccountCredential>
 
 - (instancetype)initWithPassword:(NSString *)password;
 @property (nonatomic, readonly) NSString *password;

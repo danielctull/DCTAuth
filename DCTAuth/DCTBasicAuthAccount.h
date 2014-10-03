@@ -1,5 +1,5 @@
 //
-//  _DCTBasicAuthAccount.h
+//  DCTBasicAuthAccount.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 29/08/2012.
@@ -9,7 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 
-@interface _DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
 
 - (instancetype)initWithType:(NSString *)type
  authenticationURL:(NSURL *)authenticationURL
