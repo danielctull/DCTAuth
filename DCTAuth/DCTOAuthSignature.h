@@ -1,5 +1,5 @@
 //
-//  _DCTOAuthSignature.h
+//  DCTOAuthSignature.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 04.07.2010.
@@ -8,7 +8,7 @@
 
 #import "DCTAuthRequest.h"
 
-@interface _DCTOAuthSignature : NSObject
+@interface DCTOAuthSignature : NSObject
 
 - (instancetype)initWithURL:(NSURL *)URL
 	   HTTPMethod:(NSString *)HTTPMethod

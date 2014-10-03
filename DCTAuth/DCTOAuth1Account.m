@@ -8,7 +8,7 @@
 
 #import "DCTOAuth1Account.h"
 #import "DCTOAuth1Credential.h"
-#import "_DCTOAuthSignature.h"
+#import "DCTOAuthSignature.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
@@ -117,12 +117,12 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 		[parameters addEntriesFromDictionary:request.parameters];
 		NSString *HTTPMethod = [DCTAuthRequest stringForRequestMethod:request.requestMethod];
 
-		_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
-																	 HTTPMethod:HTTPMethod
-																 consumerSecret:consumerSecret
-																	secretToken:oauthTokenSecret
-																	 parameters:parameters
-																		   type:self.signatureType];
+		DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:request.URL
+																   HTTPMethod:HTTPMethod
+															   consumerSecret:consumerSecret
+																  secretToken:oauthTokenSecret
+																   parameters:parameters
+																		 type:self.signatureType];
 		return [signature authorizationHeader];
 	};
 
@@ -229,12 +229,12 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	[OAuthParameters setObject:credential.consumerKey forKey:DCTOAuth1AccountOAuthConsumerKey];
 	[OAuthParameters addEntriesFromDictionary:authRequest.parameters];
 	
-	_DCTOAuthSignature *signature = [[_DCTOAuthSignature alloc] initWithURL:request.URL
-																 HTTPMethod:request.HTTPMethod
-															 consumerSecret:credential.consumerSecret
-																secretToken:credential.oauthTokenSecret
-																 parameters:OAuthParameters
-																	   type:self.signatureType];
+	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:request.URL
+															   HTTPMethod:request.HTTPMethod
+														   consumerSecret:credential.consumerSecret
+															  secretToken:credential.oauthTokenSecret
+															   parameters:OAuthParameters
+																	 type:self.signatureType];
 	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
 }
 

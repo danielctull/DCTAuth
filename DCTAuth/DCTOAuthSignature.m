@@ -1,22 +1,22 @@
 //
-//  _DCTOAuthSignature.m
+//  DCTOAuthSignature.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 04.07.2010.
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTOAuthSignature.h"
+#import "DCTOAuthSignature.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTAuth.h"
 #import "NSData+DCTAuth.h"
 
-static NSString * const _DTOAuthSignatureTypeString[] = {
+static NSString * const DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
 	@"PLAINTEXT"
 };
 
-@interface _DCTOAuthSignature ()
+@interface DCTOAuthSignature ()
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, copy) NSString *consumerSecret;
 @property (nonatomic, copy) NSString *secretToken;
@@ -24,7 +24,7 @@ static NSString * const _DTOAuthSignatureTypeString[] = {
 @property (nonatomic, strong) NSMutableDictionary *parameters;
 @end
 
-@implementation _DCTOAuthSignature
+@implementation DCTOAuthSignature
 
 - (instancetype)initWithURL:(NSURL *)URL
 	   HTTPMethod:(NSString *)HTTPMethod
@@ -50,7 +50,7 @@ static NSString * const _DTOAuthSignatureTypeString[] = {
 	[_parameters setObject:version forKey:@"oauth_version"];
 	[_parameters setObject:nonce forKey:@"oauth_nonce"];
 	[_parameters setObject:timestamp forKey:@"oauth_timestamp"];
-	[_parameters setObject:_DTOAuthSignatureTypeString[self.type] forKey:@"oauth_signature_method"];
+	[_parameters setObject:DTOAuthSignatureTypeString[self.type] forKey:@"oauth_signature_method"];
 	[_parameters addEntriesFromDictionary:parameters];
 	
 	return self;
@@ -63,7 +63,7 @@ static NSString * const _DTOAuthSignatureTypeString[] = {
 	_type = type;
 #pragma clang diagnostic pop
 
-	[self.parameters setObject:_DTOAuthSignatureTypeString[type] forKey:@"oauth_signature_method"];
+	[self.parameters setObject:DTOAuthSignatureTypeString[type] forKey:@"oauth_signature_method"];
 }
 
 - (NSString *)signatureBaseString {
