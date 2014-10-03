@@ -33,7 +33,7 @@ static const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
 static NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
 static NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
 
-static NSString *const _DCTAuthRequestMethodString[] = {
+static NSString *const DCTAuthRequestMethodString[] = {
 	@"GET",
 	@"POST",
 	@"DELETE",
@@ -62,7 +62,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 #pragma mark - DCTAuthRequest
 
 + (NSString *)stringForRequestMethod:(DCTAuthRequestMethod)requestMethod {
-	return _DCTAuthRequestMethodString[requestMethod];
+	return DCTAuthRequestMethodString[requestMethod];
 }
 
 - (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
@@ -111,7 +111,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 - (NSMutableURLRequest *)_URLRequest {
 
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
-	[mutableRequest setHTTPMethod:_DCTAuthRequestMethodString[self.requestMethod]];
+	[mutableRequest setHTTPMethod:DCTAuthRequestMethodString[self.requestMethod]];
 
 	if ([self shouldSetupPOSTRequest])
 		[self _setupPOSTRequest:mutableRequest];
@@ -254,7 +254,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	return [NSString stringWithFormat:@"<%@: %p>\n%@ %@ \nHost: %@%@%@%@\n\n",
 			NSStringFromClass([self class]),
 			self,
-			_DCTAuthRequestMethodString[self.requestMethod],
+			DCTAuthRequestMethodString[self.requestMethod],
 			[self.URL path],
 			[self.URL host],
 			queryString,
