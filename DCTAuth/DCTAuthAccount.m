@@ -25,6 +25,17 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.saveUUID = @"saveUUID"
 };
 
+
+
+const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
+	.accessToken = @"DCTOAuth2AccountAccessTokenRequestType",
+	.authorize = @"DCTOAuth2AccountAuthorizeRequestType",
+	.refresh = @"DCTOAuth2AccountRefreshRequestType",
+	.signing = @"DCTOAuth2AccountSigningRequestType"
+};
+
+
+
 @interface DCTAuthAccount ()
 @property (nonatomic, strong) id<DCTAuthAccountCredential> internalCredential;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;

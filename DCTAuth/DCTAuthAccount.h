@@ -36,6 +36,17 @@ extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *saveUUID;
 } DCTAuthAccountProperties;
 
+
+
+extern const struct DCTOAuth2RequestType {
+	__unsafe_unretained NSString *accessToken;
+	__unsafe_unretained NSString *authorize;
+	__unsafe_unretained NSString *refresh;
+	__unsafe_unretained NSString *signing;
+} DCTOAuth2RequestType;
+
+
+
 /** 
  *  A DCTAuthAccount object encapsulates information about a user account
  *  stored in the database. You can create and retrieve accounts using an 

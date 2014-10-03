@@ -13,12 +13,6 @@
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
-#import "DCTOAuth2Account.h"
-
-NSString *const DCTOAuth2AccountAccessTokenRequestType = @"DCTOAuth2AccountAccessTokenRequestType";
-NSString *const DCTOAuth2AccountAuthorizeRequestType = @"DCTOAuth2AccountAuthorizeRequestType";
-NSString *const DCTOAuth2AccountRefreshRequestType = @"DCTOAuth2AccountRefreshRequestType";
-NSString *const DCTOAuth2AccountSigningRequestType = @"DCTOAuth2AccountSigningRequestType";
 
 static const struct _DCTOAuth2AccountProperties {
 	__unsafe_unretained NSString *authorizeURL;
@@ -219,7 +213,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 	[parameters setObject:state forKey:@"state"];
 
-	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountAuthorizeRequestType];
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.authorize];
 	[parameters addEntriesFromDictionary:extras];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
@@ -243,7 +237,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
 	if (self.shouldSendCallbackURL && self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
 
-	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountAccessTokenRequestType];
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.accessToken];
 	[parameters addEntriesFromDictionary:extras];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
@@ -264,7 +258,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	[parameters setObject:@"web_server" forKey:@"type"];
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
 
-	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountRefreshRequestType];
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.refresh];
 	[parameters addEntriesFromDictionary:extras];
 
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
@@ -290,7 +284,7 @@ static const struct _DCTOAuth2AccountProperties _DCTOAuth2AccountProperties = {
 	_DCTOAuth2Credential *credential = self.credential;
 	parameters[@"access_token"] = credential.accessToken;
 
-	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2AccountSigningRequestType];
+	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.signing];
 	[parameters addEntriesFromDictionary:extras];
 
 	URLComponents.query = [parameters dctAuth_queryString];
