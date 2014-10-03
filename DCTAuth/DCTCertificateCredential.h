@@ -1,5 +1,5 @@
 //
-//  DCTCertificateAccountCredential.h
+//  DCTCertificateCredential.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 17/03/2014.
@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountCredential.h"
 
-@interface DCTCertificateAccountCredential : NSObject <DCTAuthAccountCredential>
+@interface DCTCertificateCredential : NSObject <DCTAuthAccountCredential>
 
 - (instancetype)initWithCertificate:(NSData *)certificate
 						   password:(NSString *)password;

@@ -1,12 +1,12 @@
 //
-//  DCTCertificateAccountCredential.m
+//  DCTCertificateCredential.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 17/03/2014.
 //  Copyright (c) 2014 Daniel Tull. All rights reserved.
 //
 
-#import "DCTCertificateAccountCredential.h"
+#import "DCTCertificateCredential.h"
 
 static const struct DCTCertificateAccountCredentialProperties {
 	__unsafe_unretained NSString *certificate;
@@ -18,7 +18,7 @@ static const struct DCTCertificateAccountCredentialProperties DCTCertificateAcco
 	.password = @"password"
 };
 
-@implementation DCTCertificateAccountCredential
+@implementation DCTCertificateCredential
 
 - (instancetype)initWithCertificate:(NSData *)certificate password:(NSString *)password {
 	self = [self init];

@@ -7,7 +7,7 @@
 //
 
 #import "DCTCertificateAccount.h"
-#import "DCTCertificateAccountCredential.h"
+#import "DCTCertificateCredential.h"
 #import "DCTCertificateAuthURLProtocol.h"
 #import "DCTAuthRequest.h"
 @import Security;
@@ -47,7 +47,7 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 
 - (void)authenticateWithHandler:(void (^)(NSArray *responses, NSError *error))handler {
 
-	DCTCertificateAccountCredential *credential = self.credential;
+	DCTCertificateCredential *credential = self.credential;
 	NSString *password = self.password ? self.password : credential.password;
 	NSData *certificate = self.certificate ? self.certificate : credential.certificate;
 
@@ -59,7 +59,7 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 
 		NSArray *responses;
 		if (response) {
-			self.credential = [[DCTCertificateAccountCredential alloc] initWithCertificate:certificate password:password];
+			self.credential = [[DCTCertificateCredential alloc] initWithCertificate:certificate password:password];
 			responses = @[response];
 		} else {
 			self.credential = nil;
@@ -117,7 +117,7 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 
 - (NSURLCredential *)URLCredential {
 
-	DCTCertificateAccountCredential *credential = self.credential;
+	DCTCertificateCredential *credential = self.credential;
 	NSString *password = self.password ? self.password : credential.password;
 	NSData *certificate = self.certificate ? self.certificate : credential.certificate;
 
