@@ -71,5 +71,3 @@ static const struct DCTOAuth1CredentialProperties DCTOAuth1CredentialProperties 
 }
 
 @end
-
-@compatibility_alias _DCTOAuth1Credential DCTOAuth1Credential;

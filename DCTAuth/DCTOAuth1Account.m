@@ -239,6 +239,3 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 }
 
 @end
-
-
-@compatibility_alias _DCTOAuth1Account DCTOAuth1Account;
