@@ -8,7 +8,7 @@
 
 #import "_DCTAuthAccount.h"
 #import "_DCTAuthAccountStore.h"
-#import "_DCTOAuth1Account.h"
+#import "DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
 #import "DCTCertificateAccount.h"
@@ -41,13 +41,13 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 					  consumerSecret:(NSString *)consumerSecret
 					   signatureType:(DCTOAuthSignatureType)signatureType {
 	
-	return [[_DCTOAuth1Account alloc] initWithType:type
-								   requestTokenURL:requestTokenURL
-									  authorizeURL:authorizeURL
-									accessTokenURL:accessTokenURL
-									   consumerKey:consumerKey
-									consumerSecret:consumerSecret
-									 signatureType:signatureType];
+	return [[DCTOAuth1Account alloc] initWithType:type
+								  requestTokenURL:requestTokenURL
+									 authorizeURL:authorizeURL
+								   accessTokenURL:accessTokenURL
+									  consumerKey:consumerKey
+								   consumerSecret:consumerSecret
+									signatureType:signatureType];
 }
 
 + (instancetype)OAuthAccountWithType:(NSString *)type

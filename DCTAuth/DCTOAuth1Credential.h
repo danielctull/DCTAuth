@@ -1,5 +1,5 @@
 //
-//  DCTOAuth1AccountCredential.h
+//  DCTOAuth1Credential.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 22/02/2013.
@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountCredential.h"
 
-@interface _DCTOAuth1Credential : NSObject <DCTAuthAccountCredential>
+@interface DCTOAuth1Credential : NSObject <DCTAuthAccountCredential>
 
 - (instancetype)initWithConsumerKey:(NSString *)consumerKey
 		   consumerSecret:(NSString *)consumerSecret

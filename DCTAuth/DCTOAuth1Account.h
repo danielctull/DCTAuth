@@ -1,5 +1,5 @@
 //
-//  _DCTOAuth1Account.h
+//  DCTOAuth1Account.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 26/08/2012.
@@ -9,7 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 
-@interface _DCTOAuth1Account : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface DCTOAuth1Account : DCTAuthAccount <DCTAuthAccountSubclass>
 
 - (instancetype)initWithType:(NSString *)type
    requestTokenURL:(NSURL *)requestTokenURL
