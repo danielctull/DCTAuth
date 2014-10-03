@@ -8,7 +8,7 @@
 
 #import "DCTAuthAccountStore+Private.h"
 #import "DCTAuthAccountSubclass.h"
-#import "_DCTAuthKeychainAccess.h"
+#import "DCTAuthKeychainAccess.h"
 #import "DCTAuthAccount+Private.h"
 
 #if TARGET_OS_IPHONE
@@ -142,7 +142,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 	NSMutableArray *accountIdentifiersToDelete = [[self.accounts valueForKey:DCTAuthAccountProperties.identifier] mutableCopy];
 
-	NSArray *accountDatas = [_DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
+	NSArray *accountDatas = [DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
@@ -200,7 +200,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	account.saveUUID = [[NSUUID UUID] UUIDString];
 
 	NSData *accountData = [NSKeyedArchiver archivedDataWithRootObject:account];
-	[_DCTAuthKeychainAccess addData:accountData
+	[DCTAuthKeychainAccess addData:accountData
 			   forAccountIdentifier:identifier
 						  storeName:storeName
 							   type:_DCTAuthKeychainAccessTypeAccount
@@ -225,8 +225,8 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
-	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
-	[_DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup synchronizable:self.synchronizable];
+	[DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
+	[DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup synchronizable:self.synchronizable];
 	[self removeAccount:account];
 }
 
@@ -299,12 +299,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSString *accountIdentifier = account.identifier;
 
 	NSData *credentialData = [NSKeyedArchiver archivedDataWithRootObject:credential];
-	[_DCTAuthKeychainAccess addData:credentialData
-			   forAccountIdentifier:accountIdentifier
-						  storeName:storeName
-							   type:_DCTAuthKeychainAccessTypeCredential
-						accessGroup:accessGroup
-					 synchronizable:synchronizable];
+	[DCTAuthKeychainAccess addData:credentialData
+			  forAccountIdentifier:accountIdentifier
+						 storeName:storeName
+							  type:_DCTAuthKeychainAccessTypeCredential
+					   accessGroup:accessGroup
+					synchronizable:synchronizable];
 }
 
 - (id<DCTAuthAccountCredential>)retrieveCredentialForAccount:(DCTAuthAccount *)account {
@@ -313,11 +313,11 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSString *accessGroup = self.accessGroup;
 	BOOL synchronizable = self.synchronizable;
 	NSString *accountIdentifier = account.identifier;
-	NSData *data = [_DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
-														  storeName:name
-															   type:_DCTAuthKeychainAccessTypeCredential
-														accessGroup:accessGroup
-													 synchronizable:synchronizable];
+	NSData *data = [DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
+														 storeName:name
+															  type:_DCTAuthKeychainAccessTypeCredential
+													   accessGroup:accessGroup
+													synchronizable:synchronizable];
 	if (!data) return nil;
 	id<DCTAuthAccountCredential> credential = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 	if (![credential conformsToProtocol:@protocol(DCTAuthAccountCredential)]) return nil;

@@ -1,15 +1,15 @@
 //
-//  _DCTAuthKeychainAccess.m
+//  DCTAuthKeychainAccess.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 16/06/2013.
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthKeychainAccess.h"
+#import "DCTAuthKeychainAccess.h"
 @import Security;
 
-@implementation _DCTAuthKeychainAccess
+@implementation DCTAuthKeychainAccess
 
 + (NSArray *)accountDataForStoreName:(NSString *)storeName
 						 accessGroup:(NSString *)accessGroup

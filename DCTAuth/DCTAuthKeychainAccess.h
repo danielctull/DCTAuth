@@ -1,5 +1,5 @@
 //
-//  _DCTAuthKeychainAccess.h
+//  DCTAuthKeychainAccess.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 16/06/2013.
@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, _DCTAuthKeychainAccessType) {
 	_DCTAuthKeychainAccessTypeCredential
 };
 
-@interface _DCTAuthKeychainAccess : NSObject
+@interface DCTAuthKeychainAccess : NSObject
 
 + (NSArray *)accountDataForStoreName:(NSString *)storeName
 						 accessGroup:(NSString *)accessGroup
