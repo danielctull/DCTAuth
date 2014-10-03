@@ -8,7 +8,7 @@
 
 #import "_DCTOAuth2Account.h"
 #import "_DCTOAuth2Credential.h"
-#import "_DCTAuthAccount.h"
+#import "DCTAuthAccount+Private.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"

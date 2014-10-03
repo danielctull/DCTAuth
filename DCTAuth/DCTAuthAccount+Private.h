@@ -1,5 +1,5 @@
 //
-//  _DCTAuthAccount.h
+//  DCTAuthAccount+Private.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 17/06/2013.

@@ -9,7 +9,7 @@
 #import "_DCTAuthAccountStore.h"
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthKeychainAccess.h"
-#import "_DCTAuthAccount.h"
+#import "DCTAuthAccount+Private.h"
 
 #if TARGET_OS_IPHONE
 @import UIKit;
