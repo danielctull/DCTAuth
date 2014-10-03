@@ -17,7 +17,7 @@
 	
 	NSMutableDictionary *query = [self queryForAccountIdentifier:nil
 													   storeName:storeName
-															type:_DCTAuthKeychainAccessTypeAccount
+															type:DCTAuthKeychainAccessTypeAccount
 													 accessGroup:accessGroup
 												  synchronizable:synchronizable];
 	[query addEntriesFromDictionary:@{
@@ -32,7 +32,7 @@
 
 + (void)removeDataForAccountIdentifier:(NSString *)accountIdentifier
 							 storeName:(NSString *)storeName
-								  type:(_DCTAuthKeychainAccessType)type
+								  type:(DCTAuthKeychainAccessType)type
 						   accessGroup:(NSString *)accessGroup
 						synchronizable:(BOOL)synchronizable {
 
@@ -47,7 +47,7 @@
 + (void)addData:(NSData *)data
 forAccountIdentifier:(NSString *)accountIdentifier
 	  storeName:(NSString *)storeName
-		   type:(_DCTAuthKeychainAccessType)type
+		   type:(DCTAuthKeychainAccessType)type
 	accessGroup:(NSString *)accessGroup
  synchronizable:(BOOL)synchronizable {
 
@@ -63,7 +63,7 @@ forAccountIdentifier:(NSString *)accountIdentifier
 
 + (NSData *)dataForAccountIdentifier:(NSString *)accountIdentifier
 						   storeName:(NSString *)storeName
-								type:(_DCTAuthKeychainAccessType)type
+								type:(DCTAuthKeychainAccessType)type
 						 accessGroup:(NSString *)accessGroup
 					  synchronizable:(BOOL)synchronizable {
 
@@ -84,7 +84,7 @@ forAccountIdentifier:(NSString *)accountIdentifier
 	return data;
 }
 
-+ (NSMutableDictionary *)queryForAccountIdentifier:(NSString *)accountIdentifier storeName:(NSString *)storeName type:(_DCTAuthKeychainAccessType)type accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
++ (NSMutableDictionary *)queryForAccountIdentifier:(NSString *)accountIdentifier storeName:(NSString *)storeName type:(DCTAuthKeychainAccessType)type accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
 
 // Ignore the access group if running on the iPhone simulator.
 //

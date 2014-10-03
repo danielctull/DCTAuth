@@ -203,7 +203,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	[DCTAuthKeychainAccess addData:accountData
 			   forAccountIdentifier:identifier
 						  storeName:storeName
-							   type:_DCTAuthKeychainAccessTypeAccount
+							   type:DCTAuthKeychainAccessTypeAccount
 						accessGroup:self.accessGroup
 					 synchronizable:self.synchronizable];
 
@@ -225,8 +225,8 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 	NSString *identifier = account.identifier;
 	NSString *storeName = self.name;
-	[DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
-	[DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup synchronizable:self.synchronizable];
+	[DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:DCTAuthKeychainAccessTypeAccount accessGroup:self.accessGroup synchronizable:self.synchronizable];
+	[DCTAuthKeychainAccess removeDataForAccountIdentifier:identifier storeName:storeName type:DCTAuthKeychainAccessTypeCredential accessGroup:self.accessGroup synchronizable:self.synchronizable];
 	[self removeAccount:account];
 }
 
@@ -302,7 +302,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	[DCTAuthKeychainAccess addData:credentialData
 			  forAccountIdentifier:accountIdentifier
 						 storeName:storeName
-							  type:_DCTAuthKeychainAccessTypeCredential
+							  type:DCTAuthKeychainAccessTypeCredential
 					   accessGroup:accessGroup
 					synchronizable:synchronizable];
 }
@@ -315,7 +315,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSString *accountIdentifier = account.identifier;
 	NSData *data = [DCTAuthKeychainAccess dataForAccountIdentifier:accountIdentifier
 														 storeName:name
-															  type:_DCTAuthKeychainAccessTypeCredential
+															  type:DCTAuthKeychainAccessTypeCredential
 													   accessGroup:accessGroup
 													synchronizable:synchronizable];
 	if (!data) return nil;

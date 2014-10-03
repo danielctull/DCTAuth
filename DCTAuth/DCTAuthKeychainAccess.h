@@ -8,9 +8,9 @@
 
 #import "DCTAuthAccountStore.h"
 
-typedef NS_ENUM(NSInteger, _DCTAuthKeychainAccessType) {
-	_DCTAuthKeychainAccessTypeAccount,
-	_DCTAuthKeychainAccessTypeCredential
+typedef NS_ENUM(NSInteger, DCTAuthKeychainAccessType) {
+	DCTAuthKeychainAccessTypeAccount,
+	DCTAuthKeychainAccessTypeCredential
 };
 
 @interface DCTAuthKeychainAccess : NSObject
@@ -21,20 +21,20 @@ typedef NS_ENUM(NSInteger, _DCTAuthKeychainAccessType) {
 
 + (void)removeDataForAccountIdentifier:(NSString *)accountIdentifier
 							 storeName:(NSString *)storeName
-								  type:(_DCTAuthKeychainAccessType)type
+								  type:(DCTAuthKeychainAccessType)type
 						   accessGroup:(NSString *)accessGroup
 						synchronizable:(BOOL)synchronizable;
 
 + (void)addData:(NSData *)data
 forAccountIdentifier:(NSString *)accountIdentifier
 	  storeName:(NSString *)storeName
-		   type:(_DCTAuthKeychainAccessType)type
+		   type:(DCTAuthKeychainAccessType)type
 	accessGroup:(NSString *)accessGroup
  synchronizable:(BOOL)synchronizable;
 
 + (NSData *)dataForAccountIdentifier:(NSString *)accountIdentifier
 						   storeName:(NSString *)storeName
-								type:(_DCTAuthKeychainAccessType)type
+								type:(DCTAuthKeychainAccessType)type
 						 accessGroup:(NSString *)accessGroup
 					  synchronizable:(BOOL)synchronizable;
 

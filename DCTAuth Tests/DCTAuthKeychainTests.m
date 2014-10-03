@@ -21,14 +21,14 @@
 	NSData *data = [@"Input string" dataUsingEncoding:NSUTF8StringEncoding];
 	NSString *account = @"Daniel";
 	NSString *storeName = @"Store";
-	_DCTAuthKeychainAccessType type = _DCTAuthKeychainAccessTypeAccount;
+	DCTAuthKeychainAccessType type = DCTAuthKeychainAccessTypeAccount;
 
 	[DCTAuthKeychainAccess addData:data forAccountIdentifier:account storeName:storeName type:type accessGroup:@"group" synchronizable:NO];
 
 	NSData *data2 = [DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:type accessGroup:@"group" synchronizable:NO];
 	XCTAssertEqualObjects(data, data2, @"Data in is not the same as data out");
 
-	NSData *data3 = [DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:_DCTAuthKeychainAccessTypeCredential accessGroup:@"group" synchronizable:NO];
+	NSData *data3 = [DCTAuthKeychainAccess dataForAccountIdentifier:account storeName:storeName type:DCTAuthKeychainAccessTypeCredential accessGroup:@"group" synchronizable:NO];
 	XCTAssertFalse([data isEqualToData:data3], @"Credential data is same as account data");
 }
 
