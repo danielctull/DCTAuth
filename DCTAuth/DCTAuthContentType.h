@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, DCTAuthContentTypeType) {
 	DCTAuthContentTypePlist
 };
 
-@interface _DCTAuthContentType : NSObject
+@interface DCTAuthContentType : NSObject
 
 - (instancetype)initWithString:(NSString *)string;
 - (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType;
