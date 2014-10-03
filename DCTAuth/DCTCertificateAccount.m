@@ -139,6 +139,7 @@ static const struct DCTCertificateAccountProperties DCTCertificateAccountPropert
 	SecCertificateRef certificateRef;
 	SecIdentityCopyCertificate(identityRef, &certificateRef);
 	NSArray *certificates = @[(__bridge id)certificateRef];
+	CFRelease(certificateRef);
 
 	return [NSURLCredential credentialWithIdentity:identityRef
 									  certificates:certificates
