@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthAccountStore.h"
+#import "DCTAuthAccountStore+Private.h"
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthKeychainAccess.h"
 #import "DCTAuthAccount+Private.h"

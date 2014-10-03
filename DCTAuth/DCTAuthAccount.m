@@ -7,7 +7,7 @@
 //
 
 #import "DCTAuthAccount+Private.h"
-#import "_DCTAuthAccountStore.h"
+#import "DCTAuthAccountStore+Private.h"
 #import "DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "DCTBasicAuthAccount.h"
