@@ -1,26 +1,26 @@
 //
-//  _DCTAuthURLOpener.m
+//  DCTAuthURLOpener.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 31/08/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthURLOpener.h"
-#import "_DCTAuthURLOpenerOperation.h"
+#import "DCTAuthURLOpener.h"
+#import "DCTAuthURLOpenerOperation.h"
 #import "DCTAuthPlatform.h"
 
-@interface _DCTAuthURLOpener ()
+@interface DCTAuthURLOpener ()
 @property (nonatomic, strong) NSOperationQueue *queue;
 @end
 
-@implementation _DCTAuthURLOpener
+@implementation DCTAuthURLOpener
 
-+ (_DCTAuthURLOpener *)sharedURLOpener {
-	static _DCTAuthURLOpener *opener;
++ (DCTAuthURLOpener *)sharedURLOpener {
+	static DCTAuthURLOpener *opener;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		opener = [_DCTAuthURLOpener new];
+		opener = [DCTAuthURLOpener new];
 	});
 	return opener;
 }
@@ -37,7 +37,7 @@
 
 	__block BOOL handled = NO;
 
-	[self.queue.operations enumerateObjectsUsingBlock:^(_DCTAuthURLOpenerOperation *operation, NSUInteger i, BOOL *stop) {
+	[self.queue.operations enumerateObjectsUsingBlock:^(DCTAuthURLOpenerOperation *operation, NSUInteger i, BOOL *stop) {
 		*stop = handled = [operation handleURL:URL];
 	}];
 
@@ -47,7 +47,7 @@
 - (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler {
 
 
-	_DCTAuthURLOpenerOperation *operation = [[_DCTAuthURLOpenerOperation alloc] initWithURL:URL
+	DCTAuthURLOpenerOperation *operation = [[DCTAuthURLOpenerOperation alloc] initWithURL:URL
 																				callbackURL:callbackURL
 																					handler:handler];
 	[self.queue addOperation:operation];
@@ -55,8 +55,8 @@
 }
 
 - (void)close:(id)object {
-	NSAssert([object isKindOfClass:[_DCTAuthURLOpenerOperation class]], @"Object should be the object returned from openURL:withCallbackURL:handler:");
-	_DCTAuthURLOpenerOperation *operation = object;
+	NSAssert([object isKindOfClass:[DCTAuthURLOpenerOperation class]], @"Object should be the object returned from openURL:withCallbackURL:handler:");
+	DCTAuthURLOpenerOperation *operation = object;
 	[operation cancel];
 }
 

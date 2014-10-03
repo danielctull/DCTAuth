@@ -7,7 +7,7 @@
 //
 
 #import "DCTAuth.h"
-#import "_DCTAuthURLOpener.h"
+#import "DCTAuthURLOpener.h"
 #import "_DCTAuthURLRequestPerformer.h"
 #import "DCTCertificateAuthURLProtocol.h"
 
@@ -16,19 +16,19 @@ static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
 @implementation DCTAuth
 
 + (BOOL)handleURL:(NSURL *)URL {
-	return [[_DCTAuthURLOpener sharedURLOpener] handleURL:URL];
+	return [[DCTAuthURLOpener sharedURLOpener] handleURL:URL];
 }
 
 + (void)setURLOpener:(BOOL(^)(NSURL *URL))opener {
-	[[_DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
+	[[DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
 }
 
 + (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(DCTAuthResponse *response))handler {
-	return [[_DCTAuthURLOpener sharedURLOpener] openURL:URL withCallbackURL:callbackPrefixURL handler:handler];
+	return [[DCTAuthURLOpener sharedURLOpener] openURL:URL withCallbackURL:callbackPrefixURL handler:handler];
 }
 
 + (void)cancelOpenURL:(id)object {
-	[[_DCTAuthURLOpener sharedURLOpener] close:object];
+	[[DCTAuthURLOpener sharedURLOpener] close:object];
 }
 
 + (void)setURLRequestPerformer:(void(^)(NSURLRequest *request, DCTAuthRequestHandler handler))requestPerformer {

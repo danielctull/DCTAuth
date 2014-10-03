@@ -1,5 +1,5 @@
 //
-//  _DCTAuthURLOpenerOperation.h
+//  DCTAuthURLOpenerOperation.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 27.09.2013.
@@ -9,7 +9,7 @@
 @import Foundation;
 #import "DCTAuthResponse.h"
 
-@interface _DCTAuthURLOpenerOperation : NSOperation
+@interface DCTAuthURLOpenerOperation : NSOperation
 
 - (instancetype)initWithURL:(NSURL *)URL callbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler;
 @property (nonatomic, readonly) NSURL *URL;

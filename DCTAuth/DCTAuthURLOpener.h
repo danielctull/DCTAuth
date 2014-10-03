@@ -1,5 +1,5 @@
 //
-//  _DCTAuthURLOpener.h
+//  DCTAuthURLOpener.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 31/08/2012.
@@ -8,9 +8,9 @@
 
 #import "DCTAuthResponse.h"
 
-@interface _DCTAuthURLOpener : NSObject
+@interface DCTAuthURLOpener : NSObject
 
-+ (_DCTAuthURLOpener *)sharedURLOpener;
++ (DCTAuthURLOpener *)sharedURLOpener;
 
 - (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackURL handler:(void (^)(DCTAuthResponse *response))handler;
 - (void)close:(id)object;

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		240764BB15EE3791006E0B54 /* DCTBasicAuthAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 240764BA15EE3791006E0B54 /* DCTBasicAuthAccount.m */; };
-		24115A7117F577FA00280F98 /* _DCTAuthURLOpenerOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 24115A7017F577FA00280F98 /* _DCTAuthURLOpenerOperation.m */; };
+		24115A7117F577FA00280F98 /* DCTAuthURLOpenerOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 24115A7017F577FA00280F98 /* DCTAuthURLOpenerOperation.m */; };
 		241298C816AC71310052A724 /* _DCTAuthURLRequestPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */; };
 		2419EA3616B912B100901AA2 /* DCTAuthContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3516B912B100901AA2 /* DCTAuthContentType.m */; };
 		2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */; };
@@ -34,8 +34,8 @@
 		2454F2EA195960A800E8643C /* DCTAuthAccountStore+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */; };
 		2454F2EB195960A800E8643C /* DCTAuthKeychainAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 2484E11C176E4A1B000EB00E /* DCTAuthKeychainAccess.h */; };
 		2454F2EC195960A800E8643C /* DCTAuthContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2419EA3416B912B100901AA2 /* DCTAuthContentType.h */; };
-		2454F2ED195960A800E8643C /* _DCTAuthURLOpener.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */; };
-		2454F2EE195960A800E8643C /* _DCTAuthURLOpenerOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 24115A6F17F577FA00280F98 /* _DCTAuthURLOpenerOperation.h */; };
+		2454F2ED195960A800E8643C /* DCTAuthURLOpener.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A3318115F14D63004FA7E4 /* DCTAuthURLOpener.h */; };
+		2454F2EE195960A800E8643C /* DCTAuthURLOpenerOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 24115A6F17F577FA00280F98 /* DCTAuthURLOpenerOperation.h */; };
 		2454F2EF195960A800E8643C /* _DCTAuthURLRequestPerformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */; };
 		2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */; };
 		2454F2F1195960A800E8643C /* DCTAuthMultipartData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */; };
@@ -60,8 +60,8 @@
 		2454F3171959615800E8643C /* DCTAuthResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 245F7C7316AF2809005B72BA /* DCTAuthResponse.m */; };
 		2454F3181959615800E8643C /* DCTAuthKeychainAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2484E11D176E4A1B000EB00E /* DCTAuthKeychainAccess.m */; };
 		2454F3191959615800E8643C /* DCTAuthContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3516B912B100901AA2 /* DCTAuthContentType.m */; };
-		2454F31A1959615800E8643C /* _DCTAuthURLOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */; };
-		2454F31B1959615800E8643C /* _DCTAuthURLOpenerOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 24115A7017F577FA00280F98 /* _DCTAuthURLOpenerOperation.m */; };
+		2454F31A1959615800E8643C /* DCTAuthURLOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A3318215F14D63004FA7E4 /* DCTAuthURLOpener.m */; };
+		2454F31B1959615800E8643C /* DCTAuthURLOpenerOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 24115A7017F577FA00280F98 /* DCTAuthURLOpenerOperation.m */; };
 		2454F31C1959615800E8643C /* _DCTAuthURLRequestPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */; };
 		2454F31D1959615800E8643C /* DCTAuthPlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */; };
 		2454F31E1959615800E8643C /* DCTAuthMultipartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443E9C515F37A2A00845950 /* DCTAuthMultipartData.m */; };
@@ -91,7 +91,7 @@
 		249CAD1C15EA22ED00FFD0D2 /* DCTAuthAccountStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */; };
 		249CAD1F15EA235E00FFD0D2 /* _DCTOAuth2Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1E15EA235E00FFD0D2 /* _DCTOAuth2Account.m */; };
 		249CAD2215EA236B00FFD0D2 /* DCTOAuth1Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD2115EA236B00FFD0D2 /* DCTOAuth1Account.m */; };
-		24A3318315F14D63004FA7E4 /* _DCTAuthURLOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */; };
+		24A3318315F14D63004FA7E4 /* DCTAuthURLOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A3318215F14D63004FA7E4 /* DCTAuthURLOpener.m */; };
 		24A331D815F15B93004FA7E4 /* DCTAuthPlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */; };
 		24C6232D15EB932700B68FAD /* DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6232C15EB932700B68FAD /* DCTAuth.m */; };
 		24C6238C15EBBB8800B68FAD /* NSDictionary+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238915EBBB8800B68FAD /* NSDictionary+DCTAuth.m */; };
@@ -170,8 +170,8 @@
 /* Begin PBXFileReference section */
 		240764B915EE3791006E0B54 /* DCTBasicAuthAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTBasicAuthAccount.h; sourceTree = "<group>"; };
 		240764BA15EE3791006E0B54 /* DCTBasicAuthAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTBasicAuthAccount.m; sourceTree = "<group>"; };
-		24115A6F17F577FA00280F98 /* _DCTAuthURLOpenerOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthURLOpenerOperation.h; sourceTree = "<group>"; };
-		24115A7017F577FA00280F98 /* _DCTAuthURLOpenerOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLOpenerOperation.m; sourceTree = "<group>"; };
+		24115A6F17F577FA00280F98 /* DCTAuthURLOpenerOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthURLOpenerOperation.h; sourceTree = "<group>"; };
+		24115A7017F577FA00280F98 /* DCTAuthURLOpenerOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthURLOpenerOperation.m; sourceTree = "<group>"; };
 		241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthURLRequestPerformer.h; sourceTree = "<group>"; };
 		241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLRequestPerformer.m; sourceTree = "<group>"; };
 		2419EA3416B912B100901AA2 /* DCTAuthContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthContentType.h; sourceTree = "<group>"; };
@@ -216,8 +216,8 @@
 		249CAD1E15EA235E00FFD0D2 /* _DCTOAuth2Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTOAuth2Account.m; sourceTree = "<group>"; };
 		249CAD2015EA236B00FFD0D2 /* DCTOAuth1Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth1Account.h; sourceTree = "<group>"; };
 		249CAD2115EA236B00FFD0D2 /* DCTOAuth1Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth1Account.m; sourceTree = "<group>"; };
-		24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DCTAuthURLOpener.h; sourceTree = "<group>"; };
-		24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DCTAuthURLOpener.m; sourceTree = "<group>"; };
+		24A3318115F14D63004FA7E4 /* DCTAuthURLOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthURLOpener.h; sourceTree = "<group>"; };
+		24A3318215F14D63004FA7E4 /* DCTAuthURLOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthURLOpener.m; sourceTree = "<group>"; };
 		24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthPlatform.h; sourceTree = "<group>"; };
 		24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthPlatform.m; sourceTree = "<group>"; };
 		24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccountStore+Private.h"; sourceTree = "<group>"; };
@@ -314,10 +314,10 @@
 				2484E11D176E4A1B000EB00E /* DCTAuthKeychainAccess.m */,
 				2419EA3416B912B100901AA2 /* DCTAuthContentType.h */,
 				2419EA3516B912B100901AA2 /* DCTAuthContentType.m */,
-				24A3318115F14D63004FA7E4 /* _DCTAuthURLOpener.h */,
-				24A3318215F14D63004FA7E4 /* _DCTAuthURLOpener.m */,
-				24115A6F17F577FA00280F98 /* _DCTAuthURLOpenerOperation.h */,
-				24115A7017F577FA00280F98 /* _DCTAuthURLOpenerOperation.m */,
+				24A3318115F14D63004FA7E4 /* DCTAuthURLOpener.h */,
+				24A3318215F14D63004FA7E4 /* DCTAuthURLOpener.m */,
+				24115A6F17F577FA00280F98 /* DCTAuthURLOpenerOperation.h */,
+				24115A7017F577FA00280F98 /* DCTAuthURLOpenerOperation.m */,
 				241298C616AC71310052A724 /* _DCTAuthURLRequestPerformer.h */,
 				241298C716AC71310052A724 /* _DCTAuthURLRequestPerformer.m */,
 				24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */,
@@ -500,7 +500,7 @@
 				2454F2FA195960A800E8643C /* DCTCertificateCredential.h in Headers */,
 				2454F2FE195960B100E8643C /* NSDictionary+DCTAuth.h in Headers */,
 				2454F2F9195960A800E8643C /* DCTCertificateAccount.h in Headers */,
-				2454F2ED195960A800E8643C /* _DCTAuthURLOpener.h in Headers */,
+				2454F2ED195960A800E8643C /* DCTAuthURLOpener.h in Headers */,
 				2454F2FB195960A800E8643C /* DCTCertificateAuthURLProtocol.h in Headers */,
 				2454F2EC195960A800E8643C /* DCTAuthContentType.h in Headers */,
 				2454F2E11959608A00E8643C /* DCTAuth.h in Headers */,
@@ -509,7 +509,7 @@
 				2454F2F1195960A800E8643C /* DCTAuthMultipartData.h in Headers */,
 				2454F2E41959608A00E8643C /* DCTAuthAccountCredential.h in Headers */,
 				2454F2E51959608A00E8643C /* DCTAuthAccountStore.h in Headers */,
-				2454F2EE195960A800E8643C /* _DCTAuthURLOpenerOperation.h in Headers */,
+				2454F2EE195960A800E8643C /* DCTAuthURLOpenerOperation.h in Headers */,
 				2454F2F7195960A800E8643C /* DCTBasicAuthAccount.h in Headers */,
 				2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */,
 				2454F2F4195960A800E8643C /* DCTOAuth1Credential.h in Headers */,
@@ -741,8 +741,8 @@
 				2454F3171959615800E8643C /* DCTAuthResponse.m in Sources */,
 				2454F3181959615800E8643C /* DCTAuthKeychainAccess.m in Sources */,
 				2454F3191959615800E8643C /* DCTAuthContentType.m in Sources */,
-				2454F31A1959615800E8643C /* _DCTAuthURLOpener.m in Sources */,
-				2454F31B1959615800E8643C /* _DCTAuthURLOpenerOperation.m in Sources */,
+				2454F31A1959615800E8643C /* DCTAuthURLOpener.m in Sources */,
+				2454F31B1959615800E8643C /* DCTAuthURLOpenerOperation.m in Sources */,
 				2454F31C1959615800E8643C /* _DCTAuthURLRequestPerformer.m in Sources */,
 				2454F31D1959615800E8643C /* DCTAuthPlatform.m in Sources */,
 				2454F31E1959615800E8643C /* DCTAuthMultipartData.m in Sources */,
@@ -778,7 +778,7 @@
 				24C6232D15EB932700B68FAD /* DCTAuth.m in Sources */,
 				24C6238C15EBBB8800B68FAD /* NSDictionary+DCTAuth.m in Sources */,
 				240764BB15EE3791006E0B54 /* DCTBasicAuthAccount.m in Sources */,
-				24A3318315F14D63004FA7E4 /* _DCTAuthURLOpener.m in Sources */,
+				24A3318315F14D63004FA7E4 /* DCTAuthURLOpener.m in Sources */,
 				24F0B50218D76990005BC619 /* DCTCertificateAccount.m in Sources */,
 				24F0B50518D76AA8005BC619 /* DCTCertificateCredential.m in Sources */,
 				24F0B50E18D78A74005BC619 /* DCTCertificateAuthURLProtocol.m in Sources */,
@@ -789,7 +789,7 @@
 				2419EA3616B912B100901AA2 /* DCTAuthContentType.m in Sources */,
 				246D3A9116D7776A008CDB63 /* DCTBasicAuthCredential.m in Sources */,
 				246D3A9416D77D38008CDB63 /* DCTOAuth1Credential.m in Sources */,
-				24115A7117F577FA00280F98 /* _DCTAuthURLOpenerOperation.m in Sources */,
+				24115A7117F577FA00280F98 /* DCTAuthURLOpenerOperation.m in Sources */,
 				2454C24816D8BD4500E97367 /* _DCTOAuth2Credential.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

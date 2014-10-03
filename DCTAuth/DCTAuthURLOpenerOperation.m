@@ -1,21 +1,21 @@
 //
-//  _DCTAuthURLOpenerOperation.m
+//  DCTAuthURLOpenerOperation.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 27.09.2013.
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthURLOpenerOperation.h"
-#import "_DCTAuthURLOpener.h"
+#import "DCTAuthURLOpenerOperation.h"
+#import "DCTAuthURLOpener.h"
 
-@interface _DCTAuthURLOpenerOperation ()
+@interface DCTAuthURLOpenerOperation ()
 @property (nonatomic) BOOL cancelled;
 @property (nonatomic) BOOL executing;
 @property (nonatomic) BOOL finished;
 @end
 
-@implementation _DCTAuthURLOpenerOperation
+@implementation DCTAuthURLOpenerOperation
 @synthesize cancelled = _cancelled;
 @synthesize executing = _executing;
 @synthesize finished = _finished;
@@ -100,7 +100,7 @@
 
 	self.executing = YES;
 
-	[[_DCTAuthURLOpener sharedURLOpener] openURL:self.URL];
+	[[DCTAuthURLOpener sharedURLOpener] openURL:self.URL];
 }
 
 - (void)cancel {
