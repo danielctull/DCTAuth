@@ -1,14 +1,14 @@
 //
-//  _DCTAuthMultipartData.m
+//  DCTAuthMultipartData.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 02/09/2012.
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import "_DCTAuthMultipartData.h"
+#import "DCTAuthMultipartData.h"
 
-@implementation _DCTAuthMultipartData
+@implementation DCTAuthMultipartData
 
 - (NSData *)dataWithBoundary:(NSString *)boundary {
 	NSMutableData *body = [NSMutableData new];

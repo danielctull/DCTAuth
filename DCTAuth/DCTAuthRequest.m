@@ -9,7 +9,7 @@
 #import "DCTAuthRequest.h"
 #import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthPlatform.h"
-#import "_DCTAuthMultipartData.h"
+#import "DCTAuthMultipartData.h"
 #import "NSDictionary+DCTAuth.h"
 #import "NSString+DCTAuth.h"
 #import "_DCTAuthURLRequestPerformer.h"
@@ -81,7 +81,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 }
 
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type {
-	_DCTAuthMultipartData *multipartData = [_DCTAuthMultipartData new];
+	DCTAuthMultipartData *multipartData = [DCTAuthMultipartData new];
 	multipartData.data = data;
 	multipartData.name = name;
 	multipartData.type = type;
@@ -90,7 +90,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	if (self.parameters) {
 		
 		[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-			_DCTAuthMultipartData *multipartData = [_DCTAuthMultipartData new];
+			DCTAuthMultipartData *multipartData = [DCTAuthMultipartData new];
 			multipartData.data = [[object description] dataUsingEncoding:NSUTF8StringEncoding];
 			multipartData.name = [key description];
 			multipartData.type = @"text/plain";
@@ -182,7 +182,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	[request setValue:contentType forHTTPHeaderField: @"Content-Type"];
 
 	NSMutableData *body = [NSMutableData new];
-	[self.multipartDatas enumerateObjectsUsingBlock:^(_DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
+	[self.multipartDatas enumerateObjectsUsingBlock:^(DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
 		[body appendData:[multipartData dataWithBoundary:boundary]];
 	}];
 	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];

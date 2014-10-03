@@ -1,5 +1,5 @@
 //
-//  _DCTAuthMultipartData.h
+//  DCTAuthMultipartData.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 02/09/2012.
@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@interface _DCTAuthMultipartData : NSObject
+@interface DCTAuthMultipartData : NSObject
 
 @property (nonatomic, copy) NSData *data;
 @property (nonatomic, copy) NSString *name;
