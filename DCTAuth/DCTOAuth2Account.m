@@ -189,6 +189,11 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	parameters[@"username"] = username;
 	parameters[@"password"] = password;
 
+	NSDictionary *authorizeExtras = [self parametersForRequestType:DCTOAuth2RequestType.authorize];
+	NSDictionary *accessTokenExtras = [self parametersForRequestType:DCTOAuth2RequestType.accessToken];
+	[parameters addEntriesFromDictionary:authorizeExtras];
+	[parameters addEntriesFromDictionary:accessTokenExtras];
+
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
