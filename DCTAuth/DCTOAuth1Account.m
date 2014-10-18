@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuth1Account.h"
+#import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth1Credential.h"
 #import "DCTOAuthSignature.h"
 #import "DCTAuth.h"
@@ -40,7 +41,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	.openURLObject = @"openURLObject"
 };
 
-@interface DCTOAuth1Account ()
+@interface DCTOAuth1Account () <DCTAuthAccountSubclass>
 @property (nonatomic, copy) NSString *consumerKey;
 @property (nonatomic, copy) NSString *consumerSecret;
 @property (nonatomic, copy) NSURL *requestTokenURL;

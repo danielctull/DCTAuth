@@ -7,21 +7,20 @@
 //
 
 #import "DCTAuthAccount.h"
-#import "DCTAuthAccountSubclass.h"
 
-@interface DCTOAuth2Account : DCTAuthAccount <DCTAuthAccountSubclass>
-
-- (instancetype)initWithType:(NSString *)type
-	  authorizeURL:(NSURL *)authorizeURL
-	accessTokenURL:(NSURL *)accessTokenURL
-		  clientID:(NSString *)clientID
-	  clientSecret:(NSString *)clientSecret
-			scopes:(NSArray *)scopes;
+@interface DCTOAuth2Account : DCTAuthAccount
 
 - (instancetype)initWithType:(NSString *)type
-	  authorizeURL:(NSURL *)authorizeURL
-		  username:(NSString *)username
-		  password:(NSString *)password
-			scopes:(NSArray *)scopes;
+				authorizeURL:(NSURL *)authorizeURL
+			  accessTokenURL:(NSURL *)accessTokenURL
+					clientID:(NSString *)clientID
+				clientSecret:(NSString *)clientSecret
+					  scopes:(NSArray *)scopes;
+
+- (instancetype)initWithType:(NSString *)type
+				authorizeURL:(NSURL *)authorizeURL
+					username:(NSString *)username
+					password:(NSString *)password
+					  scopes:(NSArray *)scopes;
 
 @end

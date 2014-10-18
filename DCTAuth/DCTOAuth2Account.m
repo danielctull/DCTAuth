@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuth2Account.h"
+#import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth2Credential.h"
 #import "DCTAuthAccount+Private.h"
 #import "DCTAuth.h"
@@ -28,7 +29,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	.scopes = @"scopes"
 };
 
-@interface DCTOAuth2Account ()
+@interface DCTOAuth2Account () <DCTAuthAccountSubclass>
 @property (nonatomic, copy) NSURL *authorizeURL;
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSString *clientID;

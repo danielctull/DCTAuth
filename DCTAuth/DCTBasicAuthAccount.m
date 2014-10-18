@@ -7,6 +7,7 @@
 //
 
 #import "DCTBasicAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 #import "DCTBasicAuthCredential.h"
 #import "DCTAuthRequest.h"
 #import "NSData+DCTAuth.h"
@@ -21,7 +22,7 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 	.authenticationURL = @"authenticationURL",
 };
 
-@interface DCTBasicAuthAccount ()
+@interface DCTBasicAuthAccount () <DCTAuthAccountSubclass>
 @property (nonatomic, strong) NSURL *authenticationURL;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;

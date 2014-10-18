@@ -7,13 +7,12 @@
 //
 
 #import "DCTAuthAccount.h"
-#import "DCTAuthAccountSubclass.h"
 
-@interface DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface DCTBasicAuthAccount : DCTAuthAccount
 
 - (instancetype)initWithType:(NSString *)type
- authenticationURL:(NSURL *)authenticationURL
-		  username:(NSString *)username
-		  password:(NSString *)password;
+		   authenticationURL:(NSURL *)authenticationURL
+					username:(NSString *)username
+					password:(NSString *)password;
 
 @end
