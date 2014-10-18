@@ -34,6 +34,7 @@ extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *shouldSendCallbackURL;
 	__unsafe_unretained NSString *userInfo;
 	__unsafe_unretained NSString *saveUUID;
+	__unsafe_unretained NSString *extraParameters;
 } DCTAuthAccountProperties;
 
 

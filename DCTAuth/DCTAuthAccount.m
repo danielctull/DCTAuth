@@ -22,7 +22,8 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.callbackURL = @"callbackURL",
 	.shouldSendCallbackURL = @"shouldSendCallbackURL",
 	.userInfo = @"userInfo",
-	.saveUUID = @"saveUUID"
+	.saveUUID = @"saveUUID",
+	.extraParameters = @"extraParameters"
 };
 
 
@@ -153,6 +154,10 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	_accountDescription = [coder decodeObjectForKey:DCTAuthAccountProperties.accountDescription];
 	_userInfo = [coder decodeObjectForKey:DCTAuthAccountProperties.userInfo];
 	_saveUUID = [coder decodeObjectForKey:DCTAuthAccountProperties.saveUUID];
+
+	NSDictionary *extraParameters = [coder decodeObjectForKey:DCTAuthAccountProperties.extraParameters];
+	if ([extraParameters isKindOfClass:[NSDictionary class]]) _extraParameters = [extraParameters mutableCopy];
+
 	return self;
 }
 
@@ -164,6 +169,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	[coder encodeObject:self.accountDescription forKey:DCTAuthAccountProperties.accountDescription];
 	[coder encodeObject:self.userInfo forKey:DCTAuthAccountProperties.userInfo];
 	[coder encodeObject:self.saveUUID forKey:DCTAuthAccountProperties.saveUUID];
+	[coder encodeObject:[self.extraParameters copy] forKey:DCTAuthAccountProperties.extraParameters];
 }
 
 - (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType {
