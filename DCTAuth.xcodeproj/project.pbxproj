@@ -884,6 +884,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244DE80B19A91A4A00A91DC7 /* Debug.xcconfig */;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
