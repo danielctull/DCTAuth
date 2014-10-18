@@ -41,8 +41,6 @@ static NSString *const DCTAuthRequestMethodString[] = {
 	@"PUT"
 };
 
-NSUInteger const DCTAuthRequestMethodCount = DCTAuthRequestMethodPUT + 1;
-
 static NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
 
 static NSString *const DCTAuthRequestContentTypeKey = @"Content-Type";

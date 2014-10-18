@@ -17,8 +17,6 @@ typedef enum : NSUInteger {
 	DCTAuthRequestMethodPUT
 } DCTAuthRequestMethod;
 
-extern NSUInteger const DCTAuthRequestMethodCount;
-
 typedef enum : NSUInteger {
 	DCTAuthRequestContentTypeForm,
 	DCTAuthRequestContentTypeJSON,
