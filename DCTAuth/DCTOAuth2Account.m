@@ -282,8 +282,9 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 
+	NSURL *refreshURL = self.accessTokenURL ?: self.authorizeURL;
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
-																		URL:self.accessTokenURL
+																		URL:refreshURL
 																 parameters:parameters];
 	[request performRequestWithHandler:handler];
 }
