@@ -107,14 +107,15 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 		[responses addObject:response];
 
-		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken) {
+		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
 
 			if (!error)
 				self.credential = [[DCTOAuth2Credential alloc] initWithClientID:clientID
 																   clientSecret:clientSecret
 																	   password:password
 																	accessToken:accessToken
-																   refreshToken:refreshToken];
+																   refreshToken:refreshToken
+																		   type:type];
 
 			handler([responses copy], error);
 		}];
@@ -122,7 +123,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	
 	void (^authorizeHandler)(DCTAuthResponse *) = ^(DCTAuthResponse *response) {
 
-		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken) {
+		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
 
 			// If there's no access token URL, skip it.
 			// This is the "Implicit Authentication Flow"
@@ -167,14 +168,15 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	[self refreshAccessTokenWithRefreshToken:refreshToken clientID:clientID clientSecret:clientSecret handler:^(DCTAuthResponse *response, NSError *error) {
 
-		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken) {
+		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
 
 			if (!error)
 				self.credential = [[DCTOAuth2Credential alloc] initWithClientID:clientID
 																   clientSecret:clientSecret
 																	   password:password
 																	accessToken:accessToken
-																   refreshToken:refreshToken];
+																   refreshToken:refreshToken
+																		   type:type];
 
 			handler(response, error);
 		}];
@@ -286,9 +288,23 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	NSDictionary *exitingParameters = [URLComponents.query dctAuth_parameterDictionary];
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters addEntriesFromDictionary:exitingParameters];
-	
+
+	// Instagram requires the access_token in the parameters list, and doesn't return a token_type
+	// Foursquare requires this parameter to be called oauth_token and doesn't return a token_type
+	// Soundcloud requires this parameter to be called oauth_token and doesn't return a token_type
+	// LinkedIn requires the Bearer header, and doesn't return an token_type in the return :(
+	//
+	// Because of these differences if the server returns "bearer" for "token_type" only the bearer
+	// is set otherwise, every variation is set to give the best chance of working.
+	//
 	DCTOAuth2Credential *credential = self.credential;
-	parameters[@"access_token"] = credential.accessToken;
+	NSString *authorization = [NSString stringWithFormat:@"Bearer %@", credential.accessToken];
+	[request addValue:authorization forHTTPHeaderField:@"Authorization"];
+
+	if (credential.type == DCTOAuth2CredentialTypeParamter) {
+		parameters[@"access_token"] = credential.accessToken;
+		parameters[@"oauth_token"] = credential.accessToken;
+	}
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.signing];
 	[parameters addEntriesFromDictionary:extras];
@@ -297,26 +313,33 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	request.URL = URLComponents.URL;
 }
 
-- (void)parseCredentialsFromResponse:(DCTAuthResponse *)response completion:(void (^)(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken))completion {
+- (void)parseCredentialsFromResponse:(DCTAuthResponse *)response completion:(void (^)(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type))completion {
 
 	NSDictionary *dictionary = response.contentObject;
 
 	if (![dictionary isKindOfClass:[NSDictionary class]]) {
 		NSError *error = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Response not dictionary."}];
-		completion(error, nil, nil, nil);
+		completion(error, nil, nil, nil, DCTOAuth2CredentialTypeParamter);
 		return;
 	}
 
 	NSError *error = [self errorWithStatusCode:response.statusCode dictionary:dictionary];
 	if (error) {
-		completion(error, nil, nil, nil);
+		completion(error, nil, nil, nil, DCTOAuth2CredentialTypeParamter);
 		return;
 	}
 
 	NSString *code = dictionary[@"code"];
 	NSString *accessToken = dictionary[@"access_token"];
 	NSString *refreshToken = dictionary[@"refresh_token"];
-	completion(nil, code, accessToken, refreshToken);
+
+	DCTOAuth2CredentialType type = DCTOAuth2CredentialTypeParamter;
+	NSString *tokenType = [dictionary[@"token_type"] lowercaseString];
+	if ([tokenType isEqualToString:@"bearer"]) {
+		type = DCTOAuth2CredentialTypeBearer;
+	}
+
+	completion(nil, code, accessToken, refreshToken, type);
 }
 
 - (NSError *)errorWithStatusCode:(NSInteger)statusCode dictionary:(NSDictionary *)dictionary {

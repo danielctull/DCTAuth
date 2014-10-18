@@ -14,6 +14,7 @@ static const struct DCTOAuth2CredentialProperties {
 	__unsafe_unretained NSString *password;
 	__unsafe_unretained NSString *accessToken;
 	__unsafe_unretained NSString *refreshToken;
+	__unsafe_unretained NSString *type;
 } DCTOAuth2CredentialProperties;
 
 static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties = {
@@ -21,7 +22,8 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	.clientSecret = @"clientSecret",
 	.password = @"password",
 	.accessToken = @"accessToken",
-	.refreshToken = @"refreshToken"
+	.refreshToken = @"refreshToken",
+	.type = @"type"
 };
 
 @implementation DCTOAuth2Credential
@@ -30,7 +32,8 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 					clientSecret:(NSString *)clientSecret
 						password:(NSString *)password
 					 accessToken:(NSString *)accessToken
-					refreshToken:(NSString *)refreshToken {
+					refreshToken:(NSString *)refreshToken
+							type:(DCTOAuth2CredentialType)type {
 
 	if (password.length == 0) {
 		if (clientID.length == 0) return nil;
@@ -44,6 +47,7 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	_password = [password copy];
 	_accessToken = [accessToken copy];
 	_refreshToken = [refreshToken copy];
+	_type = type;
 	return self;
 }
 
@@ -55,6 +59,7 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	_password = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.password];
 	_accessToken = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.accessToken];
 	_refreshToken = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.refreshToken];
+	_type = [coder decodeIntegerForKey:DCTOAuth2CredentialProperties.type];
 	return self;
 }
 
@@ -64,6 +69,7 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	[coder encodeObject:self.password forKey:DCTOAuth2CredentialProperties.password];
 	[coder encodeObject:self.accessToken forKey:DCTOAuth2CredentialProperties.accessToken];
 	[coder encodeObject:self.refreshToken forKey:DCTOAuth2CredentialProperties.refreshToken];
+	[coder encodeInteger:self.type forKey:DCTOAuth2CredentialProperties.type];
 }
 
 - (NSString *)description {
