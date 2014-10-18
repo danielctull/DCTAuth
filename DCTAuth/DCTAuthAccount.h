@@ -126,11 +126,6 @@ extern const struct DCTOAuth2RequestType {
 /**
  *  Creates an account using OAuth 2.0.
  *
- *  If nil is provided for accessTokenURL and clientSecret, the returned account
- *  will authenticate using the "implicit" method, where the access token
- *  is returned from the authorize step. See the
- *  [draft for the OAuth 2.0 Authorization Framework](http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-1.3.2)
- *  for more information.
  *
  *  @param type The type of the account.
  *  @param authorizeURL The URL to retrieve the OAuth 2.0 access token or nil.
@@ -142,6 +137,27 @@ extern const struct DCTOAuth2RequestType {
  */
 + (instancetype)OAuth2AccountWithType:(NSString *)type
 						 authorizeURL:(NSURL *)authorizeURL
+							 username:(NSString *)username
+							 password:(NSString *)password
+							   scopes:(NSArray *)scopes;
+
+/**
+ *  Creates an account using OAuth 2.0.
+ *
+ *  @param type The type of the account.
+ *  @param authorizeURL The URL to retrieve the OAuth 2.0 access token or nil.
+ *  @param clientID The client ID for the app.
+ *  @param clientSecret The client secret for the app or nil.
+ *  @param username Username
+ *  @param password Password
+ *  @param scopes The desired OAuth 2.0 scopes, if any, for this acccount.
+ *
+ *  @return Newly initialized account.
+ */
++ (instancetype)OAuth2AccountWithType:(NSString *)type
+						 authorizeURL:(NSURL *)authorizeURL
+							 clientID:(NSString *)clientID
+						 clientSecret:(NSString *)clientSecret
 							 username:(NSString *)username
 							 password:(NSString *)password
 							   scopes:(NSArray *)scopes;

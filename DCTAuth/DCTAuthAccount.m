@@ -99,8 +99,27 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 							 password:(NSString *)password
 							   scopes:(NSArray *)scopes {
 
+	return [self OAuth2AccountWithType:type
+						  authorizeURL:authorizeURL
+							  clientID:nil
+						  clientSecret:nil
+							  username:username
+							  password:password
+								scopes:scopes];
+}
+
++ (instancetype)OAuth2AccountWithType:(NSString *)type
+						 authorizeURL:(NSURL *)authorizeURL
+							 clientID:(NSString *)clientID
+						 clientSecret:(NSString *)clientSecret
+							 username:(NSString *)username
+							 password:(NSString *)password
+							   scopes:(NSArray *)scopes {
+	
 	return [[DCTOAuth2Account alloc] initWithType:type
 									 authorizeURL:authorizeURL
+										 clientID:clientID
+									 clientSecret:clientSecret
 										 username:username
 										 password:password
 										   scopes:scopes];

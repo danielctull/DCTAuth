@@ -43,11 +43,11 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 @implementation DCTOAuth2Account
 
 - (instancetype)initWithType:(NSString *)type
-	  authorizeURL:(NSURL *)authorizeURL
-	accessTokenURL:(NSURL *)accessTokenURL
-		  clientID:(NSString *)clientID
-	  clientSecret:(NSString *)clientSecret
-			scopes:(NSArray *)scopes {
+				authorizeURL:(NSURL *)authorizeURL
+			  accessTokenURL:(NSURL *)accessTokenURL
+					clientID:(NSString *)clientID
+				clientSecret:(NSString *)clientSecret
+					  scopes:(NSArray *)scopes {
 	self = [self initWithType:type];
 	if (!self) return nil;
 	_authorizeURL = [authorizeURL copy];
@@ -59,12 +59,16 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 }
 
 - (instancetype)initWithType:(NSString *)type
-	  authorizeURL:(NSURL *)authorizeURL
-		  username:(NSString *)username
-		  password:(NSString *)password
-			scopes:(NSArray *)scopes {
+				authorizeURL:(NSURL *)authorizeURL
+					clientID:(NSString *)clientID
+				clientSecret:(NSString *)clientSecret
+					username:(NSString *)username
+					password:(NSString *)password
+					  scopes:(NSArray *)scopes {
 	self = [self initWithType:type];
 	if (!self) return nil;
+	_clientID = [clientID copy];
+	_clientSecret = [clientSecret copy];
 	_authorizeURL = [authorizeURL copy];
 	_username = [username copy];
 	_password = [password copy];
@@ -146,14 +150,17 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 		}];
 	};
 
-	if (password.length > 0)
-		[self passwordAuthorizeWithUsername:username
+	if (password.length > 0) {
+		[self passwordAuthorizeWithClientID:clientID
+							   clientSecret:clientSecret
+								   username:username
 								   password:password
 									handler:accessTokenHandler];
-	else
+	} else {
 		[self authorizeWithClientID:clientID
 							  state:state
 							handler:authorizeHandler];
+	}
 }
 
 - (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
@@ -183,7 +190,9 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	}];
 }
 
-- (void)passwordAuthorizeWithUsername:(NSString *)username
+- (void)passwordAuthorizeWithClientID:(NSString *)clientID
+						 clientSecret:(NSString *)clientSecret
+							 username:(NSString *)username
 							 password:(NSString *)password
 							  handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
 
@@ -191,6 +200,8 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	parameters[@"grant_type"] = @"password";
 	parameters[@"username"] = username;
 	parameters[@"password"] = password;
+	if (clientID) parameters[@"client_id"] = clientID;
+	if (clientSecret) parameters[@"client_secret"] = clientSecret;
 
 	NSDictionary *authorizeExtras = [self parametersForRequestType:DCTOAuth2RequestType.authorize];
 	NSDictionary *accessTokenExtras = [self parametersForRequestType:DCTOAuth2RequestType.accessToken];
@@ -240,7 +251,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
 	[parameters setObject:@"authorization_code" forKey:@"grant_type"];
 	if (code) [parameters setObject:code forKey:@"code"];
-	[parameters setObject:clientID forKey:@"client_id"];
+	if (clientID) [parameters setObject:clientID forKey:@"client_id"];
 	[parameters setObject:@"web_server" forKey:@"type"];
 	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
 	if (self.shouldSendCallbackURL && self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];

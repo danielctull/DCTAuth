@@ -19,6 +19,8 @@
 
 - (instancetype)initWithType:(NSString *)type
 				authorizeURL:(NSURL *)authorizeURL
+					clientID:(NSString *)clientID
+				clientSecret:(NSString *)clientSecret
 					username:(NSString *)username
 					password:(NSString *)password
 					  scopes:(NSArray *)scopes;
