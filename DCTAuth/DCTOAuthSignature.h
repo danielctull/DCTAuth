@@ -6,18 +6,16 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthRequest.h"
+#import "DCTAuthAccount.h"
 
 @interface DCTOAuthSignature : NSObject
 
 - (instancetype)initWithURL:(NSURL *)URL
-	   HTTPMethod:(NSString *)HTTPMethod
-   consumerSecret:(NSString *)consumerSecret
-	  secretToken:(NSString *)secretToken
-	   parameters:(NSDictionary *)parameters
-			 type:(DCTOAuthSignatureType)type;
-
-@property (nonatomic, readonly) DCTOAuthSignatureType type;
+				 HTTPMethod:(NSString *)HTTPMethod
+			 consumerSecret:(NSString *)consumerSecret
+				secretToken:(NSString *)secretToken
+				 parameters:(NSDictionary *)parameters
+					   type:(DCTOAuthSignatureType)type;
 
 - (NSString *)authorizationHeader;
 

@@ -17,11 +17,12 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 };
 
 @interface DCTOAuthSignature ()
-@property (nonatomic, copy) NSURL *URL;
-@property (nonatomic, copy) NSString *consumerSecret;
-@property (nonatomic, copy) NSString *secretToken;
-@property (nonatomic, copy) NSString *HTTPMethod;
-@property (nonatomic, strong) NSMutableDictionary *parameters;
+@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) NSString *consumerSecret;
+@property (nonatomic, readonly) NSString *secretToken;
+@property (nonatomic, readonly) NSString *HTTPMethod;
+@property (nonatomic, readonly) NSMutableDictionary *parameters;
+@property (nonatomic, readonly) DCTOAuthSignatureType type;
 @end
 
 @implementation DCTOAuthSignature
@@ -39,7 +40,7 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	_URL = [URL copy];
 	_HTTPMethod = [HTTPMethod copy];
 	_consumerSecret = [consumerSecret copy];
-	_secretToken = [secretToken copy];
+	_secretToken = secretToken ? [secretToken copy] : @"";
 	_parameters = [NSMutableDictionary new];
 	_type = type;
 	
@@ -54,16 +55,6 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	[_parameters addEntriesFromDictionary:parameters];
 	
 	return self;
-}
-
-- (void)setType:(DCTOAuthSignatureType)type {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-	_type = type;
-#pragma clang diagnostic pop
-
-	[self.parameters setObject:DTOAuthSignatureTypeString[type] forKey:@"oauth_signature_method"];
 }
 
 - (NSString *)signatureBaseString {
@@ -98,7 +89,6 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 - (NSString *)signatureString {
 	
 	NSString *baseString = [self signatureBaseString];
-	if (!self.secretToken) self.secretToken = @"";
 	NSString *secretString = [NSString stringWithFormat:@"%@&%@", self.consumerSecret, self.secretToken];
 	
 	NSData *baseData = [baseString dataUsingEncoding:NSUTF8StringEncoding];
