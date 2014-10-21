@@ -14,6 +14,7 @@
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
 #import "NSDictionary+DCTAuth.h"
+#import "DCTBasicAuthCredential.h"
 
 static const struct DCTOAuth2AccountProperties {
 	__unsafe_unretained NSString *authorizeURL;
@@ -262,6 +263,13 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
 																		URL:self.accessTokenURL
 																 parameters:parameters];
+
+	DCTBasicAuthCredential *basicCredential = [[DCTBasicAuthCredential alloc] initWithUsername:clientID password:clientSecret];
+	NSString *authorizationHeader = basicCredential.authorizationHeader;
+	if (authorizationHeader) {
+		request.HTTPHeaders = @{ @"Authorization" : authorizationHeader };
+	}
+
 	[request performRequestWithHandler:handler];
 }
 
