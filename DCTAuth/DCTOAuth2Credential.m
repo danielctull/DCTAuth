@@ -28,6 +28,8 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 
 @implementation DCTOAuth2Credential
 
+#pragma mark - DCTOAuth2Credential
+
 - (instancetype)initWithClientID:(NSString *)clientID
 					clientSecret:(NSString *)clientSecret
 						password:(NSString *)password
@@ -60,14 +62,20 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	return [NSString stringWithFormat:@"Bearer %@", self.accessToken];
 }
 
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+	return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
-	_clientID = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.clientID];
-	_clientSecret = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.clientSecret];
-	_password = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.password];
-	_accessToken = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.accessToken];
-	_refreshToken = [coder decodeObjectForKey:DCTOAuth2CredentialProperties.refreshToken];
+	_clientID = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth2CredentialProperties.clientID];
+	_clientSecret = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth2CredentialProperties.clientSecret];
+	_password = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth2CredentialProperties.password];
+	_accessToken = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth2CredentialProperties.accessToken];
+	_refreshToken = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth2CredentialProperties.refreshToken];
 	_type = [coder decodeIntegerForKey:DCTOAuth2CredentialProperties.type];
 	return self;
 }
@@ -80,6 +88,8 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	[coder encodeObject:self.refreshToken forKey:DCTOAuth2CredentialProperties.refreshToken];
 	[coder encodeInteger:self.type forKey:DCTOAuth2CredentialProperties.type];
 }
+
+#pragma mark - NSObject
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; %@ = %@; %@ = %@; %@ = %@; %@ = %@>",
