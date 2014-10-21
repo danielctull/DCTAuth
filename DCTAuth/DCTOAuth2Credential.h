@@ -29,4 +29,6 @@ typedef NS_ENUM(NSInteger, DCTOAuth2CredentialType) {
 @property (nonatomic, readonly) NSString *refreshToken;
 @property (nonatomic, readonly) DCTOAuth2CredentialType type;
 
+@property (nonatomic, readonly) NSString *authorizationHeader;
+
 @end

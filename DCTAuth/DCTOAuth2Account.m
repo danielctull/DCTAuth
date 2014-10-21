@@ -318,8 +318,10 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	// is set otherwise, every variation is set to give the best chance of working.
 	//
 	DCTOAuth2Credential *credential = self.credential;
-	NSString *authorization = [NSString stringWithFormat:@"Bearer %@", credential.accessToken];
-	[request addValue:authorization forHTTPHeaderField:@"Authorization"];
+	NSString *authorizationHeader = credential.authorizationHeader;
+	if (authorizationHeader) {
+		[request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
+	}
 
 	if (credential.type == DCTOAuth2CredentialTypeParamter) {
 		parameters[@"access_token"] = credential.accessToken;

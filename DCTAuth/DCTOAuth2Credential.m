@@ -51,6 +51,15 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	return self;
 }
 
+- (NSString *)authorizationHeader {
+
+	if (!self.accessToken) {
+		return nil;
+	}
+
+	return [NSString stringWithFormat:@"Bearer %@", self.accessToken];
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
