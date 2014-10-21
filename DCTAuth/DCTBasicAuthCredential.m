@@ -32,7 +32,9 @@ static const struct DCTBasicAuthCredentialProperties DCTBasicAuthCredentialPrope
 }
 
 - (NSString *)authorizationHeader {
-	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", self.username, self.password];
+	NSString *username = self.username ?: @"";
+	NSString *password = self.password ?: @"";
+	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", username, password];
 	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
 	NSString *authorisationEncodedString = [authorisationData dctAuth_base64EncodedString];
 	return [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
