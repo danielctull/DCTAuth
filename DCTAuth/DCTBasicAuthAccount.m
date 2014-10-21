@@ -91,7 +91,10 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 																 parameters:nil];
 
 	DCTBasicAuthCredential *credential = [[DCTBasicAuthCredential alloc] initWithUsername:self.username password:self.password];
-	request.HTTPHeaders = @{ @"Authorization" : credential.authorizationHeader };
+	NSString *authorizationHeader = credential.authorizationHeader;
+	if (authorizationHeader) {
+		request.HTTPHeaders = @{ @"Authorization" : authorizationHeader };
+	}
 
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
@@ -112,7 +115,10 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 		credential = [[DCTBasicAuthCredential alloc] initWithUsername:self.username password:self.password];
 	}
 
-	[request addValue:credential.authorizationHeader forHTTPHeaderField:@"Authorization"];
+	NSString *authorizationHeader = credential.authorizationHeader;
+	if (authorizationHeader) {
+		[request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
+	}
 }
 
 @end
