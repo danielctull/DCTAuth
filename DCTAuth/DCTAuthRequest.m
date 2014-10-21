@@ -59,10 +59,6 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 #pragma mark - DCTAuthRequest
 
-+ (NSString *)stringForRequestMethod:(DCTAuthRequestMethod)requestMethod {
-	return DCTAuthRequestMethodString[requestMethod];
-}
-
 - (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
 						URL:(NSURL *)URL
 				 parameters:(NSDictionary *)parameters {

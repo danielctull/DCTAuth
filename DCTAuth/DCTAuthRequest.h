@@ -6,16 +6,9 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+#import "DCTAuthRequestMethod.h"
 #import "DCTAuthAccount.h"
 #import "DCTAuthResponse.h"
-
-typedef enum : NSUInteger {
-	DCTAuthRequestMethodGET,
-	DCTAuthRequestMethodPOST,
-	DCTAuthRequestMethodDELETE,
-	DCTAuthRequestMethodHEAD,
-	DCTAuthRequestMethodPUT
-} DCTAuthRequestMethod;
 
 typedef enum : NSUInteger {
 	DCTAuthRequestContentTypeForm,
@@ -50,8 +43,6 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  *
  */
 @interface DCTAuthRequest : NSObject <NSCoding>
-
-+ (NSString *)stringForRequestMethod:(DCTAuthRequestMethod)requestMethod;
 
 /// @name Initializing Requests
 

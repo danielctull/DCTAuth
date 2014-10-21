@@ -116,7 +116,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 
 		NSMutableDictionary *parameters = [OAuthParameters() mutableCopy];
 		[parameters addEntriesFromDictionary:request.parameters];
-		NSString *HTTPMethod = [DCTAuthRequest stringForRequestMethod:request.requestMethod];
+		NSString *HTTPMethod = NSStringFromDCTAuthRequestMethod(request.requestMethod);
 
 		DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:request.URL
 																   HTTPMethod:HTTPMethod
