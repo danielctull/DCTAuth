@@ -10,30 +10,29 @@
 #import "DCTAuthAccountSubclass.h"
 #import "DCTBasicAuthCredential.h"
 #import "DCTAuthRequest.h"
-#import "NSData+DCTAuth.h"
 
 static const struct DCTBasicAuthAccountProperties {
-	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *authenticationURL;
 } DCTBasicAuthAccountProperties;
 
 static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties = {
-	.username = @"username",
-	.authenticationURL = @"authenticationURL",
+	.authenticationURL = @"authenticationURL"
 };
 
 @interface DCTBasicAuthAccount () <DCTAuthAccountSubclass>
-@property (nonatomic, strong) NSURL *authenticationURL;
-@property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) NSString *password;
+@property (nonatomic) NSURL *authenticationURL;
+@property (nonatomic) NSString *username;
+@property (nonatomic) NSString *password;
 @end
 
 @implementation DCTBasicAuthAccount
 
+#pragma mark - DCTBasicAuthAccount
+
 - (instancetype)initWithType:(NSString *)type
- authenticationURL:(NSURL *)authenticationURL
-		  username:(NSString *)username
-		  password:(NSString *)password {
+		   authenticationURL:(NSURL *)authenticationURL
+					username:(NSString *)username
+					password:(NSString *)password {
 
 	self = [self initWithType:type];
 	if (!self) return nil;
@@ -45,19 +44,45 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 	return self;
 }
 
+- (NSString *)username {
+
+	if (_username) {
+		return _username;
+	}
+
+	DCTBasicAuthCredential *credential = self.credential;
+	return credential.username;
+}
+
+- (NSString *)password {
+
+	if (_password) {
+		return _password;
+	}
+
+	DCTBasicAuthCredential *credential = self.credential;
+	return credential.password;
+}
+
+#pragma mark - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+	return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	_authenticationURL = [coder decodeObjectForKey:DCTBasicAuthAccountProperties.authenticationURL];
-	_username = [coder decodeObjectForKey:DCTBasicAuthAccountProperties.username];
+	_authenticationURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTBasicAuthAccountProperties.authenticationURL];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:self.authenticationURL forKey:DCTBasicAuthAccountProperties.authenticationURL];
-	[coder encodeObject:self.username forKey:DCTBasicAuthAccountProperties.username];
 }
+
+#pragma mark - DCTAuthAccount
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
 
@@ -65,35 +90,29 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 																		URL:self.authenticationURL
 																 parameters:nil];
 
-	DCTBasicAuthCredential *credential = self.credential;
-	NSString *password = (self.password != nil) ? self.password : credential.password;
-	NSString *authorisationString = [self authorizationStringForUsername:self.username password:password];
-	request.HTTPHeaders = @{ @"Authorization" : authorisationString };
+	DCTBasicAuthCredential *credential = [[DCTBasicAuthCredential alloc] initWithUsername:self.username password:self.password];
+	request.HTTPHeaders = @{ @"Authorization" : credential.authorizationHeader };
 
 	[request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
 
 		if (response.statusCode == 200)
-			self.credential = [[DCTBasicAuthCredential alloc] initWithPassword:password];
+			self.credential = credential;
 
 		NSArray *array = response ? @[response] : nil;
 		if (handler != NULL) handler(array, error);
 	}];
 }
 
-- (NSString *)authorizationStringForUsername:(NSString *)username password:(NSString *)password {
-	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", username, password];
-	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
-	NSString *authorisationEncodedString = [authorisationData dctAuth_base64EncodedString];
-	return [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
-}
+#pragma mark - DCTAuthAccountSubclass
 
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)oauthRequest {
 
 	DCTBasicAuthCredential *credential = self.credential;
-	if (!credential) return;
+	if (!credential) {
+		credential = [[DCTBasicAuthCredential alloc] initWithUsername:self.username password:self.password];
+	}
 
-	NSString *authorisationString = [self authorizationStringForUsername:self.username password:credential.password];
-	[request addValue:authorisationString forHTTPHeaderField:@"Authorization"];
+	[request addValue:credential.authorizationHeader forHTTPHeaderField:@"Authorization"];
 }
 
 @end
