@@ -49,7 +49,7 @@ const struct DCTOAuth2Keys DCTOAuth2Keys = {
 						   userInfo:@{NSLocalizedDescriptionKey : description}];
 }
 
-- (void)parseCredentialsFromResponse:(DCTAuthResponse *)response completion:(void (^)(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type))completion {
++ (void)parseCredentialsFromResponse:(DCTAuthResponse *)response completion:(void (^)(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type))completion {
 
 	NSDictionary *dictionary = response.contentObject;
 
