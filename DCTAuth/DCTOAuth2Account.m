@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuth2Account.h"
+#import "DCTOAuth2.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth2Credential.h"
 #import "DCTAuthAccount+Private.h"
@@ -95,6 +96,15 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	[coder encodeObject:self.scopes forKey:DCTOAuth2AccountProperties.scopes];
 }
 
+- (NSString *)scopeString {
+
+	if (self.scopes.count > 0) {
+		return [self.scopes componentsJoinedByString:@","];
+	}
+
+	return nil;
+}
+
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
 
 	if (!handler) handler = ^(NSArray *responses, NSError *error){};
@@ -102,9 +112,9 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	NSMutableArray *responses = [NSMutableArray new];
 
 	DCTOAuth2Credential *credential = self.credential;
-	NSString *clientID = (self.clientID != nil) ? self.clientID : credential.clientID;
-	NSString *clientSecret = (self.clientSecret != nil) ? self.clientSecret : credential.clientSecret;
-	NSString *password = (self.password != nil) ? self.password : credential.password;
+	NSString *clientID = self.clientID ?: credential.clientID;
+	NSString *clientSecret = self.clientSecret ?: credential.clientSecret;
+	NSString *password = self.password ?: credential.password;
 	NSString *username = self.username;
 	NSString *state = [[NSProcessInfo processInfo] globallyUniqueString];
 
@@ -112,7 +122,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 		[responses addObject:response];
 
-		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
+		[DCTOAuth2 parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
 
 			if (!error)
 				self.credential = [[DCTOAuth2Credential alloc] initWithClientID:clientID
@@ -128,7 +138,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	
 	void (^authorizeHandler)(DCTAuthResponse *) = ^(DCTAuthResponse *response) {
 
-		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
+		[DCTOAuth2 parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
 
 			// If there's no access token URL, skip it.
 			// This is the "Implicit Authentication Flow"
@@ -169,14 +179,14 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	if (!handler) handler = ^(DCTAuthResponse *response, NSError *error) {};
 
 	DCTOAuth2Credential *credential = self.credential;
-	NSString *clientID = (self.clientID != nil) ? self.clientID : credential.clientID;
-	NSString *clientSecret = (self.clientSecret != nil) ? self.clientSecret : credential.clientSecret;
-	NSString *password = (self.password != nil) ? self.password : credential.password;
+	NSString *clientID = self.clientID ?: credential.clientID;
+	NSString *clientSecret = self.clientSecret ?: credential.clientSecret;
+	NSString *password = self.password ?: credential.password;
 	NSString *refreshToken = credential.refreshToken;
 
 	[self refreshAccessTokenWithRefreshToken:refreshToken clientID:clientID clientSecret:clientSecret handler:^(DCTAuthResponse *response, NSError *error) {
 
-		[self parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
+		[DCTOAuth2 parseCredentialsFromResponse:response completion:^(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type) {
 
 			if (!error)
 				self.credential = [[DCTOAuth2Credential alloc] initWithClientID:clientID
@@ -197,19 +207,20 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 							 password:(NSString *)password
 							  handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
 
+	NSString *scope = self.scopeString;
+
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	parameters[@"grant_type"] = @"password";
-	parameters[@"username"] = username;
-	parameters[@"password"] = password;
-	if (clientID) parameters[@"client_id"] = clientID;
-	if (clientSecret) parameters[@"client_secret"] = clientSecret;
+	parameters[DCTOAuth2Keys.grantType] = DCTOAuth2Keys.password;
+	if (username) parameters[DCTOAuth2Keys.username] = username;
+	if (password) parameters[DCTOAuth2Keys.password] = password;
+	if (clientID) parameters[DCTOAuth2Keys.clientID] = clientID;
+	if (clientSecret) parameters[DCTOAuth2Keys.clientSecret] = clientSecret;
+	if (scope) parameters[DCTOAuth2Keys.scope] = scope;
 
 	NSDictionary *authorizeExtras = [self parametersForRequestType:DCTOAuth2RequestType.authorize];
 	NSDictionary *accessTokenExtras = [self parametersForRequestType:DCTOAuth2RequestType.accessToken];
 	[parameters addEntriesFromDictionary:authorizeExtras];
 	[parameters addEntriesFromDictionary:accessTokenExtras];
-
-	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
 																		URL:self.authorizeURL
@@ -222,16 +233,16 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 						state:(NSString *)state
 					  handler:(void (^)(DCTAuthResponse *response))handler {
 
-	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	if (self.accessTokenURL)
-		[parameters setObject:@"code" forKey:@"response_type"];
-	else
-		[parameters setObject:@"token" forKey:@"response_type"];
+	NSString *responseType = self.accessTokenURL ? DCTOAuth2Keys.code : DCTOAuth2Keys.token;
+	NSString *scope = self.scopeString;
+	NSString *callback = self.callbackURL.absoluteString;
 
-	[parameters setObject:clientID forKey:@"client_id"];
-	if (self.shouldSendCallbackURL && self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
-	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
-	[parameters setObject:state forKey:@"state"];
+	NSMutableDictionary *parameters = [NSMutableDictionary new];
+	parameters[DCTOAuth2Keys.responseType] = responseType;
+	if (clientID) parameters[DCTOAuth2Keys.clientID] = clientID;
+	if (scope) parameters[DCTOAuth2Keys.scope] = scope;
+	if (state) parameters[DCTOAuth2Keys.state] = state;
+	if (self.shouldSendCallbackURL && callback) parameters[DCTOAuth2Keys.redirectURI] = callback;
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.authorize];
 	[parameters addEntriesFromDictionary:extras];
@@ -239,6 +250,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:self.authorizeURL
 																 parameters:parameters];
+
 	self.openURLObject = [DCTAuth openURL:[[request signedURLRequest] URL]
 						  withCallbackURL:self.callbackURL
 								  handler:handler];
@@ -249,13 +261,14 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 								code:(NSString *)code
 							 handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
 
+	NSString *callback = self.callbackURL.absoluteString;
+
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters setObject:@"authorization_code" forKey:@"grant_type"];
-	if (code) [parameters setObject:code forKey:@"code"];
-	if (clientID) [parameters setObject:clientID forKey:@"client_id"];
-	[parameters setObject:@"web_server" forKey:@"type"];
-	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
-	if (self.shouldSendCallbackURL && self.callbackURL) [parameters setObject:[self.callbackURL absoluteString] forKey:@"redirect_uri"];
+	parameters[DCTOAuth2Keys.grantType] = DCTOAuth2Keys.authorizationCode;
+	if (code) parameters[DCTOAuth2Keys.code] = code;
+	if (clientID) parameters[DCTOAuth2Keys.clientID] = clientID;
+	if (clientSecret) parameters[DCTOAuth2Keys.clientSecret] = clientSecret;
+	if (self.shouldSendCallbackURL && callback) parameters[DCTOAuth2Keys.redirectURI] = callback;
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.accessToken];
 	[parameters addEntriesFromDictionary:extras];
@@ -278,22 +291,29 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 							  clientSecret:(NSString *)clientSecret
 								   handler:(void (^)(DCTAuthResponse *response, NSError *error))handler {
 
+	NSString *scope = self.scopeString;
+
 	NSMutableDictionary *parameters = [NSMutableDictionary new];
-	[parameters setObject:@"refresh_token" forKey:@"grant_type"];
-	[parameters setObject:refreshToken forKey:@"refresh_token"];
-	if (clientID) [parameters setObject:clientID forKey:@"client_id"];
-	[parameters setObject:@"web_server" forKey:@"type"];
-	if (clientSecret) [parameters setObject:clientSecret forKey:@"client_secret"];
+	parameters[DCTOAuth2Keys.grantType] = DCTOAuth2Keys.refreshToken;
+	if (refreshToken) parameters[DCTOAuth2Keys.refreshToken] = refreshToken;
+	if (clientID) parameters[DCTOAuth2Keys.clientID] = clientID;
+	if (clientSecret) parameters[DCTOAuth2Keys.clientSecret] = clientSecret;
+	if (scope) parameters[DCTOAuth2Keys.scope] = scope;
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.refresh];
 	[parameters addEntriesFromDictionary:extras];
-
-	if (self.scopes.count > 0) [parameters setObject:[self.scopes componentsJoinedByString:@","] forKey:@"scope"];
 
 	NSURL *refreshURL = self.accessTokenURL ?: self.authorizeURL;
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
 																		URL:refreshURL
 																 parameters:parameters];
+
+	DCTBasicAuthCredential *basicCredential = [[DCTBasicAuthCredential alloc] initWithUsername:clientID password:clientSecret];
+	NSString *authorizationHeader = basicCredential.authorizationHeader;
+	if (authorizationHeader) {
+		request.HTTPHeaders = @{ @"Authorization" : authorizationHeader };
+	}
+
 	[request performRequestWithHandler:handler];
 }
 
@@ -324,8 +344,8 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	}
 
 	if (credential.type == DCTOAuth2CredentialTypeParamter) {
-		parameters[@"access_token"] = credential.accessToken;
-		parameters[@"oauth_token"] = credential.accessToken;
+		parameters[DCTOAuth2Keys.accessToken] = credential.accessToken;
+		parameters[DCTOAuth2Keys.oauthToken] = credential.accessToken;
 	}
 
 	NSDictionary *extras = [self parametersForRequestType:DCTOAuth2RequestType.signing];
@@ -333,50 +353,6 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	URLComponents.query = [parameters dctAuth_queryString];
 	request.URL = URLComponents.URL;
-}
-
-- (void)parseCredentialsFromResponse:(DCTAuthResponse *)response completion:(void (^)(NSError *error, NSString *code, NSString *accessToken, NSString *refreshToken, DCTOAuth2CredentialType type))completion {
-
-	NSDictionary *dictionary = response.contentObject;
-
-	if (![dictionary isKindOfClass:[NSDictionary class]]) {
-		NSError *error = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Response not dictionary."}];
-		completion(error, nil, nil, nil, DCTOAuth2CredentialTypeParamter);
-		return;
-	}
-
-	NSError *error = [self errorWithStatusCode:response.statusCode dictionary:dictionary];
-	if (error) {
-		completion(error, nil, nil, nil, DCTOAuth2CredentialTypeParamter);
-		return;
-	}
-
-	NSString *code = dictionary[@"code"];
-	NSString *accessToken = dictionary[@"access_token"];
-	NSString *refreshToken = dictionary[@"refresh_token"];
-
-	DCTOAuth2CredentialType type = DCTOAuth2CredentialTypeParamter;
-	NSString *tokenType = [dictionary[@"token_type"] lowercaseString];
-	if ([tokenType isEqualToString:@"bearer"]) {
-		type = DCTOAuth2CredentialTypeBearer;
-	}
-
-	completion(nil, code, accessToken, refreshToken, type);
-}
-
-- (NSError *)errorWithStatusCode:(NSInteger)statusCode dictionary:(NSDictionary *)dictionary {
-	
-	
-	NSString *OAuthError = [dictionary objectForKey:@"error"];
-	
-	if (![OAuthError isKindOfClass:[NSString class]]) return nil;
-	
-	NSString *description = [DCTAuth localizedStringForDomain:@"OAuth2" key:OAuthError];
-	if (description.length == 0) description = @"An unknown error occured while attempting to authorize.";
-	
-	return [NSError errorWithDomain:@"DCTAuth"
-							   code:statusCode
-						   userInfo:@{NSLocalizedDescriptionKey : description}];
 }
 
 @end

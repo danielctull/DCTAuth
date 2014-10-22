@@ -7,6 +7,7 @@
 //
 
 #import "DCTOAuth2Credential.h"
+#import "DCTOAuth2.h"
 
 static const struct DCTOAuth2CredentialProperties {
 	__unsafe_unretained NSString *clientID;
@@ -59,7 +60,7 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 		return nil;
 	}
 
-	return [NSString stringWithFormat:@"Bearer %@", self.accessToken];
+	return [NSString stringWithFormat:@"%@ %@", DCTOAuth2Keys.bearer, self.accessToken];
 }
 
 #pragma mark - NSCoding
