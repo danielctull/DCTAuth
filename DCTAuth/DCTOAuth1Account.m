@@ -7,19 +7,13 @@
 //
 
 #import "DCTOAuth1Account.h"
+#import "DCTOAuth1.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth1Credential.h"
 #import "DCTOAuthSignature.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
-
-static NSString *const DCTOAuth1AccountOAuthCallback = @"oauth_callback";
-static NSString *const DCTOAuth1AccountOAuthConsumerKey = @"oauth_consumer_key";
-static NSString *const DCTOAuth1AccountOAuthConsumerSecret = @"oauth_consumer_secret";
-static NSString *const DCTOAuth1AccountOAuthToken = @"oauth_token";
-static NSString *const DCTOAuth1AccountOAuthTokenSecret = @"oauth_token_secret";
-static NSString *const DCTOAuth1AccountOAuthVerifier = @"oauth_verifier";
 
 static const struct DCTOAuth1AccountProperties {
 	__unsafe_unretained NSString *consumerKey;
@@ -97,18 +91,19 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	NSMutableArray *responses = [NSMutableArray new];
 
 	DCTOAuth1Credential *credential = self.credential;
-	NSString *consumerKey = (self.consumerKey != nil) ? self.consumerKey : credential.consumerKey;
-	NSString *consumerSecret = (self.consumerSecret != nil) ? self.consumerSecret : credential.consumerSecret;
+	NSString *consumerKey = self.consumerKey ?: credential.consumerKey;
+	NSString *consumerSecret = self.consumerSecret ?: credential.consumerSecret;
+	NSString *callback = self.callbackURL.absoluteString;
 	__block NSString *oauthToken;
 	__block NSString *oauthTokenSecret;
 	__block NSString *oauthVerifier;
 
 	NSDictionary *(^OAuthParameters)() = ^{
 		NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
-		if (oauthToken.length > 0) [OAuthParameters setObject:oauthToken forKey:DCTOAuth1AccountOAuthToken];
-		if (consumerKey.length > 0) [OAuthParameters setObject:consumerKey forKey:DCTOAuth1AccountOAuthConsumerKey];
-		if (oauthVerifier.length > 0) [OAuthParameters setObject:oauthVerifier forKey:DCTOAuth1AccountOAuthVerifier];
-		if (self.shouldSendCallbackURL && self.callbackURL) [OAuthParameters setObject:[self.callbackURL absoluteString] forKey:DCTOAuth1AccountOAuthCallback];
+		if (oauthToken.length > 0) OAuthParameters[DCTOAuth1Keys.token] = oauthToken;
+		if (consumerKey.length > 0) OAuthParameters[DCTOAuth1Keys.comsumerKey] = consumerKey;
+		if (oauthVerifier.length > 0) OAuthParameters[DCTOAuth1Keys.verifier] = oauthVerifier;
+		if (self.shouldSendCallbackURL && callback) OAuthParameters[DCTOAuth1Keys.callback] = callback;
 		return [OAuthParameters copy];
 	};
 
@@ -153,13 +148,13 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 
 					[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
 
-						if ([key isEqualToString:DCTOAuth1AccountOAuthToken])
+						if ([key isEqualToString:DCTOAuth1Keys.token])
 							oauthToken = value;
 
-						else if	([key isEqualToString:DCTOAuth1AccountOAuthVerifier])
+						else if	([key isEqualToString:DCTOAuth1Keys.verifier])
 							oauthVerifier = value;
 
-						else if ([key isEqualToString:DCTOAuth1AccountOAuthTokenSecret])
+						else if ([key isEqualToString:DCTOAuth1Keys.tokenSecret])
 							oauthTokenSecret = value;
 					}];
 				}
@@ -173,9 +168,9 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	void (^accessTokenHandler)(DCTAuthResponse *, NSError *) = ^(DCTAuthResponse *response, NSError *error) {
 		if (shouldComplete(response, error)) return;
 		self.credential = [[DCTOAuth1Credential alloc] initWithConsumerKey:consumerKey
-																   consumerSecret:consumerSecret
-																	   oauthToken:oauthToken
-																 oauthTokenSecret:oauthTokenSecret];
+															consumerSecret:consumerSecret
+																oauthToken:oauthToken
+														  oauthTokenSecret:oauthTokenSecret];
 		if (handler != NULL) handler([responses copy], nil);
 	};
 
@@ -223,11 +218,12 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 - (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
 
 	DCTOAuth1Credential *credential = self.credential;
-	if (!credential) return;
+	NSString *oauthToken = credential.oauthToken;
+	NSString *consumerKey = credential.consumerKey;
 
 	NSMutableDictionary *OAuthParameters = [NSMutableDictionary new];
-	[OAuthParameters setObject:credential.oauthToken forKey:DCTOAuth1AccountOAuthToken];
-	[OAuthParameters setObject:credential.consumerKey forKey:DCTOAuth1AccountOAuthConsumerKey];
+	if (oauthToken) OAuthParameters[DCTOAuth1Keys.token] = oauthToken;
+	if (consumerKey) OAuthParameters[DCTOAuth1Keys.comsumerKey] = consumerKey;
 	[OAuthParameters addEntriesFromDictionary:authRequest.parameters];
 	
 	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:request.URL
@@ -236,7 +232,8 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 															  secretToken:credential.oauthTokenSecret
 															   parameters:OAuthParameters
 																	 type:self.signatureType];
-	[request addValue:[signature authorizationHeader] forHTTPHeaderField:@"Authorization"];
+	NSString *authorizationHeader = signature.authorizationHeader;
+	if (authorizationHeader) [request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
 }
 
 @end

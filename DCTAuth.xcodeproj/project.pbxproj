@@ -19,6 +19,9 @@
 		241FBBA119F796870082C071 /* DCTOAuth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 241FBB9F19F796870082C071 /* DCTOAuth2.h */; };
 		241FBBA219F796870082C071 /* DCTOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA019F796870082C071 /* DCTOAuth2.m */; };
 		241FBBA319F796870082C071 /* DCTOAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA019F796870082C071 /* DCTOAuth2.m */; };
+		241FBBAA19F7CE090082C071 /* DCTOAuth1.h in Headers */ = {isa = PBXBuildFile; fileRef = 241FBBA819F7CE090082C071 /* DCTOAuth1.h */; };
+		241FBBAB19F7CE090082C071 /* DCTOAuth1.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA919F7CE090082C071 /* DCTOAuth1.m */; };
+		241FBBAC19F7CE090082C071 /* DCTOAuth1.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA919F7CE090082C071 /* DCTOAuth1.m */; };
 		242BEF8219A900470063F2F2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		242BEF8419A9012D0063F2F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242BEF8319A9012D0063F2F2 /* Images.xcassets */; };
 		242BEF8519A901B30063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
@@ -186,6 +189,8 @@
 		241FBB9A19F6D6540082C071 /* DCTAuthRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthRequestMethod.m; sourceTree = "<group>"; };
 		241FBB9F19F796870082C071 /* DCTOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth2.h; sourceTree = "<group>"; };
 		241FBBA019F796870082C071 /* DCTOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2.m; sourceTree = "<group>"; };
+		241FBBA819F7CE090082C071 /* DCTOAuth1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth1.h; sourceTree = "<group>"; };
+		241FBBA919F7CE090082C071 /* DCTOAuth1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth1.m; sourceTree = "<group>"; };
 		242BEF8319A9012D0063F2F2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthMultipartData.m; sourceTree = "<group>"; };
@@ -364,6 +369,8 @@
 		2476FB7119DE868800E6BA00 /* OAuth 1 */ = {
 			isa = PBXGroup;
 			children = (
+				241FBBA819F7CE090082C071 /* DCTOAuth1.h */,
+				241FBBA919F7CE090082C071 /* DCTOAuth1.m */,
 				24FA902E15E93E1F00E1ED99 /* DCTOAuthSignature.h */,
 				24FA902F15E93E1F00E1ED99 /* DCTOAuthSignature.m */,
 				249CAD2015EA236B00FFD0D2 /* DCTOAuth1Account.h */,
@@ -520,6 +527,7 @@
 				2454F2F1195960A800E8643C /* DCTAuthMultipartData.h in Headers */,
 				2454F2E41959608A00E8643C /* DCTAuthAccountCredential.h in Headers */,
 				2454F2E51959608A00E8643C /* DCTAuthAccountStore.h in Headers */,
+				241FBBAA19F7CE090082C071 /* DCTOAuth1.h in Headers */,
 				2454F2EE195960A800E8643C /* DCTAuthURLOpenerOperation.h in Headers */,
 				2454F2F7195960A800E8643C /* DCTBasicAuthAccount.h in Headers */,
 				2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */,
@@ -749,6 +757,7 @@
 				2454F3131959615800E8643C /* DCTAuth.m in Sources */,
 				2454F3141959615800E8643C /* DCTAuthAccount.m in Sources */,
 				2454F3151959615800E8643C /* DCTAuthAccountStore.m in Sources */,
+				241FBBAC19F7CE090082C071 /* DCTOAuth1.m in Sources */,
 				2454F3161959615800E8643C /* DCTAuthRequest.m in Sources */,
 				2454F3171959615800E8643C /* DCTAuthResponse.m in Sources */,
 				2454F3181959615800E8643C /* DCTAuthKeychainAccess.m in Sources */,
@@ -783,6 +792,7 @@
 				241FBBA219F796870082C071 /* DCTOAuth2.m in Sources */,
 				24FA903415E93E1F00E1ED99 /* DCTAuthAccount.m in Sources */,
 				24FA903515E93E1F00E1ED99 /* DCTAuthRequest.m in Sources */,
+				241FBBAB19F7CE090082C071 /* DCTOAuth1.m in Sources */,
 				24FA903715E93E1F00E1ED99 /* DCTOAuthSignature.m in Sources */,
 				24FA903915E93E1F00E1ED99 /* NSString+DCTAuth.m in Sources */,
 				249CAD1715EA1F0200FFD0D2 /* DCTAuthAccountStore.m in Sources */,
