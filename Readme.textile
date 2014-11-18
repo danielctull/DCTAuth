@@ -69,6 +69,7 @@ h3. OAuth 2.0
 * "Reddit":https://github.com/reddit/reddit/wiki/OAuth2
 * "Slack":https://api.slack.com/docs/oauth
 * "SoundCloud":http://developers.soundcloud.com/docs#authentication
+* "Strava":http://strava.github.io/api/v3/oauth/
 * "Windows Live":http://msdn.microsoft.com/en-us/library/live/hh826541.aspx ("Notes":#windows-live)
 * "Yammer":https://developer.yammer.com/authentication/#a-oauth2 (Client-side flow only)
 
