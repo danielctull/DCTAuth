@@ -36,6 +36,7 @@ While the implementations _should_ work for all services using that standard, I 
 
 h3. OAuth
 
+* "500px":https://github.com/500px/api-documentation
 * "Bitbucket":https://confluence.atlassian.com/display/BITBUCKET/oauth+Endpoint
 * "Dropbox":http://www.dropbox.com/developers/reference/api
 * "Fitbit":http://dev.fitbit.com
