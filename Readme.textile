@@ -57,6 +57,7 @@ h3. OAuth 2.0
 * "Box":http://developers.box.com/oauth/
 * "Coinbase":https://coinbase.com/docs/api/authentication
 * "Disqus":https://disqus.com/api/docs/auth/
+* "Eventbrite":http://developer.eventbrite.com/docs/auth/ ("Notes":#eventbrite)
 * "Facebook":https://developers.facebook.com/docs/authentication/ ("Notes":#facebook)
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
 * "GitHub":http://developer.github.com/v3/oauth/
@@ -81,6 +82,10 @@ h3. Basic Authentication
 * "Redmine":http://www.redmine.org/projects/redmine/wiki/Rest_api#Authentication
 
 h2. Service Notes
+
+h3. Eventbrite
+
+While it is seemingly not documented, the callback URL needs to have a scheme of either @http@ or @https@.
 
 h3. Facebook
 
