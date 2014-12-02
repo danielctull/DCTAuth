@@ -63,6 +63,7 @@ h3. OAuth 2.0
 * "Foursquare":https://developer.foursquare.com/overview/auth.html (Code and Token flow)
 * "GitHub":http://developer.github.com/v3/oauth/
 * "Google":https://developers.google.com/accounts/docs/OAuth2InstalledApp (Installed Applications)
+* "Gumroad":https://gumroad.com/api#api-authentication
 * "Imgur":https://api.imgur.com/oauth2
 * "Instagram":http://instagram.com/developer/authentication/ (Explicit and Implicit flow)
 * "LinkedIn":http://developer.linkedin.com/documents/authentication
