@@ -22,6 +22,7 @@
 		241FBBAA19F7CE090082C071 /* DCTOAuth1.h in Headers */ = {isa = PBXBuildFile; fileRef = 241FBBA819F7CE090082C071 /* DCTOAuth1.h */; };
 		241FBBAB19F7CE090082C071 /* DCTOAuth1.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA919F7CE090082C071 /* DCTOAuth1.m */; };
 		241FBBAC19F7CE090082C071 /* DCTOAuth1.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA919F7CE090082C071 /* DCTOAuth1.m */; };
+		24215B211A45E85300224663 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24215B201A45E85300224663 /* Launch.storyboard */; };
 		242BEF8219A900470063F2F2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		242BEF8419A9012D0063F2F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242BEF8319A9012D0063F2F2 /* Images.xcassets */; };
 		242BEF8519A901B30063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
@@ -191,6 +192,7 @@
 		241FBBA019F796870082C071 /* DCTOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2.m; sourceTree = "<group>"; };
 		241FBBA819F7CE090082C071 /* DCTOAuth1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth1.h; sourceTree = "<group>"; };
 		241FBBA919F7CE090082C071 /* DCTOAuth1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth1.m; sourceTree = "<group>"; };
+		24215B201A45E85300224663 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		242BEF8319A9012D0063F2F2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthMultipartData.m; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				24FA903B15E93E2C00E1ED99 /* AuthTestViewController.m */,
 				24FA903C15E93E2C00E1ED99 /* AuthTestViewController.xib */,
 				24FA901B15E93E0200E1ED99 /* Info.plist */,
+				24215B201A45E85300224663 /* Launch.storyboard */,
 				242BEF8319A9012D0063F2F2 /* Images.xcassets */,
 				24FA901F15E93E0200E1ED99 /* main.m */,
 			);
@@ -707,6 +710,7 @@
 			files = (
 				24FA903E15E93E2C00E1ED99 /* AuthTestViewController.xib in Resources */,
 				242BEF8419A9012D0063F2F2 /* Images.xcassets in Resources */,
+				24215B211A45E85300224663 /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
