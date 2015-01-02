@@ -12,5 +12,4 @@
 + (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler;
 + (void)endBackgroundTask:(id)object;
 + (BOOL)openURL:(NSURL *)URL;
-+ (id)imageFromData:(NSData *)data;
 @end

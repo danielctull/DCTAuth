@@ -23,9 +23,6 @@
 + (BOOL)openURL:(NSURL *)URL {
 	return [[UIApplication sharedApplication] openURL:URL];
 }
-+ (id)imageFromData:(NSData *)data {
-	return [[UIImage alloc] initWithData:data];
-}
 @end
 
 #else
@@ -39,9 +36,6 @@
 + (void)endBackgroundTask:(id)object {}
 + (BOOL)openURL:(NSURL *)URL {
 	return [[NSWorkspace sharedWorkspace] openURL:URL];
-}
-+ (id)imageFromData:(NSData *)data {
-	return [[NSImage alloc] initWithData:data];
 }
 @end
 

@@ -8,7 +8,6 @@
 
 #import "DCTAuthResponse.h"
 #import "NSString+DCTAuth.h"
-#import "DCTAuthPlatform.h"
 
 static const struct DCTAuthResponseProperties {
 	__unsafe_unretained NSString *data;
@@ -46,7 +45,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 		return [self dictionaryFromPlistData:data];
 
 	if ([@[@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap"] containsObject:contentType])
-		return [DCTAuthPlatform imageFromData:data];
+		return [self imageFromData:data];
 
 	return [self dictionaryFromFormData:data];
 }
@@ -69,6 +68,24 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 	if (!data) return nil;
 	return [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:NULL];
 }
+
+#if TARGET_OS_IPHONE
+
+@import UIKit;
+
+- (UIImage *)imageFromData:(NSData *)data {
+	return [[UIImage alloc] initWithData:data];
+}
+
+#else
+
+@import AppKit;
+
+- (NSImage *)imageFromData:(NSData *)data {
+	return [[NSImage alloc] initWithData:data];
+}
+
+#endif
 
 - (instancetype)initWithURL:(NSURL *)URL {
 	self = [self init];
