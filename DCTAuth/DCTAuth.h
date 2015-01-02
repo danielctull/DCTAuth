@@ -12,6 +12,7 @@
 
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthAccountCredential.h"
+#import "DCTAuthPlatform.h"
 
 //! Project version number and string for DCTAuth.
 FOUNDATION_EXPORT double DCTAuthVersionNumber;
@@ -33,24 +34,6 @@ FOUNDATION_EXPORT const unsigned char DCTAuthVersionString[];
  @return YES if the URL was handled; NO if it wasn't handled.
  */
 + (BOOL)handleURL:(NSURL *)URL;
-
-/** Applications can supply their own webview UI for opening a
- web-based URL by providing a block to open the given URL and
- indictate by returning YES, that the URL has been shown to the 
- user;
- 
- The application should monitor when the browser loads pages and 
- for each new request in the webview, should call handleURL: to 
- see if that call is the callback that DCTAuth is waiting for.
- 
- Calling handleURL: will check to see if the URL is the callback
- so you can use the result of that to decide to show the new load
- or not.
-
- @param opener The block that will handle the display of the web page.
- @see handleURL:
- */
-+ (void)setURLOpener:(BOOL(^)(NSURL *URL))opener;
 
 /**
  *  Allows the application or custom DCTAuthAccount subclasses to

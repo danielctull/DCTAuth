@@ -7,7 +7,7 @@
 //
 
 #import "DCTAuthURLOpenerOperation.h"
-#import "DCTAuthURLOpener.h"
+#import "DCTAuthPlatform.h"
 
 @interface DCTAuthURLOpenerOperation ()
 @property (nonatomic) BOOL cancelled;
@@ -100,7 +100,7 @@
 
 	self.executing = YES;
 
-	[[DCTAuthURLOpener sharedURLOpener] openURL:self.URL];
+	[[DCTAuthPlatform sharedPlatform] openURL:self.URL completion:nil];
 }
 
 - (void)cancel {

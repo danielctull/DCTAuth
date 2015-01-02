@@ -47,7 +47,7 @@
 		2454F2ED195960A800E8643C /* DCTAuthURLOpener.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A3318115F14D63004FA7E4 /* DCTAuthURLOpener.h */; };
 		2454F2EE195960A800E8643C /* DCTAuthURLOpenerOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 24115A6F17F577FA00280F98 /* DCTAuthURLOpenerOperation.h */; };
 		2454F2EF195960A800E8643C /* DCTAuthURLRequestPerformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 241298C616AC71310052A724 /* DCTAuthURLRequestPerformer.h */; };
-		2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */; };
+		2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2454F2F1195960A800E8643C /* DCTAuthMultipartData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */; };
 		2454F2F2195960A800E8643C /* DCTOAuthSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FA902E15E93E1F00E1ED99 /* DCTOAuthSignature.h */; };
 		2454F2F3195960A800E8643C /* DCTOAuth1Account.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CAD2015EA236B00FFD0D2 /* DCTOAuth1Account.h */; };
@@ -335,8 +335,6 @@
 				24115A7017F577FA00280F98 /* DCTAuthURLOpenerOperation.m */,
 				241298C616AC71310052A724 /* DCTAuthURLRequestPerformer.h */,
 				241298C716AC71310052A724 /* DCTAuthURLRequestPerformer.m */,
-				24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */,
-				24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */,
 				2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */,
 				2443E9C515F37A2A00845950 /* DCTAuthMultipartData.m */,
 			);
@@ -465,6 +463,8 @@
 				249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */,
 				249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */,
 				2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */,
+				24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */,
+				24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */,
 				24FA902A15E93E1F00E1ED99 /* DCTAuthRequest.h */,
 				24FA902B15E93E1F00E1ED99 /* DCTAuthRequest.m */,
 				241FBB9919F6D6540082C071 /* DCTAuthRequestMethod.h */,
@@ -522,6 +522,7 @@
 				2454F2FE195960B100E8643C /* NSDictionary+DCTAuth.h in Headers */,
 				2454F2F9195960A800E8643C /* DCTCertificateAccount.h in Headers */,
 				241FBB9B19F6D6540082C071 /* DCTAuthRequestMethod.h in Headers */,
+				2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */,
 				2454F2ED195960A800E8643C /* DCTAuthURLOpener.h in Headers */,
 				2454F2FB195960A800E8643C /* DCTCertificateAuthURLProtocol.h in Headers */,
 				2454F2EC195960A800E8643C /* DCTAuthContentType.h in Headers */,
@@ -533,7 +534,6 @@
 				241FBBAA19F7CE090082C071 /* DCTOAuth1.h in Headers */,
 				2454F2EE195960A800E8643C /* DCTAuthURLOpenerOperation.h in Headers */,
 				2454F2F7195960A800E8643C /* DCTBasicAuthAccount.h in Headers */,
-				2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */,
 				2454F2F4195960A800E8643C /* DCTOAuth1Credential.h in Headers */,
 				2454F2F3195960A800E8643C /* DCTOAuth1Account.h in Headers */,
 				2454F2F2195960A800E8643C /* DCTOAuthSignature.h in Headers */,
@@ -896,7 +896,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -908,7 +908,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

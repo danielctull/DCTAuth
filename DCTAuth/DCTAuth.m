@@ -19,10 +19,6 @@ static NSString *const DCTAuthBundleName = @"DCTAuth.bundle";
 	return [[DCTAuthURLOpener sharedURLOpener] handleURL:URL];
 }
 
-+ (void)setURLOpener:(BOOL(^)(NSURL *URL))opener {
-	[[DCTAuthURLOpener sharedURLOpener] setURLOpener:opener];
-}
-
 + (id)openURL:(NSURL *)URL withCallbackURL:(NSURL *)callbackPrefixURL handler:(void (^)(DCTAuthResponse *response))handler {
 	return [[DCTAuthURLOpener sharedURLOpener] openURL:URL withCallbackURL:callbackPrefixURL handler:handler];
 }

@@ -8,10 +8,9 @@
 
 #import "DCTAuthURLOpener.h"
 #import "DCTAuthURLOpenerOperation.h"
-#import "DCTAuthPlatform.h"
 
 @interface DCTAuthURLOpener ()
-@property (nonatomic, strong) NSOperationQueue *queue;
+@property (nonatomic) NSOperationQueue *queue;
 @end
 
 @implementation DCTAuthURLOpener
@@ -58,14 +57,6 @@
 	NSAssert([object isKindOfClass:[DCTAuthURLOpenerOperation class]], @"Object should be the object returned from openURL:withCallbackURL:handler:");
 	DCTAuthURLOpenerOperation *operation = object;
 	[operation cancel];
-}
-
-- (void)openURL:(NSURL *)URL {
-	dispatch_async(dispatch_get_main_queue(), ^{
-		BOOL isOpen = NO;
-		if (self.URLOpener != NULL) isOpen = self.URLOpener(URL);
-		if (!isOpen) [DCTAuthPlatform openURL:URL];
-	});
 }
 
 @end

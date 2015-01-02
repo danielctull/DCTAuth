@@ -8,35 +8,47 @@
 
 #import "DCTAuthPlatform.h"
 
-#if TARGET_OS_IPHONE
-
-@import UIKit;
-
 @implementation DCTAuthPlatform
-+ (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
-	UIBackgroundTaskIdentifier identifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:handler];
-	return @(identifier);
+
++ (instancetype)sharedPlatform {
+	static DCTAuthPlatform *platform;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		platform = [self new];
+	});
+	return platform;
 }
-+ (void)endBackgroundTask:(id)object {
-	[[UIApplication sharedApplication] endBackgroundTask:[object unsignedIntegerValue]];
+
+- (void)openURL:(NSURL *)URL completion:(DCTAuthPlatformCompletion)completion {
+
+	if (!completion) {
+		completion = ^(BOOL success) {};
+	}
+
+	if (!self.URLOpener) {
+		completion(NO);
+		return;
+	}
+
+	self.URLOpener(URL, completion);
 }
-+ (BOOL)openURL:(NSURL *)URL {
-	return [[UIApplication sharedApplication] openURL:URL];
+
+- (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
+
+	if (!self.beginBackgroundTaskHandler) {
+		return nil;
+	}
+
+	return self.beginBackgroundTaskHandler(handler);
 }
+
+- (void)endBackgroundTask:(id)identifier {
+
+	if (!self.endBackgroundTaskHandler) {
+		return;
+	}
+
+	self.endBackgroundTaskHandler(identifier);
+}
+
 @end
-
-#else
-
-@import AppKit;
-
-@implementation DCTAuthPlatform
-+ (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
-	return nil;
-}
-+ (void)endBackgroundTask:(id)object {}
-+ (BOOL)openURL:(NSURL *)URL {
-	return [[NSWorkspace sharedWorkspace] openURL:URL];
-}
-@end
-
-#endif

@@ -203,13 +203,13 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	DCTAuthURLRequestPerformer *URLRequestPerformer = [DCTAuthURLRequestPerformer sharedURLRequestPerformer];
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
-	id object = [DCTAuthPlatform beginBackgroundTaskWithExpirationHandler:NULL];
+	id object = [[DCTAuthPlatform sharedPlatform] beginBackgroundTaskWithExpirationHandler:nil];
 
 	void (^handler)(DCTAuthResponse *response, NSError *error) = ^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
 			if (originalHandler) originalHandler(response, error);
-			[DCTAuthPlatform endBackgroundTask:object];
+			[[DCTAuthPlatform sharedPlatform] endBackgroundTask:object];
 		});
 	};
 
