@@ -49,6 +49,7 @@ h3. OAuth
 * "TripIt":http://tripit.github.com/api/doc/v1/#authentication_section
 * "Tumblr":https://www.tumblr.com/docs/en/api/v2#auth ("Notes":#tumblr)
 * "Twitter":https://dev.twitter.com/docs/auth/oauth
+* "Withings":http://oauth.withings.com/api
 * "Xero":http://developer.xero.com/documentation/getting-started/public-applications/ ("Notes":#xero)
 * "Yahoo!":http://developer.yahoo.com/oauth/guide/index.html
 
