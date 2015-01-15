@@ -70,12 +70,12 @@ extern const struct DCTOAuth2RequestType {
  *  @param consumerSecret The consumer secret for the app.
  *  @return Newly initialized account.
  */
-+ (instancetype)OAuthAccountWithType:(NSString *)type
-					 requestTokenURL:(NSURL *)requestTokenURL
-						authorizeURL:(NSURL *)authorizeURL
-					  accessTokenURL:(NSURL *)accessTokenURL
-						 consumerKey:(NSString *)consumerKey
-					  consumerSecret:(NSString *)consumerSecret;
++ (id)OAuthAccountWithType:(NSString *)type
+		   requestTokenURL:(NSURL *)requestTokenURL
+			  authorizeURL:(NSURL *)authorizeURL
+			accessTokenURL:(NSURL *)accessTokenURL
+			   consumerKey:(NSString *)consumerKey
+			consumerSecret:(NSString *)consumerSecret;
 
 /**
  *  Creates an account using OAuth.
@@ -89,13 +89,13 @@ extern const struct DCTOAuth2RequestType {
  *  @param signatureType The signature type to use, either DCTOAuthSignatureTypeHMAC_SHA1 or DCTOAuthSignatureTypePlaintext.
  *  @return Newly initialized account.
  */
-+ (instancetype)OAuthAccountWithType:(NSString *)type
-					 requestTokenURL:(NSURL *)requestTokenURL
-						authorizeURL:(NSURL *)authorizeURL
-					  accessTokenURL:(NSURL *)accessTokenURL
-						 consumerKey:(NSString *)consumerKey
-					  consumerSecret:(NSString *)consumerSecret
-					   signatureType:(DCTOAuthSignatureType)signatureType;
++ (id)OAuthAccountWithType:(NSString *)type
+		   requestTokenURL:(NSURL *)requestTokenURL
+			  authorizeURL:(NSURL *)authorizeURL
+			accessTokenURL:(NSURL *)accessTokenURL
+			   consumerKey:(NSString *)consumerKey
+			consumerSecret:(NSString *)consumerSecret
+			 signatureType:(DCTOAuthSignatureType)signatureType;
 
 
 /** 
@@ -116,12 +116,12 @@ extern const struct DCTOAuth2RequestType {
  *
  *  @return Newly initialized account.
  */
-+ (instancetype)OAuth2AccountWithType:(NSString *)type
-						 authorizeURL:(NSURL *)authorizeURL
-					   accessTokenURL:(NSURL *)accessTokenURL
-							 clientID:(NSString *)clientID
-						 clientSecret:(NSString *)clientSecret
-							   scopes:(NSArray *)scopes;
++ (id)OAuth2AccountWithType:(NSString *)type
+			   authorizeURL:(NSURL *)authorizeURL
+			 accessTokenURL:(NSURL *)accessTokenURL
+				   clientID:(NSString *)clientID
+			   clientSecret:(NSString *)clientSecret
+					 scopes:(NSArray *)scopes;
 
 /**
  *  Creates an account using OAuth 2.0.
@@ -135,11 +135,11 @@ extern const struct DCTOAuth2RequestType {
  *
  *  @return Newly initialized account.
  */
-+ (instancetype)OAuth2AccountWithType:(NSString *)type
-						 authorizeURL:(NSURL *)authorizeURL
-							 username:(NSString *)username
-							 password:(NSString *)password
-							   scopes:(NSArray *)scopes;
++ (id)OAuth2AccountWithType:(NSString *)type
+			   authorizeURL:(NSURL *)authorizeURL
+				   username:(NSString *)username
+				   password:(NSString *)password
+					 scopes:(NSArray *)scopes;
 
 /**
  *  Creates an account using OAuth 2.0.
@@ -154,13 +154,13 @@ extern const struct DCTOAuth2RequestType {
  *
  *  @return Newly initialized account.
  */
-+ (instancetype)OAuth2AccountWithType:(NSString *)type
-						 authorizeURL:(NSURL *)authorizeURL
-							 clientID:(NSString *)clientID
-						 clientSecret:(NSString *)clientSecret
-							 username:(NSString *)username
-							 password:(NSString *)password
-							   scopes:(NSArray *)scopes;
++ (id)OAuth2AccountWithType:(NSString *)type
+			   authorizeURL:(NSURL *)authorizeURL
+				   clientID:(NSString *)clientID
+			   clientSecret:(NSString *)clientSecret
+				   username:(NSString *)username
+				   password:(NSString *)password
+					 scopes:(NSArray *)scopes;
 
 /**
  *  Creates an account using basic authentication.
@@ -172,10 +172,10 @@ extern const struct DCTOAuth2RequestType {
  *
  *  @return Newly initialized account.
  */
-+ (instancetype)basicAuthAccountWithType:(NSString *)type
-					   authenticationURL:(NSURL *)authenticationURL
-								username:(NSString *)username
-								password:(NSString *)password;
++ (id)basicAuthAccountWithType:(NSString *)type
+			 authenticationURL:(NSURL *)authenticationURL
+					  username:(NSString *)username
+					  password:(NSString *)password;
 
 /// @name Accessing Properties
 
@@ -285,5 +285,3 @@ extern const struct DCTOAuth2RequestType {
 - (instancetype)initWithType:(NSString *)type __attribute((objc_requires_super));
 
 @end
-
-@class DCTAuthRequest;
