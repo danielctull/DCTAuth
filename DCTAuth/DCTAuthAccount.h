@@ -177,21 +177,6 @@ extern const struct DCTOAuth2RequestType {
 								username:(NSString *)username
 								password:(NSString *)password;
 
-/**
- *  Creates an account which is authorized with a certificate.
- *
- *  @param type              The type of the account.
- *  @param authenticationURL The URL to authenticate with.
- *  @param certificate       A p12 certificate.
- *  @param password          The password for the certificate.
- *
- *  @return An account.
- */
-+ (DCTAuthAccount *)certificateAccountWithType:(NSString *)type
-							 authenticationURL:(NSURL *)authenticationURL
-								   certificate:(NSData *)certificate
-									  password:(NSString *)password;
-
 /// @name Accessing Properties
 
 /**

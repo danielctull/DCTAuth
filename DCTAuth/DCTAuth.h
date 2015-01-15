@@ -93,7 +93,4 @@ FOUNDATION_EXPORT const unsigned char DCTAuthVersionString[];
  */
 + (NSString *)localizedStringForDomain:(NSString *)domain key:(NSString *)key;
 
-
-+ (NSArray *)protocolClasses;
-
 @end
