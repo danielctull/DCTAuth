@@ -49,29 +49,12 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
 /**
  *  Initializes a newly created request object with the specified properties.
  *
- *  As paramaters are passed as a dictionary, if you want to submit more that one
- *  value for a key, you can supply an array for multiple values. For example,
- *  providing the following dictionary
- *
- *	@{
- *		@"milestone" : @"1.0",
- *		@"status" : @[
- *			@"open",
- *			@"new"
- *		]
- *	}
- *
- *  will result in a query string like the following. Note that because dictionaries
- *  are unordered the order of the parameters in the query string is undetermined.
- *
- *	?status=open&status=new&milestone=1.0
- *
  *  @param requestMethod The method to use for this HTTP request.
  *  @param URL The destination URL for this HTTP request.
- *  @param parameters The parameters for this HTTP request.
+ *  @param items An array of NSURLQueryItem objects.
  *  @return The newly initialized request object.
  */
-- (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL parameters:(NSDictionary *)parameters;
+- (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod URL:(NSURL *)URL items:(NSArray *)items;
 
 /// @name Accessing Properties
 
@@ -94,7 +77,7 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  *
  *  These are the query parameters for this HTTP request.
  */
-@property (nonatomic, readonly) NSDictionary *parameters;
+@property (nonatomic, readonly) NSArray *items;
 
 /** 
  *  The HTTPHeaders for this request.

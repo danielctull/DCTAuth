@@ -22,7 +22,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.shouldSendCallbackURL = @"shouldSendCallbackURL",
 	.userInfo = @"userInfo",
 	.saveUUID = @"saveUUID",
-	.extraParameters = @"extraParameters"
+	.extraItems = @"extraItems"
 };
 
 
@@ -39,7 +39,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 @interface DCTAuthAccount ()
 @property (nonatomic, strong) id<DCTAuthAccountCredential> internalCredential;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
-@property (nonatomic) NSMutableDictionary *extraParameters;
+@property (nonatomic) NSMutableDictionary *extraItems;
 @end
 
 @implementation DCTAuthAccount
@@ -138,7 +138,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 - (instancetype)init {
 	self = [super init];
 	if (!self) return nil;
-	_extraParameters = [NSMutableDictionary new];
+	_extraItems = [NSMutableDictionary new];
 	_shouldSendCallbackURL = YES;
 	return self;
 }
@@ -162,8 +162,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	_userInfo = [coder decodeObjectForKey:DCTAuthAccountProperties.userInfo];
 	_saveUUID = [coder decodeObjectForKey:DCTAuthAccountProperties.saveUUID];
 
-	NSDictionary *extraParameters = [coder decodeObjectForKey:DCTAuthAccountProperties.extraParameters];
-	if ([extraParameters isKindOfClass:[NSDictionary class]]) _extraParameters = [extraParameters mutableCopy];
+	_extraItems = [coder decodeObjectOfClass:[NSArray class] forKey:DCTAuthAccountProperties.extraItems];
 
 	return self;
 }
@@ -176,16 +175,15 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	[coder encodeObject:self.accountDescription forKey:DCTAuthAccountProperties.accountDescription];
 	[coder encodeObject:self.userInfo forKey:DCTAuthAccountProperties.userInfo];
 	[coder encodeObject:self.saveUUID forKey:DCTAuthAccountProperties.saveUUID];
-	[coder encodeObject:[self.extraParameters copy] forKey:DCTAuthAccountProperties.extraParameters];
+	[coder encodeObject:self.extraItems forKey:DCTAuthAccountProperties.extraItems];
 }
 
-- (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType {
-	NSAssert([parameters isKindOfClass:[NSDictionary class]], @"Needs to be a dictionary");
-	[self.extraParameters setObject:[parameters copy] forKey:requestType];
+- (void)setItems:(NSArray *)items forRequestType:(NSString *)requestType {
+	[self.extraItems setObject:[items copy] forKey:requestType];
 }
 
-- (NSDictionary *)parametersForRequestType:(NSString *)requestType {
-	return [self.extraParameters objectForKey:requestType];
+- (NSArray *)itemsForRequestType:(NSString *)requestType {
+	return [self.extraItems objectForKey:requestType];
 }
 
 - (BOOL)isAuthorized {

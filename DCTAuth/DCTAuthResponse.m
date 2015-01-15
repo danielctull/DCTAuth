@@ -57,11 +57,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 
 - (NSDictionary *)dictionaryFromJSONData:(NSData *)data {
 	if (!data) return nil;
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wassign-enum"
-	return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-#pragma clang diagnostic pop
+	return [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)0 error:NULL];
 }
 
 - (NSDictionary *)dictionaryFromPlistData:(NSData *)data {

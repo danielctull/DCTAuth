@@ -88,7 +88,7 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:self.authenticationURL
-																 parameters:nil];
+																	  items:nil];
 
 	DCTBasicAuthCredential *credential = [[DCTBasicAuthCredential alloc] initWithUsername:self.username password:self.password];
 	NSString *authorizationHeader = credential.authorizationHeader;

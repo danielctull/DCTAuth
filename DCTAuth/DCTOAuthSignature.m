@@ -22,7 +22,7 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 @property (nonatomic, readonly) NSString *consumerSecret;
 @property (nonatomic, readonly) NSString *secretToken;
 @property (nonatomic, readonly) NSString *HTTPMethod;
-@property (nonatomic, readonly) NSMutableDictionary *parameters;
+@property (nonatomic, readonly) NSMutableArray *items;
 @property (nonatomic, readonly) DCTOAuthSignatureType type;
 @end
 
@@ -32,9 +32,25 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 				 HTTPMethod:(NSString *)HTTPMethod
 			 consumerSecret:(NSString *)consumerSecret
 				secretToken:(NSString *)secretToken
-				 parameters:(NSDictionary *)parameters
+					  items:(NSArray *)items
 					   type:(DCTOAuthSignatureType)type {
-	
+
+	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+	NSString *timestamp = [@((NSInteger)timeInterval) stringValue];
+	NSString *nonce = [[NSProcessInfo processInfo] globallyUniqueString];
+	return [self initWithURL:URL HTTPMethod:HTTPMethod consumerSecret:consumerSecret secretToken:secretToken items:items type:type timestamp:timestamp nonce:nonce];
+}
+
+
+- (instancetype)initWithURL:(NSURL *)URL
+				 HTTPMethod:(NSString *)HTTPMethod
+			 consumerSecret:(NSString *)consumerSecret
+				secretToken:(NSString *)secretToken
+					  items:(NSArray *)items
+					   type:(DCTOAuthSignatureType)type
+				  timestamp:(NSString *)timestamp
+					  nonce:(NSString *)nonce {
+
 	self = [self init];
 	if (!self) return nil;
 	
@@ -42,41 +58,48 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	_HTTPMethod = [HTTPMethod copy];
 	_consumerSecret = [consumerSecret copy];
 	_secretToken = secretToken ? [secretToken copy] : @"";
-	_parameters = [NSMutableDictionary new];
+	_items = [NSMutableArray new];
 	_type = type;
-	
-	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-	NSString *timestamp = [@((NSInteger)timeInterval) stringValue];
-	NSString *nonce = [[NSProcessInfo processInfo] globallyUniqueString];
+
 	NSString *version = @"1.0";
 
-	_parameters[DCTOAuth1Keys.version] = version;
-	_parameters[DCTOAuth1Keys.nonce] = nonce;
-	_parameters[DCTOAuth1Keys.timestamp] = timestamp;
-	_parameters[DCTOAuth1Keys.signatureMethod] = DTOAuthSignatureTypeString[type];
-	[_parameters addEntriesFromDictionary:parameters];
+	NSURLQueryItem *versionItem = [NSURLQueryItem queryItemWithName:DCTOAuth1Keys.version value:version];
+	[_items addObject:versionItem];
+
+	NSURLQueryItem *nonceItem = [NSURLQueryItem queryItemWithName:DCTOAuth1Keys.nonce value:nonce];
+	[_items addObject:nonceItem];
+
+	NSURLQueryItem *timestampItem = [NSURLQueryItem queryItemWithName:DCTOAuth1Keys.timestamp value:timestamp];
+	[_items addObject:timestampItem];
+
+	NSURLQueryItem *signatureMethodItem = [NSURLQueryItem queryItemWithName:DCTOAuth1Keys.signatureMethod value:DTOAuthSignatureTypeString[type]];
+	[_items addObject:signatureMethodItem];
+
+	[_items addObjectsFromArray:items];
 	
 	return self;
 }
 
 - (NSString *)signatureBaseString {
 
-	NSMutableDictionary *parameters = [self.parameters mutableCopy];
-	NSDictionary *queryDictionary = [[self.URL query] dctAuth_parameterDictionary];
-	[parameters addEntriesFromDictionary:queryDictionary];
+	NSMutableArray *items = [self.items mutableCopy];
 
-	NSArray *keys = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
+	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.URL resolvingAgainstBaseURL:YES];
+	[items addObjectsFromArray:URLComponents.queryItems];
+
+	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+	NSArray *sortedItems = [items sortedArrayUsingDescriptors:@[sortDescriptor]];
 
 	NSMutableArray *parameterStrings = [NSMutableArray new];
-	[keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger i, BOOL *stop) {
-		NSString *value = [parameters objectForKey:key];
-		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, [value dctAuth_URLEncodedString]];
+	for (NSURLQueryItem *item in sortedItems) {
+		NSString *key = item.name;
+		NSString *value = [item.value dctAuth_URLEncodedString];
+		NSString *keyValueString = [NSString stringWithFormat:@"%@=%@", key, value];
 		[parameterStrings addObject:keyValueString];
-	}];
+	}
 	
 	NSString *parameterString = [parameterStrings componentsJoinedByString:@"&"];
 
-	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.URL resolvingAgainstBaseURL:YES];
 	URLComponents.query = nil;
 	URLComponents.fragment = nil;
 
@@ -106,12 +129,12 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 - (NSString *)authorizationHeader {
 	
 	NSMutableArray *parameters = [NSMutableArray new];
-	[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *encodedKey = [[key description] dctAuth_URLEncodedString];
-        NSString *encodedValue = [[value description] dctAuth_URLEncodedString];
+	for (NSURLQueryItem *item in self.items) {
+        NSString *encodedKey = [item.name dctAuth_URLEncodedString];
+        NSString *encodedValue = [item.value dctAuth_URLEncodedString];
 		NSString *string = [NSString stringWithFormat:@"%@=\"%@\"", encodedKey, encodedValue];
 		[parameters addObject:string];
-	}];
+	}
 
 	switch (self.type) {
 

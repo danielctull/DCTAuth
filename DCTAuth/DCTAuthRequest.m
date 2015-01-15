@@ -10,14 +10,14 @@
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthPlatform.h"
 #import "DCTAuthMultipartData.h"
-#import "NSDictionary+DCTAuth.h"
+#import "NSArray+DCTAuth.h"
 #import "NSString+DCTAuth.h"
 #import "DCTAuthURLRequestPerformer.h"
 
 static const struct DCTAuthRequestProperties {
 	__unsafe_unretained NSString *requestMethod;
 	__unsafe_unretained NSString *URL;
-	__unsafe_unretained NSString *parameters;
+	__unsafe_unretained NSString *items;
 	__unsafe_unretained NSString *multipartDatas;
 	__unsafe_unretained NSString *account;
 } DCTAuthRequestProperties;
@@ -25,7 +25,7 @@ static const struct DCTAuthRequestProperties {
 static const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
 	.requestMethod = @"requestMethod",
 	.URL = @"URL",
-	.parameters = @"parameters",
+	.items = @"items",
 	.multipartDatas = @"multipartDatas",
 	.account = @"account"
 };
@@ -52,7 +52,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 @interface DCTAuthRequest ()
 @property (nonatomic, strong) NSMutableArray *multipartDatas;
-@property (nonatomic, readwrite) NSDictionary *parameters;
+@property (nonatomic, readwrite) NSArray *items;
 @end
 
 @implementation DCTAuthRequest
@@ -60,15 +60,15 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 #pragma mark - DCTAuthRequest
 
 - (instancetype)initWithRequestMethod:(DCTAuthRequestMethod)requestMethod
-						URL:(NSURL *)URL
-				 parameters:(NSDictionary *)parameters {
+								  URL:(NSURL *)URL
+								items:(NSArray *)items {
 	
-	self = [self init];
+	self = [super init];
 	if (!self) return nil;
 	
 	_URL = [URL copy];
 	_requestMethod = requestMethod;
-	_parameters = [parameters copy];
+	_items = [items copy];
 	_multipartDatas = [NSMutableArray new];
 
 	return self;
@@ -81,17 +81,17 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	multipartData.type = type;
 	[self.multipartDatas addObject:multipartData];
 
-	if (self.parameters) {
-		
-		[self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+	if (self.items) {
+
+		for (NSURLQueryItem *item in self.items) {
 			DCTAuthMultipartData *multipartData = [DCTAuthMultipartData new];
-			multipartData.data = [[object description] dataUsingEncoding:NSUTF8StringEncoding];
-			multipartData.name = [key description];
+			multipartData.data = [item.value dataUsingEncoding:NSUTF8StringEncoding];
+			multipartData.name = item.name;
 			multipartData.type = @"text/plain";
 			[self.multipartDatas addObject:multipartData];
-		}];
+		}
 
-		self.parameters = nil;
+		self.items = nil;
 	}
 }
 
@@ -130,31 +130,33 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 - (void)_setupGETRequest:(NSMutableURLRequest *)request {
 
 	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.URL resolvingAgainstBaseURL:YES];
-	NSDictionary *exitingParameters = [URLComponents.query dctAuth_parameterDictionary];
-	NSMutableDictionary *queryParameters = [NSMutableDictionary new];
-	[queryParameters addEntriesFromDictionary:exitingParameters];
-	[queryParameters addEntriesFromDictionary:self.parameters];
-	URLComponents.query = [queryParameters dctAuth_queryString];
+	NSArray *existingItems = URLComponents.queryItems;
+	NSMutableArray *queryItems = [NSMutableArray new];
+	[queryItems addObjectsFromArray:existingItems];
+	[queryItems addObjectsFromArray:self.items];
+	URLComponents.queryItems = queryItems;
 
 	[request setURL:URLComponents.URL];
 }
 
-- (NSData *)encodedBodyWithParameters:(NSDictionary *)parameters
-						  contentType:(DCTAuthRequestContentType)contentType {
+- (NSData *)encodedBodyWithItems:(NSArray *)items contentType:(DCTAuthRequestContentType)contentType {
 
 	NSData *body;
 
-	if (contentType == DCTAuthRequestContentTypeForm)
-		body = [parameters dctAuth_bodyFormDataUsingEncoding:NSUTF8StringEncoding];
+	switch (contentType) {
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wassign-enum"
-	else if (contentType == DCTAuthRequestContentTypeJSON)
-		body = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:NULL];
-#pragma clang diagnostic pop
+		case DCTAuthRequestContentTypeForm:
+			body = [items dctAuth_formDataUsingEncoding:NSUTF8StringEncoding];
+			break;
 
-	else if (contentType == DCTAuthRequestContentTypePlist)
-		body = [NSPropertyListSerialization dataWithPropertyList:parameters format:NSPropertyListXMLFormat_v1_0 options:0 error:NULL];
+		case DCTAuthRequestContentTypeJSON:
+			body = [items dctAuth_JSONDataUsingEncoding:NSUTF8StringEncoding];
+			break;
+
+		case DCTAuthRequestContentTypePlist:
+			body = [items dctAuth_plistDataUsingEncoding:NSUTF8StringEncoding];
+			break;
+	}
 
 	return body;
 }
@@ -163,7 +165,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	[request setURL:self.URL];
 
 	if ([self.multipartDatas count] == 0) {
-		[request setHTTPBody:[self encodedBodyWithParameters:self.parameters contentType:self.contentType]];
+		[request setHTTPBody:[self encodedBodyWithItems:self.items contentType:self.contentType]];
 		NSString *contentLength = [@([[request HTTPBody] length]) stringValue];
 		[request setValue:contentLength forHTTPHeaderField:DCTAuthRequestContentLengthKey];
 		NSString *contentType = DCTAuthRequestContentTypeString[self.contentType];
@@ -240,7 +242,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	else bodyString = @"";
 
 	NSString *queryString = @"";
-	if (self.requestMethod == DCTAuthRequestMethodGET && self.parameters.count > 0) {
+	if (self.requestMethod == DCTAuthRequestMethodGET && self.items.count > 0) {
 		NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
 		queryString = [NSString stringWithFormat:@"\nQuery: ?%@", URLComponents.query];
 	}
@@ -272,9 +274,9 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	self = [self init];
 	if (!self) return nil;
 	_requestMethod = [coder decodeIntegerForKey:DCTAuthRequestProperties.requestMethod];
-	_URL = [[coder decodeObjectForKey:DCTAuthRequestProperties.URL] copy];
-	_parameters = [[coder decodeObjectForKey:DCTAuthRequestProperties.parameters] copy];
-	_multipartDatas = [[coder decodeObjectForKey:DCTAuthRequestProperties.multipartDatas] copy];
+	_URL = [coder decodeObjectForKey:DCTAuthRequestProperties.URL];
+	_items = [coder decodeObjectOfClass:[NSArray class] forKey:DCTAuthRequestProperties.items];
+	_multipartDatas = [coder decodeObjectForKey:DCTAuthRequestProperties.multipartDatas];
 	_account = [coder decodeObjectForKey:DCTAuthRequestProperties.account];
 	return self;
 }
@@ -282,7 +284,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeInteger:self.requestMethod forKey:DCTAuthRequestProperties.requestMethod];
 	[coder encodeObject:self.URL forKey:DCTAuthRequestProperties.URL];
-	[coder encodeObject:self.parameters forKey:DCTAuthRequestProperties.parameters];
+	[coder encodeObject:self.items forKey:DCTAuthRequestProperties.items];
 	[coder encodeObject:self.multipartDatas forKey:DCTAuthRequestProperties.multipartDatas];
 	[coder encodeObject:self.account forKey:DCTAuthRequestProperties.account];
 }

@@ -34,7 +34,7 @@ extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *shouldSendCallbackURL;
 	__unsafe_unretained NSString *userInfo;
 	__unsafe_unretained NSString *saveUUID;
-	__unsafe_unretained NSString *extraParameters;
+	__unsafe_unretained NSString *extraItems;
 } DCTAuthAccountProperties;
 
 
@@ -269,7 +269,11 @@ extern const struct DCTOAuth2RequestType {
 
 - (void)cancelAuthentication;
 
-- (void)setParameters:(NSDictionary *)parameters forRequestType:(NSString *)requestType;
+/** Allows users to set extra NSQueryItems for a particular request type.
+ *
+ *  Currently the OAuth 2 accounts are the only ones to make use of these extra items. (See the DCTOAuth2RequestType struct) 
+ */
+- (void)setItems:(NSArray *)items forRequestType:(NSString *)requestType;
 
 @property (nonatomic, copy) NSDictionary *userInfo;
 

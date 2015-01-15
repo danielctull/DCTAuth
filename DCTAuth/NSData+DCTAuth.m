@@ -11,12 +11,9 @@
 @implementation NSData (DCTAuth)
 
 - (NSString *)dctAuth_base64EncodedString {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wassign-enum"
+	
 	if ([self respondsToSelector:@selector(base64EncodedDataWithOptions:)])
-		return [self base64EncodedStringWithOptions:0];
-#pragma clang diagnostic pop
+		return [self base64EncodedStringWithOptions:(NSDataBase64EncodingOptions)0];
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

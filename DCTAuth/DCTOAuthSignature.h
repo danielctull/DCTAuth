@@ -14,8 +14,17 @@
 				 HTTPMethod:(NSString *)HTTPMethod
 			 consumerSecret:(NSString *)consumerSecret
 				secretToken:(NSString *)secretToken
-				 parameters:(NSDictionary *)parameters
+					  items:(NSArray *)items
 					   type:(DCTOAuthSignatureType)type;
+
+- (instancetype)initWithURL:(NSURL *)URL
+				 HTTPMethod:(NSString *)HTTPMethod
+			 consumerSecret:(NSString *)consumerSecret
+				secretToken:(NSString *)secretToken
+					  items:(NSArray *)items
+					   type:(DCTOAuthSignatureType)type
+				  timestamp:(NSString *)timestamp
+					  nonce:(NSString *)nonce;
 
 @property (nonatomic, readonly) NSString *authorizationHeader;
 @property (nonatomic, readonly) NSString *signatureBaseString;

@@ -15,15 +15,17 @@
 @implementation DCTOAuthSignatureTests
 
 - (void)testHMAC_SHA1Signature {
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://host.net/resource"]
+	NSURL *URL = [NSURL URLWithString:@"http://host.net/resource"];
+	NSURLQueryItem *oauthItem = [NSURLQueryItem queryItemWithName:@"oauth_token" value:@"token"];
+	NSURLQueryItem *consumerKeyItem = [NSURLQueryItem queryItemWithName:@"oauth_consumer_key" value:@"consumer_key"];
+	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
 															   HTTPMethod:@"GET"
 														   consumerSecret:@"consumer_secret"
 															  secretToken:@"token_secret"
-															   parameters:@{ @"oauth_timestamp" : @"1358592821",
-																				 @"oauth_token" : @"token",
-																			     @"oauth_nonce" : @"qwerty",
-																		  @"oauth_consumer_key" : @"consumer_key" }
-																	 type:DCTOAuthSignatureTypeHMAC_SHA1];
+																	items:@[oauthItem, consumerKeyItem]
+																	 type:DCTOAuthSignatureTypeHMAC_SHA1
+																timestamp:@"1358592821"
+																	nonce:@"qwerty"];
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
@@ -35,15 +37,17 @@
 }
 
 - (void)testHMAC_SHA1SignatureWithQuery {
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://host.net/resource?key1=value1&key2=value2"]
+	NSURL *URL = [NSURL URLWithString:@"http://host.net/resource?key1=value1&key2=value2"];
+	NSURLQueryItem *oauthItem = [NSURLQueryItem queryItemWithName:@"oauth_token" value:@"token"];
+	NSURLQueryItem *consumerKeyItem = [NSURLQueryItem queryItemWithName:@"oauth_consumer_key" value:@"consumer_key"];
+	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
 															   HTTPMethod:@"GET"
 														   consumerSecret:@"consumer_secret"
 															  secretToken:@"token_secret"
-															   parameters:@{ @"oauth_timestamp" : @"1358592821",
-																				 @"oauth_token" : @"token",
-																				 @"oauth_nonce" : @"qwerty",
-																		  @"oauth_consumer_key" : @"consumer_key" }
-																	 type:DCTOAuthSignatureTypeHMAC_SHA1];
+																	items:@[oauthItem, consumerKeyItem]
+																	 type:DCTOAuthSignatureTypeHMAC_SHA1
+																timestamp:@"1358592821"
+																	nonce:@"qwerty"];
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&key1%3Dvalue1%26key2%3Dvalue2%26oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
@@ -55,15 +59,17 @@
 }
 
 - (void)testHMAC_SHA1SignatureWithFragment {
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://host.net/resource#fragment"]
+	NSURL *URL = [NSURL URLWithString:@"http://host.net/resource#fragment"];
+	NSURLQueryItem *oauthItem = [NSURLQueryItem queryItemWithName:@"oauth_token" value:@"token"];
+	NSURLQueryItem *consumerKeyItem = [NSURLQueryItem queryItemWithName:@"oauth_consumer_key" value:@"consumer_key"];
+	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
 															   HTTPMethod:@"GET"
 														   consumerSecret:@"consumer_secret"
 															  secretToken:@"token_secret"
-															   parameters:@{ @"oauth_timestamp" : @"1358592821",
-																				 @"oauth_token" : @"token",
-																				 @"oauth_nonce" : @"qwerty",
-																		  @"oauth_consumer_key" : @"consumer_key" }
-																	 type:DCTOAuthSignatureTypeHMAC_SHA1];
+																	items:@[oauthItem, consumerKeyItem]
+																	 type:DCTOAuthSignatureTypeHMAC_SHA1
+																timestamp:@"1358592821"
+																	nonce:@"qwerty"];
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
@@ -75,15 +81,17 @@
 }
 
 - (void)testHMAC_SHA1SignatureWithQueryAndFragment {
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:[NSURL URLWithString:@"http://host.net/resource?key1=value1&key2=value2#fragment"]
+	NSURL *URL = [NSURL URLWithString:@"http://host.net/resource?key1=value1&key2=value2#fragment"];
+	NSURLQueryItem *oauthItem = [NSURLQueryItem queryItemWithName:@"oauth_token" value:@"token"];
+	NSURLQueryItem *consumerKeyItem = [NSURLQueryItem queryItemWithName:@"oauth_consumer_key" value:@"consumer_key"];
+	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:URL
 															   HTTPMethod:@"GET"
 														   consumerSecret:@"consumer_secret"
 															  secretToken:@"token_secret"
-															   parameters:@{ @"oauth_timestamp" : @"1358592821",
-																				 @"oauth_token" : @"token",
-																				 @"oauth_nonce" : @"qwerty",
-																		  @"oauth_consumer_key" : @"consumer_key" }
-																	 type:DCTOAuthSignatureTypeHMAC_SHA1];
+																	items:@[oauthItem, consumerKeyItem]
+																	 type:DCTOAuthSignatureTypeHMAC_SHA1
+																timestamp:@"1358592821"
+																	nonce:@"qwerty"];
 
 	NSString *signatureBaseString = [signature signatureBaseString];
 	NSString *expectedSignatureBaseString = @"GET&http%3A%2F%2Fhost.net%2Fresource&key1%3Dvalue1%26key2%3Dvalue2%26oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1358592821%26oauth_token%3Dtoken%26oauth_version%3D1.0";
