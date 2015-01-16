@@ -582,6 +582,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24307B721A690925006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac" */;
 			buildPhases = (
+				2438EF311A692A6A00CA30D4 /* Generate Info */,
 				24307B5A1A690925006D27E1 /* Sources */,
 				24307B5B1A690925006D27E1 /* Frameworks */,
 				24307B5C1A690925006D27E1 /* Headers */,
@@ -619,6 +620,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2454F2D71959601600E8643C /* Build configuration list for PBXNativeTarget "DCTAuth iOS" */;
 			buildPhases = (
+				24847B381A6929FE00652092 /* Generate Info */,
 				2454F2BB1959601600E8643C /* Sources */,
 				2454F2BC1959601600E8643C /* Frameworks */,
 				2454F2BD1959601600E8643C /* Headers */,
@@ -784,6 +786,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Scripts/documentation.sh -c \"Daniel Tull\" -i \"uk.co.danieltull\" > /dev/null 2>&1 &\n";
+		};
+		2438EF311A692A6A00CA30D4 /* Generate Info */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Info";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${PROJECT_DIR}/Scripts/generate-info.sh\"";
+		};
+		24847B381A6929FE00652092 /* Generate Info */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Info";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${PROJECT_DIR}/Scripts/generate-info.sh\"";
 		};
 		24FA8FF315E93D8E00E1ED99 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
