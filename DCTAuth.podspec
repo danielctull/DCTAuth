@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
                    authentication accounts.
                    DESC
 
-  s.homepage     = "http://danieltull.co.uk/DCTAuth"
+  s.homepage     = "https://github.com/danielctull/DCTAuth"
 
 
 
@@ -49,8 +49,8 @@ Pod::Spec.new do |s|
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source       = { :git => "git://github.com/danielctull/DCTAuth.git", 
-                     :tag => spec.version.to_s,
+  s.source       = { :git => "https://github.com/danielctull/DCTAuth.git",
+                     :tag => s.version,
                      :submodules => true }
 
 
