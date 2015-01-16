@@ -4,18 +4,20 @@ A library for performing authorised web requests to services using OAuth, OAuth 
 
 ## Features
 
+DCTAuth is [fully documented](http://danieltull.co.uk/DCTAuth/documentation/) and there is a [feed for the docset](http://danieltull.co.uk/DCTAuth/documentation/docset.atom) that you can add to Xcode. If you have appledoc installed, a build phase of the framework target will generate and install the documentation.
+
 * Multiple account type architecture
-	* Built-in support for OAuth, OAuth 2.0 and Basic authentication
-	* Add extra headers to authentication requests
-	* Create your own custom authentication system
+    * Built-in support for OAuth, OAuth 2.0 and Basic authentication
+    * Add extra headers to authentication requests
+    * Create your own custom authentication system
 
 * Works on Mac and iOS
-	* OS X 10.7+
-	* iOS 5+
+    * OS X 10.7+
+    * iOS 5+
 
 * Web view authorization step
-	* Launch Safari and return with a callback URL
-	* Provide in-app web view
+    * Launch Safari and return with a callback URL
+    * Provide in-app web view
 
 * Keychain
 	* Accounts save to the keychain
@@ -26,9 +28,36 @@ A library for performing authorised web requests to services using OAuth, OAuth 
 	* Multiple account stores, for different types of account
 	* KVO accounts property for easy listing of accounts
 
-## Documentation
+## Example
 
-DCTAuth is [fully documented](http://danieltull.co.uk/DCTAuth/documentation/) and there is a [feed for the docset](http://danieltull.co.uk/DCTAuth/documentation/docset.atom) that you can add to Xcode.
+The following shows how to create a Twitter account, authenticate it and request the user's home timeline excluding the replies.
+
+    DCTAuthAccount *account = [DCTAuthAccount OAuthAccountWithType:@"Twitter"
+                                                   requestTokenURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"]
+                                                      authorizeURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/authorize"]
+                                                    accessTokenURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"]
+                                                       consumerKey:@"YOUR TWITTER CONSUMER KEY"
+                                                    consumerSecret:@"YOUR TWITTER CONSUMER SECRET"];
+    
+    account.callbackURL = [NSURL URLWithString:@"dctauth://test"];
+    
+    [account authenticateWithHandler:^(NSArray *responses, NSError *error) {
+
+        if (!account.authorized) {
+            // Something failed
+            return;
+        }
+
+      	NSURL *URL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/home_timeline.json"];
+	    NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:@"exclude_replies" value:@"true"];
+        DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET URL:URL items:@[item]];
+        request.account = account;
+        
+        [request performRequestWithHandler:^(DCTAuthResponse *response, NSError *error) {
+            NSInteger statusCode = response.statusCode;
+            NSData *data = response.data;
+        }];
+    }];
 
 ## Known working services
 
