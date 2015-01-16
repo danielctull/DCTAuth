@@ -59,6 +59,50 @@ The following shows how to create a Twitter account, authenticate it and request
         }];
     }];
 
+The framework allows app extension API only, so you also need to provide a couple of handlers for performing background tasks and opening authorization URLs. These authorization URLs are always web addresses, so either call out to Safari or open in an `UIWebView` or `WKWebView`, making sure to call `+[DCTAuth handleURL:]` to let the framework handle any responses.
+
+In an application you can provide the following:
+
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+        DCTAuthPlatform *authPlatform = [DCTAuthPlatform sharedPlatform];
+        
+        authPlatform.beginBackgroundTaskHandler = ^id(DCTAuthPlatformExpirationHandler expirationHandler) {
+    	    UIBackgroundTaskIdentifier identifier = [application beginBackgroundTaskWithExpirationHandler:expirationHandler];
+            return @(identifier);
+        };
+        
+        authPlatform.endBackgroundTaskHandler = ^(id identifier) {
+    	    UIBackgroundTaskIdentifier taskIdentifier = [identifier unsignedIntegerValue];
+            [application endBackgroundTask:taskIdentifier];
+        };
+        
+        authPlatform.URLOpener = ^void(NSURL *URL, DCTAuthPlatformCompletion completion) {
+        	BOOL success = [application openURL:URL];
+            completion(success);
+    	};
+        
+        …
+    }
+    
+    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    	return [DCTAuth handleURL:URL];
+    }
+    
+For an extension, you must provide a web view to perform authorization. The following shows how to setup the `URLOpener` and use the `UIWebView` delegate method to allow DCTAuth to handle the URLs.
+
+    - (void)setupWebView {
+        UIWebView *webView = self.webView;
+        [DCTAuthPlatform sharedPlatform].URLOpener = ^void(NSURL *URL, DCTAuthPlatformCompletion completion) {
+    	    [webView loadRequest:[NSURLRequest requestWithURL:URL]];
+            completion(YES);
+        };
+    }
+    
+    - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    	return ![DCTAuth handleURL:request.URL];
+    }
+
 ## Known working services
 
 While the implementations _should_ work for all services using that standard, I can confirm that they work for the following providers:
