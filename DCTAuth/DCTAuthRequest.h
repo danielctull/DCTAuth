@@ -10,11 +10,20 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthResponse.h"
 
-typedef enum : NSUInteger {
+/**
+ * Defines how to encode the body of a HTTP request.
+ */
+typedef NS_ENUM(NSUInteger, DCTAuthRequestContentType) {
+
+	/** Encode as a standard HTTP form. */
 	DCTAuthRequestContentTypeForm,
+
+	/** Encode as JSON. */
 	DCTAuthRequestContentTypeJSON,
+
+	/** Encode as Plist. */
 	DCTAuthRequestContentTypePlist
-} DCTAuthRequestContentType;
+};
 
 typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
 

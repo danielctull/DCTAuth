@@ -8,12 +8,26 @@
 
 @import Foundation;
 
-typedef enum : NSUInteger {
-	DCTAuthRequestMethodGET,
-	DCTAuthRequestMethodPOST,
-	DCTAuthRequestMethodDELETE,
-	DCTAuthRequestMethodHEAD,
-	DCTAuthRequestMethodPUT
-} DCTAuthRequestMethod;
+/** The potential request methods that can be used.
+ */
+typedef NS_ENUM(NSUInteger, DCTAuthRequestMethod) {
 
+	/** GET request. */
+	DCTAuthRequestMethodGET,
+
+	/** POST request. */
+	DCTAuthRequestMethodPOST,
+
+	/** DELETE request. */
+	DCTAuthRequestMethodDELETE,
+
+	/** HEAD request. */
+	DCTAuthRequestMethodHEAD,
+
+	/** PUT request. */
+	DCTAuthRequestMethodPUT
+};
+
+/** The potential request methods that can be used.
+ */
 NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method);
