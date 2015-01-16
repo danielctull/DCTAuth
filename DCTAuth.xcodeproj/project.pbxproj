@@ -75,6 +75,11 @@
 		24307BAC1A690A0D006D27E1 /* NSData+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 249CAD1A15EA214700FFD0D2 /* NSData+DCTAuth.m */; };
 		24307BAD1A690A0D006D27E1 /* NSArray+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238915EBBB8800B68FAD /* NSArray+DCTAuth.m */; };
 		24307BAE1A690AE8006D27E1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 244414BA173EBC3A0046D993 /* Localizable.strings */; };
+		24307BBA1A690BDC006D27E1 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24307B5F1A690925006D27E1 /* DCTAuth.framework */; };
+		24307BC21A690D49006D27E1 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24307BC11A690D49006D27E1 /* libresolv.dylib */; };
+		24307BC51A690D67006D27E1 /* DCTAuthContentTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */; };
+		24307BC61A690D67006D27E1 /* DCTAuthKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */; };
+		24307BC81A690D67006D27E1 /* DCTOAuthSignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */; };
 		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2454F2E11959608A00E8643C /* DCTAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2454F2E21959608A00E8643C /* DCTAuthAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FA902815E93E1F00E1ED99 /* DCTAuthAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -141,6 +146,20 @@
 			remoteGlobalIDString = 2454F2BF1959601600E8643C;
 			remoteInfo = "DCTAuth iOS";
 		};
+		24307BBB1A690BDC006D27E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FA8FDB15E93D8E00E1ED99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24307B5E1A690925006D27E1;
+			remoteInfo = "DCTAuth Mac";
+		};
+		24307BC31A690D5C006D27E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24FA8FDB15E93D8E00E1ED99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2454F2BF1959601600E8643C;
+			remoteInfo = "DCTAuth iOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -176,6 +195,9 @@
 		24215B201A45E85300224663 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		242BEF8319A9012D0063F2F2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		24307B5F1A690925006D27E1 /* DCTAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24307BB41A690BDC006D27E1 /* DCTAuth Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTAuth Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Tests.xcconfig"; sourceTree = "<group>"; };
+		24307BC11A690D49006D27E1 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libresolv.dylib; sourceTree = DEVELOPER_DIR; };
 		2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthMultipartData.m; sourceTree = "<group>"; };
 		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -201,6 +223,7 @@
 		246D3A9016D7776A008CDB63 /* DCTBasicAuthCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTBasicAuthCredential.m; sourceTree = "<group>"; };
 		246D3A9216D77D38008CDB63 /* DCTOAuth1Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth1Credential.h; sourceTree = "<group>"; };
 		246D3A9316D77D38008CDB63 /* DCTOAuth1Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth1Credential.m; sourceTree = "<group>"; };
+		24847A7D1A690F4E00652092 /* OS X Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Application.xcconfig"; sourceTree = "<group>"; };
 		2484E11C176E4A1B000EB00E /* DCTAuthKeychainAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTAuthKeychainAccess.h; sourceTree = "<group>"; };
 		2484E11D176E4A1B000EB00E /* DCTAuthKeychainAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTAuthKeychainAccess.m; sourceTree = "<group>"; };
 		249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountStore.h; sourceTree = "<group>"; };
@@ -249,6 +272,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24307BB11A690BDC006D27E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24307BBA1A690BDC006D27E1 /* DCTAuth.framework in Frameworks */,
+				24307BC21A690D49006D27E1 /* libresolv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +363,9 @@
 				244DE80E19A91A4A00A91DC7 /* iOS Framework.xcconfig */,
 				244DE80F19A91A4A00A91DC7 /* iOS Static Library.xcconfig */,
 				244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */,
+				24847A7D1A690F4E00652092 /* OS X Application.xcconfig */,
 				244DE81119A91A4A00A91DC7 /* OS X Framework.xcconfig */,
+				24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */,
 				244DE81219A91A4A00A91DC7 /* Release.xcconfig */,
 				244DE81319A91A4A00A91DC7 /* Shared.xcconfig */,
 			);
@@ -394,6 +428,7 @@
 			children = (
 				24FA901315E93E0200E1ED99 /* DCTAuth Demo.app */,
 				24FA8FF515E93D8E00E1ED99 /* DCTAuth Tests.xctest */,
+				24307BB41A690BDC006D27E1 /* DCTAuth Tests.xctest */,
 				2454F2C01959601600E8643C /* DCTAuth.framework */,
 				24307B5F1A690925006D27E1 /* DCTAuth.framework */,
 			);
@@ -403,6 +438,7 @@
 		24FA8FE615E93D8E00E1ED99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24307BC11A690D49006D27E1 /* libresolv.dylib */,
 				24FA904015E93E6C00E1ED99 /* libresolv.dylib */,
 			);
 			name = Frameworks;
@@ -563,6 +599,24 @@
 			productReference = 24307B5F1A690925006D27E1 /* DCTAuth.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		24307BB31A690BDC006D27E1 /* DCTAuth Mac Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24307BBD1A690BDC006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac Tests" */;
+			buildPhases = (
+				24307BB01A690BDC006D27E1 /* Sources */,
+				24307BB11A690BDC006D27E1 /* Frameworks */,
+				24307BB21A690BDC006D27E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24307BBC1A690BDC006D27E1 /* PBXTargetDependency */,
+			);
+			name = "DCTAuth Mac Tests";
+			productName = "DCTAuth Mac Tests";
+			productReference = 24307BB41A690BDC006D27E1 /* DCTAuth Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		2454F2BF1959601600E8643C /* DCTAuth iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2454F2D71959601600E8643C /* Build configuration list for PBXNativeTarget "DCTAuth iOS" */;
@@ -582,9 +636,9 @@
 			productReference = 2454F2C01959601600E8643C /* DCTAuth.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		24FA8FF415E93D8E00E1ED99 /* DCTAuth Tests */ = {
+		24FA8FF415E93D8E00E1ED99 /* DCTAuth iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24FA900C15E93D8E00E1ED99 /* Build configuration list for PBXNativeTarget "DCTAuth Tests" */;
+			buildConfigurationList = 24FA900C15E93D8E00E1ED99 /* Build configuration list for PBXNativeTarget "DCTAuth iOS Tests" */;
 			buildPhases = (
 				24FA8FF015E93D8E00E1ED99 /* Sources */,
 				24FA8FF115E93D8E00E1ED99 /* Frameworks */,
@@ -594,8 +648,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				24307BC41A690D5C006D27E1 /* PBXTargetDependency */,
 			);
-			name = "DCTAuth Tests";
+			name = "DCTAuth iOS Tests";
 			productName = DCTOAuthTests;
 			productReference = 24FA8FF515E93D8E00E1ED99 /* DCTAuth Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -631,6 +686,9 @@
 					24307B5E1A690925006D27E1 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					24307BB31A690BDC006D27E1 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					2454F2BF1959601600E8643C = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -651,7 +709,8 @@
 				2454F2BF1959601600E8643C /* DCTAuth iOS */,
 				24307B5E1A690925006D27E1 /* DCTAuth Mac */,
 				24FA901215E93E0200E1ED99 /* DCTAuth Demo */,
-				24FA8FF415E93D8E00E1ED99 /* DCTAuth Tests */,
+				24FA8FF415E93D8E00E1ED99 /* DCTAuth iOS Tests */,
+				24307BB31A690BDC006D27E1 /* DCTAuth Mac Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -662,6 +721,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				24307BAE1A690AE8006D27E1 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24307BB21A690BDC006D27E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +835,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		24307BB01A690BDC006D27E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24307BC51A690D67006D27E1 /* DCTAuthContentTypeTests.m in Sources */,
+				24307BC61A690D67006D27E1 /* DCTAuthKeychainTests.m in Sources */,
+				24307BC81A690D67006D27E1 /* DCTOAuthSignatureTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2454F2BB1959601600E8643C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -829,6 +905,16 @@
 			target = 2454F2BF1959601600E8643C /* DCTAuth iOS */;
 			targetProxy = 242BEFBE19A9079A0063F2F2 /* PBXContainerItemProxy */;
 		};
+		24307BBC1A690BDC006D27E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24307B5E1A690925006D27E1 /* DCTAuth Mac */;
+			targetProxy = 24307BBB1A690BDC006D27E1 /* PBXContainerItemProxy */;
+		};
+		24307BC41A690D5C006D27E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2454F2BF1959601600E8643C /* DCTAuth iOS */;
+			targetProxy = 24307BC31A690D5C006D27E1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -864,6 +950,24 @@
 				DYLIB_CURRENT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = DCTAuth;
+			};
+			name = Release;
+		};
+		24307BBE1A690BDC006D27E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "DCTAuth Tests";
+			};
+			name = Debug;
+		};
+		24307BBF1A690BDC006D27E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "DCTAuth Tests";
 			};
 			name = Release;
 		};
@@ -911,6 +1015,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */;
 			buildSettings = {
+				PRODUCT_NAME = "DCTAuth Tests";
 			};
 			name = Debug;
 		};
@@ -918,6 +1023,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244DE81019A91A4A00A91DC7 /* iOS Tests.xcconfig */;
 			buildSettings = {
+				PRODUCT_NAME = "DCTAuth Tests";
 			};
 			name = Release;
 		};
@@ -949,6 +1055,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		24307BBD1A690BDC006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24307BBE1A690BDC006D27E1 /* Debug */,
+				24307BBF1A690BDC006D27E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2454F2D71959601600E8643C /* Build configuration list for PBXNativeTarget "DCTAuth iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -967,7 +1082,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24FA900C15E93D8E00E1ED99 /* Build configuration list for PBXNativeTarget "DCTAuth Tests" */ = {
+		24FA900C15E93D8E00E1ED99 /* Build configuration list for PBXNativeTarget "DCTAuth iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24FA900D15E93D8E00E1ED99 /* Debug */,
