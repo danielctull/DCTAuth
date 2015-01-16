@@ -213,7 +213,7 @@
 		2454C24616D8BD4500E97367 /* DCTOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth2Credential.h; sourceTree = "<group>"; };
 		2454C24716D8BD4500E97367 /* DCTOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2Credential.m; sourceTree = "<group>"; };
 		2454F2C01959601600E8643C /* DCTAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2454F2DF1959603D00E8643C /* DCTAuthInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DCTAuthInfo.plist; sourceTree = "<group>"; };
+		2454F2DF1959603D00E8643C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountSubclass.h; sourceTree = "<group>"; };
 		24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthKeychainTests.m; sourceTree = "<group>"; };
 		245F7C7216AF2809005B72BA /* DCTAuthResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthResponse.h; sourceTree = "<group>"; };
@@ -460,7 +460,6 @@
 				249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */,
 				249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */,
 				2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */,
-				2454F2DF1959603D00E8643C /* DCTAuthInfo.plist */,
 				24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */,
 				24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */,
 				24FA902A15E93E1F00E1ED99 /* DCTAuthRequest.h */,
@@ -469,6 +468,7 @@
 				241FBB9A19F6D6540082C071 /* DCTAuthRequestMethod.m */,
 				245F7C7216AF2809005B72BA /* DCTAuthResponse.h */,
 				245F7C7316AF2809005B72BA /* DCTAuthResponse.m */,
+				2454F2DF1959603D00E8643C /* Info.plist */,
 			);
 			path = DCTAuth;
 			sourceTree = "<group>";
@@ -582,7 +582,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24307B721A690925006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac" */;
 			buildPhases = (
-				2438EF311A692A6A00CA30D4 /* Generate Info */,
 				24307B5A1A690925006D27E1 /* Sources */,
 				24307B5B1A690925006D27E1 /* Frameworks */,
 				24307B5C1A690925006D27E1 /* Headers */,
@@ -620,7 +619,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2454F2D71959601600E8643C /* Build configuration list for PBXNativeTarget "DCTAuth iOS" */;
 			buildPhases = (
-				24847B381A6929FE00652092 /* Generate Info */,
 				2454F2BB1959601600E8643C /* Sources */,
 				2454F2BC1959601600E8643C /* Frameworks */,
 				2454F2BD1959601600E8643C /* Headers */,
@@ -787,34 +785,6 @@
 			shellPath = /bin/sh;
 			shellScript = "./Scripts/documentation.sh -c \"Daniel Tull\" -i \"uk.co.danieltull\" > /dev/null 2>&1 &\n";
 		};
-		2438EF311A692A6A00CA30D4 /* Generate Info */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Info";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/Scripts/generate-info.sh\"";
-		};
-		24847B381A6929FE00652092 /* Generate Info */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Info";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/Scripts/generate-info.sh\"";
-		};
 		24FA8FF315E93D8E00E1ED99 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -964,9 +934,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/DCTAuthInfo.plist";
-				INFOPLIST_PREFIX_HEADER = "$(PRODUCT_NAME)/DCTAuthInfo.h";
-				INFOPLIST_PREPROCESS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = DCTAuth;
 			};
@@ -979,9 +946,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/DCTAuthInfo.plist";
-				INFOPLIST_PREFIX_HEADER = "$(PRODUCT_NAME)/DCTAuthInfo.h";
-				INFOPLIST_PREPROCESS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = DCTAuth;
 			};
@@ -1013,9 +977,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/DCTAuthInfo.plist";
-				INFOPLIST_PREFIX_HEADER = "$(PRODUCT_NAME)/DCTAuthInfo.h";
-				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = DCTAuth;
 			};
@@ -1029,9 +990,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/DCTAuthInfo.plist";
-				INFOPLIST_PREFIX_HEADER = "$(PRODUCT_NAME)/DCTAuthInfo.h";
-				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = DCTAuth;
 			};
