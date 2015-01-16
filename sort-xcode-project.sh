@@ -1,0 +1,1 @@
+perl Scripts/sort-Xcode-project-file DCTAuth.xcodeproj/project.pbxproj
