@@ -15,7 +15,6 @@
 		241FBBAA19F7CE090082C071 /* DCTOAuth1.h in Headers */ = {isa = PBXBuildFile; fileRef = 241FBBA819F7CE090082C071 /* DCTOAuth1.h */; };
 		241FBBAC19F7CE090082C071 /* DCTOAuth1.m in Sources */ = {isa = PBXBuildFile; fileRef = 241FBBA919F7CE090082C071 /* DCTOAuth1.m */; };
 		24215B211A45E85300224663 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24215B201A45E85300224663 /* Launch.storyboard */; };
-		242BEF8219A900470063F2F2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		242BEF8419A9012D0063F2F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 242BEF8319A9012D0063F2F2 /* Images.xcassets */; };
 		242BEF8519A901B30063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
 		242BEFBC19A907990063F2F2 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2454F2C01959601600E8643C /* DCTAuth.framework */; };
@@ -76,11 +75,9 @@
 		24307BAD1A690A0D006D27E1 /* NSArray+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6238915EBBB8800B68FAD /* NSArray+DCTAuth.m */; };
 		24307BAE1A690AE8006D27E1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 244414BA173EBC3A0046D993 /* Localizable.strings */; };
 		24307BBA1A690BDC006D27E1 /* DCTAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24307B5F1A690925006D27E1 /* DCTAuth.framework */; };
-		24307BC21A690D49006D27E1 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24307BC11A690D49006D27E1 /* libresolv.dylib */; };
 		24307BC51A690D67006D27E1 /* DCTAuthContentTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */; };
 		24307BC61A690D67006D27E1 /* DCTAuthKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */; };
 		24307BC81A690D67006D27E1 /* DCTOAuthSignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */; };
-		2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FA904015E93E6C00E1ED99 /* libresolv.dylib */; };
 		2454F2E11959608A00E8643C /* DCTAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2454F2E21959608A00E8643C /* DCTAuthAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FA902815E93E1F00E1ED99 /* DCTAuthAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2454F2E41959608A00E8643C /* DCTAuthAccountCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = 246D3A8E16D77223008CDB63 /* DCTAuthAccountCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -197,7 +194,6 @@
 		24307B5F1A690925006D27E1 /* DCTAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCTAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24307BB41A690BDC006D27E1 /* DCTAuth Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTAuth Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "OS X Tests.xcconfig"; sourceTree = "<group>"; };
-		24307BC11A690D49006D27E1 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libresolv.dylib; sourceTree = DEVELOPER_DIR; };
 		2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthMultipartData.h; sourceTree = "<group>"; };
 		2443E9C515F37A2A00845950 /* DCTAuthMultipartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthMultipartData.m; sourceTree = "<group>"; };
 		244414B9173EBC3A0046D993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -263,7 +259,6 @@
 		24FA903A15E93E2C00E1ED99 /* AuthTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthTestViewController.h; sourceTree = "<group>"; };
 		24FA903B15E93E2C00E1ED99 /* AuthTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthTestViewController.m; sourceTree = "<group>"; };
 		24FA903C15E93E2C00E1ED99 /* AuthTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthTestViewController.xib; sourceTree = "<group>"; };
-		24FA904015E93E6C00E1ED99 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,7 +274,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24307BBA1A690BDC006D27E1 /* DCTAuth.framework in Frameworks */,
-				24307BC21A690D49006D27E1 /* libresolv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +289,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				242BEF8519A901B30063F2F2 /* DCTAuth.framework in Frameworks */,
-				2434254515F7E199002D2D37 /* libresolv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +297,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				242BEFBC19A907990063F2F2 /* DCTAuth.framework in Frameworks */,
-				242BEF8219A900470063F2F2 /* libresolv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,7 +409,6 @@
 				24FA8FE915E93D8E00E1ED99 /* DCTAuth */,
 				24FA901915E93E0200E1ED99 /* DCTAuth Demo */,
 				24FA8FFE15E93D8E00E1ED99 /* DCTAuth Tests */,
-				24FA8FE615E93D8E00E1ED99 /* Frameworks */,
 				24FA8FE515E93D8E00E1ED99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -432,15 +423,6 @@
 				24307B5F1A690925006D27E1 /* DCTAuth.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		24FA8FE615E93D8E00E1ED99 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				24307BC11A690D49006D27E1 /* libresolv.dylib */,
-				24FA904015E93E6C00E1ED99 /* libresolv.dylib */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		24FA8FE915E93D8E00E1ED99 /* DCTAuth */ = {
