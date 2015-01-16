@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Daniel Tull. All rights reserved.
 //
 
+@import XCTest;
 #import "DCTAuthKeychainAccess.h"
-#import <XCTest/XCTest.h>
-
-#if TARGET_OS_IPHONE
 
 @interface DCTAuthKeychainTests : XCTestCase
 @end
@@ -33,5 +31,3 @@
 }
 
 @end
-
-#endif

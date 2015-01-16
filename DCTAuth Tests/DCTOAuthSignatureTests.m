@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+@import XCTest;
 #import "DCTOAuthSignature.h"
-#import <XCTest/XCTest.h>
 
 @interface DCTOAuthSignatureTests : XCTestCase
 @end
