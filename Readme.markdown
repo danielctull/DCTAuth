@@ -89,7 +89,7 @@ In an application you can provide the following:
     	return [DCTAuth handleURL:URL];
     }
     
-For an extension, you must provide a web view to perform authorization. The following shows how to setup the `URLOpener` and use the `UIWebView` delegate method to allow DCTAuth to handle the URLs.
+For an extension, you must provide a web view to perform authorization. You can also use a web view inside your app to have a more contained feeling to authorization. The following shows how to setup the `URLOpener` and use the `UIWebView` delegate method to allow DCTAuth to handle the URLs.
 
     - (void)setupWebView {
         UIWebView *webView = self.webView;
@@ -99,6 +99,7 @@ For an extension, you must provide a web view to perform authorization. The foll
         };
     }
     
+    // If DCTAuth has handled the URL, it's going to be the auth response, so we don't want to display that
     - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     	return ![DCTAuth handleURL:request.URL];
     }
