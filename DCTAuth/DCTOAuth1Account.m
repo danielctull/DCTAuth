@@ -57,7 +57,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 				  consumerKey:consumerKey
 			   consumerSecret:consumerSecret
 				signatureType:DCTOAuthSignatureTypeHMAC_SHA1
-		parameterTransmission:DCTOAuthParameterTransmissionAuthorizationHeader];
+		parameterTransmission:DCTOAuth1ParameterTransmissionAuthorizationHeader];
 }
 
 - (instancetype)initWithType:(NSString *)type
@@ -67,7 +67,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 				 consumerKey:(NSString *)consumerKey
 			  consumerSecret:(NSString *)consumerSecret
 			   signatureType:(DCTOAuthSignatureType)signatureType
-	   parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission {
+	   parameterTransmission:(DCTOAuth1ParameterTransmission)parameterTransmission {
 	
 	self = [self initWithType:type];
 	if (!self) return nil;
@@ -273,13 +273,13 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 
 	switch (self.parameterTransmission) {
 
-		case DCTOAuthParameterTransmissionAuthorizationHeader: {
+		case DCTOAuth1ParameterTransmissionAuthorizationHeader: {
 			NSString *authorizationHeader = signature.authorizationHeader;
 			if (authorizationHeader) [request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
 			break;
 		}
 
-		case DCTOAuthParameterTransmissionURLQuery: {
+		case DCTOAuth1ParameterTransmissionURLQuery: {
 			NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
 			NSMutableArray *items = [NSMutableArray new];
 			[items addObjectsFromArray:signature.authorizationItems];

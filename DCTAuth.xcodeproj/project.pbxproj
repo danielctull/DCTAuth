@@ -130,6 +130,8 @@
 		24561B261770733D00DD0051 /* DCTAuthKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */; };
 		24A6A6571A6AD52B001F1DD5 /* DCTOAuthSignatureType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6551A6AD52B001F1DD5 /* DCTOAuthSignatureType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24A6A6581A6AD52B001F1DD5 /* DCTOAuthSignatureType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6551A6AD52B001F1DD5 /* DCTOAuthSignatureType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24A6A65C1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A65B1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24A6A65D1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A65B1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24FA900615E93D8E00E1ED99 /* DCTOAuthSignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */; };
 		24FA902015E93E0200E1ED99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA901F15E93E0200E1ED99 /* main.m */; };
 		24FA902415E93E0200E1ED99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA902315E93E0200E1ED99 /* AppDelegate.m */; };
@@ -237,6 +239,7 @@
 		24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthPlatform.h; sourceTree = "<group>"; };
 		24A331D715F15B93004FA7E4 /* DCTAuthPlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthPlatform.m; sourceTree = "<group>"; };
 		24A6A6551A6AD52B001F1DD5 /* DCTOAuthSignatureType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuthSignatureType.h; sourceTree = "<group>"; };
+		24A6A65B1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth1ParameterTransmission.h; sourceTree = "<group>"; };
 		24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccountStore+Private.h"; sourceTree = "<group>"; };
 		24BFD672176FCB7D006BBBC8 /* DCTAuthAccount+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccount+Private.h"; sourceTree = "<group>"; };
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
@@ -375,6 +378,7 @@
 				249CAD2115EA236B00FFD0D2 /* DCTOAuth1Account.m */,
 				246D3A9216D77D38008CDB63 /* DCTOAuth1Credential.h */,
 				246D3A9316D77D38008CDB63 /* DCTOAuth1Credential.m */,
+				24A6A65B1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h */,
 				24FA902E15E93E1F00E1ED99 /* DCTOAuthSignature.h */,
 				24FA902F15E93E1F00E1ED99 /* DCTOAuthSignature.m */,
 				24A6A6551A6AD52B001F1DD5 /* DCTOAuthSignatureType.h */,
@@ -515,6 +519,7 @@
 				24307B891A6909D9006D27E1 /* DCTOAuth1.h in Headers */,
 				24307B8B1A6909D9006D27E1 /* DCTOAuth1Account.h in Headers */,
 				24307B8C1A6909D9006D27E1 /* DCTOAuth1Credential.h in Headers */,
+				24A6A65D1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h in Headers */,
 				24307B8D1A6909E8006D27E1 /* DCTOAuth2.h in Headers */,
 				24307B8E1A6909E8006D27E1 /* DCTOAuth2Account.h in Headers */,
 				24307B8F1A6909E8006D27E1 /* DCTOAuth2Credential.h in Headers */,
@@ -552,6 +557,7 @@
 				241FBBAA19F7CE090082C071 /* DCTOAuth1.h in Headers */,
 				2454F2F3195960A800E8643C /* DCTOAuth1Account.h in Headers */,
 				2454F2F4195960A800E8643C /* DCTOAuth1Credential.h in Headers */,
+				24A6A65C1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h in Headers */,
 				241FBBA119F796870082C071 /* DCTOAuth2.h in Headers */,
 				2454F2F5195960A800E8643C /* DCTOAuth2Account.h in Headers */,
 				2454F2F6195960A800E8643C /* DCTOAuth2Credential.h in Headers */,

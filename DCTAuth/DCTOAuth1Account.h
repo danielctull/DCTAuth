@@ -8,6 +8,7 @@
 
 #import "DCTAuthAccount.h"
 #import "DCTOAuthSignatureType.h"
+#import "DCTOAuth1ParameterTransmission.h"
 
 @interface DCTOAuth1Account : DCTAuthAccount
 
@@ -40,7 +41,7 @@
  *  @param consumerKey The consumer key for the app.
  *  @param consumerSecret The consumer secret for the app.
  *  @param signatureType The signature type to use, either DCTOAuthSignatureTypeHMAC_SHA1 or DCTOAuthSignatureTypePlaintext.
- *  @param parameterTransmission The transmission type , either DCTOAuthParameterTransmissionAuthorizationHeader or DCTOAuthParameterTransmissionURLQuery.
+ *  @param parameterTransmission The transmission type , either DCTOAuth1ParameterTransmissionAuthorizationHeader or DCTOAuth1ParameterTransmissionURLQuery.
  *
  *  @return Newly initialized account.
  */
@@ -51,7 +52,7 @@
 				 consumerKey:(NSString *)consumerKey
 			  consumerSecret:(NSString *)consumerSecret
 			   signatureType:(DCTOAuthSignatureType)signatureType
-	   parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission;
+	   parameterTransmission:(DCTOAuth1ParameterTransmission)parameterTransmission;
 
 /** The request token URL. */
 @property (nonatomic, readonly) NSURL *requestTokenURL;
@@ -72,6 +73,6 @@
 @property (nonatomic, readonly) DCTOAuthSignatureType signatureType;
 
 /** The method of transmission for the paramters. */
-@property (nonatomic, readonly) DCTOAuthParameterTransmission parameterTransmission;
+@property (nonatomic, readonly) DCTOAuth1ParameterTransmission parameterTransmission;
 
 @end

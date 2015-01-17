@@ -51,7 +51,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 						 consumerKey:(NSString *)consumerKey
 					  consumerSecret:(NSString *)consumerSecret
 					   signatureType:(DCTOAuthSignatureType)signatureType
-			   parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission {
+			   parameterTransmission:(DCTOAuth1ParameterTransmission)parameterTransmission {
 	
 	return [[DCTOAuth1Account alloc] initWithType:type
 								  requestTokenURL:requestTokenURL
@@ -77,7 +77,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 						  consumerKey:consumerKey
 					   consumerSecret:consumerSecret
 						signatureType:DCTOAuthSignatureTypeHMAC_SHA1
-				parameterTransmission:DCTOAuthParameterTransmissionAuthorizationHeader];
+				parameterTransmission:DCTOAuth1ParameterTransmissionAuthorizationHeader];
 }
 
 + (instancetype)OAuth2AccountWithType:(NSString *)type
