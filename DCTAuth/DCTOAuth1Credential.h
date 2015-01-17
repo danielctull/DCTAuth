@@ -11,7 +11,7 @@
 @interface DCTOAuth1Credential : NSObject <DCTAuthAccountCredential>
 
 /**
- *  Creates an account using OAuth using a HMAC-SHA1 signature type and Authorization header transmission.
+ *  Creates a credential for an OAuth 1 account.
  *
  *  @param consumerKey The consumer key.
  *  @param consumerSecret The consumer secret.

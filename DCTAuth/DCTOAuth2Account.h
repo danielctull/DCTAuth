@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTOAuth2Credential.h"
 
 @interface DCTOAuth2Account : DCTAuthAccount
 
@@ -94,5 +95,8 @@
 
 /** The scopes if one was given. */
 @property (nonatomic, readonly) NSArray *scopes;
+
+/** The credential for the account. */
+@property (nonatomic) DCTOAuth2Credential *credential;
 
 @end
