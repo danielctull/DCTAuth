@@ -76,46 +76,6 @@ extern const struct DCTOAuth2RequestType {
 /// @name Creating accounts
 
 /** 
- *  Creates an account using OAuth using a HMAC-SHA1 signature type.
- *
- *  @param type The type of the account.
- *  @param requestTokenURL The URL to retrieve the OAuth request token.
- *  @param authorizeURL The URL to perform the OAuth authorization.
- *  @param accessTokenURL The URL to retrieve the OAuth access token.
- *  @param consumerKey The consumer key for the app.
- *  @param consumerSecret The consumer secret for the app.
- *  @return Newly initialized account.
- */
-+ (id)OAuthAccountWithType:(NSString *)type
-		   requestTokenURL:(NSURL *)requestTokenURL
-			  authorizeURL:(NSURL *)authorizeURL
-			accessTokenURL:(NSURL *)accessTokenURL
-			   consumerKey:(NSString *)consumerKey
-			consumerSecret:(NSString *)consumerSecret;
-
-/**
- *  Creates an account using OAuth.
- *
- *  @param type The type of the account.
- *  @param requestTokenURL The URL to retrieve the OAuth request token.
- *  @param authorizeURL The URL to perform the OAuth authorization.
- *  @param accessTokenURL The URL to retrieve the OAuth access token.
- *  @param consumerKey The consumer key for the app.
- *  @param consumerSecret The consumer secret for the app.
- *  @param signatureType The signature type to use, either DCTOAuthSignatureTypeHMAC_SHA1 or DCTOAuthSignatureTypePlaintext.
- *  @return Newly initialized account.
- */
-+ (id)OAuthAccountWithType:(NSString *)type
-		   requestTokenURL:(NSURL *)requestTokenURL
-			  authorizeURL:(NSURL *)authorizeURL
-			accessTokenURL:(NSURL *)accessTokenURL
-			   consumerKey:(NSString *)consumerKey
-			consumerSecret:(NSString *)consumerSecret
-			 signatureType:(DCTOAuthSignatureType)signatureType
-	 parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission;
-
-
-/** 
  *  Creates an account using OAuth 2.0.
  *
  *  If nil is provided for accessTokenURL and clientSecret, the returned account

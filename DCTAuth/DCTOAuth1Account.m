@@ -38,17 +38,27 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 };
 
 @interface DCTOAuth1Account () <DCTAuthAccountSubclass>
-@property (nonatomic, copy) NSString *consumerKey;
-@property (nonatomic, copy) NSString *consumerSecret;
-@property (nonatomic, copy) NSURL *requestTokenURL;
-@property (nonatomic, copy) NSURL *accessTokenURL;
-@property (nonatomic, copy) NSURL *authorizeURL;
-@property (nonatomic, assign) DCTOAuthSignatureType signatureType;
-@property (nonatomic, assign) DCTOAuthParameterTransmission parameterTransmission;
 @property (nonatomic, strong) id openURLObject;
 @end
 
 @implementation DCTOAuth1Account
+
+- (instancetype)initWithType:(NSString *)type
+			 requestTokenURL:(NSURL *)requestTokenURL
+				authorizeURL:(NSURL *)authorizeURL
+			  accessTokenURL:(NSURL *)accessTokenURL
+				 consumerKey:(NSString *)consumerKey
+			  consumerSecret:(NSString *)consumerSecret {
+
+	return [self initWithType:type
+			  requestTokenURL:requestTokenURL
+				 authorizeURL:authorizeURL
+			   accessTokenURL:accessTokenURL
+				  consumerKey:consumerKey
+			   consumerSecret:consumerSecret
+				signatureType:DCTOAuthSignatureTypeHMAC_SHA1
+		parameterTransmission:DCTOAuthParameterTransmissionAuthorizationHeader];
+}
 
 - (instancetype)initWithType:(NSString *)type
 			 requestTokenURL:(NSURL *)requestTokenURL

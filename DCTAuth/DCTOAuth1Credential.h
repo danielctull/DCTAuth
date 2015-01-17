@@ -11,9 +11,9 @@
 @interface DCTOAuth1Credential : NSObject <DCTAuthAccountCredential>
 
 - (instancetype)initWithConsumerKey:(NSString *)consumerKey
-		   consumerSecret:(NSString *)consumerSecret
-			   oauthToken:(NSString *)oauthToken
-		 oauthTokenSecret:(NSString *)oauthTokenSecret;
+					 consumerSecret:(NSString *)consumerSecret
+						 oauthToken:(NSString *)oauthToken
+				   oauthTokenSecret:(NSString *)oauthTokenSecret;
 
 @property (nonatomic, readonly) NSString *consumerKey;
 @property (nonatomic, readonly) NSString *consumerSecret;

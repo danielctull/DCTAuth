@@ -14,6 +14,8 @@
 #import "DCTAuthAccountCredential.h"
 #import "DCTAuthPlatform.h"
 
+#import "DCTOAuth1Account.h"
+
 //! Project version number and string for DCTAuth.
 FOUNDATION_EXPORT double DCTAuthVersionNumber;
 FOUNDATION_EXPORT const unsigned char DCTAuthVersionString[];

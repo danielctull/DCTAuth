@@ -95,7 +95,7 @@
 		2454F2F0195960A800E8643C /* DCTAuthPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A331D615F15B93004FA7E4 /* DCTAuthPlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2454F2F1195960A800E8643C /* DCTAuthMultipartData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */; };
 		2454F2F2195960A800E8643C /* DCTOAuthSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FA902E15E93E1F00E1ED99 /* DCTOAuthSignature.h */; };
-		2454F2F3195960A800E8643C /* DCTOAuth1Account.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CAD2015EA236B00FFD0D2 /* DCTOAuth1Account.h */; };
+		2454F2F3195960A800E8643C /* DCTOAuth1Account.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CAD2015EA236B00FFD0D2 /* DCTOAuth1Account.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2454F2F4195960A800E8643C /* DCTOAuth1Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = 246D3A9216D77D38008CDB63 /* DCTOAuth1Credential.h */; };
 		2454F2F5195960A800E8643C /* DCTOAuth2Account.h in Headers */ = {isa = PBXBuildFile; fileRef = 249CAD1D15EA235D00FFD0D2 /* DCTOAuth2Account.h */; };
 		2454F2F6195960A800E8643C /* DCTOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = 2454C24616D8BD4500E97367 /* DCTOAuth2Credential.h */; };
