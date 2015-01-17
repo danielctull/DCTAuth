@@ -107,7 +107,7 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 
 #pragma mark - DCTAuthAccountSubclass
 
-- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)oauthRequest {
+- (void)signURLRequest:(NSMutableURLRequest *)request {
 
 	DCTBasicAuthCredential *credential = self.credential;
 	if (!credential) {

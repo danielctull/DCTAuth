@@ -404,7 +404,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	[DCTAuth cancelOpenURL:self.openURLObject];
 }
 
-- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
+- (void)signURLRequest:(NSMutableURLRequest *)request {
 
 	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
 	NSArray *existingItems = URLComponents.queryItems;

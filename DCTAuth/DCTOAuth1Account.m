@@ -246,7 +246,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	[DCTAuth cancelOpenURL:self.openURLObject];
 }
 
-- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest {
+- (void)signURLRequest:(NSMutableURLRequest *)request {
 
 	DCTOAuth1Credential *credential = self.credential;
 	NSString *oauthToken = credential.oauthToken;

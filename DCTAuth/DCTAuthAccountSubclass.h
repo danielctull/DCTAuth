@@ -23,7 +23,7 @@
  *  correct OAuth parameters.
  *
  *  @param request The request to be signed.
- *  @param authRequest The DCTAuthRequest object that is asking for the request to be signed.
  */
-- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest;
+- (void)signURLRequest:(NSMutableURLRequest *)request;
+
 @end
