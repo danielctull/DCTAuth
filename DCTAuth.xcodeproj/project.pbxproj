@@ -140,6 +140,10 @@
 		24A6A66A1A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24A6A66B1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */; };
 		24A6A66C1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */; };
+		24A6A66F1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */; };
+		24A6A6701A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */; };
+		24A6A6711A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */; };
+		24A6A6721A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */; };
 		24FA900615E93D8E00E1ED99 /* DCTOAuthSignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */; };
 		24FA902015E93E0200E1ED99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA901F15E93E0200E1ED99 /* main.m */; };
 		24FA902415E93E0200E1ED99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA902315E93E0200E1ED99 /* AppDelegate.m */; };
@@ -252,6 +256,8 @@
 		24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2Keys.m; sourceTree = "<group>"; };
 		24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth2RequestType.h; sourceTree = "<group>"; };
 		24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2RequestType.m; sourceTree = "<group>"; };
+		24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAbstractAuthAccountProperties.h; sourceTree = "<group>"; };
+		24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAbstractAuthAccountProperties.m; sourceTree = "<group>"; };
 		24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccountStore+Private.h"; sourceTree = "<group>"; };
 		24BFD672176FCB7D006BBBC8 /* DCTAuthAccount+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccount+Private.h"; sourceTree = "<group>"; };
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
@@ -332,6 +338,8 @@
 		243B575815EE4CAC007F1CA6 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */,
+				24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */,
 				24BFD672176FCB7D006BBBC8 /* DCTAuthAccount+Private.h */,
 				24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */,
 				2419EA3416B912B100901AA2 /* DCTAuthContentType.h */,
@@ -505,6 +513,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A6A6701A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h in Headers */,
 				24307B781A69099D006D27E1 /* DCTAuth.h in Headers */,
 				24307B811A6909CF006D27E1 /* DCTAuthAccount+Private.h in Headers */,
 				24307B791A6909A6006D27E1 /* DCTAuthAccount.h in Headers */,
@@ -545,6 +554,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A6A66F1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h in Headers */,
 				2454F2E11959608A00E8643C /* DCTAuth.h in Headers */,
 				2454F2E9195960A800E8643C /* DCTAuthAccount+Private.h in Headers */,
 				2454F2E21959608A00E8643C /* DCTAuthAccount.h in Headers */,
@@ -811,6 +821,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A6A6721A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */,
 				24307B951A690A0C006D27E1 /* DCTAuth.m in Sources */,
 				24307B961A690A0C006D27E1 /* DCTAuthAccount.m in Sources */,
 				24307B971A690A0C006D27E1 /* DCTAuthAccountStore.m in Sources */,
@@ -855,6 +866,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A6A6711A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */,
 				2454F3131959615800E8643C /* DCTAuth.m in Sources */,
 				2454F3141959615800E8643C /* DCTAuthAccount.m in Sources */,
 				2454F3151959615800E8643C /* DCTAuthAccountStore.m in Sources */,

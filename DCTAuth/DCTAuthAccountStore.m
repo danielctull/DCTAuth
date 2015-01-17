@@ -7,7 +7,7 @@
 //
 
 #import "DCTAuthAccountStore+Private.h"
-#import "DCTAuthAccountSubclass.h"
+#import "DCTAbstractAuthAccountProperties.h"
 #import "DCTAuthKeychainAccess.h"
 #import "DCTAuthAccount+Private.h"
 
