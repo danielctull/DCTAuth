@@ -31,17 +31,25 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 };
 
 @interface DCTOAuth2Account () <DCTAuthAccountSubclass>
-@property (nonatomic, copy) NSURL *authorizeURL;
-@property (nonatomic, copy) NSURL *accessTokenURL;
-@property (nonatomic, copy) NSString *clientID;
-@property (nonatomic, copy) NSString *clientSecret;
-@property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSArray *scopes;
 @property (nonatomic, strong) id openURLObject;
 @end
 
 @implementation DCTOAuth2Account
+
+- (instancetype)initWithType:(NSString *)type
+				authorizeURL:(NSURL *)authorizeURL
+					username:(NSString *)username
+					password:(NSString *)password
+					  scopes:(NSArray *)scopes {
+
+	return [self initWithType:type
+				 authorizeURL:authorizeURL
+					 clientID:nil
+				 clientSecret:nil
+					 username:username
+					 password:password
+					   scopes:scopes];
+}
 
 - (instancetype)initWithType:(NSString *)type
 				authorizeURL:(NSURL *)authorizeURL

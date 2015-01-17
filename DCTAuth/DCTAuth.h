@@ -15,6 +15,7 @@
 #import "DCTAuthPlatform.h"
 
 #import "DCTOAuth1Account.h"
+#import "DCTOAuth2Account.h"
 
 //! Project version number and string for DCTAuth.
 FOUNDATION_EXPORT double DCTAuthVersionNumber;
