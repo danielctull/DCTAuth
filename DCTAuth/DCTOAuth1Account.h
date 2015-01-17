@@ -9,6 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTOAuthSignatureType.h"
 #import "DCTOAuth1ParameterTransmission.h"
+#import "DCTOAuth1Credential.h"
 
 @interface DCTOAuth1Account : DCTAuthAccount
 
@@ -74,5 +75,8 @@
 
 /** The method of transmission for the paramters. */
 @property (nonatomic, readonly) DCTOAuth1ParameterTransmission parameterTransmission;
+
+/** The credential for the account. */
+@property (nonatomic) DCTOAuth1Credential *credential;
 
 @end

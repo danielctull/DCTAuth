@@ -71,7 +71,7 @@ extern const struct DCTOAuth2RequestType {
  */
 @property (nonatomic, readonly, getter = isAuthorized) BOOL authorized;
 
-@property (nonatomic, strong) id<DCTAuthAccountCredential> credential;
+@property (nonatomic) id<DCTAuthAccountCredential> credential;
 
 /** 
  *  A human-readable description of the account.
