@@ -10,9 +10,28 @@
 
 @interface DCTBasicAuthAccount : DCTAuthAccount
 
+/**
+ *  Creates an account using basic authentication.
+ *
+ *  @param type The type of the account.
+ *  @param authenticationURL The URL to authenticate with.
+ *  @param username The username for this account.
+ *  @param password The password for this account.
+ *
+ *  @return Newly initialized account.
+ */
 - (instancetype)initWithType:(NSString *)type
 		   authenticationURL:(NSURL *)authenticationURL
 					username:(NSString *)username
 					password:(NSString *)password;
+
+/** The authentication URL. */
+@property (nonatomic, readonly) NSURL *authenticationURL;
+
+/** The username. */
+@property (nonatomic, readonly) NSString *username;
+
+/** The password. */
+@property (nonatomic, readonly) NSString *password;
 
 @end

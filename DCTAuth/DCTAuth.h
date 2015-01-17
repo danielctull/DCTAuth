@@ -14,6 +14,7 @@
 #import "DCTAuthAccountCredential.h"
 #import "DCTAuthPlatform.h"
 
+#import "DCTBasicAuthAccount.h"
 #import "DCTOAuth1Account.h"
 #import "DCTOAuth2Account.h"
 

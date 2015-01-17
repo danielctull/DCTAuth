@@ -73,23 +73,6 @@ extern const struct DCTOAuth2RequestType {
  */
 @interface DCTAuthAccount : NSObject <NSCoding>
 
-/// @name Creating accounts
-
-/**
- *  Creates an account using basic authentication.
- *
- *  @param type The type of the account.
- *  @param authenticationURL The URL to authenticate with.
- *  @param username The username for this account.
- *  @param password The password for this account.
- *
- *  @return Newly initialized account.
- */
-+ (id)basicAuthAccountWithType:(NSString *)type
-			 authenticationURL:(NSURL *)authenticationURL
-					  username:(NSString *)username
-					  password:(NSString *)password;
-
 /// @name Accessing Properties
 
 /**

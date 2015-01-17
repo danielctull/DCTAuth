@@ -20,12 +20,11 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 };
 
 @interface DCTBasicAuthAccount () <DCTAuthAccountSubclass>
-@property (nonatomic) NSURL *authenticationURL;
-@property (nonatomic) NSString *username;
-@property (nonatomic) NSString *password;
 @end
 
 @implementation DCTBasicAuthAccount
+@synthesize username = _username;
+@synthesize password = _password;
 
 #pragma mark - DCTBasicAuthAccount
 
