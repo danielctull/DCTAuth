@@ -1,5 +1,5 @@
 //
-//  DCTOAuth1.h
+//  DCTOAuth1Keys.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 22.10.2014.
@@ -22,6 +22,3 @@ extern const struct DCTOAuth1Keys {
 	__unsafe_unretained NSString *verifier;
 	__unsafe_unretained NSString *OAuth;
 } DCTOAuth1Keys;
-
-@interface DCTOAuth1 : NSObject
-@end

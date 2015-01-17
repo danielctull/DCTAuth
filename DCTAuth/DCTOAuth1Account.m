@@ -7,7 +7,7 @@
 //
 
 #import "DCTOAuth1Account.h"
-#import "DCTOAuth1.h"
+#import "DCTOAuth1Keys.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth1Credential.h"
 #import "DCTOAuthSignature.h"

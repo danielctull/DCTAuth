@@ -1,19 +1,12 @@
 //
-//  DCTOAuth1.m
+//  DCTOAuth1Keys.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 22.10.2014.
 //  Copyright (c) 2014 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuth1.h"
-
-
-__unsafe_unretained NSString *version;
-__unsafe_unretained NSString *nonce;
-__unsafe_unretained NSString *timestamp;
-__unsafe_unretained NSString *signatureMethod;
-__unsafe_unretained NSString *headerPrefix;
+#import "DCTOAuth1Keys.h"
 
 const struct DCTOAuth1Keys DCTOAuth1Keys = {
 	.version = @"oauth_version",
@@ -29,6 +22,3 @@ const struct DCTOAuth1Keys DCTOAuth1Keys = {
 	.verifier = @"oauth_verifier",
 	.OAuth = @"OAuth"
 };
-
-@implementation DCTOAuth1
-@end
