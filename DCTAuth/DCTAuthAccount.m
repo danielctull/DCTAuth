@@ -55,7 +55,7 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	self = [self init];
 	if (!self) return nil;
 	_type = [type copy];
-	_identifier = [[[NSProcessInfo processInfo] globallyUniqueString] copy];
+	_identifier = [[NSUUID UUID] UUIDString];
 	return self;
 }
 
