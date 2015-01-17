@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTBasicAuthCredential.h"
 
 @interface DCTBasicAuthAccount : DCTAuthAccount
 
@@ -33,5 +34,8 @@
 
 /** The password. */
 @property (nonatomic, readonly) NSString *password;
+
+/** The credential for the account. */
+@property (nonatomic) DCTBasicAuthCredential *credential;
 
 @end

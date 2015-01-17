@@ -10,10 +10,24 @@
 
 @interface DCTBasicAuthCredential : NSObject <DCTAuthAccountCredential>
 
-- (instancetype)initWithUsername:(NSString *)username password:(NSString *)password;
+/**
+ *  Creates a credential for a basic account.
+ *
+ *  @param username The username.
+ *  @param password The password.
+ *
+ *  @return Newly initialized credential.
+ */
+- (instancetype)initWithUsername:(NSString *)username
+						password:(NSString *)password;
+
+/** The username. */
 @property (nonatomic, readonly) NSString *username;
+
+/** The password. */
 @property (nonatomic, readonly) NSString *password;
 
+/** Generated authorization header. */
 @property (nonatomic, readonly) NSString *authorizationHeader;
 
 @end
