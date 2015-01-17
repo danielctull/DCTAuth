@@ -32,22 +32,22 @@ DCTAuth is [fully documented](http://danieltull.co.uk/DCTAuth/documentation/) an
 
 The following shows how to create a Twitter account, authenticate it and request the user's home timeline excluding the replies.
 
-    DCTAuthAccount *account = [DCTAuthAccount OAuthAccountWithType:@"Twitter"
-                                                   requestTokenURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"]
-                                                      authorizeURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/authorize"]
-                                                    accessTokenURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"]
-                                                       consumerKey:@"YOUR TWITTER CONSUMER KEY"
-                                                    consumerSecret:@"YOUR TWITTER CONSUMER SECRET"];
+    DCTOAuth1Account *account = [[DCTOAuth1Account alloc] initWithType:@"Twitter"
+                                                       requestTokenURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"]
+                                                          authorizeURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/authorize"]
+                                                        accessTokenURL:[NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"]
+                                                           consumerKey:@"YOUR TWITTER CONSUMER KEY"
+                                                        consumerSecret:@"YOUR TWITTER CONSUMER SECRET"];
     
     account.callbackURL = [NSURL URLWithString:@"dctauth://test"];
     
     [account authenticateWithHandler:^(NSArray *responses, NSError *error) {
-
+    
         if (!account.authorized) {
             // Something failed
             return;
         }
-
+    
       	NSURL *URL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/home_timeline.json"];
 	    NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:@"exclude_replies" value:@"true"];
         DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET URL:URL items:@[item]];
@@ -168,12 +168,12 @@ To get 37signals auth working, you use the following code:
 
     NSURL *authorizeURL = [NSURL URLWithString:@"https://launchpad.37signals.com/authorization/new"];
     NSURL *accessTokenURL = [NSURL URLWithString:@"https://launchpad.37signals.com/authorization/token"]
-    DCTAuthAccount *campfireAccount = [DCTAuthAccount OAuth2AccountWithType:@"Campfire"
-                                                               authorizeURL:authorizeURL
-                                                             accessTokenURL:accessTokenURL
-                                                                   clientID:@"client_id"
-                                                               clientSecret:@"client_secret"
-                                                                     scopes:nil];
+    DCTOAuth2Account *campfireAccount = [[DCTOAuth2Account alloc] initWithType:@"Campfire"
+                                                                  authorizeURL:authorizeURL
+                                                                accessTokenURL:accessTokenURL
+                                                                      clientID:@"client_id"
+                                                                  clientSecret:@"client_secret"
+                                                                        scopes:nil];
     campfireAccount.callbackURL = [NSURL URLWithString:@"callback://url"];
     
     NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:@"type" value:@"web_server"];
@@ -201,14 +201,14 @@ Microsoft have enforced that the callback URL (redirect URI) must have a scheme 
 
 Withings expects the OAuth parameters transmitted as part of the URL query, so you must set up your account by passing `DCTOAuthParameterTransmissionURLQuery` for the `parameterTransmission`, like so:
 
-	DCTAuthAccount *account = [DCTAuthAccount OAuthAccountWithType:@"Withings"
-                                                   requestTokenURL:[NSURL URLWithString:@"https://oauth.withings.com/account/request_token"]
-                                                      authorizeURL:[NSURL URLWithString:@"https://oauth.withings.com/account/authorize"]
-                                                    accessTokenURL:[NSURL URLWithString:@"https://oauth.withings.com/account/access_token"]
-                                                       consumerKey:@"consumer_key"
-                                                    consumerSecret:@"consumer_secret"
-                                                     signatureType:DCTOAuthSignatureTypeHMAC_SHA1
-                                             parameterTransmission:DCTOAuthParameterTransmissionURLQuery];
+	DCTOAuth1Account *account = [[DCTOAuth1Account alloc] initWithType:@"Withings"
+                                                       requestTokenURL:[NSURL URLWithString:@"https://oauth.withings.com/account/request_token"]
+                                                          authorizeURL:[NSURL URLWithString:@"https://oauth.withings.com/account/authorize"]
+                                                        accessTokenURL:[NSURL URLWithString:@"https://oauth.withings.com/account/access_token"]
+                                                           consumerKey:@"consumer_key"
+                                                        consumerSecret:@"consumer_secret"
+                                                         signatureType:DCTOAuthSignatureTypeHMAC_SHA1
+                                                 parameterTransmission:DCTOAuthParameterTransmissionURLQuery];
 
 ### Xero
 
