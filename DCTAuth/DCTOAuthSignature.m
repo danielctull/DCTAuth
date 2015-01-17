@@ -7,7 +7,7 @@
 //
 
 #import "DCTOAuthSignature.h"
-#import "DCTOAuth1.h"
+#import "DCTOAuth1Keys.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTAuth.h"
 #import "NSData+DCTAuth.h"

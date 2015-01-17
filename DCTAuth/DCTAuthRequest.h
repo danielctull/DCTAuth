@@ -8,6 +8,7 @@
 
 #import "DCTAuthRequestMethod.h"
 #import "DCTAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 #import "DCTAuthResponse.h"
 
 /**
@@ -98,7 +99,7 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  *
  *  Default is nil.
  */
-@property (nonatomic, strong) DCTAuthAccount *account;
+@property (nonatomic, strong) DCTAuthAccount<DCTAuthAccountSubclass> *account;
 
 /** 
  *  The content type to encode the POST body parameters.

@@ -193,7 +193,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 		return [[self _URLRequest] copy];
 
 	NSMutableURLRequest *request = [self _URLRequest];
-	[(id<DCTAuthAccountSubclass>)self.account signURLRequest:request forAuthRequest:self];
+	[self.account signURLRequest:request];
 	return [request copy];
 }
 
