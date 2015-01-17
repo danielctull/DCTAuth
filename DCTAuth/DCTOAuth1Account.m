@@ -8,7 +8,6 @@
 
 #import "DCTOAuth1Account.h"
 #import "DCTOAuth1Keys.h"
-#import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth1Credential.h"
 #import "DCTOAuthSignature.h"
 #import "DCTAuth.h"
@@ -37,7 +36,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	.openURLObject = @"openURLObject"
 };
 
-@interface DCTOAuth1Account () <DCTAuthAccountSubclass>
+@interface DCTOAuth1Account ()
 @property (nonatomic, strong) id openURLObject;
 @end
 
@@ -102,6 +101,8 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	[coder encodeObject:@(self.signatureType) forKey:DCTOAuth1AccountProperties.signatureType];
 	[coder encodeObject:@(self.parameterTransmission) forKey:DCTOAuth1AccountProperties.parameterTransmission];
 }
+
+#pragma mark - DCTAuthAccountSubclass
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
 
@@ -241,8 +242,14 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	[requestTokenRequest performRequestWithHandler:requestTokenHandler];
 }
 
+- (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *, NSError *))handler {
+	NSError *error = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{
+		NSLocalizedDescriptionKey : @"Reauthentication not supported for this account type."
+	}];
+	handler(nil, error);
+}
+
 - (void)cancelAuthentication {
-	[super cancelAuthentication];
 	[DCTAuth cancelOpenURL:self.openURLObject];
 }
 

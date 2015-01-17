@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthAccount.h"
+@protocol DCTAuthAccountSubclass;
 
 extern const struct DCTAuthAccountStoreProperties {
 	__unsafe_unretained NSString *name;
@@ -94,7 +95,7 @@ extern NSString *const DCTAuthAccountStoreDidChangeNotification;
  *  @param identifier A unique identifier for an account.
  *  @return The account that matches the value specified in identifier.
  */
-- (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier;
+- (DCTAuthAccount<DCTAuthAccountSubclass> *)accountWithIdentifier:(NSString *)identifier;
 
 /// @name Managing accounts
 
@@ -103,13 +104,13 @@ extern NSString *const DCTAuthAccountStoreDidChangeNotification;
  *
  *  @param account The account to save. Must not be nil.
  */
-- (void)saveAccount:(DCTAuthAccount *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
+- (void)saveAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
 
 /**
  *  Deletes an account from the Accounts database.
  *
  *  @param account The account to delete. Must not be nil.
  */
-- (void)deleteAccount:(DCTAuthAccount *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
+- (void)deleteAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
 
 @end

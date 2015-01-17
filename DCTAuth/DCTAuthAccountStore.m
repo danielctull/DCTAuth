@@ -165,7 +165,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	}];
 
 	for (NSString *accountIdentifier in accountIdentifiersToDelete) {
-		DCTAuthAccount *account = [self accountWithIdentifier:accountIdentifier];
+		DCTAuthAccount<DCTAuthAccountSubclass> *account = [self accountWithIdentifier:accountIdentifier];
 		[self deleteAccount:account];
 	}
 }
@@ -180,13 +180,13 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	return [self.accounts filteredArrayUsingPredicate:predicate];
 }
 
-- (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier {
+- (DCTAuthAccount<DCTAuthAccountSubclass> *)accountWithIdentifier:(NSString *)identifier {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountProperties.identifier, identifier];
 	NSArray *filteredAccounts = [self.accounts filteredArrayUsingPredicate:predicate];
 	return [filteredAccounts lastObject];
 }
 
-- (void)saveAccount:(DCTAuthAccount *)account {
+- (void)saveAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account {
 
 	if (![NSThread isMainThread]) {
 		dispatch_sync(dispatch_get_main_queue(), ^{
@@ -214,7 +214,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	account.accountStore = self;
 }
 
-- (void)deleteAccount:(DCTAuthAccount *)account {
+- (void)deleteAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account {
 
 	if (![NSThread isMainThread]) {
 		dispatch_sync(dispatch_get_main_queue(), ^{

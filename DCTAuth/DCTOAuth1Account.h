@@ -7,11 +7,12 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 #import "DCTOAuthSignatureType.h"
 #import "DCTOAuth1ParameterTransmission.h"
 #import "DCTOAuth1Credential.h"
 
-@interface DCTOAuth1Account : DCTAuthAccount
+@interface DCTOAuth1Account : DCTAuthAccount <DCTAuthAccountSubclass>
 
 /**
  *  Creates an account using OAuth using a HMAC-SHA1 signature type and Authorization header transmission.

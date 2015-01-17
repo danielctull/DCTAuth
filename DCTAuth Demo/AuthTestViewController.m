@@ -68,23 +68,23 @@
 	NSString *authorizeURLString = authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
-	DCTAuthAccount *oauthAccount = [[DCTOAuth1Account alloc] initWithType:@"echo.lab.madgex"
-														  requestTokenURL:requestTokenURL
-															 authorizeURL:authorizeURL
-														   accessTokenURL:accessTokenURL
-															  consumerKey:consumerKey
-														   consumerSecret:consumerSecret];
-	oauthAccount.shouldSendCallbackURL = NO;
-	[oauthAccount authenticateWithHandler:^(NSArray *responses, NSError *error) {
+	DCTOAuth1Account *account = [[DCTOAuth1Account alloc] initWithType:@"echo.lab.madgex"
+													   requestTokenURL:requestTokenURL
+														  authorizeURL:authorizeURL
+														accessTokenURL:accessTokenURL
+														   consumerKey:consumerKey
+														consumerSecret:consumerSecret];
+	account.shouldSendCallbackURL = NO;
+	[account authenticateWithHandler:^(NSArray *responses, NSError *error) {
 
-		[[DCTAuthAccountStore defaultAccountStore] saveAccount:oauthAccount];
+		[[DCTAuthAccountStore defaultAccountStore] saveAccount:account];
 
 		NSMutableArray *textArray = [NSMutableArray new];
 		[responses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			[textArray addObject:[NSString stringWithFormat:@"%@\n", obj]];
 		}];
 		self.resultTextView.text = [textArray componentsJoinedByString:@"\n"];
-		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), oauthAccount);
+		NSLog(@"%@:%@ %@", self, NSStringFromSelector(_cmd), account);
 	}];
 }
 

@@ -12,7 +12,6 @@
 #import "DCTOAuth2Account.h"
 #import "DCTBasicAuthAccount.h"
 #import "NSString+DCTAuth.h"
-#import "DCTAuthAccountSubclass.h"
 
 const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.type = @"type",
@@ -234,17 +233,6 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	return self.discoveredCallbackURL;
 }
 
-- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {}
-
-- (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *, NSError *))handler {
-	NSError *error = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{
-		NSLocalizedDescriptionKey : @"Reauthentication not supported for this account type."
-	}];
-	handler(nil, error);
-}
-
-- (void)cancelAuthentication {}
-
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; type = %@; identifier = %@; credential = %@>",
 			NSStringFromClass([self class]),
@@ -252,6 +240,25 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 			self.type,
 			self.identifier,
 			self.credential];
+}
+
+#pragma mark - Subclass methods
+/// @name Subclass methods
+
+- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
+	NSAssert(NO, @"This is an abstract method and should be overridden");
+}
+
+- (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *, NSError *))handler {
+	NSAssert(NO, @"This is an abstract method and should be overridden");
+}
+
+- (void)cancelAuthentication {
+	NSAssert(NO, @"This is an abstract method and should be overridden");
+}
+
+- (void)signURLRequest:(NSMutableURLRequest *)request {
+	NSAssert(NO, @"This is an abstract method and should be overridden");
 }
 
 @end

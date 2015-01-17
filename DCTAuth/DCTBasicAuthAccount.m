@@ -7,7 +7,6 @@
 //
 
 #import "DCTBasicAuthAccount.h"
-#import "DCTAuthAccountSubclass.h"
 #import "DCTBasicAuthCredential.h"
 #import "DCTAuthRequest.h"
 
@@ -18,9 +17,6 @@ static const struct DCTBasicAuthAccountProperties {
 static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties = {
 	.authenticationURL = @"authenticationURL"
 };
-
-@interface DCTBasicAuthAccount () <DCTAuthAccountSubclass>
-@end
 
 @implementation DCTBasicAuthAccount
 @synthesize username = _username;
@@ -81,7 +77,7 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 	[coder encodeObject:self.authenticationURL forKey:DCTBasicAuthAccountProperties.authenticationURL];
 }
 
-#pragma mark - DCTAuthAccount
+#pragma mark - DCTAuthAccountSubclass
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
 
@@ -105,7 +101,14 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 	}];
 }
 
-#pragma mark - DCTAuthAccountSubclass
+- (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *, NSError *))handler {
+	NSError *error = [NSError errorWithDomain:@"DCTAuth" code:0 userInfo:@{
+		NSLocalizedDescriptionKey : @"Reauthentication not supported for this account type."
+	}];
+	handler(nil, error);
+}
+
+- (void)cancelAuthentication {}
 
 - (void)signURLRequest:(NSMutableURLRequest *)request {
 
