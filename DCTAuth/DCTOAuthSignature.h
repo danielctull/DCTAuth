@@ -6,7 +6,8 @@
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTAuthAccount.h"
+@import Foundation;
+#import "DCTOAuthSignatureType.h"
 
 @interface DCTOAuthSignature : NSObject
 

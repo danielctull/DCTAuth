@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTOAuthSignatureType.h"
 
 @interface DCTOAuth1Account : DCTAuthAccount
 

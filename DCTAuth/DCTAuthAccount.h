@@ -11,22 +11,6 @@
 @protocol DCTAuthAccountCredential;
 
 /**
- *  The different OAuth signature types.
- */
-typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
-	/**
-	 *  Encode using HMAC-SHA1.
-	 */
-	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
-	/**
-	 *  Encode using plaintext.
-	 * 
-	 *  This should be used for debugging purposes only.
-	 */
-	DCTOAuthSignatureTypePlaintext
-};
-
-/**
  *  Defines how parameters should be transmitted to the server,
  *  Which is shown in section 3.5 of the OAuth spec.
  *  http://tools.ietf.org/html/rfc5849#section-3.5
