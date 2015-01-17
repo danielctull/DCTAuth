@@ -7,7 +7,6 @@
 //
 
 #import "DCTAuthAccountStore+Private.h"
-#import "DCTAuthAccountStoreProperties.h"
 #import "DCTAbstractAuthAccountProperties.h"
 #import "DCTAuthKeychainAccess.h"
 #import "DCTAuthAccount+Private.h"
@@ -17,6 +16,14 @@
 #else
 @import Cocoa;
 #endif
+
+const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
+	.name = @"name",
+	.accessGroup = @"accessGroup",
+	.synchronizable = @"synchronizable",
+	.identifier = @"identifier",
+	.accounts = @"accounts"
+};
 
 NSString *const DCTAuthAccountStoreDidChangeNotification = @"DCTAuthAccountStoreDidChangeNotification";
 
