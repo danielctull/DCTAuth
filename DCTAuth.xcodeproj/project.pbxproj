@@ -136,6 +136,10 @@
 		24A6A6611A6AD9E6001F1DD5 /* DCTOAuth2Keys.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A65E1A6AD9E6001F1DD5 /* DCTOAuth2Keys.h */; };
 		24A6A6621A6AD9E6001F1DD5 /* DCTOAuth2Keys.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */; };
 		24A6A6631A6AD9E6001F1DD5 /* DCTOAuth2Keys.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */; };
+		24A6A6691A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */; };
+		24A6A66A1A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24A6A66B1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */; };
+		24A6A66C1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */; };
 		24FA900615E93D8E00E1ED99 /* DCTOAuthSignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuthSignatureTests.m */; };
 		24FA902015E93E0200E1ED99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA901F15E93E0200E1ED99 /* main.m */; };
 		24FA902415E93E0200E1ED99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA902315E93E0200E1ED99 /* AppDelegate.m */; };
@@ -246,6 +250,8 @@
 		24A6A65B1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth1ParameterTransmission.h; sourceTree = "<group>"; };
 		24A6A65E1A6AD9E6001F1DD5 /* DCTOAuth2Keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth2Keys.h; sourceTree = "<group>"; };
 		24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2Keys.m; sourceTree = "<group>"; };
+		24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTOAuth2RequestType.h; sourceTree = "<group>"; };
+		24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTOAuth2RequestType.m; sourceTree = "<group>"; };
 		24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccountStore+Private.h"; sourceTree = "<group>"; };
 		24BFD672176FCB7D006BBBC8 /* DCTAuthAccount+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccount+Private.h"; sourceTree = "<group>"; };
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
@@ -323,20 +329,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		243B575615EE4C96007F1CA6 /* Private Categories */ = {
-			isa = PBXGroup;
-			children = (
-				24C6238815EBBB8800B68FAD /* NSArray+DCTAuth.h */,
-				24C6238915EBBB8800B68FAD /* NSArray+DCTAuth.m */,
-				249CAD1915EA214700FFD0D2 /* NSData+DCTAuth.h */,
-				249CAD1A15EA214700FFD0D2 /* NSData+DCTAuth.m */,
-				24FA903215E93E1F00E1ED99 /* NSString+DCTAuth.h */,
-				24FA903315E93E1F00E1ED99 /* NSString+DCTAuth.m */,
-			);
-			name = "Private Categories";
-			sourceTree = "<group>";
-		};
-		243B575815EE4CAC007F1CA6 /* Private Classes */ = {
+		243B575815EE4CAC007F1CA6 /* Private */ = {
 			isa = PBXGroup;
 			children = (
 				24BFD672176FCB7D006BBBC8 /* DCTAuthAccount+Private.h */,
@@ -353,8 +346,14 @@
 				24115A7017F577FA00280F98 /* DCTAuthURLOpenerOperation.m */,
 				241298C616AC71310052A724 /* DCTAuthURLRequestPerformer.h */,
 				241298C716AC71310052A724 /* DCTAuthURLRequestPerformer.m */,
+				24C6238815EBBB8800B68FAD /* NSArray+DCTAuth.h */,
+				24C6238915EBBB8800B68FAD /* NSArray+DCTAuth.m */,
+				249CAD1915EA214700FFD0D2 /* NSData+DCTAuth.h */,
+				249CAD1A15EA214700FFD0D2 /* NSData+DCTAuth.m */,
+				24FA903215E93E1F00E1ED99 /* NSString+DCTAuth.h */,
+				24FA903315E93E1F00E1ED99 /* NSString+DCTAuth.m */,
 			);
-			name = "Private Classes";
+			name = Private;
 			sourceTree = "<group>";
 		};
 		244DE80A19A91A4A00A91DC7 /* Configurations */ = {
@@ -403,6 +402,8 @@
 				2454C24716D8BD4500E97367 /* DCTOAuth2Credential.m */,
 				24A6A65E1A6AD9E6001F1DD5 /* DCTOAuth2Keys.h */,
 				24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */,
+				24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */,
+				24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */,
 			);
 			name = "OAuth 2";
 			sourceTree = "<group>";
@@ -447,8 +448,7 @@
 				2476FB7319DE86A300E6BA00 /* Basic Authentication */,
 				2476FB7119DE868800E6BA00 /* OAuth 1 */,
 				2476FB7219DE869100E6BA00 /* OAuth 2 */,
-				243B575615EE4C96007F1CA6 /* Private Categories */,
-				243B575815EE4CAC007F1CA6 /* Private Classes */,
+				243B575815EE4CAC007F1CA6 /* Private */,
 				24307B591A690867006D27E1 /* Resources */,
 				24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */,
 				24C6232C15EB932700B68FAD /* DCTAuth.m */,
@@ -532,6 +532,7 @@
 				24307B8E1A6909E8006D27E1 /* DCTOAuth2Account.h in Headers */,
 				24307B8F1A6909E8006D27E1 /* DCTOAuth2Credential.h in Headers */,
 				24A6A6611A6AD9E6001F1DD5 /* DCTOAuth2Keys.h in Headers */,
+				24A6A66A1A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */,
 				24307B8A1A6909D9006D27E1 /* DCTOAuthSignature.h in Headers */,
 				24A6A6581A6AD52B001F1DD5 /* DCTOAuthSignatureType.h in Headers */,
 				24307B941A6909E8006D27E1 /* NSArray+DCTAuth.h in Headers */,
@@ -571,6 +572,7 @@
 				2454F2F5195960A800E8643C /* DCTOAuth2Account.h in Headers */,
 				2454F2F6195960A800E8643C /* DCTOAuth2Credential.h in Headers */,
 				24A6A6601A6AD9E6001F1DD5 /* DCTOAuth2Keys.h in Headers */,
+				24A6A6691A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */,
 				2454F2F2195960A800E8643C /* DCTOAuthSignature.h in Headers */,
 				24A6A6571A6AD52B001F1DD5 /* DCTOAuthSignatureType.h in Headers */,
 				2454F2FE195960B100E8643C /* NSArray+DCTAuth.h in Headers */,
@@ -831,6 +833,7 @@
 				24307BA71A690A0C006D27E1 /* DCTOAuth2Account.m in Sources */,
 				24307BA81A690A0D006D27E1 /* DCTOAuth2Credential.m in Sources */,
 				24A6A6631A6AD9E6001F1DD5 /* DCTOAuth2Keys.m in Sources */,
+				24A6A66C1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */,
 				24307BA31A690A0C006D27E1 /* DCTOAuthSignature.m in Sources */,
 				24307BAD1A690A0D006D27E1 /* NSArray+DCTAuth.m in Sources */,
 				24307BAC1A690A0D006D27E1 /* NSData+DCTAuth.m in Sources */,
@@ -874,6 +877,7 @@
 				2454F3221959615800E8643C /* DCTOAuth2Account.m in Sources */,
 				2454F3231959615800E8643C /* DCTOAuth2Credential.m in Sources */,
 				24A6A6621A6AD9E6001F1DD5 /* DCTOAuth2Keys.m in Sources */,
+				24A6A66B1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */,
 				2454F31F1959615800E8643C /* DCTOAuthSignature.m in Sources */,
 				2454F32B1959615800E8643C /* NSArray+DCTAuth.m in Sources */,
 				2454F32A1959615800E8643C /* NSData+DCTAuth.m in Sources */,

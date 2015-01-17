@@ -22,15 +22,6 @@ const struct DCTAbstractAuthAccountProperties DCTAbstractAuthAccountProperties =
 
 
 
-const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
-	.accessToken = @"DCTOAuth2AccountAccessTokenRequestType",
-	.authorize = @"DCTOAuth2AccountAuthorizeRequestType",
-	.refresh = @"DCTOAuth2AccountRefreshRequestType",
-	.signing = @"DCTOAuth2AccountSigningRequestType"
-};
-
-
-
 @interface DCTAbstractAuthAccount ()
 @property (nonatomic, strong) id<DCTAuthAccountCredential> internalCredential;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
