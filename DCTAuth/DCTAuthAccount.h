@@ -26,6 +26,22 @@ typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
 	DCTOAuthSignatureTypePlaintext
 };
 
+/**
+ *  Defines how parameters should be transmitted to the server,
+ *  Which is shown in section 3.5 of the OAuth spec.
+ *  http://tools.ietf.org/html/rfc5849#section-3.5
+ */
+typedef NS_ENUM(NSInteger, DCTOAuthParameterTransmission) {
+	/**
+	 *  Transmit parameters as an Authorization header.
+	 */
+	DCTOAuthParameterTransmissionAuthorizationHeader = 0,
+	/**
+	 *  Transmit parameters in the URL query.
+	 */
+	DCTOAuthParameterTransmissionURLQuery
+};
+
 extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *type;
 	__unsafe_unretained NSString *identifier;
@@ -95,7 +111,8 @@ extern const struct DCTOAuth2RequestType {
 			accessTokenURL:(NSURL *)accessTokenURL
 			   consumerKey:(NSString *)consumerKey
 			consumerSecret:(NSString *)consumerSecret
-			 signatureType:(DCTOAuthSignatureType)signatureType;
+			 signatureType:(DCTOAuthSignatureType)signatureType
+	 parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission;
 
 
 /** 

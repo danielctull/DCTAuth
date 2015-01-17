@@ -22,6 +22,7 @@ static const struct DCTOAuth1AccountProperties {
 	__unsafe_unretained NSString *accessTokenURL;
 	__unsafe_unretained NSString *authorizeURL;
 	__unsafe_unretained NSString *signatureType;
+	__unsafe_unretained NSString *parameterTransmission;
 	__unsafe_unretained NSString *openURLObject;
 } DCTOAuth1AccountProperties;
 
@@ -32,6 +33,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	.accessTokenURL = @"accessTokenURL",
 	.authorizeURL = @"authorizeURL",
 	.signatureType = @"signatureType",
+	.parameterTransmission = @"parameterTransmission",
 	.openURLObject = @"openURLObject"
 };
 
@@ -42,18 +44,20 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 @property (nonatomic, copy) NSURL *accessTokenURL;
 @property (nonatomic, copy) NSURL *authorizeURL;
 @property (nonatomic, assign) DCTOAuthSignatureType signatureType;
+@property (nonatomic, assign) DCTOAuthParameterTransmission parameterTransmission;
 @property (nonatomic, strong) id openURLObject;
 @end
 
 @implementation DCTOAuth1Account
 
 - (instancetype)initWithType:(NSString *)type
-   requestTokenURL:(NSURL *)requestTokenURL
-	  authorizeURL:(NSURL *)authorizeURL
-	accessTokenURL:(NSURL *)accessTokenURL
-	   consumerKey:(NSString *)consumerKey
-	consumerSecret:(NSString *)consumerSecret
-	 signatureType:(DCTOAuthSignatureType)signatureType {
+			 requestTokenURL:(NSURL *)requestTokenURL
+				authorizeURL:(NSURL *)authorizeURL
+			  accessTokenURL:(NSURL *)accessTokenURL
+				 consumerKey:(NSString *)consumerKey
+			  consumerSecret:(NSString *)consumerSecret
+			   signatureType:(DCTOAuthSignatureType)signatureType
+	   parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission {
 	
 	self = [self initWithType:type];
 	if (!self) return nil;
@@ -64,6 +68,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	_consumerKey = [consumerKey copy];
 	_consumerSecret = [consumerSecret copy];
 	_signatureType = signatureType;
+	_parameterTransmission = parameterTransmission;
 	
 	return self;
 }
@@ -75,6 +80,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	_accessTokenURL = [coder decodeObjectForKey:DCTOAuth1AccountProperties.accessTokenURL];
 	_authorizeURL = [coder decodeObjectForKey:DCTOAuth1AccountProperties.authorizeURL];
 	_signatureType = [[coder decodeObjectForKey:DCTOAuth1AccountProperties.signatureType] integerValue];
+	_parameterTransmission = [[coder decodeObjectForKey:DCTOAuth1AccountProperties.parameterTransmission] integerValue];
 	return self;
 }
 
@@ -84,6 +90,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	[coder encodeObject:self.accessTokenURL forKey:DCTOAuth1AccountProperties.accessTokenURL];
 	[coder encodeObject:self.authorizeURL forKey:DCTOAuth1AccountProperties.authorizeURL];
 	[coder encodeObject:@(self.signatureType) forKey:DCTOAuth1AccountProperties.signatureType];
+	[coder encodeObject:@(self.parameterTransmission) forKey:DCTOAuth1AccountProperties.parameterTransmission];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
@@ -253,8 +260,24 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 															  secretToken:credential.oauthTokenSecret
 																	items:OAuthItems
 																	 type:self.signatureType];
-	NSString *authorizationHeader = signature.authorizationHeader;
-	if (authorizationHeader) [request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
+
+	switch (self.parameterTransmission) {
+
+		case DCTOAuthParameterTransmissionAuthorizationHeader: {
+			NSString *authorizationHeader = signature.authorizationHeader;
+			if (authorizationHeader) [request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
+			break;
+		}
+
+		case DCTOAuthParameterTransmissionURLQuery: {
+			NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
+			NSMutableArray *items = [NSMutableArray new];
+			[items addObjectsFromArray:signature.authorizationItems];
+			[items addObjectsFromArray:URLComponents.queryItems];
+			URLComponents.queryItems = items;
+			request.URL = URLComponents.URL;
+		}
+	}
 }
 
 @end

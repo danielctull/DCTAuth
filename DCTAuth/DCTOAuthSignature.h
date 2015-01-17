@@ -27,6 +27,8 @@
 					  nonce:(NSString *)nonce;
 
 @property (nonatomic, readonly) NSString *authorizationHeader;
+@property (nonatomic, readonly) NSArray *authorizationItems;
+
 @property (nonatomic, readonly) NSString *signatureBaseString;
 @property (nonatomic, readonly) NSString *signatureString;
 

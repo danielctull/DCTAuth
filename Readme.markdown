@@ -123,7 +123,7 @@ While the implementations _should_ work for all services using that standard, I 
 * [TripIt](http://tripit.github.com/api/doc/v1/#authentication_section)
 * [Tumblr](https://www.tumblr.com/docs/en/api/v2#auth) ([Notes](#tumblr))
 * [Twitter](https://dev.twitter.com/docs/auth/oauth)
-* [Withings](http://oauth.withings.com/api)
+* [Withings](http://oauth.withings.com/api) ([Notes](#withings))
 * [Xero](http://developer.xero.com/documentation/getting-started/public-applications/) ([Notes](#xero))
 * [Yahoo!](http://developer.yahoo.com/oauth/guide/index.html)
 
@@ -196,6 +196,19 @@ Tumblr calls will fail if the callback URL is sent in the request, you should se
 ### Windows Live
 
 Microsoft have enforced that the callback URL (redirect URI) must have a scheme of HTTP or HTTPS, so to authorise with Windows Live you should set your own URL handler on the DCTAuth class to open the authorisation URL in a web view inside the app. This does go against general OAuth practice, but DCTAuth allows it. Setting a callback URL with `http://` as the scheme will result in working authentication to Windows Live. As far as I can tell you should use at least `wl.signin` as the scope.
+
+### Withings
+
+Withings expects the OAuth parameters transmitted as part of the URL query, so you must set up your account by passing `DCTOAuthParameterTransmissionURLQuery` for the `parameterTransmission`, like so:
+
+	DCTAuthAccount *account = [DCTAuthAccount OAuthAccountWithType:@"Withings"
+                                                   requestTokenURL:[NSURL URLWithString:@"https://oauth.withings.com/account/request_token"]
+                                                      authorizeURL:[NSURL URLWithString:@"https://oauth.withings.com/account/authorize"]
+                                                    accessTokenURL:[NSURL URLWithString:@"https://oauth.withings.com/account/access_token"]
+                                                       consumerKey:@"consumer_key"
+                                                    consumerSecret:@"consumer_secret"
+                                                     signatureType:DCTOAuthSignatureTypeHMAC_SHA1
+                                             parameterTransmission:DCTOAuthParameterTransmissionURLQuery];
 
 ### Xero
 

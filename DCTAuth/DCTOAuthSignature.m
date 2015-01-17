@@ -156,4 +156,13 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	return [NSString stringWithFormat:@"%@ %@", DCTOAuth1Keys.OAuth, parameterString];
 }
 
+- (NSArray *)authorizationItems {
+	NSMutableArray *items = [self.items mutableCopy];
+
+	NSURLQueryItem *signatureItem = [NSURLQueryItem queryItemWithName:DCTOAuth1Keys.signature value:self.signatureString];
+	[items addObject:signatureItem];
+
+	return [items copy];
+}
+
 @end

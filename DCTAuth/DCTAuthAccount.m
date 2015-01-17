@@ -50,7 +50,8 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 					  accessTokenURL:(NSURL *)accessTokenURL
 						 consumerKey:(NSString *)consumerKey
 					  consumerSecret:(NSString *)consumerSecret
-					   signatureType:(DCTOAuthSignatureType)signatureType {
+					   signatureType:(DCTOAuthSignatureType)signatureType
+			   parameterTransmission:(DCTOAuthParameterTransmission)parameterTransmission {
 	
 	return [[DCTOAuth1Account alloc] initWithType:type
 								  requestTokenURL:requestTokenURL
@@ -58,7 +59,8 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 								   accessTokenURL:accessTokenURL
 									  consumerKey:consumerKey
 								   consumerSecret:consumerSecret
-									signatureType:signatureType];
+									signatureType:signatureType
+							parameterTransmission:parameterTransmission];
 }
 
 + (instancetype)OAuthAccountWithType:(NSString *)type
@@ -74,7 +76,8 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 					   accessTokenURL:accessTokenURL
 						  consumerKey:consumerKey
 					   consumerSecret:consumerSecret
-						signatureType:DCTOAuthSignatureTypeHMAC_SHA1];
+						signatureType:DCTOAuthSignatureTypeHMAC_SHA1
+				parameterTransmission:DCTOAuthParameterTransmissionAuthorizationHeader];
 }
 
 + (instancetype)OAuth2AccountWithType:(NSString *)type
