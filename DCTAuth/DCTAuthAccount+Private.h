@@ -11,7 +11,6 @@
 #import "DCTAuthAccountStore.h"
 
 @interface DCTAuthAccount ()
-- (NSArray *)itemsForRequestType:(NSString *)requestType;
 //@property (nonatomic, copy) id<DCTAuthAccountCredential> (^credentialFetcher)();
 @property (nonatomic, copy) NSString *saveUUID;
 @property (nonatomic, weak) DCTAuthAccountStore *accountStore;

@@ -133,6 +133,10 @@ extern const struct DCTOAuth2RequestType {
 
 - (void)cancelAuthentication;
 
+/// @name Extra Parameters
+
+- (NSArray *)itemsForRequestType:(NSString *)requestType;
+
 /** Allows users to set extra NSQueryItems for a particular request type.
  *
  *  Currently the OAuth 2 accounts are the only ones to make use of these extra items. (See the DCTOAuth2RequestType struct) 
