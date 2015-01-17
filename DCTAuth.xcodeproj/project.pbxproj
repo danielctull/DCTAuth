@@ -977,6 +977,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "DCTAuth Tests";
 			};
@@ -986,6 +987,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24307BC01A690C2C006D27E1 /* OS X Tests.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "DCTAuth Tests";
 			};
@@ -1023,6 +1025,7 @@
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
