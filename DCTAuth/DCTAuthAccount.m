@@ -8,9 +8,8 @@
 
 #import "DCTAuthAccount+Private.h"
 #import "DCTAuthAccountStore+Private.h"
-#import "NSString+DCTAuth.h"
 
-const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
+const struct DCTAbstractAuthAccountProperties DCTAbstractAuthAccountProperties = {
 	.type = @"type",
 	.identifier = @"identifier",
 	.accountDescription = @"accountDescription",
@@ -59,28 +58,28 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
-	_type = [coder decodeObjectForKey:DCTAuthAccountProperties.type];
-	_identifier = [coder decodeObjectForKey:DCTAuthAccountProperties.identifier];
-	_callbackURL = [coder decodeObjectForKey:DCTAuthAccountProperties.callbackURL];
-	_shouldSendCallbackURL = [coder decodeBoolForKey:DCTAuthAccountProperties.shouldSendCallbackURL];
-	_accountDescription = [coder decodeObjectForKey:DCTAuthAccountProperties.accountDescription];
-	_userInfo = [coder decodeObjectForKey:DCTAuthAccountProperties.userInfo];
-	_saveUUID = [coder decodeObjectForKey:DCTAuthAccountProperties.saveUUID];
+	_type = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.type];
+	_identifier = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.identifier];
+	_callbackURL = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.callbackURL];
+	_shouldSendCallbackURL = [coder decodeBoolForKey:DCTAbstractAuthAccountProperties.shouldSendCallbackURL];
+	_accountDescription = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.accountDescription];
+	_userInfo = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.userInfo];
+	_saveUUID = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.saveUUID];
 
-	_extraItems = [coder decodeObjectOfClass:[NSArray class] forKey:DCTAuthAccountProperties.extraItems];
+	_extraItems = [coder decodeObjectOfClass:[NSArray class] forKey:DCTAbstractAuthAccountProperties.extraItems];
 
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.type forKey:DCTAuthAccountProperties.type];
-	[coder encodeObject:self.identifier forKey:DCTAuthAccountProperties.identifier];
-	[coder encodeObject:self.callbackURL forKey:DCTAuthAccountProperties.callbackURL];
-	[coder encodeBool:self.shouldSendCallbackURL forKey:DCTAuthAccountProperties.shouldSendCallbackURL];
-	[coder encodeObject:self.accountDescription forKey:DCTAuthAccountProperties.accountDescription];
-	[coder encodeObject:self.userInfo forKey:DCTAuthAccountProperties.userInfo];
-	[coder encodeObject:self.saveUUID forKey:DCTAuthAccountProperties.saveUUID];
-	[coder encodeObject:self.extraItems forKey:DCTAuthAccountProperties.extraItems];
+	[coder encodeObject:self.type forKey:DCTAbstractAuthAccountProperties.type];
+	[coder encodeObject:self.identifier forKey:DCTAbstractAuthAccountProperties.identifier];
+	[coder encodeObject:self.callbackURL forKey:DCTAbstractAuthAccountProperties.callbackURL];
+	[coder encodeBool:self.shouldSendCallbackURL forKey:DCTAbstractAuthAccountProperties.shouldSendCallbackURL];
+	[coder encodeObject:self.accountDescription forKey:DCTAbstractAuthAccountProperties.accountDescription];
+	[coder encodeObject:self.userInfo forKey:DCTAbstractAuthAccountProperties.userInfo];
+	[coder encodeObject:self.saveUUID forKey:DCTAbstractAuthAccountProperties.saveUUID];
+	[coder encodeObject:self.extraItems forKey:DCTAbstractAuthAccountProperties.extraItems];
 }
 
 - (void)setItems:(NSArray *)items forRequestType:(NSString *)requestType {

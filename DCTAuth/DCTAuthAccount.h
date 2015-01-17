@@ -11,7 +11,7 @@
 @protocol DCTAuthAccountCredential;
 @protocol DCTAuthAccountSubclass;
 
-extern const struct DCTAuthAccountProperties {
+extern const struct DCTAbstractAuthAccountProperties {
 	__unsafe_unretained NSString *type;
 	__unsafe_unretained NSString *identifier;
 	__unsafe_unretained NSString *accountDescription;
@@ -20,7 +20,7 @@ extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *userInfo;
 	__unsafe_unretained NSString *saveUUID;
 	__unsafe_unretained NSString *extraItems;
-} DCTAuthAccountProperties;
+} DCTAbstractAuthAccountProperties;
 
 
 

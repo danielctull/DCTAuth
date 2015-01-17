@@ -140,7 +140,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSString *accessGroup = self.accessGroup;
 	BOOL synchronizable = self.synchronizable;
 
-	NSMutableArray *accountIdentifiersToDelete = [[self.accounts valueForKey:DCTAuthAccountProperties.identifier] mutableCopy];
+	NSMutableArray *accountIdentifiersToDelete = [[self.accounts valueForKey:DCTAbstractAuthAccountProperties.identifier] mutableCopy];
 
 	NSArray *accountDatas = [DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
@@ -176,12 +176,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 }
 
 - (NSArray *)accountsWithType:(NSString *)type {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountProperties.type, type];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAbstractAuthAccountProperties.type, type];
 	return [self.accounts filteredArrayUsingPredicate:predicate];
 }
 
 - (DCTAuthAccount<DCTAuthAccountSubclass> *)accountWithIdentifier:(NSString *)identifier {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAuthAccountProperties.identifier, identifier];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAbstractAuthAccountProperties.identifier, identifier];
 	NSArray *filteredAccounts = [self.accounts filteredArrayUsingPredicate:predicate];
 	return [filteredAccounts lastObject];
 }
@@ -239,7 +239,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 - (void)insertAccount:(DCTAuthAccount *)account {
 	NSMutableArray *accounts = [self.accounts mutableCopy];
 	[accounts addObject:account];
-	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
+	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAbstractAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
 	NSUInteger index = [accounts indexOfObject:account];
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[array insertObject:account atIndex:index];
@@ -271,7 +271,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSUInteger currentIndex = [accounts indexOfObject:currentAccount];
 	[accounts removeObject:currentAccount];
 	[accounts addObject:account];
-	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
+	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAbstractAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
 	NSUInteger newIndex = [accounts indexOfObject:account];
 
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
