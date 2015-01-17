@@ -8,6 +8,7 @@
 
 #import "DCTOAuth2Account.h"
 #import "DCTOAuth2.h"
+#import "DCTOAuth2Keys.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth2Credential.h"
 #import "DCTAuthAccount+Private.h"

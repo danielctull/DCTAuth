@@ -8,6 +8,7 @@
 
 #import "DCTOAuth2Credential.h"
 #import "DCTOAuth2.h"
+#import "DCTOAuth2Keys.h"
 
 static const struct DCTOAuth2CredentialProperties {
 	__unsafe_unretained NSString *clientID;

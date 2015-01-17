@@ -8,30 +8,8 @@
 
 #import "DCTAuth.h"
 #import "DCTOAuth2.h"
-
-const struct DCTOAuth2Keys DCTOAuth2Keys = {
-	.clientID = @"client_id",
-	.clientSecret = @"client_secret",
-	.responseType = @"response_type",
-	.scope = @"scope",
-	.state = @"state",
-	.redirectURI = @"redirect_uri",
-	.error = @"error",
-	.errorDescription = @"error_description",
-	.errorURI = @"error_uri",
-	.grantType = @"grant_type",
-	.code = @"code",
-	.accessToken = @"access_token",
-	.tokenType = @"token_type",
-	.expiresIn = @"expires_in",
-	.username = @"username",
-	.password = @"password",
-	.refreshToken = @"refresh_token",
-	.token = @"token",
-	.authorizationCode = @"authorization_code",
-	.oauthToken = @"oauth_token",
-	.bearer = @"Bearer"
-};
+#import "DCTOAuth2Keys.h"
+#import "DCTOAuth2Credential.h"
 
 @implementation DCTOAuth2
 
