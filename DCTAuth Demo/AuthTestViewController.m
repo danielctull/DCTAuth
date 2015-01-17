@@ -68,12 +68,12 @@
 	NSString *authorizeURLString = authorizeURLTextField.text;
 	if ([authorizeURLString length] > 0) authorizeURL = [NSURL URLWithString:authorizeURLString];
 	
-	DCTAuthAccount *oauthAccount = [DCTAuthAccount OAuthAccountWithType:@"echo.lab.madgex"
-														requestTokenURL:requestTokenURL
-														   authorizeURL:authorizeURL
-														 accessTokenURL:accessTokenURL
-															consumerKey:consumerKey
-														 consumerSecret:consumerSecret];
+	DCTAuthAccount *oauthAccount = [[DCTOAuth1Account alloc] initWithType:@"echo.lab.madgex"
+														  requestTokenURL:requestTokenURL
+															 authorizeURL:authorizeURL
+														   accessTokenURL:accessTokenURL
+															  consumerKey:consumerKey
+														   consumerSecret:consumerSecret];
 	oauthAccount.shouldSendCallbackURL = NO;
 	[oauthAccount authenticateWithHandler:^(NSArray *responses, NSError *error) {
 
