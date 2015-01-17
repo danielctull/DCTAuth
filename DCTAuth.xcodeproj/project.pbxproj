@@ -136,7 +136,7 @@
 		24A6A6611A6AD9E6001F1DD5 /* DCTOAuth2Keys.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A65E1A6AD9E6001F1DD5 /* DCTOAuth2Keys.h */; };
 		24A6A6621A6AD9E6001F1DD5 /* DCTOAuth2Keys.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */; };
 		24A6A6631A6AD9E6001F1DD5 /* DCTOAuth2Keys.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A65F1A6AD9E6001F1DD5 /* DCTOAuth2Keys.m */; };
-		24A6A6691A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */; };
+		24A6A6691A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24A6A66A1A6AF52E001F1DD5 /* DCTOAuth2RequestType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6671A6AF52E001F1DD5 /* DCTOAuth2RequestType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24A6A66B1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */; };
 		24A6A66C1A6AF52E001F1DD5 /* DCTOAuth2RequestType.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A6681A6AF52E001F1DD5 /* DCTOAuth2RequestType.m */; };
