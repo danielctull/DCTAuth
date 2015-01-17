@@ -9,7 +9,7 @@
 #import "DCTAuthAccount.h"
 @class DCTAuthAccountStore;
 
-@interface DCTAuthAccount ()
+@interface DCTAbstractAuthAccount ()
 @property (nonatomic, copy) NSString *saveUUID;
 @property (nonatomic, weak) DCTAuthAccountStore *accountStore;
 @end

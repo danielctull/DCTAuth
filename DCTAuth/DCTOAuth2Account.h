@@ -7,10 +7,9 @@
 //
 
 #import "DCTAuthAccount.h"
-#import "DCTAuthAccountSubclass.h"
 #import "DCTOAuth2Credential.h"
 
-@interface DCTOAuth2Account : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface DCTOAuth2Account : DCTAuthAccount
 
 /**
  *  Creates an account using OAuth 2.0.

@@ -7,10 +7,9 @@
 //
 
 #import "DCTAuthAccount.h"
-#import "DCTAuthAccountSubclass.h"
 #import "DCTBasicAuthCredential.h"
 
-@interface DCTBasicAuthAccount : DCTAuthAccount <DCTAuthAccountSubclass>
+@interface DCTBasicAuthAccount : DCTAuthAccount
 
 /**
  *  Creates an account using basic authentication.

@@ -9,6 +9,7 @@
 @import Foundation;
 @class DCTAuthResponse;
 @protocol DCTAuthAccountCredential;
+@protocol DCTAuthAccountSubclass;
 
 extern const struct DCTAuthAccountProperties {
 	__unsafe_unretained NSString *type;
@@ -39,7 +40,7 @@ extern const struct DCTOAuth2RequestType {
  *  interface to the persistent database. All account objects belong to a 
  *  single DCTAuthAccountStore object.
  */
-@interface DCTAuthAccount : NSObject <NSCoding>
+@interface DCTAbstractAuthAccount : NSObject <NSCoding>
 
 #pragma mark - Accessing Properties
 /// @name Accessing Properties
@@ -124,3 +125,5 @@ extern const struct DCTOAuth2RequestType {
 - (instancetype)initWithType:(NSString *)type __attribute((objc_requires_super));
 
 @end
+
+typedef DCTAbstractAuthAccount<DCTAuthAccountSubclass> DCTAuthAccount;

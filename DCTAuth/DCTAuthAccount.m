@@ -8,9 +8,6 @@
 
 #import "DCTAuthAccount+Private.h"
 #import "DCTAuthAccountStore+Private.h"
-#import "DCTOAuth1Account.h"
-#import "DCTOAuth2Account.h"
-#import "DCTBasicAuthAccount.h"
 #import "NSString+DCTAuth.h"
 
 const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
@@ -35,13 +32,13 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 
 
 
-@interface DCTAuthAccount ()
+@interface DCTAbstractAuthAccount ()
 @property (nonatomic, strong) id<DCTAuthAccountCredential> internalCredential;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
 @property (nonatomic) NSMutableDictionary *extraItems;
 @end
 
-@implementation DCTAuthAccount
+@implementation DCTAbstractAuthAccount
 
 - (instancetype)init {
 	self = [super init];
@@ -103,15 +100,20 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	if (self.internalCredential)
 		return self.internalCredential;
 
-	return [self.accountStore retrieveCredentialForAccount:self];
+	NSAssert([self conformsToProtocol:@protocol(DCTAuthAccountSubclass)], @"Should be a subclass.");
+	DCTAuthAccount *account = (DCTAuthAccount *)self;
+	return [self.accountStore retrieveCredentialForAccount:account];
 }
 
 - (void)setCredential:(id<DCTAuthAccountCredential>)credential {
 
-	if (self.accountStore)
-		[self.accountStore saveCredential:credential forAccount:self];
-	else
+	if (self.accountStore) {
+		NSAssert([self conformsToProtocol:@protocol(DCTAuthAccountSubclass)], @"Should be a subclass.");
+		DCTAuthAccount *account = (DCTAuthAccount *)self;
+		[self.accountStore saveCredential:credential forAccount:account];
+	} else {
 		self.internalCredential = credential;
+	}
 }
 
 - (void)setAccountStore:(DCTAuthAccountStore *)accountStore {
@@ -119,7 +121,9 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 	_accountStore = accountStore;
 
 	if (self.internalCredential) {
-		[accountStore saveCredential:self.internalCredential forAccount:self];
+		NSAssert([self conformsToProtocol:@protocol(DCTAuthAccountSubclass)], @"Should be a subclass.");
+		DCTAuthAccount *account = (DCTAuthAccount *)self;
+		[accountStore saveCredential:self.internalCredential forAccount:account];
 		self.internalCredential = nil;
 	}
 }
@@ -146,25 +150,6 @@ const struct DCTOAuth2RequestType DCTOAuth2RequestType = {
 			self.type,
 			self.identifier,
 			self.credential];
-}
-
-#pragma mark - Subclass methods
-/// @name Subclass methods
-
-- (void)authenticateWithHandler:(void(^)(NSArray *responses, NSError *error))handler {
-	NSAssert(NO, @"This is an abstract method and should be overridden");
-}
-
-- (void)reauthenticateWithHandler:(void (^)(DCTAuthResponse *, NSError *))handler {
-	NSAssert(NO, @"This is an abstract method and should be overridden");
-}
-
-- (void)cancelAuthentication {
-	NSAssert(NO, @"This is an abstract method and should be overridden");
-}
-
-- (void)signURLRequest:(NSMutableURLRequest *)request {
-	NSAssert(NO, @"This is an abstract method and should be overridden");
 }
 
 @end
