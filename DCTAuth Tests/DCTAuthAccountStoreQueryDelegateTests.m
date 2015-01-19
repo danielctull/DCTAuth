@@ -108,8 +108,8 @@
 	XCTAssertEqualObjects(move.query, self.query, @"Query should be the same query object.");
 	XCTAssertEqualObjects(move.account, account1, @"Account should be account1.");
 	XCTAssertEqual(move.type, DCTTestAccountStoreQueryDelegateEventTypeMove, @"Should receive move callback.");
-	XCTAssertEqual(move.fromIndex, (NSUInteger)1, @"Should be inserted at index 0.");
-	XCTAssertEqual(move.toIndex, (NSUInteger)1, @"Should be inserted at index 1.");
+	XCTAssertEqual(move.fromIndex, (NSUInteger)0, @"Should move from index 0.");
+	XCTAssertEqual(move.toIndex, (NSUInteger)1, @"Should move to index 1.");
 }
 
 - (void)testUpdate {

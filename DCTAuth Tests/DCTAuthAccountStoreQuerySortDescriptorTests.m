@@ -53,8 +53,8 @@
 	[self.store saveAccount:account2];
 
 	XCTAssertEqual(self.query.accounts.count, (NSUInteger)2, @"Store should have two accounts.");
-	XCTAssertEqualObjects(self.query.accounts[0], account1, @"First account should be account2.");
-	XCTAssertEqualObjects(self.query.accounts[1], account2, @"Second account should be account1.");
+	XCTAssertEqualObjects(self.query.accounts[0], account2, @"First account should be account2.");
+	XCTAssertEqualObjects(self.query.accounts[1], account1, @"Second account should be account1.");
 }
 
 - (void)testMove {
@@ -70,8 +70,8 @@
 	[self.store saveAccount:account1];
 
 	XCTAssertEqual(self.query.accounts.count, (NSUInteger)2, @"Store should have two accounts.");
-	XCTAssertEqualObjects(self.query.accounts[0], account1, @"First account should be account2.");
-	XCTAssertEqualObjects(self.query.accounts[1], account2, @"Second account should be account1.");
+	XCTAssertEqualObjects(self.query.accounts[0], account2, @"First account should be account2.");
+	XCTAssertEqualObjects(self.query.accounts[1], account1, @"Second account should be account1.");
 }
 
 @end

@@ -45,7 +45,7 @@
 	DCTTestAccount *account = [DCTTestAccount new];
 	[self.store saveAccount:account];
 	XCTAssertTrue(self.store.accounts.count == 1, @"Store should have one account.");
-	XCTAssertEqualObjects([self.store.accounts firstObject], account, @"The account should be the inserted account.");
+	XCTAssertEqualObjects([self.store.accounts anyObject], account, @"The account should be the inserted account.");
 }
 
 - (void)testInsertion2 {
@@ -73,7 +73,7 @@
 	[self.store saveAccount:account2];
 	[self.store deleteAccount:account1];
 	XCTAssertEqual(self.store.accounts.count, (NSUInteger)1, @"The store should contain one account.");
-	XCTAssertEqualObjects([self.store.accounts firstObject], account2, @"The account should be account2.");
+	XCTAssertEqualObjects([self.store.accounts anyObject], account2, @"The account should be account2.");
 }
 
 @end

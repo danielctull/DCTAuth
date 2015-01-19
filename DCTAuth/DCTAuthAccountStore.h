@@ -61,19 +61,9 @@ extern NSString *const DCTAuthAccountStoreAccountKey;
 /// @name Getting accounts
 
 /**
- *  Allows filtering of the list of accounts. It only prevents an account from
- *  being added to the accounts array it doesn't change the underlying storage; 
- *  Accounts will not be removed from the keychain regardless of whether this
- *  predicate is set or not.
- *
- *  The predicate is asked to evaluate a DCTAuthAccount object.
- */
-@property (nonatomic) NSPredicate *accountPredicate;
-
-/**
  *  The accounts managed by this account store. 
  */
-@property(nonatomic, readonly) NSArray *accounts;
+@property(nonatomic, readonly) NSSet *accounts;
 
 /** 
  *  Returns all accounts of the specified type.
@@ -82,7 +72,7 @@ extern NSString *const DCTAuthAccountStoreAccountKey;
  *  @return All accounts that match accountType.
  *  @see [DCTAuthAccount type]
  */
-- (NSArray *)accountsWithType:(NSString *)accountType;
+- (NSSet *)accountsWithType:(NSString *)accountType;
 
 /**
  *  Returns the account with the specified identifier.
@@ -90,7 +80,7 @@ extern NSString *const DCTAuthAccountStoreAccountKey;
  *  @param identifier A unique identifier for an account.
  *  @return The account that matches the value specified in identifier.
  */
-- (DCTAuthAccount<DCTAuthAccountSubclass> *)accountWithIdentifier:(NSString *)identifier;
+- (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier;
 
 /// @name Managing accounts
 

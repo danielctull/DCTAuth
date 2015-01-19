@@ -146,7 +146,7 @@ const struct DCTAuthAccountStoreQueryAttributes DCTAuthAccountStoreQueryAttribut
 							predciate:(NSPredicate *)predicate
 					  sortDescriptors:(NSArray *)sortDescriptors {
 
-	NSArray *accounts = objectStore.accounts;
+	NSArray *accounts = [objectStore.accounts allObjects];
 
 	if (!accounts) {
 		return @[];

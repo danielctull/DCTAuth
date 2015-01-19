@@ -34,6 +34,7 @@ static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccount
 static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 @interface DCTAuthAccountStore ()
+@property(nonatomic, readwrite) NSSet *accounts;
 @property (nonatomic, copy) NSString *accessGroup;
 @property (nonatomic) BOOL synchronizable;
 @property (nonatomic) NSTimer *updateTimer;
@@ -87,6 +88,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	_name = [name copy];
 	_accessGroup = [accessGroup copy];
 	_synchronizable = synchronizable;
+	_accounts = [NSSet new];
 	[self updateAccountList];
 
 	if (accessGroup.length == 0 && !synchronizable) return self;
@@ -150,8 +152,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 			DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 			account.accountStore = self;
 			NSString *accountIdentifier = account.identifier;
-			[self updateAccount:account];
-			[accountIdentifiersToDelete removeObject:accountIdentifier];
+
+			DCTAuthAccount *existingAccount = [self accountWithIdentifier:accountIdentifier];
+			if (![account.saveUUID isEqualToString:existingAccount.saveUUID]) {
+				[self updateExistingAccount:existingAccount newAccount:account];
+				[accountIdentifiersToDelete removeObject:accountIdentifier];
+			}
 		}
 
 #pragma clang diagnostic push
@@ -164,25 +170,20 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	}];
 
 	for (NSString *accountIdentifier in accountIdentifiersToDelete) {
-		DCTAuthAccount<DCTAuthAccountSubclass> *account = [self accountWithIdentifier:accountIdentifier];
+		DCTAuthAccount *account = [self accountWithIdentifier:accountIdentifier];
 		[self deleteAccount:account];
 	}
 }
 
-- (void)setAccountPredicate:(NSPredicate *)accountPredicate {
-	_accountPredicate = accountPredicate;
-	[self updateAccountList];
+- (NSSet *)accountsWithType:(NSString *)accountType {
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAbstractAuthAccountProperties.type, accountType];
+	return [self.accounts filteredSetUsingPredicate:predicate];
 }
 
-- (NSArray *)accountsWithType:(NSString *)type {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAbstractAuthAccountProperties.type, type];
-	return [self.accounts filteredArrayUsingPredicate:predicate];
-}
-
-- (DCTAuthAccount<DCTAuthAccountSubclass> *)accountWithIdentifier:(NSString *)identifier {
+- (DCTAuthAccount *)accountWithIdentifier:(NSString *)identifier {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", DCTAbstractAuthAccountProperties.identifier, identifier];
-	NSArray *filteredAccounts = [self.accounts filteredArrayUsingPredicate:predicate];
-	return [filteredAccounts lastObject];
+	NSSet *filteredAccounts = [self.accounts filteredSetUsingPredicate:predicate];
+	return [filteredAccounts anyObject];
 }
 
 - (void)saveAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account {
@@ -206,11 +207,15 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 						accessGroup:self.accessGroup
 					 synchronizable:self.synchronizable];
 
-	[self removeAccount:account];
-	[self insertAccount:account];
-
 	// This will cause the account to call back to save its credential
 	account.accountStore = self;
+
+	DCTAuthAccount *existingAccount = [self accountWithIdentifier:account.identifier];
+	if (existingAccount) {
+		[self updateExistingAccount:existingAccount newAccount:account];
+	} else {
+		[self insertAccount:account];
+	}
 }
 
 - (void)deleteAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account {
@@ -230,59 +235,26 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 }
 
 - (void)removeAccount:(DCTAuthAccount *)account {
-	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
-	[array removeObject:account];
+	NSMutableSet *accounts = [self mutableSetValueForKey:DCTAuthAccountStoreProperties.accounts];
+	[accounts removeObject:account];
 	[self postNotificationWithName:DCTAuthAccountStoreDidRemoveAccountNotification account:account];
 }
 
 - (void)insertAccount:(DCTAuthAccount *)account {
-	NSMutableArray *accounts = [self.accounts mutableCopy];
+	NSMutableSet *accounts = [self mutableSetValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[accounts addObject:account];
-	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAbstractAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
-	NSUInteger index = [accounts indexOfObject:account];
-	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
-	[array insertObject:account atIndex:index];
 	[self postNotificationWithName:DCTAuthAccountStoreDidInsertAccountNotification account:account];
 }
 
-- (void)updateAccount:(DCTAuthAccount *)account {
+- (void)updateExistingAccount:(DCTAuthAccount *)oldAccount newAccount:(DCTAuthAccount *)newAccount {
 
-	DCTAuthAccount *currentAccount = [self accountWithIdentifier:account.identifier];
-
-	// If no predicate is set, we show all the accounts we can
-	BOOL shouldListAccount = self.accountPredicate ? [self.accountPredicate evaluateWithObject:account] : YES;
-	if (!shouldListAccount) {
-
-		if (currentAccount)
-			[self removeAccount:currentAccount];
-
-		return;
+	if (![oldAccount isEqual:newAccount]) {
+		NSMutableSet *accounts = [self mutableSetValueForKey:DCTAuthAccountStoreProperties.accounts];
+		[accounts removeObject:oldAccount];
+		[accounts addObject:newAccount];
 	}
 
-	if ([currentAccount.saveUUID isEqualToString:account.saveUUID]) return;
-
-	if (!currentAccount) {
-		[self insertAccount:account];
-		return;
-	}
-
-	NSMutableArray *accounts = [self.accounts mutableCopy];
-	NSUInteger currentIndex = [accounts indexOfObject:currentAccount];
-	[accounts removeObject:currentAccount];
-	[accounts addObject:account];
-	[accounts sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:DCTAbstractAuthAccountProperties.accountDescription ascending:YES selector:@selector(localizedStandardCompare:)]]];
-	NSUInteger newIndex = [accounts indexOfObject:account];
-
-	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
-
-	if (currentIndex == newIndex) {
-		[array replaceObjectAtIndex:currentIndex withObject:account];
-		return;
-	}
-
-	[self removeAccount:currentAccount];
-	[self insertAccount:account];
-	[self postNotificationWithName:DCTAuthAccountStoreDidChangeAccountNotification account:account];
+	[self postNotificationWithName:DCTAuthAccountStoreDidChangeAccountNotification account:newAccount];
 }
 
 - (void)postNotificationWithName:(NSString *)name account:(DCTAuthAccount *)account {
@@ -291,6 +263,11 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 }
 
 @end
+
+
+
+
+#pragma mark - Credentials
 
 @implementation DCTAuthAccountStore (Private)
 
