@@ -154,10 +154,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 			NSString *accountIdentifier = account.identifier;
 
 			DCTAuthAccount *existingAccount = [self accountWithIdentifier:accountIdentifier];
-			if (![account.saveUUID isEqualToString:existingAccount.saveUUID]) {
+			if (!existingAccount) {
+				[self insertAccount:account];
+			} else if (![account.saveUUID isEqualToString:existingAccount.saveUUID]) {
 				[self updateExistingAccount:existingAccount newAccount:account];
-				[accountIdentifiersToDelete removeObject:accountIdentifier];
 			}
+			[accountIdentifiersToDelete removeObject:accountIdentifier];
 		}
 
 #pragma clang diagnostic push
