@@ -18,24 +18,19 @@
 
 @implementation DCTAbstractAuthAccount
 
-- (instancetype)init {
+- (instancetype)initWithType:(NSString *)type {
 	self = [super init];
 	if (!self) return nil;
+	_type = [type copy];
+	_identifier = [[NSUUID UUID] UUIDString];
 	_extraItems = [NSMutableDictionary new];
 	_shouldSendCallbackURL = YES;
 	return self;
 }
 
-- (instancetype)initWithType:(NSString *)type {
-	self = [self init];
-	if (!self) return nil;
-	_type = [type copy];
-	_identifier = [[NSUUID UUID] UUIDString];
-	return self;
-}
-
 - (instancetype)initWithCoder:(NSCoder *)coder {
-	self = [self init];
+	NSString *type = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.type];
+	self = [self initWithType:type];
 	if (!self) return nil;
 	_type = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.type];
 	_identifier = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.identifier];
@@ -45,7 +40,8 @@
 	_userInfo = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.userInfo];
 	_saveUUID = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.saveUUID];
 
-	_extraItems = [coder decodeObjectOfClass:[NSArray class] forKey:DCTAbstractAuthAccountProperties.extraItems];
+	NSDictionary *extraItems = [coder decodeObjectOfClass:[NSDictionary class] forKey:DCTAbstractAuthAccountProperties.extraItems];
+	[_extraItems addEntriesFromDictionary:extraItems];
 
 	return self;
 }

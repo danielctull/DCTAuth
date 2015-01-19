@@ -9,6 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTOAuth2Credential.h"
 
+/** Implementation of OAuth 2.0. */
 @interface DCTOAuth2Account : DCTAuthAccount
 
 /**

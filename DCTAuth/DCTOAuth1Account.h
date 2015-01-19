@@ -11,6 +11,7 @@
 #import "DCTOAuth1ParameterTransmission.h"
 #import "DCTOAuth1Credential.h"
 
+/** Implementation of OAuth 1.0. */
 @interface DCTOAuth1Account : DCTAuthAccount
 
 /**

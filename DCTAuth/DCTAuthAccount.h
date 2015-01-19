@@ -11,14 +11,48 @@
 @protocol DCTAuthAccountCredential;
 @protocol DCTAuthAccountSubclass;
 
-/** 
- *  A DCTAuthAccount object encapsulates information about a user account
- *  stored in the database. You can create and retrieve accounts using an 
- *  DCTAuthAccountStore object. The DCTAuthAccountStore object provides an 
- *  interface to the persistent database. All account objects belong to a 
- *  single DCTAuthAccountStore object.
- */
+
+/**
+ DCTAbstractAuthAccount is an abstract class that should
+ be subclassed to use. DCTAuth provides the following account
+ subclasses; DCTOAuth1Account, DCTOAuth2Account and
+ DCTBasicAuthAccount.
+ 
+ An account provides information about a user account, as
+ well as implementing authentications with servers.
+ 
+ Subclasses need to implement the authentication methods
+ in DCTAuthAccountSubclass.
+
+ For simplicitiy there is `DCTAuthAccount` which is defined as:
+ 
+	typedef DCTAbstractAuthAccount<DCTAuthAccountSubclass> DCTAuthAccount;
+
+ This means subclasses can inherit from this and will
+ get warnings for methods in `DCTAuthAccountSubclass` that 
+ haven't been implmented. For example, DCTOAuth1Account is defined
+ as:
+
+	@interface DCTOAuth1Account : DCTAuthAccount
+
+ This is also compatible with how account subclasses were created in 
+ past versions of DCTAuth.
+*/
 @interface DCTAbstractAuthAccount : NSObject <NSCoding>
+
+#pragma mark - Initialization
+/// @name Initialization
+
+/**
+ *  Initializer for DCTAuthAccount, subclasses should call this method to initialize.
+ *
+ *  @param type The type of the account.
+ *  @return The newly initialized object.
+ *  @see type
+ */
+- (instancetype)initWithType:(NSString *)type __attribute((objc_requires_super)) __attribute__((objc_designated_initializer));
+
+
 
 #pragma mark - Accessing Properties
 /// @name Accessing Properties
@@ -51,14 +85,15 @@
  */
 @property (nonatomic, readonly, getter = isAuthorized) BOOL authorized;
 
+/** The credential for the account. */
 @property (nonatomic) id<DCTAuthAccountCredential> credential;
 
-/** 
- *  A human-readable description of the account.
- */
+/** A human-readable description of the account. */
 @property (nonatomic, copy) NSString *accountDescription;
 
-/// @name Authentication
+
+#pragma mark - Callback
+/// @name Callback
 
 /** 
  *  The URL the OAuth authorization process will call back to.
@@ -77,31 +112,27 @@
  */
 @property (nonatomic) BOOL shouldSendCallbackURL;
 
-#pragma mark - Extra Parameters
-/// @name Extra Parameters
+#pragma mark - Extra Items
+/// @name Extra Items
 
+/** Get the extra items that were defined for the request type. */
 - (NSArray *)itemsForRequestType:(NSString *)requestType;
 
 /** Allows users to set extra NSQueryItems for a particular request type.
  *
  *  Currently the OAuth 2 accounts are the only ones to make use of these extra items. (See the DCTOAuth2RequestType struct) 
+ *
+ *	@see itemsForRequestType:
  */
 - (void)setItems:(NSArray *)items forRequestType:(NSString *)requestType;
 
+/** User info that gets saved with the account. 
+ 
+ All items should conform to NSCoding.
+*/
 @property (nonatomic, copy) NSDictionary *userInfo;
-
-#pragma mark - Method for subclasses to call
-/// @name Method for subclasses to call
-
-/** 
- *  Initializer for DCTAuthAccount, subclasses should call this method to initialize.
- *
- *  @param type The type of the account.
- *  @return The newly initialized object.
- *  @see type 
- */
-- (instancetype)initWithType:(NSString *)type __attribute((objc_requires_super));
 
 @end
 
+/** Trial */
 typedef DCTAbstractAuthAccount<DCTAuthAccountSubclass> DCTAuthAccount;

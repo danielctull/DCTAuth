@@ -9,6 +9,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTBasicAuthCredential.h"
 
+/** Implementation of basic authentication	. */
 @interface DCTBasicAuthAccount : DCTAuthAccount
 
 /**
