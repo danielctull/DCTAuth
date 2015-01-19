@@ -11,6 +11,16 @@
 @protocol DCTAuthAccountCredential;
 @protocol DCTAuthAccountSubclass;
 
+extern const struct DCTAuthAccountProperties {
+	__unsafe_unretained NSString *type;
+	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *accountDescription;
+	__unsafe_unretained NSString *callbackURL;
+	__unsafe_unretained NSString *shouldSendCallbackURL;
+	__unsafe_unretained NSString *userInfo;
+	__unsafe_unretained NSString *saveUUID;
+	__unsafe_unretained NSString *extraItems;
+} DCTAuthAccountProperties;
 
 /**
  DCTAbstractAuthAccount is an abstract class that should

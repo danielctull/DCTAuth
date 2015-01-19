@@ -8,21 +8,10 @@
 
 #import "DCTTestAccount.h"
 
-const struct DCTTestAccountAttributes DCTTestAccountAttributes = {
-	.name = @"name"
-};
-
 @implementation DCTTestAccount
 
 - (instancetype)init {
-	return [self initWithName:[[NSUUID UUID] UUIDString]];
-}
-
-- (instancetype)initWithName:(NSString *)name {
-	self = [super initWithType:@"Test Account"];
-	if (!self) return nil;
-	_name = [name copy];
-	return self;
+	return [super initWithType:[[NSUUID UUID] UUIDString]];
 }
 
 #pragma mark - DCTAuthAccountSubclass

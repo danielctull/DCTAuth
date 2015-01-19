@@ -8,13 +8,6 @@
 
 @import DCTAuth;
 
-extern const struct DCTTestAccountAttributes {
-	__unsafe_unretained NSString *name;
-} DCTTestAccountAttributes;
-
 @interface DCTTestAccount : DCTAuthAccount
-
-- (instancetype)initWithName:(NSString *)name;
-@property (nonatomic, readonly) NSString *name;
-
+- (instancetype)init;
 @end

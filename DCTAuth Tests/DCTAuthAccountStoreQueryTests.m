@@ -20,7 +20,7 @@
 - (void)setUp {
 	[super setUp];
 	self.store = [DCTAuthAccountStore accountStoreWithName:[[NSUUID UUID] UUIDString]];
-	NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:DCTTestAccountAttributes.name ascending:YES]];
+	NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:DCTAuthAccountProperties.accountDescription ascending:YES]];
 	self.query = [[DCTAuthAccountStoreQuery alloc] initWithAccountStore:self.store predciate:nil sortDescriptors:sortDescriptors];
 }
 
@@ -37,9 +37,12 @@
 }
 
 - (void)testInsertion2 {
-	DCTTestAccount *account1 = [[DCTTestAccount alloc] initWithName:@"1"];
-	DCTTestAccount *account2 = [[DCTTestAccount alloc] initWithName:@"2"];
+	DCTTestAccount *account1 = [DCTTestAccount new];
+	account1.accountDescription = @"1";
 	[self.store saveAccount:account1];
+
+	DCTTestAccount *account2 = [DCTTestAccount new];
+	account2.accountDescription = @"2";
 	[self.store saveAccount:account2];
 
 	XCTAssertEqual(self.query.accounts.count, (NSUInteger)2, @"Query should have two accounts.");
@@ -55,10 +58,14 @@
 }
 
 - (void)testDeletion2 {
-	DCTTestAccount *account1 = [[DCTTestAccount alloc] initWithName:@"1"];
-	DCTTestAccount *account2 = [[DCTTestAccount alloc] initWithName:@"2"];
+	DCTTestAccount *account1 = [DCTTestAccount new];
+	account1.accountDescription = @"1";
 	[self.store saveAccount:account1];
+
+	DCTTestAccount *account2 = [DCTTestAccount new];
+	account2.accountDescription = @"2";
 	[self.store saveAccount:account2];
+
 	[self.store deleteAccount:account1];
 
 	XCTAssertEqual(self.query.accounts.count, (NSUInteger)1, @"Query should have one account.");

@@ -160,6 +160,12 @@
 		24A6A6701A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */; };
 		24A6A6711A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */; };
 		24A6A6721A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */; };
+		24D0089C1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */; };
+		24D0089D1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */; };
+		24D0089F1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089E1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m */; };
+		24D008A01A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089E1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m */; };
+		24D008A21A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D008A11A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m */; };
+		24D008A31A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D008A11A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m */; };
 		24FA900615E93D8E00E1ED99 /* DCTOAuth1SignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuth1SignatureTests.m */; };
 		24FA902015E93E0200E1ED99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA901F15E93E0200E1ED99 /* main.m */; };
 		24FA902415E93E0200E1ED99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA902315E93E0200E1ED99 /* AppDelegate.m */; };
@@ -290,6 +296,9 @@
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
 		24C6238815EBBB8800B68FAD /* NSArray+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+DCTAuth.h"; sourceTree = "<group>"; };
 		24C6238915EBBB8800B68FAD /* NSArray+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+DCTAuth.m"; sourceTree = "<group>"; };
+		24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStoreQueryPredicateTests.m; sourceTree = "<group>"; };
+		24D0089E1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStoreQuerySortDescriptorTests.m; sourceTree = "<group>"; };
+		24D008A11A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStoreQueryDelegateTests.m; sourceTree = "<group>"; };
 		24FA8FEC15E93D8E00E1ED99 /* DCTAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTAuth.h; sourceTree = "<group>"; };
 		24FA8FF515E93D8E00E1ED99 /* DCTAuth Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DCTAuth Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FA900015E93D8E00E1ED99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -512,6 +521,9 @@
 		24FA8FFE15E93D8E00E1ED99 /* DCTAuth Tests */ = {
 			isa = PBXGroup;
 			children = (
+				24D008A11A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m */,
+				24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */,
+				24D0089E1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m */,
 				248B70601A6D5551004373C6 /* DCTAuthAccountStoreQueryTests.m */,
 				248B705D1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m */,
 				2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */,
@@ -899,6 +911,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24D008A31A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m in Sources */,
+				24D0089D1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m in Sources */,
+				24D008A01A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m in Sources */,
 				248B70621A6D5551004373C6 /* DCTAuthAccountStoreQueryTests.m in Sources */,
 				248B705F1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m in Sources */,
 				24307BC51A690D67006D27E1 /* DCTAuthContentTypeTests.m in Sources */,
@@ -950,6 +965,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24D008A21A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m in Sources */,
+				24D0089C1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m in Sources */,
+				24D0089F1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m in Sources */,
 				248B70611A6D5551004373C6 /* DCTAuthAccountStoreQueryTests.m in Sources */,
 				248B705E1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m in Sources */,
 				2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */,

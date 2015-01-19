@@ -10,6 +10,17 @@
 #import "DCTAuthAccountStore+Private.h"
 #import "DCTAbstractAuthAccountProperties.h"
 
+const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
+	.type = @"type",
+	.identifier = @"identifier",
+	.accountDescription = @"accountDescription",
+	.callbackURL = @"callbackURL",
+	.shouldSendCallbackURL = @"shouldSendCallbackURL",
+	.userInfo = @"userInfo",
+	.saveUUID = @"saveUUID",
+	.extraItems = @"extraItems"
+};
+
 @interface DCTAbstractAuthAccount ()
 @property (nonatomic, strong) id<DCTAuthAccountCredential> internalCredential;
 @property (nonatomic, copy) NSURL *discoveredCallbackURL;
