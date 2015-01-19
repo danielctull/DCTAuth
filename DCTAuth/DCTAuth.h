@@ -7,13 +7,18 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTAuthAccountCredential.h"
+
 #import "DCTAuthAccountStore.h"
+#import "DCTAuthAccountStoreQuery.h"
+#import "DCTAuthAccountStoreQueryDelegate.h"
+
 #import "DCTAuthRequest.h"
 
-#import "DCTAuthAccountCredential.h"
 #import "DCTAuthPlatform.h"
 
 #import "DCTBasicAuthAccount.h"
+
 #import "DCTOAuth1Account.h"
 
 #import "DCTOAuth2Account.h"
