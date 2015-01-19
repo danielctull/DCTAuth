@@ -38,7 +38,7 @@
  This is also compatible with how account subclasses were created in 
  past versions of DCTAuth.
 */
-@interface DCTAbstractAuthAccount : NSObject <NSCoding>
+@interface DCTAbstractAuthAccount : NSObject <NSSecureCoding>
 
 #pragma mark - Initialization
 /// @name Initialization

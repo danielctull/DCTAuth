@@ -28,35 +28,6 @@
 	return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-	NSString *type = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.type];
-	self = [self initWithType:type];
-	if (!self) return nil;
-	_type = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.type];
-	_identifier = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.identifier];
-	_callbackURL = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.callbackURL];
-	_shouldSendCallbackURL = [coder decodeBoolForKey:DCTAbstractAuthAccountProperties.shouldSendCallbackURL];
-	_accountDescription = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.accountDescription];
-	_userInfo = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.userInfo];
-	_saveUUID = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.saveUUID];
-
-	NSDictionary *extraItems = [coder decodeObjectOfClass:[NSDictionary class] forKey:DCTAbstractAuthAccountProperties.extraItems];
-	[_extraItems addEntriesFromDictionary:extraItems];
-
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.type forKey:DCTAbstractAuthAccountProperties.type];
-	[coder encodeObject:self.identifier forKey:DCTAbstractAuthAccountProperties.identifier];
-	[coder encodeObject:self.callbackURL forKey:DCTAbstractAuthAccountProperties.callbackURL];
-	[coder encodeBool:self.shouldSendCallbackURL forKey:DCTAbstractAuthAccountProperties.shouldSendCallbackURL];
-	[coder encodeObject:self.accountDescription forKey:DCTAbstractAuthAccountProperties.accountDescription];
-	[coder encodeObject:self.userInfo forKey:DCTAbstractAuthAccountProperties.userInfo];
-	[coder encodeObject:self.saveUUID forKey:DCTAbstractAuthAccountProperties.saveUUID];
-	[coder encodeObject:self.extraItems forKey:DCTAbstractAuthAccountProperties.extraItems];
-}
-
 - (void)setItems:(NSArray *)items forRequestType:(NSString *)requestType {
 	[self.extraItems setObject:[items copy] forKey:requestType];
 }
@@ -116,6 +87,43 @@
 	
 	return self.discoveredCallbackURL;
 }
+
+#pragma mark - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+	return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+	NSString *type = [coder decodeObjectForKey:DCTAbstractAuthAccountProperties.type];
+	self = [self initWithType:type];
+	if (!self) return nil;
+	_type = [coder decodeObjectOfClass:[NSString class] forKey:DCTAbstractAuthAccountProperties.type];
+	_identifier = [coder decodeObjectOfClass:[NSString class] forKey:DCTAbstractAuthAccountProperties.identifier];
+	_callbackURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTAbstractAuthAccountProperties.callbackURL];
+	_shouldSendCallbackURL = [coder decodeBoolForKey:DCTAbstractAuthAccountProperties.shouldSendCallbackURL];
+	_accountDescription = [coder decodeObjectOfClass:[NSString class] forKey:DCTAbstractAuthAccountProperties.accountDescription];
+	_userInfo = [coder decodeObjectOfClass:[NSDictionary class] forKey:DCTAbstractAuthAccountProperties.userInfo];
+	_saveUUID = [coder decodeObjectOfClass:[NSString class] forKey:DCTAbstractAuthAccountProperties.saveUUID];
+
+	NSDictionary *extraItems = [coder decodeObjectOfClass:[NSDictionary class] forKey:DCTAbstractAuthAccountProperties.extraItems];
+	[_extraItems addEntriesFromDictionary:extraItems];
+
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.type forKey:DCTAbstractAuthAccountProperties.type];
+	[coder encodeObject:self.identifier forKey:DCTAbstractAuthAccountProperties.identifier];
+	[coder encodeObject:self.callbackURL forKey:DCTAbstractAuthAccountProperties.callbackURL];
+	[coder encodeBool:self.shouldSendCallbackURL forKey:DCTAbstractAuthAccountProperties.shouldSendCallbackURL];
+	[coder encodeObject:self.accountDescription forKey:DCTAbstractAuthAccountProperties.accountDescription];
+	[coder encodeObject:self.userInfo forKey:DCTAbstractAuthAccountProperties.userInfo];
+	[coder encodeObject:self.saveUUID forKey:DCTAbstractAuthAccountProperties.saveUUID];
+	[coder encodeObject:self.extraItems forKey:DCTAbstractAuthAccountProperties.extraItems];
+}
+
+#pragma mark - NSObject
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; type = %@; identifier = %@; credential = %@>",

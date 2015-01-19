@@ -24,10 +24,12 @@ static const struct DCTOAuth1CredentialProperties DCTOAuth1CredentialProperties 
 
 @implementation DCTOAuth1Credential
 
+#pragma mark - DCTOAuth1Credential
+
 - (instancetype)initWithConsumerKey:(NSString *)consumerKey
-		   consumerSecret:(NSString *)consumerSecret
-			   oauthToken:(NSString *)oauthToken
-		 oauthTokenSecret:(NSString *)oauthTokenSecret {
+					 consumerSecret:(NSString *)consumerSecret
+						 oauthToken:(NSString *)oauthToken
+				   oauthTokenSecret:(NSString *)oauthTokenSecret {
 
 	if (consumerKey.length == 0) return nil;
 	if (consumerSecret.length == 0) return nil;
@@ -43,13 +45,19 @@ static const struct DCTOAuth1CredentialProperties DCTOAuth1CredentialProperties 
 	return self;
 }
 
+#pragma mark - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+	return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [self init];
 	if (!self) return nil;
-	_consumerKey = [coder decodeObjectForKey:DCTOAuth1CredentialProperties.consumerKey];
-	_consumerSecret = [coder decodeObjectForKey:DCTOAuth1CredentialProperties.consumerSecret];
-	_oauthToken = [coder decodeObjectForKey:DCTOAuth1CredentialProperties.oauthToken];
-	_oauthTokenSecret = [coder decodeObjectForKey:DCTOAuth1CredentialProperties.oauthTokenSecret];
+	_consumerKey = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth1CredentialProperties.consumerKey];
+	_consumerSecret = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth1CredentialProperties.consumerSecret];
+	_oauthToken = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth1CredentialProperties.oauthToken];
+	_oauthTokenSecret = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth1CredentialProperties.oauthTokenSecret];
 	return self;
 }
 
@@ -59,6 +67,8 @@ static const struct DCTOAuth1CredentialProperties DCTOAuth1CredentialProperties 
 	[coder encodeObject:self.oauthToken forKey:DCTOAuth1CredentialProperties.oauthToken];
 	[coder encodeObject:self.oauthTokenSecret forKey:DCTOAuth1CredentialProperties.oauthTokenSecret];
 }
+
+#pragma mark - NSObject
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; %@ = %@; %@ = %@; %@ = %@; %@ = %@>",

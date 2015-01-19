@@ -40,7 +40,7 @@ static const struct DCTBasicAuthCredentialProperties DCTBasicAuthCredentialPrope
 	return [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding {
 	return YES;

@@ -21,5 +21,5 @@
  
  @see -[DCTAuthAccount credential]
  */
-@protocol DCTAuthAccountCredential <NSObject, NSCoding>
+@protocol DCTAuthAccountCredential <NSObject, NSSecureCoding>
 @end

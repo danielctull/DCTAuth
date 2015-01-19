@@ -36,6 +36,8 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 @implementation DCTOAuth2Account
 
+#pragma mark - DCTOAuth2Account
+
 - (instancetype)initWithType:(NSString *)type
 				authorizeURL:(NSURL *)authorizeURL
 					username:(NSString *)username
@@ -83,24 +85,6 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	_password = [password copy];
 	_scopes = [scopes copy];
 	return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-	self = [super initWithCoder:coder];
-	if (!self) return nil;
-	_authorizeURL = [coder decodeObjectForKey:DCTOAuth2AccountProperties.authorizeURL];
-	_accessTokenURL = [coder decodeObjectForKey:DCTOAuth2AccountProperties.accessTokenURL];
-	_username = [coder decodeObjectForKey:DCTOAuth2AccountProperties.username];
-	_scopes = [coder decodeObjectForKey:DCTOAuth2AccountProperties.scopes];
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[super encodeWithCoder:coder];
-	[coder encodeObject:self.authorizeURL forKey:DCTOAuth2AccountProperties.authorizeURL];
-	[coder encodeObject:self.accessTokenURL forKey:DCTOAuth2AccountProperties.accessTokenURL];
-	[coder encodeObject:self.username forKey:DCTOAuth2AccountProperties.username];
-	[coder encodeObject:self.scopes forKey:DCTOAuth2AccountProperties.scopes];
 }
 
 - (NSString *)scopeString {
@@ -436,6 +420,26 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	URLComponents.queryItems = items;
 	request.URL = URLComponents.URL;
+}
+
+#pragma mark - NSSecureCoding
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+	self = [super initWithCoder:coder];
+	if (!self) return nil;
+	_authorizeURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTOAuth2AccountProperties.authorizeURL];
+	_accessTokenURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTOAuth2AccountProperties.accessTokenURL];
+	_username = [coder decodeObjectOfClass:[NSString class] forKey:DCTOAuth2AccountProperties.username];
+	_scopes = [coder decodeObjectOfClass:[NSArray class] forKey:DCTOAuth2AccountProperties.scopes];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[super encodeWithCoder:coder];
+	[coder encodeObject:self.authorizeURL forKey:DCTOAuth2AccountProperties.authorizeURL];
+	[coder encodeObject:self.accessTokenURL forKey:DCTOAuth2AccountProperties.accessTokenURL];
+	[coder encodeObject:self.username forKey:DCTOAuth2AccountProperties.username];
+	[coder encodeObject:self.scopes forKey:DCTOAuth2AccountProperties.scopes];
 }
 
 @end

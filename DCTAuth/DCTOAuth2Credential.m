@@ -64,7 +64,7 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 	return [NSString stringWithFormat:@"%@ %@", DCTOAuth2Keys.bearer, self.accessToken];
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding {
 	return YES;

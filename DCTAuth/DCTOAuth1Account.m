@@ -42,6 +42,8 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 
 @implementation DCTOAuth1Account
 
+#pragma mark - DCTOAuth1Account
+
 - (instancetype)initWithType:(NSString *)type
 			 requestTokenURL:(NSURL *)requestTokenURL
 				authorizeURL:(NSURL *)authorizeURL
@@ -68,7 +70,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 			   signatureType:(DCTOAuth1SignatureType)signatureType
 	   parameterTransmission:(DCTOAuth1ParameterTransmission)parameterTransmission {
 	
-	self = [self initWithType:type];
+	self = [super initWithType:type];
 	if (!self) return nil;
 	
 	_requestTokenURL = [requestTokenURL copy];
@@ -82,14 +84,16 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	return self;
 }
 
+#pragma mark - NSSecureCoding
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
-	_requestTokenURL = [coder decodeObjectForKey:DCTOAuth1AccountProperties.requestTokenURL];
-	_accessTokenURL = [coder decodeObjectForKey:DCTOAuth1AccountProperties.accessTokenURL];
-	_authorizeURL = [coder decodeObjectForKey:DCTOAuth1AccountProperties.authorizeURL];
-	_signatureType = [[coder decodeObjectForKey:DCTOAuth1AccountProperties.signatureType] integerValue];
-	_parameterTransmission = [[coder decodeObjectForKey:DCTOAuth1AccountProperties.parameterTransmission] integerValue];
+	_requestTokenURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTOAuth1AccountProperties.requestTokenURL];
+	_accessTokenURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTOAuth1AccountProperties.accessTokenURL];
+	_authorizeURL = [coder decodeObjectOfClass:[NSURL class] forKey:DCTOAuth1AccountProperties.authorizeURL];
+	_signatureType = [[coder decodeObjectOfClass:[NSNumber class] forKey:DCTOAuth1AccountProperties.signatureType] integerValue];
+	_parameterTransmission = [[coder decodeObjectOfClass:[NSNumber class] forKey:DCTOAuth1AccountProperties.parameterTransmission] integerValue];
 	return self;
 }
 
