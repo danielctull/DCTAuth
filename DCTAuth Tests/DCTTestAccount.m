@@ -10,6 +10,10 @@
 
 @implementation DCTTestAccount
 
+- (instancetype)init {
+	return [super initWithType:@"Test Account"];
+}
+
 #pragma mark - DCTAuthAccountSubclass
 
 - (void)signURLRequest:(NSMutableURLRequest *)request {}

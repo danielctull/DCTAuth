@@ -140,6 +140,8 @@
 		248B70581A6D4FAA004373C6 /* DCTTestAccountStoreQueryDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B70561A6D4FAA004373C6 /* DCTTestAccountStoreQueryDelegate.m */; };
 		248B705B1A6D5091004373C6 /* DCTTestAccountStoreQueryDelegateEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B705A1A6D5091004373C6 /* DCTTestAccountStoreQueryDelegateEvent.m */; };
 		248B705C1A6D5091004373C6 /* DCTTestAccountStoreQueryDelegateEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B705A1A6D5091004373C6 /* DCTTestAccountStoreQueryDelegateEvent.m */; };
+		248B705E1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B705D1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m */; };
+		248B705F1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B705D1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m */; };
 		24A6A6571A6AD52B001F1DD5 /* DCTOAuth1SignatureType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6551A6AD52B001F1DD5 /* DCTOAuth1SignatureType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24A6A6581A6AD52B001F1DD5 /* DCTOAuth1SignatureType.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A6551A6AD52B001F1DD5 /* DCTOAuth1SignatureType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24A6A65C1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A65B1A6AD64C001F1DD5 /* DCTOAuth1ParameterTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -259,6 +261,7 @@
 		248B70561A6D4FAA004373C6 /* DCTTestAccountStoreQueryDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTTestAccountStoreQueryDelegate.m; sourceTree = "<group>"; };
 		248B70591A6D5091004373C6 /* DCTTestAccountStoreQueryDelegateEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTTestAccountStoreQueryDelegateEvent.h; sourceTree = "<group>"; };
 		248B705A1A6D5091004373C6 /* DCTTestAccountStoreQueryDelegateEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTTestAccountStoreQueryDelegateEvent.m; sourceTree = "<group>"; };
+		248B705D1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStoreTests.m; sourceTree = "<group>"; };
 		249CAD1515EA1F0200FFD0D2 /* DCTAuthAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAuthAccountStore.h; sourceTree = "<group>"; };
 		249CAD1615EA1F0200FFD0D2 /* DCTAuthAccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStore.m; sourceTree = "<group>"; };
 		249CAD1915EA214700FFD0D2 /* NSData+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+DCTAuth.h"; sourceTree = "<group>"; };
@@ -506,6 +509,7 @@
 		24FA8FFE15E93D8E00E1ED99 /* DCTAuth Tests */ = {
 			isa = PBXGroup;
 			children = (
+				248B705D1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m */,
 				2419EA3816B918BD00901AA2 /* DCTAuthContentTypeTests.m */,
 				24561B251770733D00DD0051 /* DCTAuthKeychainTests.m */,
 				24FA900515E93D8E00E1ED99 /* DCTOAuth1SignatureTests.m */,
@@ -891,6 +895,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				248B705F1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m in Sources */,
 				24307BC51A690D67006D27E1 /* DCTAuthContentTypeTests.m in Sources */,
 				24307BC61A690D67006D27E1 /* DCTAuthKeychainTests.m in Sources */,
 				24307BC81A690D67006D27E1 /* DCTOAuth1SignatureTests.m in Sources */,
@@ -940,6 +945,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				248B705E1A6D52C6004373C6 /* DCTAuthAccountStoreTests.m in Sources */,
 				2419EA3916B918BD00901AA2 /* DCTAuthContentTypeTests.m in Sources */,
 				24561B261770733D00DD0051 /* DCTAuthKeychainTests.m in Sources */,
 				24FA900615E93D8E00E1ED99 /* DCTOAuth1SignatureTests.m in Sources */,
