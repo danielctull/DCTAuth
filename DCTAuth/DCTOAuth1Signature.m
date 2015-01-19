@@ -1,12 +1,12 @@
 //
-//  DCTOAuthSignature.m
+//  DCTOAuth1Signature.m
 //  DCTAuth
 //
 //  Created by Daniel Tull on 04.07.2010.
 //  Copyright 2010 Daniel Tull. All rights reserved.
 //
 
-#import "DCTOAuthSignature.h"
+#import "DCTOAuth1Signature.h"
 #import "DCTOAuth1Keys.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTAuth.h"
@@ -17,23 +17,23 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	@"PLAINTEXT"
 };
 
-@interface DCTOAuthSignature ()
+@interface DCTOAuth1Signature ()
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSString *consumerSecret;
 @property (nonatomic, readonly) NSString *secretToken;
 @property (nonatomic, readonly) NSString *HTTPMethod;
 @property (nonatomic, readonly) NSMutableArray *items;
-@property (nonatomic, readonly) DCTOAuthSignatureType type;
+@property (nonatomic, readonly) DCTOAuth1SignatureType type;
 @end
 
-@implementation DCTOAuthSignature
+@implementation DCTOAuth1Signature
 
 - (instancetype)initWithURL:(NSURL *)URL
 				 HTTPMethod:(NSString *)HTTPMethod
 			 consumerSecret:(NSString *)consumerSecret
 				secretToken:(NSString *)secretToken
 					  items:(NSArray *)items
-					   type:(DCTOAuthSignatureType)type {
+					   type:(DCTOAuth1SignatureType)type {
 
 	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
 	NSString *timestamp = [@((NSInteger)timeInterval) stringValue];
@@ -47,7 +47,7 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 			 consumerSecret:(NSString *)consumerSecret
 				secretToken:(NSString *)secretToken
 					  items:(NSArray *)items
-					   type:(DCTOAuthSignatureType)type
+					   type:(DCTOAuth1SignatureType)type
 				  timestamp:(NSString *)timestamp
 					  nonce:(NSString *)nonce {
 
@@ -138,13 +138,13 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 
 	switch (self.type) {
 
-		case DCTOAuthSignatureTypeHMAC_SHA1: {
+		case DCTOAuth1SignatureTypeHMAC_SHA1: {
 			NSString *signature = [NSString stringWithFormat:@"%@=\"%@\"", DCTOAuth1Keys.signature, [self.signatureString dctAuth_URLEncodedString]];
 			[parameters addObject:signature];
 			break;
 		}
 
-		case DCTOAuthSignatureTypePlaintext: {
+		case DCTOAuth1SignatureTypePlaintext: {
 			NSString *secretToken = self.secretToken ?: @"";
 			NSString *signature = [NSString stringWithFormat:@"%@=\"%@&%@\"", DCTOAuth1Keys.signature, self.consumerSecret, secretToken];
 			[parameters addObject:signature];

@@ -1,5 +1,5 @@
 //
-//  DCTOAuthSignatureType.h
+//  DCTOAuth1SignatureType.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 17.01.2015.
@@ -11,15 +11,15 @@
 /**
  *  The different OAuth signature types.
  */
-typedef NS_ENUM(NSInteger, DCTOAuthSignatureType) {
+typedef NS_ENUM(NSInteger, DCTOAuth1SignatureType) {
 	/**
 	 *  Encode using HMAC-SHA1.
 	 */
-	DCTOAuthSignatureTypeHMAC_SHA1 = 0,
+	DCTOAuth1SignatureTypeHMAC_SHA1 = 0,
 	/**
 	 *  Encode using plaintext.
 	 *
 	 *  This should be used for debugging purposes only.
 	 */
-	DCTOAuthSignatureTypePlaintext
+	DCTOAuth1SignatureTypePlaintext
 };

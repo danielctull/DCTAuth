@@ -1,5 +1,5 @@
 //
-//  DCTOAuthSignature.h
+//  DCTOAuth1Signature.h
 //  DCTAuth
 //
 //  Created by Daniel Tull on 04.07.2010.
@@ -7,23 +7,23 @@
 //
 
 @import Foundation;
-#import "DCTOAuthSignatureType.h"
+#import "DCTOAuth1SignatureType.h"
 
-@interface DCTOAuthSignature : NSObject
-
-- (instancetype)initWithURL:(NSURL *)URL
-				 HTTPMethod:(NSString *)HTTPMethod
-			 consumerSecret:(NSString *)consumerSecret
-				secretToken:(NSString *)secretToken
-					  items:(NSArray *)items
-					   type:(DCTOAuthSignatureType)type;
+@interface DCTOAuth1Signature : NSObject
 
 - (instancetype)initWithURL:(NSURL *)URL
 				 HTTPMethod:(NSString *)HTTPMethod
 			 consumerSecret:(NSString *)consumerSecret
 				secretToken:(NSString *)secretToken
 					  items:(NSArray *)items
-					   type:(DCTOAuthSignatureType)type
+					   type:(DCTOAuth1SignatureType)type;
+
+- (instancetype)initWithURL:(NSURL *)URL
+				 HTTPMethod:(NSString *)HTTPMethod
+			 consumerSecret:(NSString *)consumerSecret
+				secretToken:(NSString *)secretToken
+					  items:(NSArray *)items
+					   type:(DCTOAuth1SignatureType)type
 				  timestamp:(NSString *)timestamp
 					  nonce:(NSString *)nonce;
 

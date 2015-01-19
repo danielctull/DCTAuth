@@ -9,7 +9,7 @@
 #import "DCTOAuth1Account.h"
 #import "DCTOAuth1Keys.h"
 #import "DCTOAuth1Credential.h"
-#import "DCTOAuthSignature.h"
+#import "DCTOAuth1Signature.h"
 #import "DCTAuth.h"
 #import "DCTAuthRequest.h"
 #import "NSString+DCTAuth.h"
@@ -55,7 +55,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 			   accessTokenURL:accessTokenURL
 				  consumerKey:consumerKey
 			   consumerSecret:consumerSecret
-				signatureType:DCTOAuthSignatureTypeHMAC_SHA1
+				signatureType:DCTOAuth1SignatureTypeHMAC_SHA1
 		parameterTransmission:DCTOAuth1ParameterTransmissionAuthorizationHeader];
 }
 
@@ -65,7 +65,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 			  accessTokenURL:(NSURL *)accessTokenURL
 				 consumerKey:(NSString *)consumerKey
 			  consumerSecret:(NSString *)consumerSecret
-			   signatureType:(DCTOAuthSignatureType)signatureType
+			   signatureType:(DCTOAuth1SignatureType)signatureType
 	   parameterTransmission:(DCTOAuth1ParameterTransmission)parameterTransmission {
 	
 	self = [self initWithType:type];
@@ -149,7 +149,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 		[items addObjectsFromArray:request.items];
 		NSString *HTTPMethod = NSStringFromDCTAuthRequestMethod(request.requestMethod);
 
-		DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:request.URL
+		DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithURL:request.URL
 																   HTTPMethod:HTTPMethod
 															   consumerSecret:consumerSecret
 																  secretToken:oauthTokenSecret
@@ -271,7 +271,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 		[OAuthItems addObject:item];
 	}
 	
-	DCTOAuthSignature *signature = [[DCTOAuthSignature alloc] initWithURL:request.URL
+	DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithURL:request.URL
 															   HTTPMethod:request.HTTPMethod
 														   consumerSecret:credential.consumerSecret
 															  secretToken:credential.oauthTokenSecret
