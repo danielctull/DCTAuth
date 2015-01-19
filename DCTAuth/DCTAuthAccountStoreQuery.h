@@ -10,6 +10,12 @@
 @class DCTAuthAccountStore;
 @protocol DCTAuthAccountStoreQueryDelegate;
 
+extern const struct DCTAuthAccountStoreQueryAttributes {
+	__unsafe_unretained NSString *predicate;
+	__unsafe_unretained NSString *sortDescriptors;
+	__unsafe_unretained NSString *accounts;
+} DCTAuthAccountStoreQueryAttributes;
+
 @interface DCTAuthAccountStoreQuery : NSObject
 
 - (instancetype)initWithAccountStore:(DCTAuthAccountStore *)accountStore

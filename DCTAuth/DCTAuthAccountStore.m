@@ -25,7 +25,10 @@ const struct DCTAuthAccountStoreProperties DCTAuthAccountStoreProperties = {
 	.accounts = @"accounts"
 };
 
-NSString *const DCTAuthAccountStoreDidChangeNotification = @"DCTAuthAccountStoreDidChangeNotification";
+NSString *const DCTAuthAccountStoreDidInsertAccountNotification = @"DCTAuthAccountStoreDidInsertAccountNotification";
+NSString *const DCTAuthAccountStoreDidChangeAccountNotification = @"DCTAuthAccountStoreDidChangeAccountNotification";
+NSString *const DCTAuthAccountStoreDidRemoveAccountNotification = @"DCTAuthAccountStoreDidRemoveAccountNotification";
+NSString *const DCTAuthAccountStoreAccountKey = @"DCTAuthAccountStoreAccountKey";
 
 static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
@@ -229,7 +232,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 - (void)removeAccount:(DCTAuthAccount *)account {
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[array removeObject:account];
-	[[NSNotificationCenter defaultCenter] postNotificationName:DCTAuthAccountStoreDidChangeNotification object:self];
+	[self postNotificationWithName:DCTAuthAccountStoreDidRemoveAccountNotification account:account];
 }
 
 - (void)insertAccount:(DCTAuthAccount *)account {
@@ -239,7 +242,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSUInteger index = [accounts indexOfObject:account];
 	NSMutableArray *array = [self mutableArrayValueForKey:DCTAuthAccountStoreProperties.accounts];
 	[array insertObject:account atIndex:index];
-	[[NSNotificationCenter defaultCenter] postNotificationName:DCTAuthAccountStoreDidChangeNotification object:self];
+	[self postNotificationWithName:DCTAuthAccountStoreDidInsertAccountNotification account:account];
 }
 
 - (void)updateAccount:(DCTAuthAccount *)account {
@@ -279,6 +282,12 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 	[self removeAccount:currentAccount];
 	[self insertAccount:account];
+	[self postNotificationWithName:DCTAuthAccountStoreDidChangeAccountNotification account:account];
+}
+
+- (void)postNotificationWithName:(NSString *)name account:(DCTAuthAccount *)account {
+	NSDictionary *info = @{ DCTAuthAccountStoreAccountKey : account };
+	[[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:info];
 }
 
 @end

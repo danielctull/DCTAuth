@@ -17,7 +17,10 @@ extern const struct DCTAuthAccountStoreProperties {
 	__unsafe_unretained NSString *accounts;
 } DCTAuthAccountStoreProperties;
 
-extern NSString *const DCTAuthAccountStoreDidChangeNotification;
+extern NSString *const DCTAuthAccountStoreDidInsertAccountNotification;
+extern NSString *const DCTAuthAccountStoreDidChangeAccountNotification;
+extern NSString *const DCTAuthAccountStoreDidRemoveAccountNotification;
+extern NSString *const DCTAuthAccountStoreAccountKey;
 
 /** 
  *  The DCTAuthAccountStore class provides an interface for accessing,
