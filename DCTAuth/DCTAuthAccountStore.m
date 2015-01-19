@@ -51,10 +51,6 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	return [self accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
 
-+ (instancetype)accountStoreWithURL:(NSURL *)URL {
-	return [self accountStoreWithName:[URL absoluteString]];
-}
-
 + (instancetype)accountStoreWithName:(NSString *)name {
 	return [self accountStoreWithName:name accessGroup:nil synchronizable:NO];
 }

@@ -53,14 +53,6 @@ extern NSString *const DCTAuthAccountStoreDidChangeNotification;
  */
 + (instancetype)accountStoreWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable;
 
-/**
- *  Get a store at a given URL.
- *
- *  @param storeURL A URL for a location on disk.
- *  @return The store at the give URL on disk.
- */
-+ (instancetype)accountStoreWithURL:(NSURL *)storeURL __attribute__((deprecated));
-
 @property (nonatomic, readonly) NSString *name;
 
 /// @name Getting accounts
