@@ -30,13 +30,10 @@ NSString *const DCTAuthAccountStoreDidChangeAccountNotification = @"DCTAuthAccou
 NSString *const DCTAuthAccountStoreDidRemoveAccountNotification = @"DCTAuthAccountStoreDidRemoveAccountNotification";
 NSString *const DCTAuthAccountStoreAccountKey = @"DCTAuthAccountStoreAccountKey";
 
-static NSString *const DCTAuthAccountStoreDefaultStoreName = @"DCTDefaultAccountStore";
 static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 @interface DCTAuthAccountStore ()
 @property(nonatomic, readwrite) NSSet *accounts;
-@property (nonatomic, copy) NSString *accessGroup;
-@property (nonatomic) BOOL synchronizable;
 @property (nonatomic) NSTimer *updateTimer;
 @end
 
@@ -49,10 +46,6 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 		accountStores = [NSMutableArray new];
 	});
 	return accountStores;
-}
-
-+ (instancetype)defaultAccountStore {
-	return [self accountStoreWithName:DCTAuthAccountStoreDefaultStoreName];
 }
 
 + (instancetype)accountStoreWithName:(NSString *)name {
