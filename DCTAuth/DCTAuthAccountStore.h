@@ -99,13 +99,13 @@ extern NSString *const DCTAuthAccountStoreAccountKey;
 
  @param account The account to save. Must not be nil.
  */
-- (void)saveAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
+- (void)saveAccount:(DCTAuthAccount *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
 
 /**
  Deletes an account from the Accounts database.
 
  @param account The account to delete. Must not be nil.
  */
-- (void)deleteAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
+- (void)deleteAccount:(DCTAuthAccount *)account __attribute__((nonnull(1))) __attribute((objc_requires_super));
 
 @end

@@ -181,7 +181,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	return [filteredAccounts anyObject];
 }
 
-- (void)saveAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account {
+- (void)saveAccount:(DCTAuthAccount *)account {
 
 	if (![NSThread isMainThread]) {
 		dispatch_sync(dispatch_get_main_queue(), ^{
@@ -213,7 +213,7 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	}
 }
 
-- (void)deleteAccount:(DCTAuthAccount<DCTAuthAccountSubclass> *)account {
+- (void)deleteAccount:(DCTAuthAccount *)account {
 
 	if (![NSThread isMainThread]) {
 		dispatch_sync(dispatch_get_main_queue(), ^{

@@ -99,14 +99,14 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  *
  *  Default is nil.
  */
-@property (nonatomic, strong) DCTAuthAccount<DCTAuthAccountSubclass> *account;
+@property (nonatomic) DCTAuthAccount *account;
 
 /** 
  *  The content type to encode the POST body parameters.
  *
  *  Default is DCTAuthRequestContentTypeForm
  */
-@property (nonatomic, assign) DCTAuthRequestContentType contentType;
+@property (nonatomic) DCTAuthRequestContentType contentType;
 
 /**
  *  Specifies a named multipart POST body for this request.
