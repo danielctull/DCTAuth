@@ -7,7 +7,6 @@
 //
 
 #import "DCTAuthContent.h"
-#import "NSString+DCTAuth.h"
 
 @implementation DCTAuthContent
 
@@ -42,19 +41,15 @@
 		switch (_type) {
 			case DCTAuthContentTypeForm: {
 
-				NSString *contentString = [[NSString alloc] initWithData:_HTTPBody encoding:_encoding];
-				NSArray *itemStrings = [contentString componentsSeparatedByString:@"&"];
+				NSURLComponents *components = [NSURLComponents componentsWithString:@"htttp://host.com"];
+				components.percentEncodedQuery = [[NSString alloc] initWithData:_HTTPBody encoding:_encoding];
+
 				NSMutableArray *items = [NSMutableArray new];
-				for (NSString *itemString in itemStrings) {
-					NSArray *itemStringStrings = [itemString componentsSeparatedByString:@"="];
-					if (itemStringStrings.count == 2) {
-						NSString *encodedKey = [itemStringStrings firstObject];
-						NSString *encodedValue = [itemStringStrings lastObject];
-						NSString *key = [encodedKey dctAuth_bodyFormDecodedString];
-						NSString *value = [encodedValue dctAuth_bodyFormDecodedString];
-						NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:key value:value];
-						[items addObject:item];
-					}
+				for (NSURLQueryItem *item in components.queryItems) {
+					NSString *name = [item.name stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+					NSString *value = [item.value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+					NSURLQueryItem *encodedItem = [NSURLQueryItem queryItemWithName:name value:value];
+					[items addObject:encodedItem];
 				}
 				_items = [items copy];
 
@@ -95,16 +90,17 @@
 	switch (type) {
 		case DCTAuthContentTypeForm: {
 
-			NSMutableArray *parameterStrings = [NSMutableArray new];
+			NSMutableArray *encodedItems = [NSMutableArray new];
 			for (NSURLQueryItem *item in items) {
-				NSString *encodedKey = [item.name dctAuth_bodyFormEncodedString];
-				NSString *encodedValue = [item.value dctAuth_bodyFormEncodedString];
-				NSString *parameterString = [NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue];
-				[parameterStrings addObject:parameterString];
+				NSString *name = [item.name stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+				NSString *value = [item.value stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+				NSURLQueryItem *encodedItem = [NSURLQueryItem queryItemWithName:name value:value];
+				[encodedItems addObject:encodedItem];
 			}
 
-			NSString *bodyFormString = [parameterStrings componentsJoinedByString:@"&"];
-			_HTTPBody = [bodyFormString dataUsingEncoding:encoding];
+			NSURLComponents *components = [NSURLComponents componentsWithString:@"htttp://host.com"];
+			components.queryItems = encodedItems;
+			_HTTPBody = [components.percentEncodedQuery dataUsingEncoding:encoding];
 
 			break;
 		}
