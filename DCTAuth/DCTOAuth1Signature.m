@@ -10,7 +10,6 @@
 #import "DCTOAuth1Keys.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTAuth.h"
-#import "NSData+DCTAuth.h"
 #import "DCTAuthContent.h"
 
 static NSString * const DTOAuthSignatureTypeString[] = {
@@ -129,7 +128,7 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	CCHmac(kCCHmacAlgSHA1, secretData.bytes, secretData.length, baseData.bytes, baseData.length, result);
 	
 	NSData *theData = [NSData dataWithBytes:result length:20];
-	return [theData dctAuth_base64EncodedString];
+	return [theData base64EncodedStringWithOptions:(NSDataBase64EncodingOptions)0];
 }
 
 - (NSString *)authorizationHeader {

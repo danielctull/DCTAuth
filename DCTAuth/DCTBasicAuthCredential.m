@@ -7,7 +7,6 @@
 //
 
 #import "DCTBasicAuthCredential.h"
-#import "NSData+DCTAuth.h"
 
 static const struct DCTBasicAuthCredentialProperties {
 	__unsafe_unretained NSString *username;
@@ -36,7 +35,7 @@ static const struct DCTBasicAuthCredentialProperties DCTBasicAuthCredentialPrope
 	NSString *password = self.password ?: @"";
 	NSString *authorisationString = [NSString stringWithFormat:@"%@:%@", username, password];
 	NSData *authorisationData = [authorisationString dataUsingEncoding:NSUTF8StringEncoding];
-	NSString *authorisationEncodedString = [authorisationData dctAuth_base64EncodedString];
+	NSString *authorisationEncodedString = [authorisationData base64EncodedStringWithOptions:(NSDataBase64EncodingOptions)0];
 	return [NSString stringWithFormat:@"Basic %@", authorisationEncodedString];
 }
 
