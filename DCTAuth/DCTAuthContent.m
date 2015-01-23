@@ -124,6 +124,10 @@
 	return self;
 }
 
+- (NSString *)contentLength {
+	return [@(self.HTTPBody.length) stringValue];
+}
+
 + (NSArray *)contentTypeStrings {
 	static NSArray *contentTypeStrings;
 	static dispatch_once_t contentTypeStringsToken;

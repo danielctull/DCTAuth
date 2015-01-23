@@ -19,6 +19,7 @@
 @property (nonatomic, readonly) NSStringEncoding encoding;
 
 @property (nonatomic, readonly) NSString *contentType;
+@property (nonatomic, readonly) NSString *contentLength;
 @property (nonatomic, readonly) NSData *HTTPBody;
 
 @end

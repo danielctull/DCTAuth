@@ -139,20 +139,14 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	[request setURL:URLComponents.URL];
 }
 
-- (NSData *)encodedBodyWithItems:(NSArray *)items contentType:(DCTAuthContentType)contentType {
-	DCTAuthContent *content = [[DCTAuthContent alloc] initWithEncoding:NSUTF8StringEncoding	type:contentType items:items];
-	return content.HTTPBody;
-}
-
 - (void)_setupPOSTRequest:(NSMutableURLRequest *)request {
 	[request setURL:self.URL];
 
 	if ([self.multipartDatas count] == 0) {
-		[request setHTTPBody:[self encodedBodyWithItems:self.items contentType:self.contentType]];
-		NSString *contentLength = [@([[request HTTPBody] length]) stringValue];
-		[request setValue:contentLength forHTTPHeaderField:DCTAuthRequestContentLengthKey];
-		NSString *contentType = DCTAuthRequestContentTypeString[self.contentType];
-		[request addValue:contentType forHTTPHeaderField:DCTAuthRequestContentTypeKey];
+		DCTAuthContent *content = [[DCTAuthContent alloc] initWithEncoding:NSUTF8StringEncoding	type:self.contentType items:self.items];
+		request.HTTPBody = content.HTTPBody;
+		[request setValue:content.contentLength forHTTPHeaderField:DCTAuthRequestContentLengthKey];
+		[request setValue:content.contentType forHTTPHeaderField:DCTAuthRequestContentTypeKey];
 		return;
 	}
 
