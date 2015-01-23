@@ -10,7 +10,6 @@
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthPlatform.h"
 #import "DCTAuthMultipartData.h"
-#import "NSArray+DCTAuth.h"
 #import "NSString+DCTAuth.h"
 #import "DCTAuthURLRequestPerformer.h"
 #import "DCTAuthContent.h"
