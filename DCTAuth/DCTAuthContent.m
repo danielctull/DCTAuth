@@ -100,7 +100,8 @@
 			components.queryItems = encodedItems;
 			_HTTPBody = [components.percentEncodedQuery dataUsingEncoding:encoding];
 
-			NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName((CFStringEncoding)encoding);
+			CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
+			NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(cfEncoding);
 			_contentType = [NSString stringWithFormat:@"%@; charset=%@", _contentType, charset];
 
 			break;
