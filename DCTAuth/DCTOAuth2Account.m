@@ -418,8 +418,10 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	NSArray *extraItems = [self itemsForRequestType:DCTOAuth2RequestType.signing];
 	[items addObjectsFromArray:extraItems];
 
-	URLComponents.queryItems = items;
-	request.URL = URLComponents.URL;
+	if (items.count > 0) {
+		URLComponents.queryItems = items;
+		request.URL = URLComponents.URL;
+	}
 }
 
 #pragma mark - NSSecureCoding
