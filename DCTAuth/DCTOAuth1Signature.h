@@ -11,21 +11,19 @@
 
 @interface DCTOAuth1Signature : NSObject
 
-- (instancetype)initWithURL:(NSURL *)URL
-				 HTTPMethod:(NSString *)HTTPMethod
-			 consumerSecret:(NSString *)consumerSecret
-				secretToken:(NSString *)secretToken
-					  items:(NSArray *)items
-					   type:(DCTOAuth1SignatureType)type;
+- (instancetype)initWithRequest:(NSURLRequest *)request
+				 consumerSecret:(NSString *)consumerSecret
+					secretToken:(NSString *)secretToken
+						  items:(NSArray *)items
+						   type:(DCTOAuth1SignatureType)type;
 
-- (instancetype)initWithURL:(NSURL *)URL
-				 HTTPMethod:(NSString *)HTTPMethod
-			 consumerSecret:(NSString *)consumerSecret
-				secretToken:(NSString *)secretToken
-					  items:(NSArray *)items
-					   type:(DCTOAuth1SignatureType)type
-				  timestamp:(NSString *)timestamp
-					  nonce:(NSString *)nonce;
+- (instancetype)initWithRequest:(NSURLRequest *)request
+				 consumerSecret:(NSString *)consumerSecret
+					secretToken:(NSString *)secretToken
+						  items:(NSArray *)items
+						   type:(DCTOAuth1SignatureType)type
+					  timestamp:(NSString *)timestamp
+						  nonce:(NSString *)nonce;
 
 @property (nonatomic, readonly) NSString *authorizationHeader;
 @property (nonatomic, readonly) NSArray *authorizationItems;

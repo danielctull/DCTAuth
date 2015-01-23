@@ -149,16 +149,12 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 
 	NSString *(^signature)(DCTAuthRequest *) = ^(DCTAuthRequest *request) {
 
-		NSMutableArray *items = [OAuthItems() mutableCopy];
-		[items addObjectsFromArray:request.items];
-		NSString *HTTPMethod = NSStringFromDCTAuthRequestMethod(request.requestMethod);
-
-		DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithURL:request.URL
-																   HTTPMethod:HTTPMethod
-															   consumerSecret:consumerSecret
-																  secretToken:oauthTokenSecret
-																		items:items
-																		 type:self.signatureType];
+		NSURLRequest *URLRequest = [request signedURLRequest];
+		DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithRequest:URLRequest
+																	 consumerSecret:consumerSecret
+																		secretToken:oauthTokenSecret
+																			  items:OAuthItems()
+																			   type:self.signatureType];
 		return [signature authorizationHeader];
 	};
 
@@ -275,12 +271,11 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 		[OAuthItems addObject:item];
 	}
 	
-	DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithURL:request.URL
-															   HTTPMethod:request.HTTPMethod
-														   consumerSecret:credential.consumerSecret
-															  secretToken:credential.oauthTokenSecret
-																	items:OAuthItems
-																	 type:self.signatureType];
+	DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithRequest:request
+																 consumerSecret:credential.consumerSecret
+																	secretToken:credential.oauthTokenSecret
+																		  items:OAuthItems
+																		   type:self.signatureType];
 
 	switch (self.parameterTransmission) {
 

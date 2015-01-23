@@ -18,44 +18,46 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 };
 
 @interface DCTOAuth1Signature ()
-@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) NSURLRequest *request;
 @property (nonatomic, readonly) NSString *consumerSecret;
 @property (nonatomic, readonly) NSString *secretToken;
-@property (nonatomic, readonly) NSString *HTTPMethod;
 @property (nonatomic, readonly) NSMutableArray *items;
 @property (nonatomic, readonly) DCTOAuth1SignatureType type;
 @end
 
 @implementation DCTOAuth1Signature
 
-- (instancetype)initWithURL:(NSURL *)URL
-				 HTTPMethod:(NSString *)HTTPMethod
-			 consumerSecret:(NSString *)consumerSecret
-				secretToken:(NSString *)secretToken
-					  items:(NSArray *)items
-					   type:(DCTOAuth1SignatureType)type {
+- (instancetype)initWithRequest:(NSURLRequest *)request
+				 consumerSecret:(NSString *)consumerSecret
+					secretToken:(NSString *)secretToken
+						  items:(NSArray *)items
+						   type:(DCTOAuth1SignatureType)type {
 
 	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
 	NSString *timestamp = [@((NSInteger)timeInterval) stringValue];
 	NSString *nonce = [[NSProcessInfo processInfo] globallyUniqueString];
-	return [self initWithURL:URL HTTPMethod:HTTPMethod consumerSecret:consumerSecret secretToken:secretToken items:items type:type timestamp:timestamp nonce:nonce];
+
+	return [self initWithRequest:request
+				  consumerSecret:consumerSecret
+					 secretToken:secretToken
+						   items:items
+							type:type
+					   timestamp:timestamp
+						   nonce:nonce];
 }
 
-
-- (instancetype)initWithURL:(NSURL *)URL
-				 HTTPMethod:(NSString *)HTTPMethod
-			 consumerSecret:(NSString *)consumerSecret
-				secretToken:(NSString *)secretToken
-					  items:(NSArray *)items
-					   type:(DCTOAuth1SignatureType)type
-				  timestamp:(NSString *)timestamp
-					  nonce:(NSString *)nonce {
+- (instancetype)initWithRequest:(NSURLRequest *)request
+				 consumerSecret:(NSString *)consumerSecret
+					secretToken:(NSString *)secretToken
+						  items:(NSArray *)items
+						   type:(DCTOAuth1SignatureType)type
+					  timestamp:(NSString *)timestamp
+						  nonce:(NSString *)nonce {
 
 	self = [self init];
 	if (!self) return nil;
-	
-	_URL = [URL copy];
-	_HTTPMethod = [HTTPMethod copy];
+
+	_request = [request copy];
 	_consumerSecret = [consumerSecret copy];
 	_secretToken = secretToken ? [secretToken copy] : @"";
 	_items = [NSMutableArray new];
@@ -84,7 +86,7 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 
 	NSMutableArray *items = [self.items mutableCopy];
 
-	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.URL resolvingAgainstBaseURL:YES];
+	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.request.URL resolvingAgainstBaseURL:YES];
 	[items addObjectsFromArray:URLComponents.queryItems];
 
 	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -104,7 +106,7 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	URLComponents.fragment = nil;
 
 	NSMutableArray *baseArray = [NSMutableArray new];
-	[baseArray addObject:self.HTTPMethod];
+	[baseArray addObject:self.request.HTTPMethod];
 	[baseArray addObject:[[URLComponents.URL absoluteString] dctAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
 
