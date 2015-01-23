@@ -104,6 +104,35 @@ For an extension, you must provide a web view to perform authorization. You can 
     	return ![DCTAuth handleURL:request.URL];
     }
 
+### Swift
+
+    let account = DCTOAuth1Account(type: "Twitter",
+                        requestTokenURL:NSURL(string: "https://api.twitter.com/oauth/request_token"), 
+                           authorizeURL:NSURL(string: "https://api.twitter.com/oauth/authorize"),
+                         accessTokenURL:NSURL(string:"https://api.twitter.com/oauth/access_token"),
+                            consumerKey:"YOUR TWITTER CONSUMER KEY",
+                         consumerSecret:"YOUR TWITTER CONSUMER SECRET")
+
+    account.callbackURL = NSURL(string:"dctauth://test")
+    
+    account.authenticateWithHandler { (responses, error) -> Void in
+    
+        if !account.authorized {
+            println("Authentication failure: " + error.localizedDescription)
+            return
+        }
+    
+        let URL = NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")
+        let item = NSURLQueryItem(name:"exclude_replies", value:"true")
+        let request = DCTAuthRequest(requestMethod:.GET, URL:URL, items:[item])
+        request.account = account
+    
+        request.performRequestWithHandler { (response, error) -> Void in
+            let statusCode = response.statusCode
+            let data = response.data
+        }
+    }
+
 ## Known working services
 
 While the implementations _should_ work for all services using that standard, I can confirm that they work for the following providers:
