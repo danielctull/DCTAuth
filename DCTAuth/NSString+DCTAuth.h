@@ -12,6 +12,7 @@
 
 - (NSString *)dctAuth_URLEncodedString;
 - (NSString *)dctAuth_bodyFormEncodedString;
+- (NSString *)dctAuth_bodyFormDecodedString;
 - (NSDictionary *)dctAuth_parameterDictionary;
 
 @end

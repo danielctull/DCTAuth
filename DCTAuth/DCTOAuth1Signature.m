@@ -11,6 +11,7 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSString+DCTAuth.h"
 #import "NSData+DCTAuth.h"
+#import "DCTAuthContent.h"
 
 static NSString * const DTOAuthSignatureTypeString[] = {
 	@"HMAC-SHA1",
@@ -88,6 +89,9 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 
 	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.request.URL resolvingAgainstBaseURL:YES];
 	[items addObjectsFromArray:URLComponents.queryItems];
+
+	DCTAuthContent *content = [[DCTAuthContent alloc] initWithRequest:self.request];
+	[items addObjectsFromArray:content.items];
 
 	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
 	NSArray *sortedItems = [items sortedArrayUsingDescriptors:@[sortDescriptor]];

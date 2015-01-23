@@ -8,24 +8,14 @@
 
 @import Foundation;
 
-extern NSString *const DCTAuthContentTypeParameterCharset;
+/**
+ * Defines how to encode the body of a HTTP request.
+ */
+typedef NS_ENUM(NSUInteger, DCTAuthContentType) {
 
-typedef NS_ENUM(NSInteger, DCTAuthContentTypeType) {
-	DCTAuthContentTypeUnknown,
-	DCTAuthContentTypeTextPlain,
-	DCTAuthContentTypeTextHTML,
-	DCTAuthContentTypeJSON,
-	DCTAuthContentTypePlist
+	/** Encode as a standard HTTP form. */
+	DCTAuthContentTypeForm,
+
+	/** Encode as JSON. */
+	DCTAuthContentTypeJSON
 };
-
-@interface DCTAuthContentType : NSObject
-
-- (instancetype)initWithString:(NSString *)string;
-- (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType;
-- (instancetype)initWithContentType:(DCTAuthContentTypeType)contentType parameters:(NSDictionary *)parameters;
-
-@property (nonatomic, readonly) NSString *string;
-@property (nonatomic, readonly) DCTAuthContentTypeType contentType;
-@property (nonatomic, readonly) NSStringEncoding stringEncoding;
-
-@end

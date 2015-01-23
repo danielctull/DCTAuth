@@ -13,6 +13,7 @@
 #import "NSArray+DCTAuth.h"
 #import "NSString+DCTAuth.h"
 #import "DCTAuthURLRequestPerformer.h"
+#import "DCTAuthContent.h"
 
 static const struct DCTAuthRequestProperties {
 	__unsafe_unretained NSString *requestMethod;
@@ -139,26 +140,9 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	[request setURL:URLComponents.URL];
 }
 
-- (NSData *)encodedBodyWithItems:(NSArray *)items contentType:(DCTAuthRequestContentType)contentType {
-
-	NSData *body;
-
-	switch (contentType) {
-
-		case DCTAuthRequestContentTypeForm:
-			body = [items dctAuth_formDataUsingEncoding:NSUTF8StringEncoding];
-			break;
-
-		case DCTAuthRequestContentTypeJSON:
-			body = [items dctAuth_JSONDataUsingEncoding:NSUTF8StringEncoding];
-			break;
-
-		case DCTAuthRequestContentTypePlist:
-			body = [items dctAuth_plistDataUsingEncoding:NSUTF8StringEncoding];
-			break;
-	}
-
-	return body;
+- (NSData *)encodedBodyWithItems:(NSArray *)items contentType:(DCTAuthContentType)contentType {
+	DCTAuthContent *content = [[DCTAuthContent alloc] initWithEncoding:NSUTF8StringEncoding	type:contentType items:items];
+	return content.HTTPBody;
 }
 
 - (void)_setupPOSTRequest:(NSMutableURLRequest *)request {

@@ -10,21 +10,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthResponse.h"
-
-/**
- * Defines how to encode the body of a HTTP request.
- */
-typedef NS_ENUM(NSUInteger, DCTAuthRequestContentType) {
-
-	/** Encode as a standard HTTP form. */
-	DCTAuthRequestContentTypeForm,
-
-	/** Encode as JSON. */
-	DCTAuthRequestContentTypeJSON,
-
-	/** Encode as Plist. */
-	DCTAuthRequestContentTypePlist
-};
+#import "DCTAuthContentType.h"
 
 typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
 
@@ -104,9 +90,9 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
 /** 
  *  The content type to encode the POST body parameters.
  *
- *  Default is DCTAuthRequestContentTypeForm
+ *  Default is DCTAuthContentTypeForm
  */
-@property (nonatomic) DCTAuthRequestContentType contentType;
+@property (nonatomic) DCTAuthContentType contentType;
 
 /**
  *  Specifies a named multipart POST body for this request.
