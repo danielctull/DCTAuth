@@ -102,4 +102,31 @@
 	XCTAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
 }
 
+- (void)testHMAC_SHA1SignatureWithBody {
+	NSURL *URL = [NSURL URLWithString:@"http://host.net/resource"];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+	request.HTTPMethod = @"POST";
+	request.HTTPBody = [@"key1=value1&key2=value2" dataUsingEncoding:NSUTF8StringEncoding];
+	[request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+
+	NSURLQueryItem *oauthItem = [NSURLQueryItem queryItemWithName:@"oauth_token" value:@"token"];
+	NSURLQueryItem *consumerKeyItem = [NSURLQueryItem queryItemWithName:@"oauth_consumer_key" value:@"consumer_key"];
+
+	DCTOAuth1Signature *signature = [[DCTOAuth1Signature alloc] initWithRequest:request
+																 consumerSecret:@"consumer_secret"
+																	secretToken:@"token_secret"
+																		  items:@[oauthItem, consumerKeyItem]
+																		   type:DCTOAuth1SignatureTypeHMAC_SHA1
+																	  timestamp:@"1422011801"
+																		  nonce:@"qwerty"];
+
+	NSString *signatureBaseString = [signature signatureBaseString];
+	NSString *expectedSignatureBaseString = @"POST&http%3A%2F%2Fhost.net%2Fresource&key1%3Dvalue1%26key2%3Dvalue2%26oauth_consumer_key%3Dconsumer_key%26oauth_nonce%3Dqwerty%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1422011801%26oauth_token%3Dtoken%26oauth_version%3D1.0";
+	XCTAssertTrue([signatureBaseString isEqualToString:expectedSignatureBaseString], @"%@ should be %@", signatureBaseString, expectedSignatureBaseString);
+
+	NSString *signatureString = [signature signatureString];
+	NSString *expectedSignatureString = @"AuAG9ZdvgB7JpaUfxEWRHYtoIHs=";
+	XCTAssertTrue([signatureString isEqualToString:expectedSignatureString], @"%@ should be %@", signatureString, expectedSignatureString);
+}
+
 @end
