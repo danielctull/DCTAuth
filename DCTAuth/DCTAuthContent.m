@@ -83,9 +83,7 @@
 	_items = [items copy];
 	_encoding = encoding;
 
-	NSString *contentType = [[DCTAuthContent contentTypeStrings] objectAtIndex:type];
-	NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName((CFStringEncoding)encoding);
-	_contentType = [NSString stringWithFormat:@"%@; charset=%@", contentType, charset];
+	_contentType = [[DCTAuthContent contentTypeStrings] objectAtIndex:type];
 
 	switch (type) {
 		case DCTAuthContentTypeForm: {
@@ -101,6 +99,9 @@
 			NSURLComponents *components = [NSURLComponents componentsWithString:@"htttp://host.com"];
 			components.queryItems = encodedItems;
 			_HTTPBody = [components.percentEncodedQuery dataUsingEncoding:encoding];
+
+			NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName((CFStringEncoding)encoding);
+			_contentType = [NSString stringWithFormat:@"%@; charset=%@", _contentType, charset];
 
 			break;
 		}
