@@ -157,6 +157,8 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 		}
 	}
 
+	[parameters insertObject:@"realm=\"\"" atIndex:0];
+
 	NSString *parameterString = [parameters componentsJoinedByString:@","];	
 	return [NSString stringWithFormat:@"%@ %@", DCTOAuth1Keys.OAuth, parameterString];
 }
