@@ -25,7 +25,13 @@ typedef NS_ENUM(NSUInteger, DCTAuthRequestMethod) {
 	DCTAuthRequestMethodHEAD,
 
 	/** PUT request. */
-	DCTAuthRequestMethodPUT
+	DCTAuthRequestMethodPUT,
+
+	/** OPTIONS request. */
+	DCTAuthRequestMethodOPTIONS,
+
+	/** TRACE request. */
+	DCTAuthRequestMethodTRACE
 };
 
 /** The potential request methods that can be used.

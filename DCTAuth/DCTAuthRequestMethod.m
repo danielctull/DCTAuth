@@ -13,7 +13,9 @@ static NSString *const DCTAuthRequestMethodString[] = {
 	@"POST",
 	@"DELETE",
 	@"HEAD",
-	@"PUT"
+	@"PUT",
+	@"OPTIONS",
+	@"TRACE"
 };
 
 NSString * NSStringFromDCTAuthRequestMethod(DCTAuthRequestMethod method) {
