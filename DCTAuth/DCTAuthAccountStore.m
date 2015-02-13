@@ -73,6 +73,18 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 - (void)dealloc {
 	self.updateTimer = nil;
+
+#if TARGET_OS_IPHONE
+	NSString *becomeActiveNotification = UIApplicationDidBecomeActiveNotification;
+	NSString *resignActiveNotification = UIApplicationWillResignActiveNotification;
+#else
+	NSString *becomeActiveNotification = NSApplicationDidBecomeActiveNotification;
+	NSString *resignActiveNotification = NSApplicationWillResignActiveNotification;
+#endif
+
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter removeObserver:self name:becomeActiveNotification object:nil];
+	[notificationCenter removeObserver:self name:resignActiveNotification object:nil];
 }
 
 - (instancetype)initWithName:(NSString *)name accessGroup:(NSString *)accessGroup synchronizable:(BOOL)synchronizable {
