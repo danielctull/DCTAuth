@@ -134,9 +134,14 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 	NSString *accessGroup = self.accessGroup;
 	BOOL synchronizable = self.synchronizable;
 
+	NSArray *accountDatas = [DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
+
+	if (!accountDatas) {
+		return;
+	}
+
 	NSMutableArray *accountIdentifiersToDelete = [[self.accounts valueForKey:DCTAbstractAuthAccountProperties.identifier] mutableCopy];
 
-	NSArray *accountDatas = [DCTAuthKeychainAccess accountDataForStoreName:name accessGroup:accessGroup synchronizable:synchronizable];
 	[accountDatas enumerateObjectsUsingBlock:^(NSData *data, NSUInteger i, BOOL *stop) {
 
 		if (!data || [data isKindOfClass:[NSNull class]]) return;

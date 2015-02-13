@@ -26,8 +26,14 @@
 	}];
 
 	CFTypeRef result = NULL;
-	SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
-	return (__bridge_transfer NSArray *)result;
+	OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+
+	if (status != errSecSuccess) {
+		return nil;
+	}
+
+	NSArray *results = [NSArray arrayWithArray:(__bridge_transfer NSArray *)result];
+	return results;
 }
 
 + (void)removeDataForAccountIdentifier:(NSString *)accountIdentifier
