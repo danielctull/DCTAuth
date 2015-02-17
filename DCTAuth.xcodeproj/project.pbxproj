@@ -634,9 +634,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		24307B5E1A690925006D27E1 /* DCTAuth Mac */ = {
+		24307B5E1A690925006D27E1 /* DCTAuth OS X */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24307B721A690925006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac" */;
+			buildConfigurationList = 24307B721A690925006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth OS X" */;
 			buildPhases = (
 				24307B5A1A690925006D27E1 /* Sources */,
 				24307B5B1A690925006D27E1 /* Frameworks */,
@@ -648,7 +648,7 @@
 			);
 			dependencies = (
 			);
-			name = "DCTAuth Mac";
+			name = "DCTAuth OS X";
 			productName = "DCTAuth Mac";
 			productReference = 24307B5F1A690925006D27E1 /* DCTAuth.framework */;
 			productType = "com.apple.product-type.framework";
@@ -761,7 +761,7 @@
 			projectRoot = "";
 			targets = (
 				2454F2BF1959601600E8643C /* DCTAuth iOS */,
-				24307B5E1A690925006D27E1 /* DCTAuth Mac */,
+				24307B5E1A690925006D27E1 /* DCTAuth OS X */,
 				24FA901215E93E0200E1ED99 /* DCTAuth Demo */,
 				24FA8FF415E93D8E00E1ED99 /* DCTAuth iOS Tests */,
 				24307BB31A690BDC006D27E1 /* DCTAuth Mac Tests */,
@@ -981,7 +981,7 @@
 		};
 		24307BBC1A690BDC006D27E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 24307B5E1A690925006D27E1 /* DCTAuth Mac */;
+			target = 24307B5E1A690925006D27E1 /* DCTAuth OS X */;
 			targetProxy = 24307BBB1A690BDC006D27E1 /* PBXContainerItemProxy */;
 		};
 		24307BC41A690D5C006D27E1 /* PBXTargetDependency */ = {
@@ -1127,7 +1127,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		24307B721A690925006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac" */ = {
+		24307B721A690925006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth OS X" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24307B731A690925006D27E1 /* Debug */,

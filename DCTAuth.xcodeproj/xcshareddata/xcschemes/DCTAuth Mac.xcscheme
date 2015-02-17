@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24307B5E1A690925006D27E1"
                BuildableName = "DCTAuth.framework"
-               BlueprintName = "DCTAuth Mac"
+               BlueprintName = "DCTAuth OS X"
                ReferencedContainer = "container:DCTAuth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24307B5E1A690925006D27E1"
             BuildableName = "DCTAuth.framework"
-            BlueprintName = "DCTAuth Mac"
+            BlueprintName = "DCTAuth OS X"
             ReferencedContainer = "container:DCTAuth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24307B5E1A690925006D27E1"
             BuildableName = "DCTAuth.framework"
-            BlueprintName = "DCTAuth Mac"
+            BlueprintName = "DCTAuth OS X"
             ReferencedContainer = "container:DCTAuth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -81,7 +81,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24307B5E1A690925006D27E1"
             BuildableName = "DCTAuth.framework"
-            BlueprintName = "DCTAuth Mac"
+            BlueprintName = "DCTAuth OS X"
             ReferencedContainer = "container:DCTAuth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
