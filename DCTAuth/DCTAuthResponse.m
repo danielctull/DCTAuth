@@ -9,6 +9,12 @@
 #import "DCTAuthResponse.h"
 #import "NSString+DCTAuth.h"
 
+#if TARGET_OS_IPHONE
+@import UIKit;
+#else
+@import AppKit;
+#endif
+
 static const struct DCTAuthResponseProperties {
 	__unsafe_unretained NSString *data;
 	__unsafe_unretained NSString *URLResponse;
@@ -67,15 +73,11 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 
 #if TARGET_OS_IPHONE
 
-@import UIKit;
-
 - (UIImage *)imageFromData:(NSData *)data {
 	return [[UIImage alloc] initWithData:data];
 }
 
 #else
-
-@import AppKit;
 
 - (NSImage *)imageFromData:(NSData *)data {
 	return [[NSImage alloc] initWithData:data];
