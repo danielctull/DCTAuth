@@ -9,6 +9,7 @@
 #import "DCTAuthAccount+Private.h"
 #import "DCTAuthAccountStore+Private.h"
 #import "DCTAbstractAuthAccountProperties.h"
+#import "DCTAuthAccountSubclass.h"
 
 const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 	.type = @"type",
