@@ -21,6 +21,7 @@ static const struct DCTBasicAuthAccountProperties DCTBasicAuthAccountProperties 
 @implementation DCTBasicAuthAccount
 @synthesize username = _username;
 @synthesize password = _password;
+@dynamic credential;
 
 #pragma mark - DCTBasicAuthAccount
 

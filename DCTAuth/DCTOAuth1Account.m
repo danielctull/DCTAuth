@@ -41,6 +41,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 @end
 
 @implementation DCTOAuth1Account
+@dynamic credential;
 
 #pragma mark - DCTOAuth1Account
 

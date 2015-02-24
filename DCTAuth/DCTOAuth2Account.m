@@ -35,6 +35,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 @end
 
 @implementation DCTOAuth2Account
+@dynamic credential;
 
 #pragma mark - DCTOAuth2Account
 
