@@ -33,22 +33,4 @@
 	self.URLOpener(URL, completion);
 }
 
-- (id)beginBackgroundTaskWithExpirationHandler:(void(^)())handler {
-
-	if (!self.beginBackgroundTaskHandler) {
-		return nil;
-	}
-
-	return self.beginBackgroundTaskHandler(handler);
-}
-
-- (void)endBackgroundTask:(id)identifier {
-
-	if (!self.endBackgroundTaskHandler) {
-		return;
-	}
-
-	self.endBackgroundTaskHandler(identifier);
-}
-
 @end

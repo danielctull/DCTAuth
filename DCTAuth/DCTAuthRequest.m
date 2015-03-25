@@ -182,13 +182,13 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	DCTAuthURLRequestPerformer *URLRequestPerformer = [DCTAuthURLRequestPerformer sharedURLRequestPerformer];
 	NSURLRequest *URLRequest = [self signedURLRequest];
 
-	id object = [[DCTAuthPlatform sharedPlatform] beginBackgroundTaskWithExpirationHandler:nil];
+	id activity = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated reason:@"DCTAuth.request"];
 
 	void (^handler)(DCTAuthResponse *response, NSError *error) = ^(DCTAuthResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[defaultCenter postNotificationName:DCTAuthConnectionDecreasedNotification object:self];
 			if (originalHandler) originalHandler(response, error);
-			[[DCTAuthPlatform sharedPlatform] endBackgroundTask:object];
+			[[NSProcessInfo processInfo] endActivity:activity];
 		});
 	};
 
