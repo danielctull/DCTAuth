@@ -134,7 +134,10 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	NSMutableArray *queryItems = [NSMutableArray new];
 	[queryItems addObjectsFromArray:existingItems];
 	[queryItems addObjectsFromArray:self.items];
-	URLComponents.queryItems = queryItems;
+
+	if (queryItems.count > 0) {
+		URLComponents.queryItems = queryItems;
+	}
 
 	[request setURL:URLComponents.URL];
 }
