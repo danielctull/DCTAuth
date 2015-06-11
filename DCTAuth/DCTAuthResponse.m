@@ -92,8 +92,17 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 	_statusCode = 200;
 	
 	NSMutableDictionary *content = [NSMutableDictionary new];
-	[content addEntriesFromDictionary:[[URL query] dctAuth_parameterDictionary]];
-	[content addEntriesFromDictionary:[[URL fragment] dctAuth_parameterDictionary]];
+
+	NSDictionary *queryDictionary = [URL.query dctAuth_parameterDictionary];
+	if (queryDictionary.count > 0) {
+		[content addEntriesFromDictionary:queryDictionary];
+	}
+
+	NSDictionary *fragmentDictionary = [URL.fragment dctAuth_parameterDictionary];
+	if (fragmentDictionary.count > 0) {
+		[content addEntriesFromDictionary:fragmentDictionary];
+	}
+	
 	_contentObject = [content copy];
 	
 	return self;
