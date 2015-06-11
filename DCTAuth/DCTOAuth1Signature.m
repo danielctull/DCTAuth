@@ -86,8 +86,15 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 
 	NSMutableArray *items = [self.items mutableCopy];
 
-	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self.request.URL resolvingAgainstBaseURL:YES];
-	[items addObjectsFromArray:URLComponents.queryItems];
+	NSURL *URL = self.request.URL;
+	if (!URL) return nil;
+
+	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:YES];
+
+	NSArray *queryItems = URLComponents.queryItems;
+	if (queryItems.count > 0) {
+		[items addObjectsFromArray:queryItems];
+	}
 
 	DCTAuthContent *content = [[DCTAuthContent alloc] initWithRequest:self.request];
 	[items addObjectsFromArray:content.items];
@@ -109,8 +116,14 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 	URLComponents.fragment = nil;
 
 	NSMutableArray *baseArray = [NSMutableArray new];
-	[baseArray addObject:self.request.HTTPMethod];
-	[baseArray addObject:[[URLComponents.URL absoluteString] dctAuth_URLEncodedString]];
+
+	NSString *HTTPMethod = self.request.HTTPMethod;
+	if (!HTTPMethod) {
+		return nil;
+	}
+
+	[baseArray addObject:HTTPMethod];
+	[baseArray addObject:[URL.absoluteString dctAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
 
 	return [baseArray componentsJoinedByString:@"&"];
