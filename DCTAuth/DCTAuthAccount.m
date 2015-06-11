@@ -30,6 +30,10 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 
 @implementation DCTAbstractAuthAccount
 
+- (instancetype)init {
+	return [self initWithType:@""];
+}
+
 - (instancetype)initWithType:(NSString *)type {
 	self = [super init];
 	if (!self) return nil;
