@@ -9,7 +9,7 @@
 #import "DCTAuthRequest.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthPlatform.h"
-#import "DCTAuthMultipartData.h"
+#import <DCTAuth/DCTAuth-Swift.h>
 #import "NSString+DCTAuth.h"
 #import "DCTAuthURLRequestPerformer.h"
 #import "DCTAuthContent.h"
