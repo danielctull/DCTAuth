@@ -101,7 +101,7 @@
 			_HTTPBody = [components.percentEncodedQuery dataUsingEncoding:encoding];
 
 			CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
-			NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(cfEncoding);
+			const NSString *charset = (const NSString *)CFStringConvertEncodingToIANACharSetName(cfEncoding);
 			_contentType = [NSString stringWithFormat:@"%@; charset=%@", _contentType, charset];
 
 			break;
