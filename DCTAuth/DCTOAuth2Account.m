@@ -392,7 +392,10 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 - (void)signURLRequest:(NSMutableURLRequest *)request {
 
-	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
+	NSURL *URL = request.URL;
+	if (!URL) return;
+
+	NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:YES];
 	NSArray *existingItems = URLComponents.queryItems;
 	NSMutableArray *items = [NSMutableArray new];
 	[items addObjectsFromArray:existingItems];
