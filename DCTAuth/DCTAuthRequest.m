@@ -159,9 +159,16 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 	NSMutableData *body = [NSMutableData new];
 	[self.multipartDatas enumerateObjectsUsingBlock:^(DCTAuthMultipartData *multipartData, NSUInteger i, BOOL *stop) {
-		[body appendData:[multipartData dataWithBoundary:boundary]];
+		NSData *boundaryData = [multipartData dataWithBoundary:boundary];
+		if (boundaryData.length > 0) {
+			[body appendData:boundaryData];
+		}
 	}];
-	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+	NSData *endData = [[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding];
+	if (endData.length > 0) {
+		[body appendData:endData];
+	}
 
 	[request setHTTPBody:body];
 	[request setValue:[NSString stringWithFormat:@"%@", @([body length])] forHTTPHeaderField:@"Content-Length"];
@@ -223,8 +230,11 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 	NSString *queryString = @"";
 	if (self.requestMethod == DCTAuthRequestMethodGET && self.items.count > 0) {
-		NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
-		queryString = [NSString stringWithFormat:@"\nQuery: ?%@", URLComponents.query];
+		NSURL *URL = request.URL;
+		if (URL) {
+			NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:YES];
+			queryString = [NSString stringWithFormat:@"\nQuery: ?%@", URLComponents.query];
+		}
 	}
 
 	return [NSString stringWithFormat:@"<%@: %p>\n%@ %@ \nHost: %@%@%@%@\n\n",
