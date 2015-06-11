@@ -287,10 +287,18 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 		}
 
 		case DCTOAuth1ParameterTransmissionURLQuery: {
-			NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:YES];
+			NSURL *URL = request.URL;
+			if (!URL) return;
+
+			NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:YES];
 			NSMutableArray *items = [NSMutableArray new];
 			[items addObjectsFromArray:signature.authorizationItems];
-			[items addObjectsFromArray:URLComponents.queryItems];
+
+			NSArray *queryItems = URLComponents.queryItems;
+			if (queryItems.count > 0) {
+				[items addObjectsFromArray:queryItems];
+			}
+
 			URLComponents.queryItems = items;
 			request.URL = URLComponents.URL;
 		}
