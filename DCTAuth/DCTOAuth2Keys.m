@@ -9,7 +9,6 @@
 #import "DCTOAuth2Keys.h"
 
 const struct DCTOAuth2Keys DCTOAuth2Keys = {
-	.clientCredentials = @"client_credentials",
 	.clientID = @"client_id",
 	.clientSecret = @"client_secret",
 	.responseType = @"response_type",

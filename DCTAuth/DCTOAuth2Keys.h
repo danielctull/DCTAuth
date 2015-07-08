@@ -9,7 +9,6 @@
 @import Foundation;
 
 extern const struct DCTOAuth2Keys {
-	__unsafe_unretained NSString *clientCredentials;
 	__unsafe_unretained NSString *clientID;
 	__unsafe_unretained NSString *clientSecret;
 	__unsafe_unretained NSString *responseType;

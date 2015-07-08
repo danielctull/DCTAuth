@@ -107,8 +107,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	NSMutableArray *items = [NSMutableArray new];
 
-	NSString *grantType = password.length > 0 ? DCTOAuth2Keys.password : DCTOAuth2Keys.clientCredentials;
-	NSURLQueryItem *grantTypeItem = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.grantType value:grantType];
+	NSURLQueryItem *grantTypeItem = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.password];
 	[items addObject:grantTypeItem];
 
 	if (username) {
@@ -347,7 +346,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 		}];
 	};
 
-	if (password.length > 0 || clientSecret.length > 0) {
+	if (password.length > 0) {
 		[self passwordAuthorizeWithClientID:clientID
 							   clientSecret:clientSecret
 								   username:username
