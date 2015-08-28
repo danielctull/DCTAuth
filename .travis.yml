@@ -1,4 +1,0 @@
-language: objective-c
-xcode_project: DCTAuth.xcodeproj
-xcode_sdk: iphonesimulator
-xcode_scheme: DCTAuth iOS
