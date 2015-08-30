@@ -653,9 +653,9 @@
 			productReference = 24307B5F1A690925006D27E1 /* DCTAuth.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		24307BB31A690BDC006D27E1 /* DCTAuth Mac Tests */ = {
+		24307BB31A690BDC006D27E1 /* DCTAuth OS X Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24307BBD1A690BDC006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac Tests" */;
+			buildConfigurationList = 24307BBD1A690BDC006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth OS X Tests" */;
 			buildPhases = (
 				24307BB01A690BDC006D27E1 /* Sources */,
 				24307BB11A690BDC006D27E1 /* Frameworks */,
@@ -666,7 +666,7 @@
 			dependencies = (
 				24307BBC1A690BDC006D27E1 /* PBXTargetDependency */,
 			);
-			name = "DCTAuth Mac Tests";
+			name = "DCTAuth OS X Tests";
 			productName = "DCTAuth Mac Tests";
 			productReference = 24307BB41A690BDC006D27E1 /* DCTAuth Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -697,7 +697,6 @@
 				24FA8FF015E93D8E00E1ED99 /* Sources */,
 				24FA8FF115E93D8E00E1ED99 /* Frameworks */,
 				24FA8FF215E93D8E00E1ED99 /* Resources */,
-				24FA8FF315E93D8E00E1ED99 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -762,9 +761,9 @@
 			targets = (
 				2454F2BF1959601600E8643C /* DCTAuth iOS */,
 				24307B5E1A690925006D27E1 /* DCTAuth OS X */,
-				24FA901215E93E0200E1ED99 /* DCTAuth Demo */,
 				24FA8FF415E93D8E00E1ED99 /* DCTAuth iOS Tests */,
-				24307BB31A690BDC006D27E1 /* DCTAuth Mac Tests */,
+				24307BB31A690BDC006D27E1 /* DCTAuth OS X Tests */,
+				24FA901215E93E0200E1ED99 /* DCTAuth Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -840,19 +839,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Scripts/documentation.sh -c \"Daniel Tull\" -i \"uk.co.danieltull\" > /dev/null 2>&1 &\n";
-		};
-		24FA8FF315E93D8E00E1ED99 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1138,7 +1124,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		24307BBD1A690BDC006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth Mac Tests" */ = {
+		24307BBD1A690BDC006D27E1 /* Build configuration list for PBXNativeTarget "DCTAuth OS X Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24307BBE1A690BDC006D27E1 /* Debug */,
