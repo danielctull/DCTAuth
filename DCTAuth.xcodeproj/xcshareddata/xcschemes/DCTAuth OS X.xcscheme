@@ -34,7 +34,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24307BB31A690BDC006D27E1"
                BuildableName = "DCTAuth Tests.xctest"
-               BlueprintName = "DCTAuth Mac Tests"
+               BlueprintName = "DCTAuth OS X Tests"
                ReferencedContainer = "container:DCTAuth.xcodeproj">
             </BuildableReference>
          </TestableReference>
