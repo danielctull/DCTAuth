@@ -10,6 +10,7 @@
 #import "DCTAbstractAuthAccountProperties.h"
 #import "DCTAuthKeychainAccess.h"
 #import "DCTAuthAccount+Private.h"
+#import "NSKeyedUnarchiver+DCTAuth.h"
 
 #if TARGET_OS_IPHONE
 @import UIKit;
@@ -158,27 +159,22 @@ static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
 
 		if (!data || [data isKindOfClass:[NSNull class]]) return;
 
-		@try {
-			DCTAuthAccount *account = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-			account.accountStore = self;
-			NSString *accountIdentifier = account.identifier;
-
-			DCTAuthAccount *existingAccount = [self accountWithIdentifier:accountIdentifier];
-			if (!existingAccount) {
-				[self insertAccount:account];
-			} else if (![account.saveUUID isEqualToString:existingAccount.saveUUID]) {
-				[self updateExistingAccount:existingAccount newAccount:account];
-			}
-			[accountIdentifiersToDelete removeObject:accountIdentifier];
-		}
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-exception-parameter"
-		@catch (NSException *exception) {
+		NSError *error;
+		DCTAuthAccount *account = [NSKeyedUnarchiver dctAuth_unarchiveTopLevelObjectWithData:data error:&error];
+		if (!account) {
 			return;
 		}
-#pragma clang diagnostic pop
 
+		account.accountStore = self;
+		NSString *accountIdentifier = account.identifier;
+
+		DCTAuthAccount *existingAccount = [self accountWithIdentifier:accountIdentifier];
+		if (!existingAccount) {
+			[self insertAccount:account];
+		} else if (![account.saveUUID isEqualToString:existingAccount.saveUUID]) {
+			[self updateExistingAccount:existingAccount newAccount:account];
+		}
+		[accountIdentifiersToDelete removeObject:accountIdentifier];
 	}];
 
 	for (NSString *accountIdentifier in accountIdentifiersToDelete) {

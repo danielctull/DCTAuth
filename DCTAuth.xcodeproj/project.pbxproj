@@ -150,6 +150,10 @@
 		24A6A6701A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */; };
 		24A6A6711A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */; };
 		24A6A6721A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */; };
+		24BDBA471BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BDBA451BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h */; settings = {ASSET_TAGS = (); }; };
+		24BDBA481BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 24BDBA451BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h */; settings = {ASSET_TAGS = (); }; };
+		24BDBA491BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBA461BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m */; settings = {ASSET_TAGS = (); }; };
+		24BDBA4A1BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDBA461BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m */; settings = {ASSET_TAGS = (); }; };
 		24D0089C1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */; };
 		24D0089D1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */; };
 		24D0089F1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089E1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m */; };
@@ -283,6 +287,8 @@
 		24A6A66D1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTAbstractAuthAccountProperties.h; sourceTree = "<group>"; };
 		24A6A66E1A6AF5F1001F1DD5 /* DCTAbstractAuthAccountProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAbstractAuthAccountProperties.m; sourceTree = "<group>"; };
 		24BD53981828DC3500A6B7D9 /* DCTAuthAccountStore+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccountStore+Private.h"; sourceTree = "<group>"; };
+		24BDBA451BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSKeyedUnarchiver+DCTAuth.h"; sourceTree = "<group>"; };
+		24BDBA461BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSKeyedUnarchiver+DCTAuth.m"; sourceTree = "<group>"; };
 		24BFD672176FCB7D006BBBC8 /* DCTAuthAccount+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTAuthAccount+Private.h"; sourceTree = "<group>"; };
 		24C6232C15EB932700B68FAD /* DCTAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuth.m; sourceTree = "<group>"; };
 		24D0089B1A6D5F27001A1FD3 /* DCTAuthAccountStoreQueryPredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTAuthAccountStoreQueryPredicateTests.m; sourceTree = "<group>"; };
@@ -502,6 +508,8 @@
 				245F7C7216AF2809005B72BA /* DCTAuthResponse.h */,
 				245F7C7316AF2809005B72BA /* DCTAuthResponse.m */,
 				2454F2DF1959603D00E8643C /* Info.plist */,
+				24BDBA451BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h */,
+				24BDBA461BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m */,
 			);
 			path = DCTAuth;
 			sourceTree = "<group>";
@@ -558,6 +566,7 @@
 				24307B7A1A6909A6006D27E1 /* DCTAuthAccountCredential.h in Headers */,
 				24307B821A6909CF006D27E1 /* DCTAuthAccountStore+Private.h in Headers */,
 				24307B7B1A6909A6006D27E1 /* DCTAuthAccountStore.h in Headers */,
+				24BDBA481BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h in Headers */,
 				248B70301A6D0B6B004373C6 /* DCTAuthAccountStoreQuery.h in Headers */,
 				248B70351A6D0B8F004373C6 /* DCTAuthAccountStoreQueryDelegate.h in Headers */,
 				24307B7C1A6909A6006D27E1 /* DCTAuthAccountSubclass.h in Headers */,
@@ -600,6 +609,7 @@
 				2454F2E41959608A00E8643C /* DCTAuthAccountCredential.h in Headers */,
 				2454F2EA195960A800E8643C /* DCTAuthAccountStore+Private.h in Headers */,
 				2454F2E51959608A00E8643C /* DCTAuthAccountStore.h in Headers */,
+				24BDBA471BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.h in Headers */,
 				248B702F1A6D0B6B004373C6 /* DCTAuthAccountStoreQuery.h in Headers */,
 				248B70341A6D0B8F004373C6 /* DCTAuthAccountStoreQueryDelegate.h in Headers */,
 				2454F2E61959608A00E8643C /* DCTAuthAccountSubclass.h in Headers */,
@@ -867,6 +877,7 @@
 				24307BA41A690A0C006D27E1 /* DCTOAuth1Account.m in Sources */,
 				24307BA51A690A0C006D27E1 /* DCTOAuth1Credential.m in Sources */,
 				24307BA21A690A0C006D27E1 /* DCTOAuth1Keys.m in Sources */,
+				24BDBA4A1BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m in Sources */,
 				24307BA31A690A0C006D27E1 /* DCTOAuth1Signature.m in Sources */,
 				24307BA61A690A0C006D27E1 /* DCTOAuth2.m in Sources */,
 				24307BA71A690A0C006D27E1 /* DCTOAuth2Account.m in Sources */,
@@ -919,6 +930,7 @@
 				2454F3201959615800E8643C /* DCTOAuth1Account.m in Sources */,
 				2454F3211959615800E8643C /* DCTOAuth1Credential.m in Sources */,
 				241FBBAC19F7CE090082C071 /* DCTOAuth1Keys.m in Sources */,
+				24BDBA491BAEA1BE007E48F7 /* NSKeyedUnarchiver+DCTAuth.m in Sources */,
 				2454F31F1959615800E8643C /* DCTOAuth1Signature.m in Sources */,
 				241FBBA319F796870082C071 /* DCTOAuth2.m in Sources */,
 				2454F3221959615800E8643C /* DCTOAuth2Account.m in Sources */,
