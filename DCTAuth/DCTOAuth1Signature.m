@@ -122,8 +122,13 @@ static NSString * const DTOAuthSignatureTypeString[] = {
 		return nil;
 	}
 
+	NSURL *baseURL = URLComponents.URL;
+	if (!baseURL) {
+		return nil;
+	}
+
 	[baseArray addObject:HTTPMethod];
-	[baseArray addObject:[URL.absoluteString dctAuth_URLEncodedString]];
+	[baseArray addObject:[baseURL.absoluteString dctAuth_URLEncodedString]];
 	[baseArray addObject:[parameterString dctAuth_URLEncodedString]];
 
 	return [baseArray componentsJoinedByString:@"&"];
