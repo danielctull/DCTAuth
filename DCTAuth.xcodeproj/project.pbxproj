@@ -1356,7 +1356,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -1368,7 +1367,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
@@ -1377,8 +1375,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4331BE20824004FE603 /* OS X Tests.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "DCTAuth Tests";
 			};
 			name = Debug;
@@ -1387,8 +1383,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4331BE20824004FE603 /* OS X Tests.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "DCTAuth Tests";
 			};
 			name = Release;
@@ -1397,11 +1391,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA42A1BE20824004FE603 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -1410,11 +1402,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA42A1BE20824004FE603 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
@@ -1501,7 +1491,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4271BE20824004FE603 /* iOS Application.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -1509,7 +1498,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4271BE20824004FE603 /* iOS Application.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
