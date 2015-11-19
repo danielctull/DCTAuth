@@ -14,6 +14,7 @@ static NSString *const DCTAuthRequestMethodString[] = {
 	@"DELETE",
 	@"HEAD",
 	@"PUT",
+	@"PATCH",
 	@"OPTIONS",
 	@"TRACE"
 };

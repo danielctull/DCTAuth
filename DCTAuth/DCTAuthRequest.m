@@ -117,7 +117,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 }
 
 - (BOOL)shouldSetupPOSTRequest {
-	return (self.requestMethod == DCTAuthRequestMethodPOST || self.requestMethod == DCTAuthRequestMethodPUT);
+	return (self.requestMethod == DCTAuthRequestMethodPOST || self.requestMethod == DCTAuthRequestMethodPUT || self.requestMethod == DCTAuthRequestMethodPATCH);
 }
 
 - (void)_setupGETRequest:(NSMutableURLRequest *)request {
