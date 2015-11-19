@@ -13,6 +13,7 @@
 #import "NSString+DCTAuth.h"
 #import "DCTAuthURLRequestPerformer.h"
 #import "DCTAuthContent.h"
+#import "DCTAuthRequestMethod.h"
 
 static const struct DCTAuthRequestProperties {
 	__unsafe_unretained NSString *requestMethod;
@@ -32,14 +33,6 @@ static const struct DCTAuthRequestProperties DCTAuthRequestProperties = {
 
 static NSString *const DCTAuthConnectionIncreasedNotification = @"DCTConnectionQueueActiveConnectionCountIncreasedNotification";
 static NSString *const DCTAuthConnectionDecreasedNotification = @"DCTConnectionQueueActiveConnectionCountDecreasedNotification";
-
-static NSString *const DCTAuthRequestMethodString[] = {
-	@"GET",
-	@"POST",
-	@"DELETE",
-	@"HEAD",
-	@"PUT"
-};
 
 static NSString *const DCTAuthRequestContentLengthKey = @"Content-Length";
 
@@ -105,7 +98,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 - (NSMutableURLRequest *)_URLRequest {
 
 	NSMutableURLRequest *mutableRequest = [NSMutableURLRequest new];
-	[mutableRequest setHTTPMethod:DCTAuthRequestMethodString[self.requestMethod]];
+	[mutableRequest setHTTPMethod:NSStringFromDCTAuthRequestMethod(self.requestMethod)];
 
 	if ([self shouldSetupPOSTRequest])
 		[self _setupPOSTRequest:mutableRequest];
@@ -240,7 +233,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 	return [NSString stringWithFormat:@"<%@: %p>\n%@ %@ \nHost: %@%@%@%@\n\n",
 			NSStringFromClass([self class]),
 			self,
-			DCTAuthRequestMethodString[self.requestMethod],
+			NSStringFromDCTAuthRequestMethod(self.requestMethod),
 			[self.URL path],
 			[self.URL host],
 			queryString,
