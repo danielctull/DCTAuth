@@ -96,7 +96,7 @@ static const struct DCTOAuth2CredentialProperties DCTOAuth2CredentialProperties 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; %@ = %@; %@ = %@; %@ = %@; %@ = %@>",
 			NSStringFromClass([self class]),
-			self,
+			(void *)self,
 			DCTOAuth2CredentialProperties.clientID, self.clientID,
 			DCTOAuth2CredentialProperties.clientSecret, self.clientSecret,
 			DCTOAuth2CredentialProperties.accessToken, self.accessToken,

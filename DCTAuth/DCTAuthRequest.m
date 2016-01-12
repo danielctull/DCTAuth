@@ -232,7 +232,7 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 
 	return [NSString stringWithFormat:@"<%@: %p>\n%@ %@ \nHost: %@%@%@%@\n\n",
 			NSStringFromClass([self class]),
-			self,
+			(void *)self,
 			NSStringFromDCTAuthRequestMethod(self.requestMethod),
 			[self.URL path],
 			[self.URL host],

@@ -63,7 +63,7 @@ static const struct DCTBasicAuthCredentialProperties DCTBasicAuthCredentialPrope
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; %@ = %@; %@ = %@>",
 			NSStringFromClass([self class]),
-			self,
+			(void *)self,
 			DCTBasicAuthCredentialProperties.username, self.username,
 			DCTBasicAuthCredentialProperties.password, self.password];
 }

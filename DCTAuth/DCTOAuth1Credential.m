@@ -73,7 +73,7 @@ static const struct DCTOAuth1CredentialProperties DCTOAuth1CredentialProperties 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; %@ = %@; %@ = %@; %@ = %@; %@ = %@>",
 			NSStringFromClass([self class]),
-			self,
+			(void *)self,
 			DCTOAuth1CredentialProperties.consumerKey, self.consumerKey,
 			DCTOAuth1CredentialProperties.consumerSecret, self.consumerSecret,
 			DCTOAuth1CredentialProperties.oauthToken, self.oauthToken,

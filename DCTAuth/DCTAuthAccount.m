@@ -144,7 +144,7 @@ const struct DCTAuthAccountProperties DCTAuthAccountProperties = {
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p; type = %@; identifier = %@; credential = %@>",
 			NSStringFromClass([self class]),
-			self,
+			(void *)self,
 			self.type,
 			self.identifier,
 			self.credential];

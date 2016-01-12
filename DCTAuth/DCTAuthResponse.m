@@ -111,7 +111,7 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: %p>\n%@",
 			NSStringFromClass([self class]),
-			self,
+			(void *)self,
 			[self responseDescription]];
 }
 
