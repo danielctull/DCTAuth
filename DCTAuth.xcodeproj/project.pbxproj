@@ -1353,9 +1353,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4321BE20824004FE603 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -1364,9 +1361,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4321BE20824004FE603 /* OS X Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
@@ -1391,9 +1385,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA42A1BE20824004FE603 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -1402,9 +1393,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA42A1BE20824004FE603 /* iOS Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
@@ -1413,9 +1401,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA43C1BE20824004FE603 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Debug;
@@ -1424,9 +1409,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA43C1BE20824004FE603 /* tvOS Framework.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = DCTAuth;
 			};
 			name = Release;
@@ -1451,6 +1433,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4231BE20824004FE603 /* Debug.xcconfig */;
 			buildSettings = {
+				INFOPLIST_FILE = "${PRODUCT_NAME:rfc1034identifier}/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
@@ -1463,6 +1446,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4361BE20824004FE603 /* Release.xcconfig */;
 			buildSettings = {
+				INFOPLIST_FILE = "${PRODUCT_NAME:rfc1034identifier}/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.danieltull.${PRODUCT_NAME:rfc1034identifier}";
