@@ -143,6 +143,13 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
 																		URL:self.authorizeURL
 																	  items:items];
+
+	DCTBasicAuthCredential *basicCredential = [[DCTBasicAuthCredential alloc] initWithUsername:clientID password:clientSecret];
+	NSString *authorizationHeader = basicCredential.authorizationHeader;
+	if (authorizationHeader) {
+		request.HTTPHeaders = @{ @"Authorization" : authorizationHeader };
+	}
+
 	[request performRequestWithHandler:handler];
 }
 
