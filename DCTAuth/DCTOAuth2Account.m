@@ -421,7 +421,7 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 		[request addValue:authorizationHeader forHTTPHeaderField:@"Authorization"];
 	}
 
-	if (credential.type == DCTOAuth2CredentialTypeParamter) {
+	if (credential && credential.type == DCTOAuth2CredentialTypeParamter) {
 		[items addObject:[NSURLQueryItem queryItemWithName:DCTOAuth2Keys.accessToken value:credential.accessToken]];
 		[items addObject:[NSURLQueryItem queryItemWithName:DCTOAuth2Keys.oauthToken value:credential.accessToken]];
 	}
