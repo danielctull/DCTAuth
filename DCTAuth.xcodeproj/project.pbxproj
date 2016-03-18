@@ -1433,6 +1433,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4231BE20824004FE603 /* Debug.xcconfig */;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "${PRODUCT_NAME:rfc1034identifier}/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1446,6 +1447,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242BA4361BE20824004FE603 /* Release.xcconfig */;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "${PRODUCT_NAME:rfc1034identifier}/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
