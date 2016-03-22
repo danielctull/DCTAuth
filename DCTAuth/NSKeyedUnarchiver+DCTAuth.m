@@ -2,6 +2,10 @@
 #import "NSKeyedUnarchiver+DCTAuth.h"
 NS_ASSUME_NONNULL_BEGIN
 
+@interface NSKeyedUnarchiver (DCTAuthAllGoodDoingSelectorCheck)
++ (nullable id)unarchiveTopLevelObjectWithData:(NSData *)data error:(NSError * __autoreleasing *)error;
+@end
+
 @implementation NSKeyedUnarchiver (DCTAuth)
 
 + (nullable id)dctAuth_unarchiveTopLevelObjectWithData:(NSData *)data error:(NSError * __autoreleasing *)error {
