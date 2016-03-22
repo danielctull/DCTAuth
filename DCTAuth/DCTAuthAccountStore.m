@@ -31,7 +31,7 @@ NSString *const DCTAuthAccountStoreDidChangeAccountNotification = @"DCTAuthAccou
 NSString *const DCTAuthAccountStoreDidRemoveAccountNotification = @"DCTAuthAccountStoreDidRemoveAccountNotification";
 NSString *const DCTAuthAccountStoreAccountKey = @"DCTAuthAccountStoreAccountKey";
 
-static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0f;
+static NSTimeInterval const DCTAuthAccountStoreUpdateTimeInterval = 15.0;
 
 @interface DCTAuthAccountStore ()
 @property(nonatomic, readwrite) NSSet *accounts;
