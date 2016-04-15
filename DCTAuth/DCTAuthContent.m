@@ -19,6 +19,15 @@
 	return self;
 }
 
+- (NSString *)description {
+
+	return [NSString stringWithFormat:@"<%@: %p; name = %@; value = %@>",
+			NSStringFromClass([self class]),
+			(void *)self,
+			self.name,
+			self.value];
+}
+
 @end
 
 @implementation DCTAuthContent
@@ -152,6 +161,19 @@
 		];
 	});
 	return contentTypeStrings;
+}
+
+- (NSString *)description {
+
+	NSMutableString *itemStrings = [[NSMutableString alloc] initWithString:@"Items:\n"];
+	for (DCTAuthContentItem *item in self.items) {
+		[itemStrings appendFormat:@"    %@\n", item];
+	}
+
+	return [NSString stringWithFormat:@"<%@: %p>\n%@",
+			NSStringFromClass([self class]),
+			(void *)self,
+			itemStrings];
 }
 
 @end
