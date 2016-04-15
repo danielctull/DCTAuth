@@ -10,7 +10,7 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthAccountSubclass.h"
 #import "DCTAuthResponse.h"
-#import "DCTAuthContentType.h"
+#import "DCTAuthContent.h"
 
 typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
 
@@ -92,7 +92,7 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  *
  *  Default is DCTAuthContentTypeForm
  */
-@property (nonatomic) DCTAuthContentType contentType;
+@property (nonatomic) DCTAuthContent *content;
 
 /**
  *  Specifies a named multipart POST body for this request.

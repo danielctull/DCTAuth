@@ -9,10 +9,20 @@
 @import Foundation;
 #import "DCTAuthContentType.h"
 
+@interface DCTAuthContentItem : NSObject
+
+- (instancetype)initWithName:(NSString *)name value:(id)value;
+
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) id value;
+
+
+@end
+
 @interface DCTAuthContent : NSObject
 
 - (instancetype)initWithRequest:(NSURLRequest *)request;
-- (instancetype)initWithEncoding:(NSStringEncoding)encoding type:(DCTAuthContentType)type items:(NSArray *)items;
+- (instancetype)initWithEncoding:(NSStringEncoding)encoding type:(DCTAuthContentType)type items:(NSArray<DCTAuthContentItem *> *)items;
 
 @property (nonatomic, readonly) DCTAuthContentType type;
 @property (nonatomic, readonly) NSArray *items;

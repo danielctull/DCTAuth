@@ -8,6 +8,19 @@
 
 #import "DCTAuthContent.h"
 
+
+@implementation DCTAuthContentItem
+
+- (instancetype)initWithName:(NSString *)name value:(id)value {
+	self = [self init];
+	if (!self) return nil;
+	_name = [name copy];
+	_value = value;
+	return self;
+}
+
+@end
+
 @implementation DCTAuthContent
 
 - (instancetype)initWithRequest:(NSURLRequest *)request {
@@ -48,7 +61,7 @@
 				for (NSURLQueryItem *item in components.queryItems) {
 					NSString *name = [item.name stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 					NSString *value = [item.value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-					NSURLQueryItem *encodedItem = [NSURLQueryItem queryItemWithName:name value:value];
+					DCTAuthContentItem *encodedItem = [[DCTAuthContentItem alloc] initWithName:name value:value];
 					[items addObject:encodedItem];
 				}
 				_items = [items copy];
@@ -61,7 +74,7 @@
 				NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:_HTTPBody options:(NSJSONReadingOptions)0 error:NULL];
 				NSMutableArray *items = [NSMutableArray new];
 				[JSON enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-					NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:key value:value];
+					DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:key value:value];
 					[items addObject:item];
 				}];
 				_items = [items copy];
@@ -89,10 +102,10 @@
 		case DCTAuthContentTypeForm: {
 
 			NSMutableArray *encodedItems = [NSMutableArray new];
-			for (NSURLQueryItem *item in items) {
+			for (DCTAuthContentItem *item in items) {
 				NSString *name = [item.name stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 				NSString *value = [item.value stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-				NSURLQueryItem *encodedItem = [NSURLQueryItem queryItemWithName:name value:value];
+				DCTAuthContentItem *encodedItem = [[DCTAuthContentItem alloc] initWithName:name value:value];
 				[encodedItems addObject:encodedItem];
 			}
 
@@ -110,7 +123,7 @@
 		case DCTAuthContentTypeJSON: {
 
 			NSMutableDictionary *JSON = [NSMutableDictionary new];
-			for (NSURLQueryItem *item in items) {
+			for (DCTAuthContentItem *item in items) {
 				if (item.name && item.value) {
 					JSON[item.name] = item.value;
 				}

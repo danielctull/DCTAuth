@@ -157,7 +157,7 @@
 		245C6C101BC84FDF00061C41 /* DCTAuthAccountStoreQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 248B702D1A6D0B6B004373C6 /* DCTAuthAccountStoreQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		245C6C111BC84FDF00061C41 /* DCTAuthAccountStoreQueryDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 248B70331A6D0B8F004373C6 /* DCTAuthAccountStoreQueryDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		245C6C121BC84FDF00061C41 /* DCTAuthAccountSubclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 2455D717163BE5E800BC6FD7 /* DCTAuthAccountSubclass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		245C6C131BC84FDF00061C41 /* DCTAuthContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F872BF1A726A7C00EAA96E /* DCTAuthContent.h */; };
+		245C6C131BC84FDF00061C41 /* DCTAuthContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F872BF1A726A7C00EAA96E /* DCTAuthContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		245C6C141BC84FDF00061C41 /* DCTAuthContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2419EA3416B912B100901AA2 /* DCTAuthContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		245C6C151BC84FDF00061C41 /* DCTAuthKeychainAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 2484E11C176E4A1B000EB00E /* DCTAuthKeychainAccess.h */; };
 		245C6C161BC84FDF00061C41 /* DCTAuthMultipartData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2443E9C415F37A2A00845950 /* DCTAuthMultipartData.h */; };
@@ -237,8 +237,8 @@
 		24D008A01A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0089E1A6D606D001A1FD3 /* DCTAuthAccountStoreQuerySortDescriptorTests.m */; };
 		24D008A21A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D008A11A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m */; };
 		24D008A31A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D008A11A6D63D6001A1FD3 /* DCTAuthAccountStoreQueryDelegateTests.m */; };
-		24F872C11A726A7C00EAA96E /* DCTAuthContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F872BF1A726A7C00EAA96E /* DCTAuthContent.h */; };
-		24F872C21A726A7C00EAA96E /* DCTAuthContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F872BF1A726A7C00EAA96E /* DCTAuthContent.h */; };
+		24F872C11A726A7C00EAA96E /* DCTAuthContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F872BF1A726A7C00EAA96E /* DCTAuthContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24F872C21A726A7C00EAA96E /* DCTAuthContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F872BF1A726A7C00EAA96E /* DCTAuthContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24F872C31A726A7C00EAA96E /* DCTAuthContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F872C01A726A7C00EAA96E /* DCTAuthContent.m */; };
 		24F872C41A726A7C00EAA96E /* DCTAuthContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F872C01A726A7C00EAA96E /* DCTAuthContent.m */; };
 		24FA900615E93D8E00E1ED99 /* DCTOAuth1SignatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FA900515E93D8E00E1ED99 /* DCTOAuth1SignatureTests.m */; };
