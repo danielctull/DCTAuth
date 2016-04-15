@@ -107,31 +107,31 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	NSMutableArray *items = [NSMutableArray new];
 
-	NSURLQueryItem *grantTypeItem = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.password];
+	DCTAuthContentItem *grantTypeItem = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.password];
 	[items addObject:grantTypeItem];
 
 	if (username) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.username value:username];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.username value:username];
 		[items addObject:item];
 	}
 
 	if (password) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.password value:password];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.password value:password];
 		[items addObject:item];
 	}
 
 	if (clientID) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.clientID value:clientID];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.clientID value:clientID];
 		[items addObject:item];
 	}
 
 	if (clientSecret) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.clientSecret value:clientSecret];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.clientSecret value:clientSecret];
 		[items addObject:item];
 	}
 
 	if (scope) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.scope value:scope];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.scope value:scope];
 		[items addObject:item];
 	}
 
@@ -140,9 +140,8 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	[items addObjectsFromArray:authorizeExtras];
 	[items addObjectsFromArray:accessTokenExtras];
 
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
-																		URL:self.authorizeURL
-																	  items:items];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST URL:self.authorizeURL items:nil];
+	request.content = [[DCTAuthContent alloc] initWithEncoding:NSUTF8StringEncoding type:DCTAuthContentTypeForm items:items];
 
 	DCTBasicAuthCredential *basicCredential = [[DCTBasicAuthCredential alloc] initWithUsername:clientID password:clientSecret];
 	NSString *authorizationHeader = basicCredential.authorizationHeader;
@@ -207,35 +206,34 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	NSMutableArray *items = [NSMutableArray new];
 
-	NSURLQueryItem *grantTypeItem = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.authorizationCode];
+	DCTAuthContentItem *grantTypeItem = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.authorizationCode];
 	[items addObject:grantTypeItem];
 
 	if (code) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.code value:code];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.code value:code];
 		[items addObject:item];
 	}
 
 	if (clientID) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.clientID value:clientID];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.clientID value:clientID];
 		[items addObject:item];
 	}
 
 	if (clientSecret) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.clientSecret value:clientSecret];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.clientSecret value:clientSecret];
 		[items addObject:item];
 	}
 
 	if (self.shouldSendCallbackURL && callback) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.redirectURI value:callback];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.redirectURI value:callback];
 		[items addObject:item];
 	}
 
 	NSArray *extras = [self itemsForRequestType:DCTOAuth2RequestType.accessToken];
 	[items addObjectsFromArray:extras];
 
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
-																		URL:self.accessTokenURL
-																	  items:items];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST URL:self.accessTokenURL items:nil];
+	request.content = [[DCTAuthContent alloc] initWithEncoding:NSUTF8StringEncoding type:DCTAuthContentTypeForm items:items];
 
 	DCTBasicAuthCredential *basicCredential = [[DCTBasicAuthCredential alloc] initWithUsername:clientID password:clientSecret];
 	NSString *authorizationHeader = basicCredential.authorizationHeader;
@@ -255,26 +253,26 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 
 	NSMutableArray *items = [NSMutableArray new];
 
-	NSURLQueryItem *grantTypeItem = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.refreshToken];
+	DCTAuthContentItem *grantTypeItem = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.grantType value:DCTOAuth2Keys.refreshToken];
 	[items addObject:grantTypeItem];
 
 	if (refreshToken) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.refreshToken value:refreshToken];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.refreshToken value:refreshToken];
 		[items addObject:item];
 	}
 
 	if (clientID) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.clientID value:clientID];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.clientID value:clientID];
 		[items addObject:item];
 	}
 
 	if (clientSecret) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.clientSecret value:clientSecret];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.clientSecret value:clientSecret];
 		[items addObject:item];
 	}
 
 	if (scope) {
-		NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:DCTOAuth2Keys.scope value:scope];
+		DCTAuthContentItem *item = [[DCTAuthContentItem alloc] initWithName:DCTOAuth2Keys.scope value:scope];
 		[items addObject:item];
 	}
 
@@ -282,9 +280,8 @@ static const struct DCTOAuth2AccountProperties DCTOAuth2AccountProperties = {
 	[items addObjectsFromArray:extras];
 
 	NSURL *refreshURL = self.accessTokenURL ?: self.authorizeURL;
-	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST
-																		URL:refreshURL
-																	  items:items];
+	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodPOST URL:refreshURL items:nil];
+	request.content = [[DCTAuthContent alloc] initWithEncoding:NSUTF8StringEncoding type:DCTAuthContentTypeForm items:items];
 
 	DCTBasicAuthCredential *basicCredential = [[DCTBasicAuthCredential alloc] initWithUsername:clientID password:clientSecret];
 	NSString *authorizationHeader = basicCredential.authorizationHeader;
