@@ -32,7 +32,7 @@
  *  @param URLResponse The response from the connection.
  *  @return The newly initialized request object.
  */
-- (instancetype)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse;
+- (instancetype)initWithData:(NSData *)data URLResponse:(NSURLResponse *)URLResponse;
 
 /** 
  *  For use when the response is a callback URL.

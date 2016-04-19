@@ -27,14 +27,18 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 
 @implementation DCTAuthResponse
 
-- (instancetype)initWithData:(NSData *)data URLResponse:(NSHTTPURLResponse *)URLResponse {
+- (instancetype)initWithData:(NSData *)data URLResponse:(NSURLResponse *)URLResponse {
 	if (!data) return nil;
 	self = [self init];
 	if (!self) return nil;
 	_data = data;
 	_URLResponse = [URLResponse copy];
-	_HTTPHeaders = URLResponse.allHeaderFields;
-	_statusCode = URLResponse.statusCode;
+
+	if ([URLResponse isKindOfClass:[NSHTTPURLResponse class]]) {
+		NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)URLResponse;
+		_HTTPHeaders = HTTPURLResponse.allHeaderFields;
+		_statusCode = HTTPURLResponse.statusCode;
+	}
 	_contentObject = [self objectFromData:data MIMEType:URLResponse.MIMEType];
 	return self;
 }
@@ -53,7 +57,22 @@ static const struct DCTAuthResponseProperties DCTAuthResponseProperties = {
 	if ([@[@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap"] containsObject:contentType])
 		return [self imageFromData:data];
 
-	return [self dictionaryFromFormData:data];
+	// If it's an unknown content type or we don't have
+	// one, let's go through and try to find one that works.
+	// Not having a content type might happen if we're trying
+	// to load a local URL, perhaps for the reasons of unit
+	// testing.
+
+	id object = [self dictionaryFromFormData:data];
+	if (object) return object;
+
+	object = [self dictionaryFromJSONData:data];
+	if (object) return object;
+
+	object = [self dictionaryFromPlistData:data];
+	if (object) return object;
+
+	return [self imageFromData:data];
 }
 
 - (NSDictionary *)dictionaryFromFormData:(NSData *)data {
