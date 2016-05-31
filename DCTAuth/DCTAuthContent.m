@@ -110,17 +110,26 @@
 	switch (type) {
 		case DCTAuthContentTypeForm: {
 
+			NSMutableCharacterSet *allowed = [NSMutableCharacterSet new];
+			[allowed formUnionWithCharacterSet:[NSCharacterSet URLQueryAllowedCharacterSet]];
+			[allowed removeCharactersInString:@"+"]; // We want to encode + because…
+			[allowed addCharactersInString:@" "]; // …spaces will be converted to +
+
 			NSMutableArray *encodedItems = [NSMutableArray new];
 			for (DCTAuthContentItem *item in items) {
-				NSString *name = [item.name stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-				NSString *value = [item.value stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-				DCTAuthContentItem *encodedItem = [[DCTAuthContentItem alloc] initWithName:name value:value];
+
+				NSString *name = [item.name stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+				NSString *value = [item.value stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+
+				name = [name stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+				value = [value stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+
+				NSString *encodedItem = [NSString stringWithFormat:@"%@=%@", name, value];
 				[encodedItems addObject:encodedItem];
 			}
 
-			NSURLComponents *components = [NSURLComponents componentsWithString:@"htttp://host.com"];
-			components.queryItems = encodedItems;
-			_HTTPBody = [components.percentEncodedQuery dataUsingEncoding:encoding];
+			NSString *encodedString = [encodedItems componentsJoinedByString:@"&"];
+			_HTTPBody = [encodedString dataUsingEncoding:encoding];
 
 			CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
 			const NSString *charset = (const NSString *)CFStringConvertEncodingToIANACharSetName(cfEncoding);
