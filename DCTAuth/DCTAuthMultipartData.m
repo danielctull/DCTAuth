@@ -17,7 +17,13 @@
 - (NSData *)dataWithBoundary:(NSString *)boundary {
 	NSMutableData *body = [NSMutableData new];
 	[body dctauth_appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body dctauth_appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n", self.name] dataUsingEncoding:NSUTF8StringEncoding]];
+
+	if (self.filename) {
+		[body dctauth_appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", self.name, self.filename] dataUsingEncoding:NSUTF8StringEncoding]];
+	} else {
+		[body dctauth_appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n", self.name] dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+
 	[body dctauth_appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", self.type] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body dctauth_appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	[body dctauth_appendData:self.data];

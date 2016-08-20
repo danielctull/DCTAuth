@@ -102,6 +102,7 @@ typedef void(^DCTAuthRequestHandler)(DCTAuthResponse *response, NSError *error);
  *  @param type The type of the multipart POST body.
  */
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type;
+- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type filename:(NSString *)filename;
 
 /// @name Sending Requests
 

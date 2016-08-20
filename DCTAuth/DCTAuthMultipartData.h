@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSData *data;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *filename;
 @property (nonatomic, copy) NSString *type;
 
 - (NSData *)dataWithBoundary:(NSString *)boundary;

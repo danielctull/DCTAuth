@@ -68,9 +68,14 @@ static NSString *const DCTAuthRequestContentTypeString[] = {
 }
 
 - (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type {
+	[self addMultiPartData:data withName:name type:type filename:nil];
+}
+
+- (void)addMultiPartData:(NSData *)data withName:(NSString *)name type:(NSString *)type filename:(NSString *)filename {
 	DCTAuthMultipartData *multipartData = [DCTAuthMultipartData new];
 	multipartData.data = data;
 	multipartData.name = name;
+	multipartData.filename = filename;
 	multipartData.type = type;
 	[self.multipartDatas addObject:multipartData];
 
