@@ -13,7 +13,7 @@
 - (NSString *)dctAuth_URLEncodedString {
 	
 	return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)objc_unretainedPointer(self),
+																				  (__bridge CFStringRef)self,
 																				  NULL,
 																				  (CFStringRef)@"!*'\"();:@&=+$,/?%#[] ",
 																				  kCFStringEncodingUTF8);
