@@ -33,7 +33,12 @@
 
 	if (!self.executing || self.finished || self.cancelled) return NO;
 
-	if ([[URL absoluteString] hasPrefix:[self.callbackURL absoluteString]]) {
+	NSString *callbackPrefix = self.callbackURL.absoluteString;
+	if (!callbackPrefix) {
+		return NO;
+	}
+
+	if ([[URL absoluteString] hasPrefix:callbackPrefix]) {
 		DCTAuthResponse *response = [[DCTAuthResponse alloc] initWithURL:URL];
 		[self handleResponse:response];
 		[self finish];
