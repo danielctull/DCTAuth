@@ -29,7 +29,8 @@
 			*stop = broken = YES;
 			return;
 		}
-		[dictionary setObject:[keyValueArray objectAtIndex:1] forKey:[keyValueArray objectAtIndex:0]];
+		[dictionary setObject:[keyValueArray objectAtIndex:1]
+                               forKey:[[keyValueArray objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]]];
 	}];
 	if (broken) return nil;
 	return [dictionary copy];
