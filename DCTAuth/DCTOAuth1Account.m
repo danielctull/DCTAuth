@@ -121,7 +121,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 	__block NSString *oauthTokenSecret;
 	__block NSString *oauthVerifier;
 
-	NSArray *(^OAuthItems)() = ^{
+	NSArray *(^OAuthItems)(void) = ^{
 
 		NSMutableArray *OAuthItems = [NSMutableArray new];
 
@@ -211,7 +211,7 @@ static const struct DCTOAuth1AccountProperties DCTOAuth1AccountProperties = {
 		if (handler != NULL) handler([responses copy], nil);
 	};
 
-	void (^fetchAccessToken)() = ^{
+	void (^fetchAccessToken)(void) = ^{
 		DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET URL:self.accessTokenURL items:nil];
 		request.HTTPHeaders = @{ @"Authorization" : signature(request) };
 		[request performRequestWithHandler:accessTokenHandler];
