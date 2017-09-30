@@ -9,7 +9,7 @@
 @import Foundation;
 
 typedef void(^DCTAuthPlatformCompletion)(BOOL success);
-typedef void(^DCTAuthPlatformExpirationHandler)();
+typedef void(^DCTAuthPlatformExpirationHandler)(void);
 
 @interface DCTAuthPlatform : NSObject
 
