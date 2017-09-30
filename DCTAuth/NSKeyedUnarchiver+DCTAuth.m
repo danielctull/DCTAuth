@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable id)dctAuth_unarchiveTopLevelObjectWithData:(NSData *)data error:(NSError * __autoreleasing *)error {
 
-	if ([self respondsToSelector:@selector(unarchiveTopLevelObjectWithData:error:)]) {
+	if (@available(iOS 9.0, *)) {
 		return [self unarchiveTopLevelObjectWithData:data error:error];
 	}
 
